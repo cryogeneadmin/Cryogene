@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Sans, JetBrains_Mono, Geist } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+import { ComplianceBanner } from "@/components/storefront/layout/ComplianceBanner";
+import { AgeVerificationGate } from "@/components/storefront/layout/AgeVerificationGate";
+import { CookieConsent } from "@/components/storefront/layout/CookieConsent";
+import { Navbar } from "@/components/storefront/layout/Navbar";
+import { Footer } from "@/components/storefront/layout/Footer";
+import { isAgeVerified } from "@/app/actions/age-gate";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -36,17 +40,28 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const verified = await isAgeVerified();
+
   return (
     <html
       lang="en-GB"
-      className={cn(cormorant.variable, dmSans.variable, jetBrains.variable, "font-sans", geist.variable)}
+      className={`${cormorant.variable} ${dmSans.variable} ${jetBrains.variable}`}
     >
-      <body>{children}</body>
+      <body className="min-h-screen flex flex-col">
+        <ComplianceBanner />
+        {!verified && <AgeVerificationGate />}
+        <div className="pt-9 flex-1 flex flex-col">
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </div>
+        <CookieConsent />
+      </body>
     </html>
   );
 }
