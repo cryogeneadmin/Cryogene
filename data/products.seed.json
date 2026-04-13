@@ -1,0 +1,934 @@
+[
+  {
+    "id": "seed-bpc-157",
+    "slug": "bpc-157",
+    "name": "BPC-157",
+    "category": "peptides",
+    "shortDescription": "A synthetic pentadecapeptide derived from human gastric juice, studied in preclinical models for its effects on tissue and wound healing pathways.",
+    "fullDescription": "[DRAFT] BPC-157 (Body Protection Compound 157) is a 15-amino-acid peptide fragment investigated extensively in rodent models for its interactions with growth factor signalling, angiogenesis, and extracellular matrix remodelling. Preclinical studies have examined its administration via subcutaneous and intragastric routes across a range of injury paradigms. Supplied as a lyophilised powder in sealed vials for laboratory research purposes only.",
+    "casNumber": "137525-51-0",
+    "molecularFormula": "C62H98N16O22",
+    "molecularWeight": "1419.53 g/mol",
+    "synonyms": ["Body Protection Compound 157", "PL 14736", "Bepecin"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "BPC157-2MG", "size": "2mg", "priceInPence": 2999, "stock": 50, "coaUrl": null, "active": true },
+      { "sku": "BPC157-5MG", "size": "5mg", "priceInPence": 5499, "stock": 40, "coaUrl": null, "active": true },
+      { "sku": "BPC157-10MG", "size": "10mg", "priceInPence": 9999, "stock": 25, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "What is BPC-157 used for in research?",
+        "answer": "BPC-157 is investigated in preclinical models to study tissue remodelling, angiogenic pathways, and growth factor signalling. It is not approved for human use."
+      },
+      {
+        "question": "What solvent is recommended for reconstitution?",
+        "answer": "BPC-157 is typically reconstituted with bacteriostatic water or sterile saline for in vitro and in vivo research applications."
+      }
+    ],
+    "tags": ["peptides", "research"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  },
+  {
+    "id": "seed-tb-500",
+    "slug": "tb-500",
+    "name": "TB-500",
+    "category": "peptides",
+    "shortDescription": "A synthetic analogue of Thymosin Beta-4, researched in preclinical models for its role in actin sequestration and cellular migration pathways.",
+    "fullDescription": "[DRAFT] TB-500 is a 43-amino-acid synthetic peptide corresponding to the active region of Thymosin Beta-4, a ubiquitous protein involved in actin dynamics and cytoskeletal organisation. It has been studied in animal models for its effects on cell migration, angiogenesis, and inflammatory modulation at injury sites. Supplied as a lyophilised powder in sealed vials for laboratory research purposes only.",
+    "casNumber": "77591-33-4",
+    "molecularFormula": "C212H350N56O78S",
+    "molecularWeight": "4963.44 g/mol",
+    "synonyms": ["Thymosin Beta-4 fragment", "Tβ4 analogue", "TB500"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "TB500-2MG", "size": "2mg", "priceInPence": 3299, "stock": 45, "coaUrl": null, "active": true },
+      { "sku": "TB500-5MG", "size": "5mg", "priceInPence": 6499, "stock": 35, "coaUrl": null, "active": true },
+      { "sku": "TB500-10MG", "size": "10mg", "priceInPence": 11999, "stock": 20, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "How does TB-500 differ from Thymosin Beta-4?",
+        "answer": "TB-500 is a synthetic fragment corresponding to the actin-binding domain of Thymosin Beta-4. Research uses it as a surrogate to study Tβ4-related cellular pathways in controlled laboratory settings."
+      },
+      {
+        "question": "What storage conditions are recommended?",
+        "answer": "Lyophilised TB-500 should be stored at -20°C, protected from light and moisture, until reconstitution for experimental use."
+      }
+    ],
+    "tags": ["peptides", "research"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  },
+  {
+    "id": "seed-semaglutide",
+    "slug": "semaglutide",
+    "name": "Semaglutide",
+    "category": "peptides",
+    "shortDescription": "A GLP-1 receptor agonist analogue investigated in preclinical metabolic research for its effects on glucose homeostasis and energy regulation pathways.",
+    "fullDescription": "[DRAFT] Semaglutide is a fatty-acid modified glucagon-like peptide-1 (GLP-1) analogue with extended half-life, studied in animal models of metabolic dysfunction for its interactions with pancreatic beta-cell function, gastric emptying, and hypothalamic satiety signalling. Its structural modifications confer albumin binding that prolongs circulating half-life compared to native GLP-1. Supplied as a lyophilised powder in sealed vials for laboratory research purposes only.",
+    "casNumber": "910463-68-2",
+    "molecularFormula": "C187H291N45O59",
+    "molecularWeight": "4113.58 g/mol",
+    "synonyms": ["Ozempic active ingredient", "GLP-1 analogue", "NN9535"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "SEMA-2MG", "size": "2mg", "priceInPence": 3499, "stock": 30, "coaUrl": null, "active": true },
+      { "sku": "SEMA-5MG", "size": "5mg", "priceInPence": 6999, "stock": 25, "coaUrl": null, "active": true },
+      { "sku": "SEMA-10MG", "size": "10mg", "priceInPence": 12999, "stock": 15, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "What receptor does semaglutide act on in research models?",
+        "answer": "Semaglutide is a selective GLP-1 receptor agonist. In preclinical research, it is used to study GLP-1R signalling in metabolic, neurological, and cardiovascular contexts."
+      },
+      {
+        "question": "Is this product approved for human use?",
+        "answer": "This product is supplied solely for laboratory research purposes and is not approved for human administration in this form."
+      }
+    ],
+    "tags": ["peptides", "research", "GLP-1"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  },
+  {
+    "id": "seed-tirzepatide",
+    "slug": "tirzepatide",
+    "name": "Tirzepatide",
+    "category": "peptides",
+    "shortDescription": "A dual GIP/GLP-1 receptor co-agonist peptide studied in preclinical models examining incretin pathway interactions and metabolic regulation.",
+    "fullDescription": "[DRAFT] Tirzepatide is a 39-amino-acid synthetic peptide that acts as a co-agonist at both glucose-dependent insulinotropic polypeptide (GIP) and glucagon-like peptide-1 (GLP-1) receptors, making it a useful research tool for studying incretin synergism in animal metabolic models. Preclinical studies have used it to investigate dual receptor activation effects on insulin secretion, adipose tissue metabolism, and body weight regulation. Supplied as a lyophilised powder in sealed vials for laboratory research purposes only.",
+    "casNumber": "2023788-19-2",
+    "molecularFormula": "C225H348N48O68",
+    "molecularWeight": "4813.48 g/mol",
+    "synonyms": ["Mounjaro active ingredient", "LY3298176", "dual GIP/GLP-1 agonist"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "TIRZ-2MG", "size": "2mg", "priceInPence": 3499, "stock": 30, "coaUrl": null, "active": true },
+      { "sku": "TIRZ-5MG", "size": "5mg", "priceInPence": 6999, "stock": 20, "coaUrl": null, "active": true },
+      { "sku": "TIRZ-10MG", "size": "10mg", "priceInPence": 12999, "stock": 15, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "How does tirzepatide differ from GLP-1 mono-agonists in research?",
+        "answer": "Tirzepatide activates both GIP and GLP-1 receptors, allowing researchers to study the additive or synergistic effects of dual incretin receptor co-activation compared to selective GLP-1 agonists."
+      },
+      {
+        "question": "What is tirzepatide's molecular weight?",
+        "answer": "Tirzepatide has a molecular weight of 4813.48 g/mol and a molecular formula of C225H348N48O68."
+      }
+    ],
+    "tags": ["peptides", "research", "GLP-1", "GIP"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  },
+  {
+    "id": "seed-ipamorelin",
+    "slug": "ipamorelin",
+    "name": "Ipamorelin",
+    "category": "peptides",
+    "shortDescription": "A selective growth hormone secretagogue peptide investigated in preclinical models for pituitary GH release mechanisms.",
+    "fullDescription": "[DRAFT] Ipamorelin is a pentapeptide growth hormone secretagogue that selectively stimulates the ghrelin/GHS-R1a receptor, studied in animal models to dissect the pharmacology of pulsatile growth hormone release without the concurrent elevations in cortisol or prolactin seen with some other secretagogues. It has been used in rodent research to examine the somatotropic axis and IGF-1 downstream signalling. Supplied as a lyophilised powder in sealed vials for laboratory research purposes only.",
+    "casNumber": "170851-70-4",
+    "molecularFormula": "C38H49N9O5",
+    "molecularWeight": "711.85 g/mol",
+    "synonyms": ["NNC 26-0161", "GH secretagogue peptide", "Aib-His-D-2Nal-D-Phe-Lys-NH2"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "IPA-2MG", "size": "2mg", "priceInPence": 2499, "stock": 60, "coaUrl": null, "active": true },
+      { "sku": "IPA-5MG", "size": "5mg", "priceInPence": 4999, "stock": 45, "coaUrl": null, "active": true },
+      { "sku": "IPA-10MG", "size": "10mg", "priceInPence": 8999, "stock": 30, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "What receptor does ipamorelin bind in research models?",
+        "answer": "Ipamorelin selectively binds the GHS-R1a (ghrelin) receptor. Research uses it to study selective growth hormone secretagogue receptor pharmacology."
+      },
+      {
+        "question": "How should ipamorelin be stored prior to use?",
+        "answer": "Lyophilised ipamorelin should be stored at -20°C in a dry environment. Once reconstituted, aliquots should be kept at 4°C and used within 2 weeks."
+      }
+    ],
+    "tags": ["peptides", "research", "growth hormone"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  },
+  {
+    "id": "seed-cjc-1295",
+    "slug": "cjc-1295",
+    "name": "CJC-1295",
+    "category": "peptides",
+    "shortDescription": "A long-acting GHRH analogue peptide studied in preclinical models for sustained stimulation of the somatotropic axis.",
+    "fullDescription": "[DRAFT] CJC-1295 is a 30-amino-acid synthetic analogue of growth hormone-releasing hormone (GHRH) incorporating a drug affinity complex (DAC) technology that enables albumin binding, substantially extending its circulating half-life compared to native GHRH. Animal studies have utilised it to investigate sustained somatotropic axis activation and downstream IGF-1 dynamics. Supplied as a lyophilised powder in sealed vials for laboratory research purposes only.",
+    "casNumber": "863288-34-0",
+    "molecularFormula": "C152H252N44O42",
+    "molecularWeight": "3367.97 g/mol",
+    "synonyms": ["CJC1295", "DAC:GRF", "GHRH analogue DAC"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "CJC-2MG", "size": "2mg", "priceInPence": 2999, "stock": 50, "coaUrl": null, "active": true },
+      { "sku": "CJC-5MG", "size": "5mg", "priceInPence": 5999, "stock": 35, "coaUrl": null, "active": true },
+      { "sku": "CJC-10MG", "size": "10mg", "priceInPence": 10999, "stock": 20, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "What distinguishes CJC-1295 from native GHRH?",
+        "answer": "CJC-1295 incorporates a DAC (drug affinity complex) modification that allows covalent binding to albumin, extending its half-life in vivo — a property studied in pharmacokinetic research."
+      },
+      {
+        "question": "Is CJC-1295 the same as CJC-1295 without DAC (Modified GRF 1-29)?",
+        "answer": "No. CJC-1295 refers to the DAC-modified long-acting form. Modified GRF 1-29 (CJC-1295 without DAC) is a separate compound with a shorter half-life and different research applications."
+      }
+    ],
+    "tags": ["peptides", "research", "GHRH"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  },
+  {
+    "id": "seed-ghk-cu",
+    "slug": "ghk-cu",
+    "name": "GHK-Cu",
+    "category": "peptides",
+    "shortDescription": "A naturally occurring copper peptide complex studied in preclinical dermatological and wound models for its interactions with extracellular matrix remodelling.",
+    "fullDescription": "[DRAFT] GHK-Cu (glycyl-L-histidyl-L-lysine copper(II)) is a tripeptide-copper complex found endogenously in human plasma, saliva, and urine, where its concentration declines with age. Research in cell culture and animal models has examined its effects on collagen and elastin synthesis, antioxidant gene expression, and fibroblast activity. Supplied as a lyophilised powder in sealed vials for laboratory research purposes only.",
+    "casNumber": "49557-75-7",
+    "molecularFormula": "C14H24CuN6O4",
+    "molecularWeight": "403.91 g/mol",
+    "synonyms": ["Copper tripeptide-1", "Gly-His-Lys copper complex", "CT-1"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "GHKCU-2MG", "size": "2mg", "priceInPence": 2499, "stock": 70, "coaUrl": null, "active": true },
+      { "sku": "GHKCU-5MG", "size": "5mg", "priceInPence": 4999, "stock": 55, "coaUrl": null, "active": true },
+      { "sku": "GHKCU-10MG", "size": "10mg", "priceInPence": 8999, "stock": 40, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "What is GHK-Cu investigated for in research?",
+        "answer": "GHK-Cu is studied in preclinical models for its role in extracellular matrix remodelling, antioxidant pathway regulation, and fibroblast biology."
+      },
+      {
+        "question": "Is the copper component integral to its research activity?",
+        "answer": "Yes — the copper(II) ion is chelated by the tripeptide and is considered essential to the complex's observed biological interactions in vitro and in vivo."
+      }
+    ],
+    "tags": ["peptides", "research", "copper peptide"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  },
+  {
+    "id": "seed-melanotan-ii",
+    "slug": "melanotan-ii",
+    "name": "Melanotan II",
+    "category": "peptides",
+    "shortDescription": "A cyclic lactam analogue of alpha-MSH studied in preclinical models for melanocortin receptor pharmacology and pigmentation pathway research.",
+    "fullDescription": "[DRAFT] Melanotan II (MT-II) is a cyclic heptapeptide analogue of alpha-melanocyte stimulating hormone (α-MSH) with broad-spectrum melanocortin receptor (MC1R–MC5R) agonist activity, used in preclinical research to study pigmentation biology, energy balance signalling, and melanocortin system pharmacology. Its non-selective receptor profile makes it a useful tool compound for comparative MC receptor studies in animal models. Supplied as a lyophilised powder in sealed vials for laboratory research purposes only.",
+    "casNumber": "121062-08-6",
+    "molecularFormula": "C50H69N15O9",
+    "molecularWeight": "1024.18 g/mol",
+    "synonyms": ["MT-II", "alpha-MSH analogue", "melanotan-2"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "MT2-2MG", "size": "2mg", "priceInPence": 2999, "stock": 40, "coaUrl": null, "active": true },
+      { "sku": "MT2-5MG", "size": "5mg", "priceInPence": 5499, "stock": 30, "coaUrl": null, "active": true },
+      { "sku": "MT2-10MG", "size": "10mg", "priceInPence": 9999, "stock": 20, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "Which receptors does Melanotan II act on in research?",
+        "answer": "MT-II is a non-selective melanocortin receptor agonist with activity at MC1R through MC5R, making it useful for studying the full melanocortin system in preclinical models."
+      },
+      {
+        "question": "What is the primary research interest in Melanotan II?",
+        "answer": "It is primarily used to study melanocortin receptor pharmacology, melanogenesis, and hypothalamic energy signalling pathways in animal and cell-based models."
+      }
+    ],
+    "tags": ["peptides", "research", "melanocortin"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  },
+  {
+    "id": "seed-epithalon",
+    "slug": "epithalon",
+    "name": "Epithalon",
+    "category": "peptides",
+    "shortDescription": "A synthetic tetrapeptide analogue of epithalamin studied in preclinical models for telomerase activation and neuroendocrine regulation research.",
+    "fullDescription": "[DRAFT] Epithalon (Epitalon) is a synthetic tetrapeptide (Ala-Glu-Asp-Gly) derived from the pineal peptide epithalamin, investigated in cell culture and rodent ageing models for its interactions with telomerase enzyme activity and pineal gland neuroendocrine function. Studies have examined its effects on melatonin secretion rhythms and oxidative stress markers in aged animals. Supplied as a lyophilised powder in sealed vials for laboratory research purposes only.",
+    "casNumber": "307297-39-8",
+    "molecularFormula": "C14H22N4O9",
+    "molecularWeight": "390.35 g/mol",
+    "synonyms": ["Epitalon", "Epitalone", "Ala-Glu-Asp-Gly tetrapeptide"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "EPIT-2MG", "size": "2mg", "priceInPence": 2499, "stock": 60, "coaUrl": null, "active": true },
+      { "sku": "EPIT-5MG", "size": "5mg", "priceInPence": 4999, "stock": 45, "coaUrl": null, "active": true },
+      { "sku": "EPIT-10MG", "size": "10mg", "priceInPence": 8999, "stock": 30, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "What biological pathways is Epithalon studied for?",
+        "answer": "Epithalon has been investigated in preclinical research for its interactions with telomerase activity, circadian rhythm regulation, and pineal neuroendocrine function."
+      },
+      {
+        "question": "How is Epithalon typically reconstituted for research?",
+        "answer": "It is generally reconstituted in sterile saline or bacteriostatic water at the required concentration for in vitro or in vivo experimental protocols."
+      }
+    ],
+    "tags": ["peptides", "research", "longevity"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  },
+  {
+    "id": "seed-thymosin-alpha-1",
+    "slug": "thymosin-alpha-1",
+    "name": "Thymosin Alpha-1",
+    "category": "peptides",
+    "shortDescription": "A 28-amino-acid thymic peptide studied in preclinical immunology models for T-cell maturation and innate immune modulation.",
+    "fullDescription": "[DRAFT] Thymosin Alpha-1 (Tα1) is an endogenous peptide originally isolated from thymic tissue, comprising 28 amino acids with an N-terminal acetylation. Preclinical research has used it as a tool to study T-lymphocyte maturation, dendritic cell activation, and type I interferon signalling pathways in immunocompromised animal models. Its interactions with Toll-like receptors have also been a focus of innate immunology research. Supplied as a lyophilised powder in sealed vials for laboratory research purposes only.",
+    "casNumber": "62304-98-7",
+    "molecularFormula": "C129H215N33O55",
+    "molecularWeight": "3108.38 g/mol",
+    "synonyms": ["Tα1", "Thymalfasin", "Zadaxin active ingredient"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "TA1-2MG", "size": "2mg", "priceInPence": 3299, "stock": 40, "coaUrl": null, "active": true },
+      { "sku": "TA1-5MG", "size": "5mg", "priceInPence": 6499, "stock": 30, "coaUrl": null, "active": true },
+      { "sku": "TA1-10MG", "size": "10mg", "priceInPence": 11999, "stock": 20, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "What is the primary research focus of Thymosin Alpha-1?",
+        "answer": "Tα1 is used in immunology research to investigate T-cell differentiation, Toll-like receptor signalling, and dendritic cell-mediated immune responses in preclinical models."
+      },
+      {
+        "question": "What is the origin of Thymosin Alpha-1?",
+        "answer": "It is a peptide originally isolated from bovine thymic tissue and subsequently synthesised. The research-grade version supplied here is fully synthetic."
+      }
+    ],
+    "tags": ["peptides", "research", "immunology"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  },
+  {
+    "id": "seed-retatrutide",
+    "slug": "retatrutide",
+    "name": "Retatrutide",
+    "category": "peptides",
+    "shortDescription": "A triple GIP/GLP-1/glucagon receptor co-agonist peptide investigated in preclinical metabolic models for polyreceptor incretin pharmacology.",
+    "fullDescription": "[DRAFT] Retatrutide (LY3437943) is a synthetic peptide designed as a co-agonist at GIP, GLP-1, and glucagon receptors, enabling preclinical research into the combined effects of triple incretin receptor activation on energy expenditure, insulin secretion, and hepatic glucose output in animal metabolic models. Its multi-receptor profile distinguishes it from dual GIP/GLP-1 agonists and makes it a valuable pharmacological research tool. Supplied as a lyophilised powder in sealed vials for laboratory research purposes only.",
+    "casNumber": "2381806-63-7",
+    "molecularFormula": "C218H350N56O72",
+    "molecularWeight": "4760.52 g/mol",
+    "synonyms": ["LY3437943", "triple GIP/GLP-1/glucagon agonist", "GGG tri-agonist"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "RETA-2MG", "size": "2mg", "priceInPence": 3499, "stock": 25, "coaUrl": null, "active": true },
+      { "sku": "RETA-5MG", "size": "5mg", "priceInPence": 6999, "stock": 20, "coaUrl": null, "active": true },
+      { "sku": "RETA-10MG", "size": "10mg", "priceInPence": 12999, "stock": 10, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "How does retatrutide differ from tirzepatide in research?",
+        "answer": "Retatrutide adds glucagon receptor agonism to the GIP/GLP-1 dual activation of tirzepatide, allowing researchers to investigate the additive role of glucagon receptor co-stimulation in metabolic models."
+      },
+      {
+        "question": "What stage of development is retatrutide at?",
+        "answer": "Retatrutide is an investigational compound. This product is for in vitro and preclinical in vivo research only and is not approved for any clinical application."
+      }
+    ],
+    "tags": ["peptides", "research", "GLP-1", "triple agonist"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  },
+  {
+    "id": "seed-hexarelin",
+    "slug": "hexarelin",
+    "name": "Hexarelin",
+    "category": "peptides",
+    "shortDescription": "A synthetic hexapeptide growth hormone secretagogue studied in preclinical models for GHS-R1a receptor pharmacology and cardiovascular research.",
+    "fullDescription": "[DRAFT] Hexarelin (Examorelin) is a six-amino-acid synthetic growth hormone secretagogue that binds the GHS-R1a receptor with high affinity, used in preclinical studies to examine growth hormone release dynamics and — separately — cardioprotective signalling via the CD36 receptor pathway. Its dual receptor interactions make it of interest in both endocrinological and cardiac preclinical research. Supplied as a lyophilised powder in sealed vials for laboratory research purposes only.",
+    "casNumber": "140703-51-1",
+    "molecularFormula": "C47H58N12O6",
+    "molecularWeight": "887.05 g/mol",
+    "synonyms": ["Examorelin", "EP 23905", "His-D-2MeTrp-Ala-Trp-D-Phe-Lys-NH2"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "HEX-2MG", "size": "2mg", "priceInPence": 2999, "stock": 45, "coaUrl": null, "active": true },
+      { "sku": "HEX-5MG", "size": "5mg", "priceInPence": 5999, "stock": 35, "coaUrl": null, "active": true },
+      { "sku": "HEX-10MG", "size": "10mg", "priceInPence": 10999, "stock": 25, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "What makes hexarelin of interest beyond GH secretagogue research?",
+        "answer": "Hexarelin also binds the CD36 scavenger receptor, independent of GHS-R1a, which has prompted preclinical research into its cardiovascular and cardioprotective signalling properties."
+      },
+      {
+        "question": "How does hexarelin compare to ipamorelin as a research tool?",
+        "answer": "Hexarelin is a less selective GHS-R1a agonist than ipamorelin and has higher potency. This makes it useful for studying receptor saturation effects and comparing selectivity profiles in GH secretagogue research."
+      }
+    ],
+    "tags": ["peptides", "research", "growth hormone"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  },
+  {
+    "id": "seed-nad-plus",
+    "slug": "nad-plus",
+    "name": "NAD+",
+    "category": "capsules",
+    "shortDescription": "Nicotinamide adenine dinucleotide (oxidised form), a coenzyme central to cellular energy metabolism studied in preclinical ageing and metabolic research.",
+    "fullDescription": "[DRAFT] NAD+ (nicotinamide adenine dinucleotide) is an essential redox coenzyme involved in over 500 enzymatic reactions, including the TCA cycle, oxidative phosphorylation, and sirtuin-dependent deacetylation pathways. Its decline with age is studied as a potential driver of metabolic dysfunction in animal models, with supplementation research examining NAD+ repletion strategies. Supplied as oral capsules for research and investigational use only.",
+    "casNumber": "53-84-9",
+    "molecularFormula": "C21H27N7O14P2",
+    "molecularWeight": "663.43 g/mol",
+    "synonyms": ["Nicotinamide adenine dinucleotide", "NAD", "Coenzyme I"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "NAD-30CAP", "size": "30 capsules", "priceInPence": 3999, "stock": 80, "coaUrl": null, "active": true },
+      { "sku": "NAD-60CAP", "size": "60 capsules", "priceInPence": 6999, "stock": 60, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "How is NAD+ relevant to ageing research?",
+        "answer": "NAD+ levels decline with age in multiple tissues. Preclinical studies investigate whether NAD+ repletion influences sirtuin activity, mitochondrial function, and DNA repair pathways."
+      },
+      {
+        "question": "Is NAD+ the same as NMN?",
+        "answer": "No. NMN (nicotinamide mononucleotide) is a biosynthetic precursor to NAD+. They are distinct compounds with different molecular weights and are studied separately."
+      }
+    ],
+    "tags": ["capsules", "research", "NAD", "longevity"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  },
+  {
+    "id": "seed-nmn",
+    "slug": "nmn",
+    "name": "NMN (beta-NMN)",
+    "category": "capsules",
+    "shortDescription": "Beta-nicotinamide mononucleotide, a direct NAD+ biosynthetic precursor studied in preclinical models of ageing and mitochondrial biology.",
+    "fullDescription": "[DRAFT] Beta-NMN (nicotinamide mononucleotide) is a nucleotide and rate-limiting NAD+ biosynthetic intermediate generated via the Nampt-dependent salvage pathway. Animal studies have investigated NMN supplementation for its effects on tissue NAD+ levels, mitochondrial biogenesis, and insulin sensitivity in aged rodent models. Supplied as oral capsules for research and investigational use only.",
+    "casNumber": "1094-61-7",
+    "molecularFormula": "C11H15N2O8P",
+    "molecularWeight": "334.22 g/mol",
+    "synonyms": ["Nicotinamide mononucleotide", "NMN", "β-NMN"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "NMN-30CAP", "size": "30 capsules", "priceInPence": 3499, "stock": 100, "coaUrl": null, "active": true },
+      { "sku": "NMN-60CAP", "size": "60 capsules", "priceInPence": 5999, "stock": 80, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "How does NMN differ from NR (nicotinamide riboside) in research?",
+        "answer": "NMN and NR are both NAD+ precursors that enter the salvage pathway at different points. NMN is one step closer to NAD+ than NR, and they are studied separately to understand their distinct bioavailability and tissue distribution profiles."
+      },
+      {
+        "question": "What CAS number identifies beta-NMN?",
+        "answer": "Beta-NMN is identified by CAS 1094-61-7. This product contains only the beta anomer, which is the biologically relevant form."
+      }
+    ],
+    "tags": ["capsules", "research", "NAD precursor", "longevity"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  },
+  {
+    "id": "seed-l-carnitine",
+    "slug": "l-carnitine",
+    "name": "L-Carnitine",
+    "category": "capsules",
+    "shortDescription": "A conditionally essential amino acid derivative studied in preclinical models for its role in mitochondrial long-chain fatty acid transport.",
+    "fullDescription": "[DRAFT] L-Carnitine is a quaternary ammonium compound synthesised from lysine and methionine, functioning as an obligate cofactor for the carnitine palmitoyl transferase (CPT) system that shuttles long-chain fatty acyl groups across the inner mitochondrial membrane for beta-oxidation. Preclinical research has used it to study fatty acid metabolism, energy substrate utilisation, and conditions of mitochondrial dysfunction. Supplied as oral capsules for research and investigational use only.",
+    "casNumber": "541-15-1",
+    "molecularFormula": "C7H15NO3",
+    "molecularWeight": "161.20 g/mol",
+    "synonyms": ["Levocarnitine", "3-carboxy-2-(R)-hydroxypropyl-trimethylammonium", "Vitamin BT"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "LCARN-30CAP", "size": "30 capsules", "priceInPence": 2999, "stock": 120, "coaUrl": null, "active": true },
+      { "sku": "LCARN-60CAP", "size": "60 capsules", "priceInPence": 4999, "stock": 90, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "What is the role of L-Carnitine in mitochondrial research?",
+        "answer": "L-Carnitine is essential for shuttling long-chain fatty acids into the mitochondrial matrix via the CPT-I/CPT-II system. It is used in research to study beta-oxidation and lipid energy metabolism."
+      },
+      {
+        "question": "Is there a difference between L-Carnitine and Acetyl-L-Carnitine?",
+        "answer": "Yes. Acetyl-L-Carnitine (ALCAR) is an acetylated form that crosses the blood-brain barrier more readily and is studied separately for central nervous system energy metabolism research."
+      }
+    ],
+    "tags": ["capsules", "research", "mitochondria", "metabolism"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  },
+  {
+    "id": "seed-glutathione",
+    "slug": "glutathione",
+    "name": "Glutathione (Reduced)",
+    "category": "capsules",
+    "shortDescription": "The principal intracellular antioxidant tripeptide studied in preclinical models of oxidative stress, detoxification, and immune function.",
+    "fullDescription": "[DRAFT] Reduced glutathione (GSH) is an endogenous tripeptide (Glu-Cys-Gly) that serves as the cell's primary antioxidant, a cofactor for glutathione peroxidases and S-transferases, and a key participant in the thioredoxin system. Research in cell culture and animal models has examined GSH depletion and repletion in contexts of oxidative stress, xenobiotic detoxification, and apoptosis regulation. Supplied as oral capsules for research and investigational use only.",
+    "casNumber": "70-18-8",
+    "molecularFormula": "C10H17N3O6S",
+    "molecularWeight": "307.32 g/mol",
+    "synonyms": ["GSH", "gamma-glutamylcysteinylglycine", "reduced L-glutathione"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "GSH-30CAP", "size": "30 capsules", "priceInPence": 3499, "stock": 100, "coaUrl": null, "active": true },
+      { "sku": "GSH-60CAP", "size": "60 capsules", "priceInPence": 5999, "stock": 75, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "Why is the reduced form specified?",
+        "answer": "Glutathione exists in reduced (GSH) and oxidised (GSSG) forms. The reduced thiol form is the biologically active antioxidant species and is the form specified for this product."
+      },
+      {
+        "question": "What research contexts use glutathione?",
+        "answer": "GSH is used in studies of oxidative stress mechanisms, phase II detoxification enzyme activity, mitochondrial redox homeostasis, and immune cell function in preclinical models."
+      }
+    ],
+    "tags": ["capsules", "research", "antioxidant"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  },
+  {
+    "id": "seed-resveratrol",
+    "slug": "resveratrol",
+    "name": "Resveratrol",
+    "category": "capsules",
+    "shortDescription": "A polyphenol stilbene found in grapes and red wine, investigated in preclinical models for sirtuin pathway activation and cellular stress response.",
+    "fullDescription": "[DRAFT] Trans-resveratrol is a naturally occurring stilbenoid polyphenol and phytoalexin, extensively studied as an activator of SIRT1 and AMPK signalling pathways in cell and animal models of ageing, metabolic dysfunction, and cardiovascular biology. Research has examined its interactions with the NAD+/sirtuin axis, NF-κB inflammatory signalling, and mitochondrial biogenesis transcription factors. Supplied as oral capsules for research and investigational use only.",
+    "casNumber": "501-36-0",
+    "molecularFormula": "C14H12O3",
+    "molecularWeight": "228.24 g/mol",
+    "synonyms": ["trans-resveratrol", "3,5,4'-trihydroxystilbene", "SRT501"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "RESV-30CAP", "size": "30 capsules", "priceInPence": 2999, "stock": 120, "coaUrl": null, "active": true },
+      { "sku": "RESV-60CAP", "size": "60 capsules", "priceInPence": 4999, "stock": 90, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "Is this product trans- or cis-resveratrol?",
+        "answer": "This product contains trans-resveratrol (CAS 501-36-0), the biologically active isomer used in the majority of preclinical research studies."
+      },
+      {
+        "question": "What pathways is resveratrol primarily studied for?",
+        "answer": "Resveratrol is most widely studied for SIRT1 activation, AMPK pathway modulation, and its interactions with the NAD+/sirtuin longevity axis in animal and cell-based models."
+      }
+    ],
+    "tags": ["capsules", "research", "sirtuin", "polyphenol"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  },
+  {
+    "id": "seed-coq10",
+    "slug": "coq10",
+    "name": "CoQ10 (Ubiquinone)",
+    "category": "capsules",
+    "shortDescription": "Coenzyme Q10 in its oxidised ubiquinone form, studied in preclinical models as an electron carrier in the mitochondrial respiratory chain.",
+    "fullDescription": "[DRAFT] Coenzyme Q10 (ubiquinone-10) is a lipophilic redox-active molecule that functions as a mobile electron carrier between complexes I/II and complex III of the mitochondrial electron transport chain, and as a membrane-bound antioxidant. Preclinical research has investigated its role in mitochondrial efficiency, reactive oxygen species management, and as a research tool in models of mitochondrial disease. Supplied as oral capsules for research and investigational use only.",
+    "casNumber": "303-98-0",
+    "molecularFormula": "C59H90O4",
+    "molecularWeight": "863.34 g/mol",
+    "synonyms": ["Ubiquinone-10", "Ubidecarenone", "CoQ10"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "COQ10-30CAP", "size": "30 capsules", "priceInPence": 3499, "stock": 100, "coaUrl": null, "active": true },
+      { "sku": "COQ10-60CAP", "size": "60 capsules", "priceInPence": 5999, "stock": 80, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "What is the difference between ubiquinone and ubiquinol?",
+        "answer": "Ubiquinone (CoQ10) is the oxidised form; ubiquinol is the reduced form. Both are studied in mitochondrial research, with ubiquinol being the predominant circulating form. This product contains ubiquinone (CAS 303-98-0)."
+      },
+      {
+        "question": "Why is CoQ10 studied in cardiovascular preclinical research?",
+        "answer": "CoQ10 is highly concentrated in cardiac tissue. Preclinical studies investigate its role in myocardial energy metabolism, oxidative stress mitigation, and mitochondrial dysfunction in heart failure models."
+      }
+    ],
+    "tags": ["capsules", "research", "mitochondria", "antioxidant"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  },
+  {
+    "id": "seed-berberine",
+    "slug": "berberine",
+    "name": "Berberine HCl",
+    "category": "capsules",
+    "shortDescription": "A plant-derived isoquinoline alkaloid studied in preclinical metabolic research for AMPK activation and glucose homeostasis pathway interactions.",
+    "fullDescription": "[DRAFT] Berberine hydrochloride is the HCl salt of a quaternary ammonium isoquinoline alkaloid found in several medicinal plants, widely studied in cell culture and rodent metabolic models for its activation of AMP-activated protein kinase (AMPK), its effects on intestinal glucose uptake via SGLT-1 inhibition, and its interactions with the gut microbiome. It has been used as a pharmacological comparator to metformin in preclinical type 2 diabetes models. Supplied as oral capsules for research and investigational use only.",
+    "casNumber": "633-65-8",
+    "molecularFormula": "C20H18NO4+",
+    "molecularWeight": "336.36 g/mol",
+    "synonyms": ["Berberine hydrochloride", "Natural Yellow 18", "5,6-dihydro-9,10-dimethoxybenzo[g]-1,3-benzodioxolo[5,6-a]quinolizinium chloride"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "BERB-30CAP", "size": "30 capsules", "priceInPence": 2999, "stock": 120, "coaUrl": null, "active": true },
+      { "sku": "BERB-60CAP", "size": "60 capsules", "priceInPence": 4999, "stock": 95, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "Why is berberine compared to metformin in research?",
+        "answer": "Both compounds activate AMPK and influence hepatic glucose output. Preclinical researchers use berberine as a tool compound to study AMPK-dependent metabolic pathways alongside or instead of metformin."
+      },
+      {
+        "question": "Which CAS number applies to this product?",
+        "answer": "This product is supplied as the hydrochloride salt, CAS 633-65-8. The free base form has a different CAS number (2086-83-1) and is a distinct chemical entity."
+      }
+    ],
+    "tags": ["capsules", "research", "AMPK", "metabolic"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  },
+  {
+    "id": "seed-spermidine",
+    "slug": "spermidine",
+    "name": "Spermidine",
+    "category": "capsules",
+    "shortDescription": "A naturally occurring polyamine studied in preclinical autophagy and longevity research for its induction of mitophagy and epigenetic effects.",
+    "fullDescription": "[DRAFT] Spermidine is an endogenous polyamine synthesised from putrescine, involved in DNA stabilisation, translation fidelity, and — of particular research interest — the induction of autophagy via inhibition of acetyltransferase EP300. Animal studies have used spermidine to investigate autophagy-dependent lifespan extension, cardiac function preservation in aged models, and immune cell rejuvenation. Supplied as oral capsules for research and investigational use only.",
+    "casNumber": "124-20-9",
+    "molecularFormula": "C7H19N3",
+    "molecularWeight": "145.25 g/mol",
+    "synonyms": ["N-(3-aminopropyl)-1,4-butanediamine", "1,8-diamino-4-azaoctane", "spermidine base"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "SPMD-30CAP", "size": "30 capsules", "priceInPence": 3499, "stock": 80, "coaUrl": null, "active": true },
+      { "sku": "SPMD-60CAP", "size": "60 capsules", "priceInPence": 5999, "stock": 60, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "How is spermidine linked to autophagy research?",
+        "answer": "Spermidine inhibits the acetyltransferase EP300, triggering autophagy induction. Preclinical studies use it to examine autophagy's role in cellular quality control, ageing, and mitophagy."
+      },
+      {
+        "question": "What dietary sources of spermidine are referenced in research?",
+        "answer": "Wheat germ, soybeans, and aged cheese contain relatively high levels of spermidine. Preclinical studies often supplement beyond dietary doses to achieve experimental autophagy induction in animal models."
+      }
+    ],
+    "tags": ["capsules", "research", "autophagy", "longevity"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  },
+  {
+    "id": "seed-bac-water-10ml",
+    "slug": "bacteriostatic-water-10ml",
+    "name": "Bacteriostatic Water 10ml",
+    "category": "mixers",
+    "shortDescription": "Sterile water for injection containing 0.9% benzyl alcohol as a bacteriostatic agent, suitable for multi-dose reconstitution of lyophilised peptides.",
+    "fullDescription": "[DRAFT] Bacteriostatic Water for Injection USP contains 0.9% benzyl alcohol as a bacteriostatic preservative, allowing the reconstituted solution to be stored and used across multiple draws without degradation of sterility. It is the standard diluent used in laboratory settings for reconstituting lyophilised peptide compounds prior to in vitro assays or in vivo dosing. Supplied as a 10ml sealed vial for laboratory research reconstitution purposes only.",
+    "casNumber": "7732-18-5",
+    "molecularFormula": "H2O",
+    "molecularWeight": "18.02 g/mol",
+    "synonyms": ["BAC water", "sterile water with benzyl alcohol", "water for injection bacteriostatic"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "BACW-10ML", "size": "10ml", "priceInPence": 599, "stock": 200, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "Why use bacteriostatic water instead of sterile water?",
+        "answer": "Bacteriostatic water contains 0.9% benzyl alcohol, which inhibits bacterial growth and allows safe multi-dose use from a single vial over several days in laboratory settings."
+      },
+      {
+        "question": "Is bacteriostatic water suitable for all peptides?",
+        "answer": "Most lyophilised research peptides are compatible with bacteriostatic water. Some peptides (e.g., those sensitive to alcohol) may require sterile saline or other buffers — consult the relevant protocol."
+      }
+    ],
+    "tags": ["mixers", "research", "reconstitution"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  },
+  {
+    "id": "seed-bac-water-30ml",
+    "slug": "bacteriostatic-water-30ml",
+    "name": "Bacteriostatic Water 30ml",
+    "category": "mixers",
+    "shortDescription": "Larger-volume sterile bacteriostatic water for multi-dose peptide reconstitution in laboratory research settings.",
+    "fullDescription": "[DRAFT] Bacteriostatic Water for Injection USP (30ml) contains 0.9% benzyl alcohol preservative and is supplied in a larger vial format suited to higher-throughput laboratory protocols requiring multiple reconstitutions from a single container. It maintains sterility across repeated needle insertions for multi-dose laboratory use. Supplied as a 30ml sealed vial for laboratory research reconstitution purposes only.",
+    "casNumber": "7732-18-5",
+    "molecularFormula": "H2O",
+    "molecularWeight": "18.02 g/mol",
+    "synonyms": ["BAC water 30ml", "bacteriostatic water large vial", "sterile water bacteriostatic 30ml"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "BACW-30ML", "size": "30ml", "priceInPence": 999, "stock": 150, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "When would a 30ml vial be preferred over a 10ml vial?",
+        "answer": "A 30ml vial is more cost-effective for laboratories reconstituting multiple peptide compounds simultaneously or requiring larger volumes for extended in vivo studies."
+      },
+      {
+        "question": "How long can bacteriostatic water be used after first puncture?",
+        "answer": "The benzyl alcohol preservative extends usability, but standard laboratory practice recommends using within 28 days of first puncture when stored at 2–8°C."
+      }
+    ],
+    "tags": ["mixers", "research", "reconstitution"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  },
+  {
+    "id": "seed-sterile-saline-10ml",
+    "slug": "sterile-saline-10ml",
+    "name": "Sterile Saline 10ml",
+    "category": "mixers",
+    "shortDescription": "0.9% sodium chloride sterile saline solution for single-use peptide reconstitution in laboratory and preclinical research settings.",
+    "fullDescription": "[DRAFT] Sterile sodium chloride 0.9% solution (normal saline) is an isotonic, preservative-free diluent commonly used in laboratory research for single-use reconstitution of lyophilised compounds where benzyl alcohol sensitivity is a concern, or where a physiologically isotonic vehicle is required for in vivo dosing. Its pH and osmolarity are matched to physiological conditions. Supplied as a 10ml sealed vial for laboratory research reconstitution purposes only.",
+    "casNumber": "7647-14-5",
+    "molecularFormula": "NaCl",
+    "molecularWeight": "58.44 g/mol",
+    "synonyms": ["Normal saline", "0.9% NaCl", "physiological saline"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "SALINE-10ML", "size": "10ml", "priceInPence": 499, "stock": 200, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "When is sterile saline preferred over bacteriostatic water?",
+        "answer": "Sterile saline is preferred for single-use reconstitution, for compounds sensitive to benzyl alcohol, or when an isotonic, preservative-free vehicle is required for in vivo dosing protocols."
+      },
+      {
+        "question": "Can sterile saline be used for multi-dose vials?",
+        "answer": "Preservative-free sterile saline is not recommended for multi-dose use. Use bacteriostatic water for multi-dose reconstitution protocols."
+      }
+    ],
+    "tags": ["mixers", "research", "reconstitution"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  },
+  {
+    "id": "seed-sterile-saline-30ml",
+    "slug": "sterile-saline-30ml",
+    "name": "Sterile Saline 30ml",
+    "category": "mixers",
+    "shortDescription": "Larger-volume 0.9% sodium chloride sterile saline for single-use peptide reconstitution in higher-throughput laboratory research.",
+    "fullDescription": "[DRAFT] Sterile sodium chloride 0.9% solution (30ml) provides a larger preservative-free isotonic diluent volume suited to laboratory workflows requiring reconstitution of multiple compounds or larger volumes for in vivo studies where a physiological saline vehicle is specified in the experimental protocol. As a preservative-free preparation, it is intended for single-use reconstitution only. Supplied as a 30ml sealed vial for laboratory research reconstitution purposes only.",
+    "casNumber": "7647-14-5",
+    "molecularFormula": "NaCl",
+    "molecularWeight": "58.44 g/mol",
+    "synonyms": ["Normal saline 30ml", "0.9% NaCl large vial", "saline diluent 30ml"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "SALINE-30ML", "size": "30ml", "priceInPence": 799, "stock": 150, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "Is the 30ml saline vial multi-dose?",
+        "answer": "No. As a preservative-free preparation, this vial is intended for single-use reconstitution. Any unused portion should be discarded after use to maintain sterility."
+      },
+      {
+        "question": "What osmolarity does 0.9% NaCl provide?",
+        "answer": "0.9% NaCl has an osmolarity of approximately 308 mOsm/L, making it isotonic with human plasma and an appropriate vehicle for most in vivo research dosing protocols."
+      }
+    ],
+    "tags": ["mixers", "research", "reconstitution"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  },
+  {
+    "id": "seed-nacl-09-10ml",
+    "slug": "sodium-chloride-09-10ml",
+    "name": "Sodium Chloride 0.9% 10ml",
+    "category": "mixers",
+    "shortDescription": "Pharmaceutical-grade 0.9% sodium chloride solution in a 10ml vial, supplied as a standard isotonic diluent for research peptide reconstitution.",
+    "fullDescription": "[DRAFT] This pharmaceutical-grade 0.9% sodium chloride solution is supplied in a 10ml vial as a standard isotonic, preservative-free diluent for laboratory reconstitution of lyophilised peptides and other research compounds. It is suitable for use as a vehicle in both in vitro cell-based assays and in vivo animal dosing where a neutral, isotonic aqueous vehicle is required by the study protocol. Supplied as a 10ml sealed vial for laboratory research reconstitution purposes only.",
+    "casNumber": "7647-14-5",
+    "molecularFormula": "NaCl",
+    "molecularWeight": "58.44 g/mol",
+    "synonyms": ["NaCl 0.9%", "sodium chloride injection", "isotonic saline"],
+    "purity": "≥98%",
+    "testingMethod": "HPLC",
+    "variants": [
+      { "sku": "NACL09-10ML", "size": "10ml", "priceInPence": 499, "stock": 200, "coaUrl": null, "active": true }
+    ],
+    "images": ["/placeholder-vial.svg"],
+    "primaryImageIndex": 0,
+    "seoTitle": null,
+    "seoDescription": null,
+    "faq": [
+      {
+        "question": "How does this differ from bacteriostatic water?",
+        "answer": "This product contains no preservative. It is isotonic saline intended for single-use reconstitution, whereas bacteriostatic water contains 0.9% benzyl alcohol for multi-dose use."
+      },
+      {
+        "question": "Is this product suitable for cell culture use?",
+        "answer": "0.9% NaCl can be used as a vehicle control or diluent in cell-based assays. Verify compatibility with your specific cell line and experimental system before use."
+      }
+    ],
+    "tags": ["mixers", "research", "reconstitution"],
+    "active": true,
+    "createdAt": "2026-04-13T00:00:00Z",
+    "updatedAt": "2026-04-13T00:00:00Z",
+    "updatedBy": "seed"
+  }
+]
