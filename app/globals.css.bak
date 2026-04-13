@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand palette */
+  --color-navy: #0D1B3E;
+  --color-mid-navy: #162040;
+  --color-accent-blue: #2B4A8A;
+  --color-off-white: #F7F8FA;
+  --color-warm-grey: #E8EAED;
+  --color-border-grey: #DDE1E7;
+  --color-body-grey: #333333;
+  --color-muted-grey: #6B7280;
+  --color-compliance-amber-bg: #FFF3CD;
+  --color-compliance-amber-text: #6A4D00;
+  --color-compliance-amber-border: #E6C97A;
+  --color-success-bg: #DCFCE7;
+  --color-success-text: #166534;
+
+  /* Typography */
+  --font-serif: var(--font-cormorant), Georgia, serif;
+  --font-sans: var(--font-dm-sans), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  /* Compliance banner height — used for root layout padding */
+  --compliance-banner-height: 2.25rem;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html, body {
+  background: var(--color-off-white);
+  color: var(--color-body-grey);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  color: var(--color-navy);
+}
+
+/* Utility layer: small-caps editorial labels */
+.label-editorial {
+  font-family: var(--font-serif);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  color: var(--color-muted-grey);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}

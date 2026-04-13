@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Sans, JetBrains_Mono } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans, JetBrains_Mono, Geist } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -41,7 +44,7 @@ export default function RootLayout({
   return (
     <html
       lang="en-GB"
-      className={`${cormorant.variable} ${dmSans.variable} ${jetBrains.variable}`}
+      className={cn(cormorant.variable, dmSans.variable, jetBrains.variable, "font-sans", geist.variable)}
     >
       <body>{children}</body>
     </html>
