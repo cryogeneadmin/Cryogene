@@ -193,9 +193,25 @@ Not a Plan 3 concern — Phase 3 is admin fulfilment work. Noted here for visibi
   - Route `WA*` and `AA*` into `mixers` category
   - Route `RS-*` into new `supplies` category
   - Route all others into `peptides` category
-  - For each distinct peptide compound, research CAS number + molecular formula + molecular weight from PubChem via WebFetch and populate the chemistry fields. Blends get `casNumber: null` + `composition: [...]`.
+  - For each distinct peptide compound, research CAS number + molecular formula + molecular weight + **PubChem CID** from PubChem via WebFetch and populate the chemistry fields. Blends get `casNumber: null` + `composition: [...]` + `pubchemCid: null`.
   - Set `priceInPence: 0` for every variant, `coaUrl: null`, `active: true`, `stock: 100` (placeholder)
-  - Use placeholder vial SVG `/placeholder-vial.svg` as the single image for all products (Sam's photography is Phase 3)
+  - Use placeholder vial SVG `/placeholder-vial.svg` as the vial image for all products (Sam's photography is Phase 3)
+  - Widen `Product` type to include `pubchemCid: number | null` and `moleculeImage: string | null`
+
+- **Task 0.2b:** Molecule image fetch — the scientific visual language. Extend Task 0.2's subagent (or run as a second parallel subagent) to fetch, for every compound with a PubChem CID, the 2D skeletal structure from PubChem's REST API:
+  - Endpoint: `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/{cid}/PNG?record_type=2d&image_size=large`
+  - Save each image to `/public/molecules/{slug}.png` (slug matches the product slug — e.g. `bpc-157.png`, `tirzepatide.png`)
+  - Set `product.moleculeImage = "/molecules/{slug}.png"` in the seed for each product that has one
+  - Blends and supplies legitimately have no single molecule — leave `moleculeImage: null`
+  - Rate limit: PubChem throttles at ~5 requests/sec. Subagent should `await new Promise(r => setTimeout(r, 250))` between fetches
+  - If a CID fetch 404s (happens for a few esoteric compounds), leave `moleculeImage: null` and continue — the PDP handles null gracefully
+  - **Visual language rule:** PubChem's default 2D render is monochrome black-on-white, which is perfect. Do NOT request the coloured variant (`record_type=2d&image_size=large&bgcolor=white` is the default). Do NOT request 3D.
+
+  **Rationale:** Molecules are the authentic visual language of pharmacology. Every PDP showing the actual molecule of the compound being sold is a huge authenticity signal for the research audience — chemists decode skeletal structures instantly. This is what pushes the storefront from "tasteful" to "distinctive" without adding any new visual vocabulary we haven't already established. Replaces the placeholder vial as the primary editorial motif on each PDP.
+
+  **Homepage hero molecule:** Deferred to Plan 5 — will pick one signature molecule (candidate: GHK-Cu, elegant copper tripeptide) as a large editorial line-drawing for the hero. For Plan 3, the homepage hero keeps the placeholder vial.
+
+  **3D interactive viewer:** Out of scope for Plan 3. Flagged as a Plan 5 polish item — a lazy-loaded Mol* viewer behind a "View 3D structure" toggle on PDPs. Don't preload anything.
 
 - **Task 0.3:** Delete `app/(public)/capsules/` directory (route + `[slug]` subroute). Delete any imports that referenced `"capsules"` as a category.
 
@@ -209,13 +225,20 @@ Not a Plan 3 concern — Phase 3 is admin fulfilment work. Noted here for visibi
 
 - **Task 0.8:** Create `components/storefront/products/BlendedProductComposition.tsx` for blended products. Invoked from `ProductDetail.tsx` when `product.composition?.length > 0`. Also: `ProductCard.tsx` should render a small "BLEND" pill next to the CAS number area when `product.composition` is present.
 
-- **Task 0.9:** Extend `VariantSelector.tsx` to handle `priceInPence: 0` → render `"Pricing TBC"` and disable Add-to-Basket with label `"Pricing to be confirmed"`. Same for `ProductCard.tsx` — `From £0.00` becomes `From: pricing TBC`.
+- **Task 0.9:** Extend `VariantSelector.tsx` to handle `priceInPence: 0` → render `"Pricing TBC"` in place of the price and disable Add-to-Basket with the label `"Pricing to be confirmed"`. Same for `ProductCard.tsx` — `From £0.00` becomes `Pricing TBC`. **Do NOT add a "request pricing" link — David confirmed 2026-04-14 that pricing will be bulk-updated when Sam provides the list, so the UX is intentionally minimal until then.** All 120 products will flip from TBC → real prices in a single admin bulk update (Plan 4 feature or manual seed edit — whichever comes first).
 
-- **Task 0.10:** Update `ProductDetail.tsx` chemistry row to conditionally hide individual `<dl>` entries when their value is null (for blends and supplies).
+- **Task 0.10:** Update `ProductDetail.tsx` to render the molecule image as the primary product visual:
+  - Use `product.moleculeImage` when present (most peptides), falling back to `product.images[product.primaryImageIndex]` (the vial placeholder) when null (blends and supplies).
+  - Molecule images are monochrome PNGs from PubChem — wrap in a hairline `border-[#DDE1E7]` square frame on `bg-[#F7F8FA]` with generous `p-12` padding, matching the current vial treatment. The editorial feel stays identical; only the content changes.
+  - When both exist (peptide with molecule + eventual real vial photo), render molecule as position 1 and vial as position 2 in a future image gallery. For Plan 3, position 1 is enough.
+  - Conditionally hide individual `<dl>` entries in the Chemical Information section when their value is null (so blends and supplies render a cleaner shorter section).
+  - Add `pubchemCid` as a small footer link under the chemistry row: `View on PubChem →` linking to `https://pubchem.ncbi.nlm.nih.gov/compound/{cid}` — opens in new tab. Only rendered when `pubchemCid` is set. This is a research-credibility signal.
 
-- **Task 0.11:** Run `npm run build`, verify all 120 products statically generate, visually spot-check one peptide / one blend / one supply / one mixer.
+- **Task 0.11:** Update `ProductCard.tsx` to render the molecule image when available (fallback to vial). Same conditional pattern as the PDP.
 
-- **Task 0.12:** Commit as a single milestone: `feat: migrate to Cryogene 120-SKU catalogue (Sam SOW-2026-001)`.
+- **Task 0.12:** Run `npm run build`, verify all 120 products statically generate, visually spot-check via Playwright: one peptide with a molecule image (e.g. `/peptides/bpc-157`), one blend (`/peptides/glow-blend` or similar — shows vial fallback + blend composition), one supply (`/supplies/nitrile-gloves-medium` — shows vial fallback), one mixer (`/mixers/bacteriostatic-water`). Confirm no broken images, no £0.00 pricing displayed, composition table renders for blends, PubChem link renders for compounds with CIDs.
+
+- **Task 0.13:** Commit as a single milestone: `feat: migrate to Cryogene 120-SKU catalogue with PubChem molecular visuals (Sam SOW-2026-001)`.
 
 **After Task 0 completes, Plan 3's existing Task 1 onwards proceeds as originally written** — no other task re-ordering needed. The Firebase, TrueLayer, Resend, and checkout work all build on top of the new catalogue without further changes.
 
@@ -228,7 +251,7 @@ Not a Plan 3 concern — Phase 3 is admin fulfilment work. Noted here for visibi
 - **Chemistry data research** (Task 0.2) is ~3–4 hours of subagent time. It can be parallelised across 3–4 subagents each researching ~15 compounds. Budget 1 hour wall-clock if parallelised correctly.
 - **`active` field on variants** — Plan 1 had this. Plan 2 uses it in VariantSelector. No change in Plan 3, just flagging for awareness.
 - **Sam's notes column in the CSV is mostly blank** but two entries flag "Blended product". If there are products with notes we haven't read, the migration subagent should surface them in its report.
-- **Pricing placeholder UX** — showing "Pricing TBC" with a disabled CTA may feel broken to a first-time visitor landing on the site during the pre-launch window. Consider adding a small `"Request pricing"` link that opens `/contact?subject=Pricing%20enquiry&product=...`. Decide during Task 0.9 — if it takes more than 15 min to wire, defer to Plan 5.
+- **Pricing placeholder UX — DECIDED 2026-04-14.** David confirmed "Pricing TBC" with disabled CTA, no "request pricing" link. Pricing will be bulk-updated when Sam provides the list. Do not add a contact-form workaround. The site is pre-launch during the TBC window — first-time visitors aren't the concern.
 - **`[PEPTIDE STORE]` references in Plan docs 01/02/04/05** — historical records, do not touch. The branding drift is captured here; no rewrite of closed plans.
 - **leaveSite Server Action** still redirects to `https://www.google.com` as a placeholder — leave until Plan 5 when Sam can decide on the destination (NHS research use page? Gov.uk research licensing page?).
 
