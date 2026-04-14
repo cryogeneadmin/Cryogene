@@ -1,5 +1,4 @@
 // Server component (no "use client" needed)
-import type { Product } from "@/types";
 
 export function BlendedProductComposition({
   composition,

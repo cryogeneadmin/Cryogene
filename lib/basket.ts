@@ -38,6 +38,10 @@ export const useBasket = create<BasketState>()(
           console.warn(`addItem called with unknown sku: ${sku}`);
           return;
         }
+        if (variant.priceInPence === 0) {
+          console.warn(`addItem: variant ${sku} has pricing TBC, cannot add to basket`);
+          return;
+        }
         const existing = get().items.find((i) => i.sku === sku);
         if (existing) {
           set({

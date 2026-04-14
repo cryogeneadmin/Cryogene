@@ -4,7 +4,9 @@ import type { Product } from "@/types";
 import { formatPriceFromPence } from "@/lib/basket";
 
 export function ProductCard({ product }: { product: Product }) {
-  const lowestPriceVariant = product.variants.reduce((lowest, v) =>
+  const activeVariants = product.variants.filter((v) => v.active);
+  const variantsForPrice = activeVariants.length > 0 ? activeVariants : product.variants;
+  const lowestPriceVariant = variantsForPrice.reduce((lowest, v) =>
     v.priceInPence < lowest.priceInPence ? v : lowest
   );
   const totalStock = product.variants.reduce((sum, v) => sum + v.stock, 0);
@@ -20,7 +22,9 @@ export function ProductCard({ product }: { product: Product }) {
         {cardImage && (
           <Image
             src={cardImage}
-            alt={`${product.name} research peptide ${lowestPriceVariant.size} vial`}
+            alt={product.moleculeImage
+              ? `${product.name} molecular structure`
+              : `${product.name} research ${product.category === "supplies" ? "supply" : "peptide"} vial`}
             fill
             className="object-contain p-6"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
