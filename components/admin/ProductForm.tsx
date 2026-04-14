@@ -5,17 +5,31 @@ import type { Product, ProductVariant } from "@/types";
 import { saveProduct } from "@/app/actions/products";
 import { slugify } from "@/lib/slug";
 
-type Draft = Omit<Product, "createdAt" | "updatedAt" | "updatedBy">;
+// Internal type that adds a stable React key per variant row.
+// _key is stripped before calling saveProduct.
+type DraftVariant = ProductVariant & { _key: string };
 
-const emptyVariant: ProductVariant = {
-  sku: "",
-  size: "",
-  packSize: "",
-  priceInPence: 0,
-  stock: 0,
-  coaUrl: null,
-  active: true,
+let _keyCounter = 0;
+function nextKey() {
+  return `v-${++_keyCounter}`;
+}
+
+type Draft = Omit<Product, "createdAt" | "updatedAt" | "updatedBy" | "variants"> & {
+  variants: DraftVariant[];
 };
+
+function makeEmptyVariant(): DraftVariant {
+  return {
+    sku: "",
+    size: "",
+    packSize: "",
+    priceInPence: 0,
+    stock: 0,
+    coaUrl: null,
+    active: true,
+    _key: nextKey(),
+  };
+}
 
 const emptyDraft: Draft = {
   id: "",
@@ -32,7 +46,7 @@ const emptyDraft: Draft = {
   testingMethod: "HPLC",
   pubchemCid: null,
   moleculeImage: null,
-  variants: [{ ...emptyVariant }],
+  variants: [makeEmptyVariant()],
   images: [],
   primaryImageIndex: 0,
   seoTitle: null,
@@ -46,9 +60,12 @@ export function ProductForm({ initial }: { initial?: Product }) {
   const [draft, setDraft] = useState<Draft>(() => {
     if (initial) {
       const { createdAt: _c, updatedAt: _u, updatedBy: _b, ...rest } = initial;
-      return { ...rest };
+      return {
+        ...rest,
+        variants: rest.variants.map((v) => ({ ...v, _key: nextKey() })),
+      };
     }
-    return { ...emptyDraft };
+    return { ...emptyDraft, variants: [makeEmptyVariant()] };
   });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -66,24 +83,26 @@ export function ProductForm({ initial }: { initial?: Product }) {
     }));
   };
 
-  const updateVariant = (idx: number, patch: Partial<ProductVariant>) => {
+  const updateVariant = (idx: number, patch: Partial<DraftVariant>) => {
     setDraft((d) => ({
       ...d,
-      variants: d.variants.map((v, i) => (i === idx ? { ...v, ...patch } : v)),
+      variants: d.variants.map((v, i) =>
+        i === idx ? ({ ...v, ...patch } as DraftVariant) : v
+      ),
     }));
   };
 
   const addVariant = () => {
     setDraft((d) => ({
       ...d,
-      variants: [...d.variants, { ...emptyVariant }],
+      variants: [...d.variants, makeEmptyVariant()],
     }));
   };
 
   const removeVariant = (idx: number) => {
     setDraft((d) => ({
       ...d,
-      variants: d.variants.filter((_, i) => i !== idx),
+      variants: d.variants.filter((_, i) => i !== idx) as DraftVariant[],
     }));
   };
 
@@ -92,7 +111,11 @@ export function ProductForm({ initial }: { initial?: Product }) {
     setSaving(true);
     setError(null);
     try {
-      await saveProduct(draft);
+      const dataToSave = {
+        ...draft,
+        variants: draft.variants.map(({ _key: _k, ...rest }) => rest),
+      };
+      await saveProduct(dataToSave);
     } catch (err) {
       // Re-throw Next.js redirect errors so the router can handle them
       if (
@@ -289,7 +312,7 @@ export function ProductForm({ initial }: { initial?: Product }) {
         <div className="space-y-4">
           {draft.variants.map((v, idx) => (
             <div
-              key={idx}
+              key={v._key}
               className="bg-white border border-[#DDE1E7] p-4 grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr_1fr_1fr_auto_auto] gap-3 items-end"
             >
               <div>

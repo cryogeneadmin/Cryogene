@@ -53,7 +53,8 @@ const ProductSchema = z.object({
 });
 
 function useSeed(): boolean {
-  return getAdminDb() === null;
+  const projectId = process.env.FIREBASE_PROJECT_ID;
+  return !projectId || projectId === "REPLACE_ME";
 }
 
 async function readLocalWrites(): Promise<Product[]> {
@@ -74,7 +75,7 @@ async function writeLocalWrites(products: Product[]): Promise<void> {
 
 export async function saveProduct(data: unknown) {
   const parsed = ProductSchema.parse(data);
-  const now = new Date().toISOString();
+  const now = new Date();
 
   const product: Product = {
     id: parsed.id ?? `local-${Date.now()}`,
@@ -102,8 +103,8 @@ export async function saveProduct(data: unknown) {
     faq: parsed.faq,
     tags: parsed.tags,
     active: parsed.active,
-    createdAt: now as unknown as Date,
-    updatedAt: now as unknown as Date,
+    createdAt: now,
+    updatedAt: now,
     updatedBy: "admin-ui",
   };
 
@@ -137,7 +138,7 @@ export async function toggleProductActive(id: string, active: boolean) {
     writes[idx] = {
       ...writes[idx]!,
       active,
-      updatedAt: new Date().toISOString() as unknown as Date,
+      updatedAt: new Date(),
     };
     await writeLocalWrites(writes);
   } else {
