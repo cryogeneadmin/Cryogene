@@ -3,13 +3,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import type { Product } from "@/types";
+import type { Product, ProductCategory } from "@/types";
 import { formatPriceFromPence } from "@/lib/basket";
 
 export function ProductTable({ products }: { products: Product[] }) {
   const [search, setSearch] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState<string>("all");
-  const [activeFilter, setActiveFilter] = useState<string>("all");
+  const [categoryFilter, setCategoryFilter] = useState<"all" | ProductCategory>("all");
+  const [activeFilter, setActiveFilter] = useState<"all" | "active" | "inactive">("all");
 
   const filtered = products.filter((p) => {
     if (search && !p.name.toLowerCase().includes(search.toLowerCase())) return false;
@@ -31,7 +31,7 @@ export function ProductTable({ products }: { products: Product[] }) {
         />
         <select
           value={categoryFilter}
-          onChange={(e) => setCategoryFilter(e.target.value)}
+          onChange={(e) => setCategoryFilter(e.target.value as "all" | ProductCategory)}
           className="border border-[#DDE1E7] px-3 py-2 text-sm"
         >
           <option value="all">All categories</option>
@@ -41,7 +41,7 @@ export function ProductTable({ products }: { products: Product[] }) {
         </select>
         <select
           value={activeFilter}
-          onChange={(e) => setActiveFilter(e.target.value)}
+          onChange={(e) => setActiveFilter(e.target.value as "all" | "active" | "inactive")}
           className="border border-[#DDE1E7] px-3 py-2 text-sm"
         >
           <option value="all">All statuses</option>
@@ -77,8 +77,14 @@ export function ProductTable({ products }: { products: Product[] }) {
                   </div>
                 </td>
                 <td className="p-3 font-medium">{p.name}</td>
-                <td className="p-3 text-[#6B7280]">{p.category}</td>
-                <td className="p-3 text-[#6B7280]">{p.variants.length} sizes</td>
+                <td className="p-3 text-[#6B7280] capitalize">{p.category}</td>
+                <td className="p-3 text-[#6B7280]">
+                  {p.variants.length === 0 ? (
+                    <span className="text-red-600 text-xs">No variants</span>
+                  ) : (
+                    <span>{p.variants.length} sizes</span>
+                  )}
+                </td>
                 <td className="p-3">{totalStock}</td>
                 <td className="p-3 mono">{lowestPrice > 0 ? formatPriceFromPence(lowestPrice) : "TBC"}</td>
                 <td className="p-3">
