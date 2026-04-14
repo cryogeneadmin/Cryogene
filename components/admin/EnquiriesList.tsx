@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import type { Enquiry, EnquiryStatus } from "@/types";
 import { setEnquiryStatusAction } from "@/app/actions/enquiries-admin";
 import { coerceToDate } from "@/lib/utils";
 
 export function EnquiriesList({ enquiries }: { enquiries: Enquiry[] }) {
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
+  const [actionError, setActionError] = useState<string | null>(null);
 
   if (enquiries.length === 0) {
     return <p className="text-sm text-[#6B7280]">No enquiries yet.</p>;
@@ -43,8 +45,18 @@ export function EnquiriesList({ enquiries }: { enquiries: Enquiry[] }) {
                 {e.status !== "replied" && (
                   <button
                     type="button"
-                    onClick={() => setEnquiryStatusAction(e.id, "replied")}
-                    className="px-4 py-2 text-xs uppercase tracking-wider border border-[#DDE1E7] hover:bg-[#F7F8FA]"
+                    disabled={isPending}
+                    onClick={() => {
+                      setActionError(null);
+                      startTransition(async () => {
+                        try {
+                          await setEnquiryStatusAction(e.id, "replied");
+                        } catch (err) {
+                          setActionError(err instanceof Error ? err.message : "Failed to update");
+                        }
+                      });
+                    }}
+                    className="px-4 py-2 text-xs uppercase tracking-wider border border-[#DDE1E7] hover:bg-[#F7F8FA] disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Mark as replied
                   </button>
@@ -52,13 +64,26 @@ export function EnquiriesList({ enquiries }: { enquiries: Enquiry[] }) {
                 {e.status !== "archived" && (
                   <button
                     type="button"
-                    onClick={() => setEnquiryStatusAction(e.id, "archived")}
-                    className="px-4 py-2 text-xs uppercase tracking-wider border border-[#DDE1E7] hover:bg-[#F7F8FA]"
+                    disabled={isPending}
+                    onClick={() => {
+                      setActionError(null);
+                      startTransition(async () => {
+                        try {
+                          await setEnquiryStatusAction(e.id, "archived");
+                        } catch (err) {
+                          setActionError(err instanceof Error ? err.message : "Failed to update");
+                        }
+                      });
+                    }}
+                    className="px-4 py-2 text-xs uppercase tracking-wider border border-[#DDE1E7] hover:bg-[#F7F8FA] disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Archive
                   </button>
                 )}
               </div>
+              {actionError && (
+                <p className="text-xs text-red-700 mt-2">{actionError}</p>
+              )}
             </div>
           )}
         </li>

@@ -28,7 +28,7 @@ export default async function AdminCustomersPage() {
                 <td className="p-3 text-[#6B7280]">{c.email}</td>
                 <td className="p-3 text-[#6B7280]">{c.researchInstitution ?? "—"}</td>
                 <td className="p-3 text-right">{c.orderCount}</td>
-                <td className="p-3 text-right font-mono">{formatPriceFromPence(c.lifetimeValueInPence)}</td>
+                <td className="p-3 text-right mono">{formatPriceFromPence(c.lifetimeValueInPence)}</td>
               </tr>
             ))}
           </tbody>
