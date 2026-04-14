@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import type { Order, OrderStatus } from "@/types";
 import { formatPriceFromPence } from "@/lib/basket";
+import { coerceToDate } from "@/lib/utils";
 
 const STATUS_OPTIONS: Array<{ value: string; label: string }> = [
   { value: "all", label: "All statuses" },
@@ -30,13 +31,6 @@ function StatusBadge({ status }: { status: OrderStatus }) {
   );
 }
 
-function toDate(val: Date | { toDate?: () => Date } | string | number): Date {
-  if (val instanceof Date) return val;
-  if (typeof val === "object" && val !== null && typeof (val as { toDate?: () => Date }).toDate === "function") {
-    return (val as { toDate: () => Date }).toDate();
-  }
-  return new Date(val as string | number);
-}
 
 export function OrderTable({ orders }: { orders: Order[] }) {
   const [statusFilter, setStatusFilter] = useState<"all" | OrderStatus>("all");
@@ -85,7 +79,7 @@ export function OrderTable({ orders }: { orders: Order[] }) {
                 </Link>
               </td>
               <td className="p-3 text-[#6B7280]">
-                {toDate(o.createdAt).toLocaleDateString("en-GB")}
+                {(coerceToDate(o.createdAt) ?? new Date()).toLocaleDateString("en-GB")}
               </td>
               <td className="p-3">{o.customer.name}</td>
               <td className="p-3">{o.items.reduce((s, i) => s + i.quantity, 0)}</td>

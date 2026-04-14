@@ -4,9 +4,11 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { updateOrder } from "@/lib/orders";
+import { isAdminRequest } from "@/lib/admin-auth";
 import type { OrderStatus } from "@/types";
 
 export async function setOrderStatus(id: string, status: OrderStatus) {
+  if (!(await isAdminRequest())) throw new Error("Unauthorised");
   const validated = z
     .object({
       id: z.string().min(1).max(128),
@@ -20,10 +22,11 @@ export async function setOrderStatus(id: string, status: OrderStatus) {
 }
 
 export async function addAdminNote(id: string, note: string) {
+  if (!(await isAdminRequest())) throw new Error("Unauthorised");
   const validated = z
     .object({
       id: z.string().min(1).max(128),
-      note: z.string().max(2000),
+      note: z.string().min(1).max(2000),
     })
     .parse({ id, note });
 

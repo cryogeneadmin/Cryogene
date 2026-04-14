@@ -3,20 +3,7 @@ import { notFound } from "next/navigation";
 import { getOrderById } from "@/lib/orders";
 import { formatPriceFromPence } from "@/lib/basket";
 import { OrderStatusControls } from "@/components/admin/OrderStatusControls";
-import type { Timestamp } from "firebase/firestore";
-
-function toDate(val: Date | Timestamp | string | number | null | undefined): Date | null {
-  if (!val) return null;
-  if (val instanceof Date) return val;
-  if (
-    typeof val === "object" &&
-    val !== null &&
-    typeof (val as Timestamp).toDate === "function"
-  ) {
-    return (val as Timestamp).toDate();
-  }
-  return new Date(val as string | number);
-}
+import { coerceToDate } from "@/lib/utils";
 
 export default async function AdminOrderDetailPage({
   params,
@@ -24,10 +11,11 @@ export default async function AdminOrderDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  if (!id || id.length > 128 || !/^[\w-]+$/.test(id)) notFound();
   const order = await getOrderById(id);
   if (!order) notFound();
 
-  const paidAt = toDate(order.payment.paidAt);
+  const paidAt = coerceToDate(order.payment.paidAt);
 
   return (
     <div>
