@@ -1,7 +1,10 @@
 // components/storefront/layout/Footer.tsx
 import Link from "next/link";
+import { getConfig } from "@/lib/config";
 
-export function Footer() {
+export async function Footer() {
+  const config = await getConfig();
+  const year = new Date().getFullYear();
   return (
     <footer className="bg-[#0D1B3E] text-[#8BAAD4] mt-24">
       <div className="max-w-[1280px] mx-auto px-6 py-16 grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -29,6 +32,13 @@ export function Footer() {
           <ul className="space-y-2 text-sm">
             <li><Link href="/about" className="hover:text-white">About</Link></li>
             <li><Link href="/contact" className="hover:text-white">Contact</Link></li>
+            {config.storeEmail && (
+              <li>
+                <a href={`mailto:${config.storeEmail}`} className="hover:text-white">
+                  {config.storeEmail}
+                </a>
+              </li>
+            )}
           </ul>
         </div>
         <div>
@@ -41,7 +51,7 @@ export function Footer() {
       </div>
       <div className="border-t border-[#162040]">
         <div className="max-w-[1280px] mx-auto px-6 py-6 text-xs text-[#8BAAD4] flex flex-col md:flex-row md:justify-between gap-2">
-          <p>&copy; 2026 Cryogene. Registered in England. [ADDRESS TBC]</p>
+          <p>&copy; {year} {config.storeName}. {config.registeredAddress}.</p>
           <p className="uppercase tracking-wider">
             All products for research use only — not for human or veterinary consumption.
           </p>

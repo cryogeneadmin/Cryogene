@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { BasketIconButton } from "@/components/storefront/basket/BasketIconButton";
 import { BasketDrawer } from "@/components/storefront/basket/BasketDrawer";
+import { getConfig } from "@/lib/config";
 
 const navLinks = [
   { href: "/peptides", label: "Peptides" },
@@ -12,13 +13,14 @@ const navLinks = [
   { href: "/contact", label: "Contact" },
 ];
 
-export function Navbar() {
+export async function Navbar() {
+  const config = await getConfig();
   return (
     <>
       <nav className="sticky top-9 z-30 bg-white border-b border-[#DDE1E7]">
         <div className="max-w-[1280px] mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="text-2xl font-serif text-[#0D1B3E] tracking-tight">
-            Cryogene
+            {config.storeName}
           </Link>
           <ul className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
