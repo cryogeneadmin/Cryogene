@@ -29,8 +29,8 @@ export function ConfirmationContent({
       <div className="bg-white border border-[#DDE1E7] p-6 mb-8">
         <p className="label-editorial mb-4">Your order</p>
         <div className="space-y-3">
-          {order.items.map((item) => (
-            <div key={item.sku} className="flex justify-between text-sm">
+          {order.items.map((item, i) => (
+            <div key={`${item.sku}-${i}`} className="flex justify-between text-sm">
               <span>{item.name} · {item.size} · qty {item.quantity}</span>
               <span className="mono">{formatPriceFromPence(item.lineTotalInPence)}</span>
             </div>
