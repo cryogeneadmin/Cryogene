@@ -1,4 +1,5 @@
 // app/(admin)/admin/layout.tsx
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { isAdminRequest } from "@/lib/admin-auth";
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
@@ -21,4 +22,4 @@ export default async function AdminLayout({
   );
 }
 
-export const metadata = { title: "Admin" };
+export const metadata: Metadata = { title: "Admin" };

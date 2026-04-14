@@ -25,7 +25,9 @@ export function AdminSidebar() {
             key={link.href}
             href={link.href}
             className={`block py-2 px-3 text-sm rounded ${
-              pathname === link.href
+              link.href === "/admin"
+                ? pathname === "/admin"
+                : pathname.startsWith(link.href)
                 ? "bg-[#162040] text-white"
                 : "text-[#8BAAD4] hover:bg-[#162040] hover:text-white"
             }`}
