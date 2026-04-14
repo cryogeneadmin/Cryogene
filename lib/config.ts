@@ -26,7 +26,7 @@ const DEFAULT_CONFIG: Config = {
   notifications: {
     newOrderEmailTo: "orders@cryogene.co.uk",
   },
-  updatedAt: new Date() as unknown as Date,
+  updatedAt: new Date(),
   updatedBy: "seed",
 };
 
