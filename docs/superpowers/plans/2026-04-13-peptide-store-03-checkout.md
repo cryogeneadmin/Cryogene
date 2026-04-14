@@ -28,15 +28,209 @@
 
 > **Populated by Opus during the end-of-Plan-2 review.** If this still says "Awaiting review" when Sonnet opens this file, **STOP** and confirm the Opus review has been run.
 
-**Status:** ⏳ Awaiting review.
+**Status:** ✅ **APPROVED with scope change** — reviewed by Opus 2026-04-14 via Playwright against the running dev server. Plan 2 execution is sound. Visual taste check passes. However, **Sam has delivered a material client update** that reshapes the product catalogue and brand identity before Plan 3 starts. The scope change is documented in section **S1** below and must be actioned at the top of Plan 3 (before any checkout work begins).
 
-**Visual taste adjustments from Plan 2 review:** TBC
+**Git log range:** Plan 2 commits `a47fba4..ce0590c` (13 task commits + 1 smoke-test milestone). Plus post-review branding commit `40e6342` (applied by Opus).
 
-**Drift from plan (if any):** TBC
+---
 
-**Emergent utilities or component patterns Plan 3 should reuse:** TBC
+### Visual taste check ✅
 
-**Adjustments to Plan 3 tasks (if any):** TBC
+The storefront lands boutique-editorial, not generic-Shopify. Screenshots at `C:\tmp\peptide-shots\`. Concrete confirmation:
+
+- **Homepage hero** — Cormorant Garamond h1 ("Research-grade peptides, documented to the batch.") with line break as editorial pull-quote, small-caps `UK Research Supply` eyebrow, square zero-radius navy CTAs. Reads closer to Aesop/Le Labo than Shopify-in-navy.
+- **PDP** — JetBrains Mono chemistry data row (`CAS · molecular formula · molecular weight`) + label-editorial PURITY/TESTED badges read like a museum specimen card. This is exactly the right register for a regulated research supplier.
+- **Filter URL state** — `/peptides?sizes=5mg&methods=HPLC&instock=1` survives reload, shareable, filter clearing works.
+- **Basket flow** — Drawer opens on add, quantity stepper works, subtotal recomputes, remove clears to empty state, `/basket` full page mirrors drawer state, survives refresh via localStorage with no hydration warnings.
+
+**Taste refinements (not blockers, do not action now):**
+1. The hero image is the placeholder vial SVG and is doing the work of what should be a real editorial photograph. This won't fix itself — Sam needs to commission a moody lab still-life, or we brief an Actually AI generative image for Plan 5. Add to Plan 5's content task list.
+2. The homepage is eight vertically stacked sections with similar generous whitespace. One **off-grid moment** (asymmetric split, oversized serif pull-quote, or a horizontal product shelf) would push it from "tasteful" to "distinctive". Defer to Plan 5 SEO/content pass — it's a homepage edit, not architecture.
+
+---
+
+### Drift from Plan 2 (all sound, no corrective action needed)
+
+1. **`app/page.tsx` re-export shim kept** — Sonnet discovered that Next.js 16's build-time type validator generates `validator.ts` with a hard-coded import from `../../../app/page.js`, and this does NOT traverse route groups to find `app/(public)/page.tsx`. Deleting `app/page.tsx` breaks the build. The shim `export { default } from "./(public)/page"` is the correct architectural solution: it satisfies the validator, only one `/` route exists at runtime, and it preserves the `(public)/(admin)` route-group separation that Plan 4 depends on. **Keep this permanently.** Do not try to "clean up" by moving the homepage out of the route group — Plan 4's admin layout assumes `(public)` and `(admin)` siblings.
+
+2. **Legal `updated` Date rendering fix** — `gray-matter` parses unquoted YAML dates (`updated: 2026-04-13`) as JavaScript `Date` objects, which React refuses to render as a child. All six legal pages were throwing HTTP 500 during Task 14's smoke test. Sonnet widened the type to `string | Date` and added a runtime `instanceof Date` guard. This is defensive-coded but correct — it also protects against future editors who drop quotes. **Do not refactor** by quoting the YAML dates; the runtime guard is the more resilient pattern.
+
+3. **Hydration guard pattern (review note C3 from Plan 1)** — Applied to both `BasketIconButton` (count = 0 until mounted, badge gated on `mounted && count > 0`) and `BasketDrawer` (`if (!mounted) return null`). Both tested visually, no React 19 hydration warnings. The BasketDrawer's "return null until mounted" is slightly heavier than the IconButton's "render with zero state" pattern, but because the drawer is only ever an overlay, it's fine.
+
+4. **SVG images use `unoptimized`, not `dangerouslyAllowSVG`** — Per review note C5. Every `<Image>` in Plan 2 that serves from `/public/*.svg` has `unoptimized`. The `next.config.ts` does NOT need `dangerouslyAllowSVG: true` because we're not pulling SVGs from a remote URL. When Sam's real product photography arrives in Plan 5 (as raster images from Firebase Storage), the `remotePatterns` config Sonnet added for `firebasestorage.googleapis.com` takes over.
+
+5. **Blended route group for `(public)` is pass-through** — `app/(public)/layout.tsx` currently just returns `<>{children}</>`. Keep it this way. In Plan 4 it may need to become a real layout wrapper if we want public-only providers (e.g. an analytics wrapper that doesn't load in admin). Until then, pass-through is correct.
+
+---
+
+### Emergent utilities & patterns Plan 3 should reuse
+
+- **`formatPriceFromPence(pence: number): string`** — Exported from `lib/basket.ts`. Handles all pence→£ formatting site-wide. Plan 3's order confirmation emails and invoice views **must** use this — do not reinvent.
+- **URL query-param filter pattern** — `ProductFilters.tsx` uses `useRouter().replace(url, { scroll: false })` with `URLSearchParams`. Reuse the same pattern if Plan 3's `/account/orders` list gets filters (status, date range).
+- **`useHasMounted` inline pattern** — `const [mounted, setMounted] = useState(false); useEffect(() => setMounted(true), []);` Used in both BasketIconButton and BasketDrawer. If Plan 3 adds any Zustand-backed account state (e.g. recently-viewed products), apply the same guard. Do NOT factor this into a shared hook yet — premature abstraction.
+- **Server Action + Zod + `useActionState` pattern** — Established in `app/actions/contact.ts` + `app/(public)/contact/page.tsx`. Plan 3's checkout form (`app/actions/checkout.ts`) and customer account forms (`app/actions/profile.ts`) **must** follow the same pattern: `_prevState, formData` signature → `safeParse` → error-map → return typed state. Import `useActionState` from `"react"`, NOT from `"react-dom"` (that's the React 18 API).
+- **Category label derivation** — `ProductDetail.tsx` has an inline ternary: `product.category === "peptides" ? "Research Peptides" : ...`. Plan 3 order confirmation emails will need the same mapping. Consider extracting to `lib/categories.ts` as `getCategoryLabel(category: ProductCategory): string` at the start of Plan 3. **YAGNI check:** only extract if Plan 3 uses it in ≥2 places.
+- **Breadcrumb convention** — `<nav aria-label="Breadcrumb" className="label-editorial">Home / Category / Item</nav>`. Plan 3's `/account/*` and `/checkout/*` pages should use the same structure for consistency.
+
+---
+
+### S1 — CLIENT SCOPE CHANGE: Cryogene brand + new product catalogue
+
+**Between Plan 2 completion and this review, Sam delivered two documents** — `Cryogene.docx` (SOW-2026-001 update) and `Product_List.csv` (120 confirmed SKUs). These constitute a material scope change that rewrites the product catalogue Plan 2 built against. Plan 3 must action this before any checkout work.
+
+#### S1.1 Brand name confirmed: **Cryogene**
+
+The store is called **Cryogene**. Domain is **cryogene.co.uk** (not yet registered by the client — use the URL throughout the codebase; it will resolve when they buy it and point it at Vercel). Legal registered address still TBC — currently hardcoded as `[ADDRESS TBC]` in the Footer.
+
+**Already applied by Opus in post-review commit `40e6342`:**
+- `components/storefront/layout/Navbar.tsx` — wordmark `[PEPTIDE STORE]` → `Cryogene`
+- `components/storefront/layout/Footer.tsx` — copyright `© 2026 [Store Name]` → `© 2026 Cryogene`, address → `[ADDRESS TBC]`
+- `app/layout.tsx` — metadata `default` title → `Cryogene — UK Research Peptides, HPLC-Tested & Documented`, `template` → `%s | Cryogene`, `metadataBase` → `new URL("https://cryogene.co.uk")`
+
+**Still outstanding (for Plan 3 Task 0 to handle):**
+- Legal page markdown (`content/legal/*.md`) still references "the site" generically — add a small introduction block referencing Cryogene by name. Do this at the START of Plan 3 before Firebase work.
+- `app/(public)/about/page.tsx` — currently uses `[DRAFT — TO BE ADAPTED BY SAM]` placeholders. Plan 3 should insert a single passing reference to Cryogene in the opening paragraph; full copy stays deferred to Plan 5.
+- **Plan 4** (admin) — `lib/storeConfig.ts` was going to read `storeName` from a Firestore config doc. Set the default to `"Cryogene"` (was `"[PEPTIDE STORE]"` in the plan text — Plan 4 Task text at line 576 and 579 needs updating to `"Cryogene"` and drop `[ADDRESS]`). Sonnet of Plan 4 should not need to be reminded; this note is here for the Plan-4 Opus review.
+- **Plan 5** (SEO/content) — robots.txt, sitemap.xml, JSON-LD Organization object, Open Graph `og:site_name` all need Cryogene applied. Already in Plan 5's scope.
+
+#### S1.2 Product catalogue: 120 SKUs, not 25 speculative
+
+Sam's `Product_List.csv` has **120 confirmed peptide SKUs + 10 research supplies**. Our current `data/products.seed.json` has 25 speculative products across peptides/capsules/mixers that Sam never asked for. The specific mismatches:
+
+| What Plan 2 built | What Sam actually sells |
+|---|---|
+| 12 peptides | **120** peptides (some with up to 12 variants — e.g. Tirzepatide 5–120mg) |
+| 8 "Research Capsules" | ❌ **No capsules category.** Sam does not stock encapsulated products. |
+| 5 "Mixers & Solvents" | Bacteriostatic water + acetic acid water are under **Peptides** in Sam's CSV but are really mixers |
+| No "Research Supplies" category | **10 supplies SKUs** — petri dishes, sterile vials, alcohol swabs, nitrile gloves (S/M/L), pipettes, pH strips, syringe filters, lab notebook |
+| Individual vials | **All products sell in packs of 10 vials** (except research supplies in their own pack sizes) |
+| Full prices in seed | **No prices yet** — Sam hasn't confirmed pricing. Use `priceInPence: 0` as placeholder |
+| No blended product concept | **5 blended SKUs** — BB10/BB20/CP10/BBG70/Klow80 are multi-compound blends that need a different UI treatment |
+| 4 generic "HGH" mentions | **HGH explicitly excluded** — SKUs H10/H12/H15/H24 must NOT appear in the catalogue (client decision) |
+
+**Decision for Plan 3 Task 0:** Rewrite `data/products.seed.json` from Sam's CSV. Specifically:
+
+1. **Category taxonomy change.** Collapse from `peptides | capsules | mixers` to `peptides | mixers | supplies`.
+   - Drop `capsules` category entirely. No capsule SKUs in Sam's list → no URL, no nav link, no filter.
+   - `mixers` category gets: `WA10`, `WA20`, `WA30` (Bacteriostatic Water 10/20/30ml), `AA10` (Acetic Acid Water 10ml). Move these out of the CSV's "Peptides" bucket into `mixers` in our data model.
+   - Add new `supplies` category. Nav label: "Research Supplies". Populate from the 10 `RS-*` SKUs.
+   - Update `types/product.ts` `ProductCategory` union: `"peptides" | "mixers" | "supplies"`.
+   - Update `Footer.tsx` Shop column links.
+   - Update `Navbar.tsx` nav links — replace "Capsules" with "Supplies".
+   - Update homepage category cards — Research Peptides / Mixers & Solvents / Research Supplies.
+   - Delete `app/(public)/capsules/` folder (route + `[slug]` subroute).
+   - Update the `ProductListingPage` category descriptions.
+
+2. **Variant grouping.** Sam's CSV has one row per SKU (e.g. `TR5, Tirzepatide, 5mg` / `TR10, Tirzepatide, 10mg` / ... / `TR120, Tirzepatide, 120mg`). These need to be **grouped into a single `Product` with multiple `ProductVariant` entries** in our data model. The `slug` for the product group should be the lowercase dash-separated product name (e.g. `tirzepatide`), and each variant gets its own `sku` from Sam's code (TR5, TR10, ...) and its own `size` ("5mg", "10mg", ...).
+
+3. **Placeholder pricing.** Every variant gets `priceInPence: 0` until Sam confirms pricing. The PDP, ProductCard, and basket need to handle the £0.00 case gracefully — **do not** show `Out of stock` or hide the product. Instead, when `priceInPence === 0`, display `"Pricing TBC"` in place of the price and disable the "Add to basket" button with tooltip/label "Pricing to be confirmed". This is a new rendering branch in `VariantSelector.tsx` and `ProductCard.tsx`. Add to Plan 3 Task 0.
+
+4. **Blended products.** The 5 blends (BB10, BB20, CP10, BBG70, Klow80) are products where a single variant contains multiple peptide compounds (e.g. `TB500 10mg + BPC-157 10mg + GHK-CU 50mg`). These need:
+   - New field on `Product`: `composition: Array<{ compound: string; amount: string }>` — optional, present only on blended products.
+   - Or a flag `isBlend: boolean` and a parsed `blendComponents` array.
+   - PDP should render a `BlendedProductComposition` component (new, build in Plan 3 Task 0) that shows the compound breakdown in a hairline-bordered table below the h1, e.g.:
+     ```
+     BLEND COMPOSITION
+     ─────────────────
+     TB-500       10mg
+     BPC-157      10mg
+     GHK-Cu       50mg
+     ```
+   - ProductCard should add a small "BLEND" pill next to the CAS number for these products.
+   - Don't over-engineer: these products don't have a CAS number (they're multi-compound), so `casNumber` should be `null` for blends and the PDP chemistry row should hide the CAS field when null.
+
+5. **Pack size field.** Sam's CSV shows `Pack Size: 10 vials` for every peptide. Add a `packSize: string` field on `ProductVariant` (e.g. `"10 vials"`, or for supplies `"Pack of 100"`). Display on the PDP under the variant size. This is new — not in Plan 2's data model.
+
+6. **HGH exclusion is enforced at the data seed level**, not at runtime. Simply don't include H10/H12/H15/H24 in the JSON. No filter, no flag. If Sam later changes his mind, add them to the seed (or via admin overlay in Plan 4).
+
+7. **Chemistry data is MISSING for most SKUs.** Sam's CSV has `SKU, Category, Product Name, Variant, Pack Size, Price, Notes` only. There is no CAS number, molecular formula, molecular weight, purity, or testing method data. Plan 2 required all of these for the PDP chemistry row. **Plan 3 Task 0 options:**
+   - **(a)** Research CAS numbers and molecular formulas for all ~60 distinct compounds via WebSearch/WebFetch from PubChem / ChemSpider / DrugBank, populating the seed directly. This is ~3–4 hours of subagent work. **Recommended for real products** so the PDP doesn't render empty chemistry rows.
+   - **(b)** Make the chemistry fields optional on the `Product` type and have the PDP hide the chemistry row entirely when all fields are null. Useful as a fallback for blends and supplies.
+   - **Plan 3 Task 0 should do both:** widen the types to optional, AND populate the major compounds (the 30–40 most common peptides) via subagent research. Blends and supplies legitimately have no chemistry data and should render without the row.
+
+#### S1.3 TrueLayer MCP server must be connected before Plan 3's payment work
+
+Sam's docx confirms TrueLayer (already in Plan 1's env var scaffolding — good). But it adds a new instruction:
+
+> "Connect the TrueLayer MCP server to Claude Code before building Phase 2. This allows Claude Code to query the TrueLayer API directly during development."
+
+MCP docs: https://docs.truelayer.com/docs/truelayer-mcp-integration-for-claude-ai
+
+**Action for David (human, not Sonnet):** Install and authenticate the TrueLayer MCP server in Claude Code BEFORE resuming Plan 3. Sonnet cannot do this — MCP server installation is user-side.
+
+**Action for Plan 3 Sonnet:** At the start of the TrueLayer integration task, verify that `mcp__truelayer__*` tools are available via `ToolSearch`. If they aren't, stop and tell David to connect the MCP before proceeding.
+
+Also confirmed from the docx:
+- **Sandbox base URL:** `https://api.truelayer-sandbox.com`
+- **Production base URL:** `https://api.truelayer.com`
+- **Web SDK:** `@truelayer/web-sdk`
+- **Signup+ for age verification:** Include the Signup+ scope when creating a payment to trigger bank-level identity + age check. This is STRONGER than a frontend checkbox and Sam wants it enabled. Plan 3's payment-initiate route must set this scope.
+- **Return URL:** `NEXT_PUBLIC_TRUELAYER_RETURN_URL=https://cryogene.co.uk/checkout/confirm`
+- **API routes to build (per Sam's brief — matches Plan 3 existing scope):** `POST /api/checkout/initiate`, `POST /api/webhooks/truelayer`, `GET /api/checkout/status/[paymentId]`
+
+#### S1.4 Royal Mail Click and Drop (Phase 3, not Plan 3)
+
+Not a Plan 3 concern — Phase 3 is admin fulfilment work. Noted here for visibility:
+- Courier confirmed: Royal Mail Click and Drop
+- API docs: https://developer.royalmail.net/node/1384
+- Env vars `ROYAL_MAIL_API_KEY`, `ROYAL_MAIL_ACCOUNT_NUMBER` — add to `.env.example` during Plan 3's env-var pass
+- Printer confirmed: Zebra ZD421 Wi-Fi (cloud-enabled, cloud print job — no local server)
+- Flow: On `order.status === 'paid'` → create Click & Drop order → receive label PDF → send to Zebra PrintConnect → store `trackingNumber` + `courierReference` on the order doc → dispatch email with tracking link
+- **Plan 4 admin UI** will need to show these fields on the order detail view; Plan 4 spec should be amended
+
+---
+
+### Adjustments to Plan 3 tasks
+
+**Insert `Task 0` at the top of Plan 3** (before "Task 1: Install dependencies"). Task 0 is the Cryogene catalogue migration, broken down as:
+
+- **Task 0.1:** Update `types/product.ts` — change `ProductCategory` to `"peptides" | "mixers" | "supplies"`. Add `packSize: string` to `ProductVariant`. Make `casNumber`, `molecularFormula`, `molecularWeight`, `purity`, `testingMethod` optional on `Product`. Add optional `composition: Array<{ compound: string; amount: string }>` for blended products.
+
+- **Task 0.2:** Dispatch a research subagent to build `data/products.seed.json` from `C:\Users\david\OneDrive\Desktop\Product_List.csv`. The subagent's brief:
+  - Parse the CSV
+  - Group variants by product name (so `TR5, TR10, TR15, ..., TR120` become one `Tirzepatide` product with 12 variants)
+  - Exclude H10/H12/H15/H24
+  - Route `WA*` and `AA*` into `mixers` category
+  - Route `RS-*` into new `supplies` category
+  - Route all others into `peptides` category
+  - For each distinct peptide compound, research CAS number + molecular formula + molecular weight from PubChem via WebFetch and populate the chemistry fields. Blends get `casNumber: null` + `composition: [...]`.
+  - Set `priceInPence: 0` for every variant, `coaUrl: null`, `active: true`, `stock: 100` (placeholder)
+  - Use placeholder vial SVG `/placeholder-vial.svg` as the single image for all products (Sam's photography is Phase 3)
+
+- **Task 0.3:** Delete `app/(public)/capsules/` directory (route + `[slug]` subroute). Delete any imports that referenced `"capsules"` as a category.
+
+- **Task 0.4:** Create `app/(public)/supplies/page.tsx` and `app/(public)/supplies/[slug]/page.tsx` mirroring the `peptides` routes but with category `"supplies"` and label `"Research Supplies"`.
+
+- **Task 0.5:** Update `components/storefront/layout/Navbar.tsx` nav links: replace `{ href: "/capsules", label: "Capsules" }` with `{ href: "/supplies", label: "Supplies" }`. Order: Peptides / Mixers / Supplies / Product Info / About / Contact.
+
+- **Task 0.6:** Update `components/storefront/layout/Footer.tsx` Shop column: same swap.
+
+- **Task 0.7:** Update `app/(public)/page.tsx` homepage — category cards section. Three cards: Research Peptides / Mixers & Solvents / Research Supplies. Update the "Recently added" CTA to link to `/peptides` (unchanged).
+
+- **Task 0.8:** Create `components/storefront/products/BlendedProductComposition.tsx` for blended products. Invoked from `ProductDetail.tsx` when `product.composition?.length > 0`. Also: `ProductCard.tsx` should render a small "BLEND" pill next to the CAS number area when `product.composition` is present.
+
+- **Task 0.9:** Extend `VariantSelector.tsx` to handle `priceInPence: 0` → render `"Pricing TBC"` and disable Add-to-Basket with label `"Pricing to be confirmed"`. Same for `ProductCard.tsx` — `From £0.00` becomes `From: pricing TBC`.
+
+- **Task 0.10:** Update `ProductDetail.tsx` chemistry row to conditionally hide individual `<dl>` entries when their value is null (for blends and supplies).
+
+- **Task 0.11:** Run `npm run build`, verify all 120 products statically generate, visually spot-check one peptide / one blend / one supply / one mixer.
+
+- **Task 0.12:** Commit as a single milestone: `feat: migrate to Cryogene 120-SKU catalogue (Sam SOW-2026-001)`.
+
+**After Task 0 completes, Plan 3's existing Task 1 onwards proceeds as originally written** — no other task re-ordering needed. The Firebase, TrueLayer, Resend, and checkout work all build on top of the new catalogue without further changes.
+
+**One Plan-3-specific content note:** the Plan 3 text at `line 576` and `line 579` currently references `storeName: "[PEPTIDE STORE]"` and `registeredAddress: "[ADDRESS]"` as defaults for the config doc. Plan 3 Sonnet should update these to `"Cryogene"` and `"[ADDRESS TBC]"` when implementing that task — no separate task needed, just substitute when writing the code.
+
+---
+
+### Unresolved issues to watch in Plan 3
+
+- **Chemistry data research** (Task 0.2) is ~3–4 hours of subagent time. It can be parallelised across 3–4 subagents each researching ~15 compounds. Budget 1 hour wall-clock if parallelised correctly.
+- **`active` field on variants** — Plan 1 had this. Plan 2 uses it in VariantSelector. No change in Plan 3, just flagging for awareness.
+- **Sam's notes column in the CSV is mostly blank** but two entries flag "Blended product". If there are products with notes we haven't read, the migration subagent should surface them in its report.
+- **Pricing placeholder UX** — showing "Pricing TBC" with a disabled CTA may feel broken to a first-time visitor landing on the site during the pre-launch window. Consider adding a small `"Request pricing"` link that opens `/contact?subject=Pricing%20enquiry&product=...`. Decide during Task 0.9 — if it takes more than 15 min to wire, defer to Plan 5.
+- **`[PEPTIDE STORE]` references in Plan docs 01/02/04/05** — historical records, do not touch. The branding drift is captured here; no rewrite of closed plans.
+- **leaveSite Server Action** still redirects to `https://www.google.com` as a placeholder — leave until Plan 5 when Sam can decide on the destination (NHS research use page? Gov.uk research licensing page?).
 
 ---
 
