@@ -1,0 +1,17 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /products/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth.token.admin == true;
+    }
+    match /coas/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth.token.admin == true;
+    }
+    match /vial-base/{allPaths=**} {
+      allow read: if request.auth.token.admin == true;
+      allow write: if request.auth.token.admin == true;
+    }
+  }
+}
