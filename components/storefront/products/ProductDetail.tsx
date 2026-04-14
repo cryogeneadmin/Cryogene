@@ -7,6 +7,13 @@ import { ProductFAQ } from "./ProductFAQ";
 import { ProductCard } from "./ProductCard";
 import { BlendedProductComposition } from "./BlendedProductComposition";
 import { getProducts } from "@/lib/products";
+import { getConfig } from "@/lib/config";
+import {
+  buildProductJsonLd,
+  buildFaqJsonLd,
+  buildBreadcrumbJsonLd,
+  renderJsonLd,
+} from "@/lib/seo";
 
 function getCategoryLabel(category: ProductCategory): string {
   switch (category) {
@@ -24,8 +31,31 @@ export async function ProductDetail({ product }: { product: Product }) {
     .filter((p) => p.id !== product.id)
     .slice(0, 4);
 
+  const config = await getConfig();
+  const productJsonLd = buildProductJsonLd(product, config);
+  const faqJsonLd = buildFaqJsonLd(product.faq);
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: "Home", url: "/" },
+    { name: categoryLabel, url: `/${product.category}` },
+    { name: product.name, url: `/${product.category}/${product.slug}` },
+  ]);
+
   return (
     <div className="max-w-[1280px] mx-auto px-6 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: renderJsonLd(productJsonLd) }}
+      />
+      {faqJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: renderJsonLd(faqJsonLd) }}
+        />
+      )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: renderJsonLd(breadcrumbJsonLd) }}
+      />
       <nav aria-label="Breadcrumb" className="label-editorial mb-6">
         <Link href="/" className="hover:text-[#0D1B3E]">Home</Link>
         <span className="mx-2">/</span>
