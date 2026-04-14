@@ -5,7 +5,7 @@ drafted: 2026-04-13
 
 **[DRAFT — REVIEW AND ADAPT]**
 
-GHK-Cu (Copper Tripeptide-1) is a naturally occurring copper complex of the tripeptide glycyl-L-histidyl-L-lysine. It is found in human plasma, saliva, and urine, with plasma concentrations declining with age. CAS number: 89030-95-5. Molecular formula: C₁₄H₂₄CuN₆O₄. Molecular weight: 403.91 g/mol.
+GHK-Cu (Copper Tripeptide-1) is a naturally occurring copper complex of the tripeptide glycyl-L-histidyl-L-lysine. It is found in human plasma, saliva, and urine. CAS number: 89030-95-5. Molecular formula: C₁₄H₂₄CuN₆O₄. Molecular weight: 403.91 g/mol.
 
 ## Research context
 
