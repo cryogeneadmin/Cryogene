@@ -13,7 +13,7 @@ export default async function AdminDashboard() {
 
   const recentOrders = allOrders.slice(0, 10);
 
-  const openOrders = allOrders.filter((o) => o.status === "paid");
+  const openOrders = allOrders.filter((o) => o.status === "pending" || o.status === "paid");
 
   const lowStock = products.flatMap((p) =>
     p.variants
@@ -61,7 +61,7 @@ export default async function AdminDashboard() {
                   <td className="py-3">
                     <Link
                       href={`/admin/orders/${o.id}`}
-                      className="font-mono text-xs underline"
+                      className="mono text-xs underline"
                     >
                       {o.orderNumber}
                     </Link>
@@ -70,7 +70,7 @@ export default async function AdminDashboard() {
                   <td className="py-3">
                     <StatusBadge status={o.status} />
                   </td>
-                  <td className="py-3 text-right font-mono">
+                  <td className="py-3 text-right mono">
                     {formatPriceFromPence(o.totalInPence)}
                   </td>
                 </tr>
@@ -86,7 +86,7 @@ export default async function AdminDashboard() {
 function StatCard({ label, value }: { label: string; value: string }) {
   return (
     <div className="bg-white border border-[#DDE1E7] p-5">
-      <p className="text-xs uppercase tracking-widest text-[#6B7280] mb-2">{label}</p>
+      <p className="label-editorial mb-2">{label}</p>
       <p className="font-serif text-3xl text-[#0D1B3E]">{value}</p>
     </div>
   );
