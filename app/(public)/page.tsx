@@ -2,12 +2,20 @@ import Link from "next/link";
 import Image from "next/image";
 import { getFeaturedProducts } from "@/lib/products";
 import { ProductCard } from "@/components/storefront/products/ProductCard";
+import { getConfig } from "@/lib/config";
+import { buildOrganizationJsonLd, renderJsonLd } from "@/lib/seo";
 
 export default async function HomePage() {
   const featured = await getFeaturedProducts(6);
+  const config = await getConfig();
+  const orgJsonLd = buildOrganizationJsonLd(config);
 
   return (
     <div className="pb-32">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: renderJsonLd(orgJsonLd) }}
+      />
       {/* Hero */}
       <section className="max-w-[1280px] mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <div>
