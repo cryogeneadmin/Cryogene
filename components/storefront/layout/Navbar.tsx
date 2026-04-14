@@ -29,7 +29,10 @@ export function Navbar() {
               </li>
             ))}
           </ul>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-6">
+            <Link href="/sign-in" className="label-editorial hover:text-[#0D1B3E] hidden sm:inline-block">
+              Sign in
+            </Link>
             <BasketIconButton />
           </div>
         </div>
