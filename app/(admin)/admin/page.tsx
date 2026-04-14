@@ -3,6 +3,7 @@ import { getOrders } from "@/lib/orders";
 import { getEnquiries } from "@/lib/enquiries";
 import { getProducts } from "@/lib/products";
 import { formatPriceFromPence } from "@/lib/basket";
+import type { OrderStatus } from "@/types";
 
 export default async function AdminDashboard() {
   const [allOrders, newEnquiries, products] = await Promise.all([
@@ -21,7 +22,7 @@ export default async function AdminDashboard() {
       .map((v) => ({ product: p.name, sku: v.sku, stock: v.stock }))
   );
 
-  const revenueThisMonth = recentOrders
+  const recentRevenue = recentOrders
     .filter((o) => o.status === "paid" || o.status === "fulfilled")
     .reduce((sum, o) => sum + o.totalInPence, 0);
 
@@ -33,7 +34,7 @@ export default async function AdminDashboard() {
         <StatCard label="Open orders" value={String(openOrders.length)} />
         <StatCard label="Low stock alerts" value={String(lowStock.length)} />
         <StatCard label="New enquiries" value={String(newEnquiries.length)} />
-        <StatCard label="Revenue (recent)" value={formatPriceFromPence(revenueThisMonth)} />
+        <StatCard label="Revenue (last 10 orders)" value={formatPriceFromPence(recentRevenue)} />
       </div>
 
       <section className="bg-white border border-[#DDE1E7] p-6">
@@ -92,7 +93,7 @@ function StatCard({ label, value }: { label: string; value: string }) {
   );
 }
 
-function StatusBadge({ status }: { status: string }) {
+function StatusBadge({ status }: { status: OrderStatus }) {
   const colorMap: Record<string, string> = {
     pending: "bg-amber-100 text-amber-800",
     paid: "bg-green-100 text-green-800",
