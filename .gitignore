@@ -59,3 +59,4 @@ data/orders.local.json
 data/customers.local.json
 data/enquiries.local.json
 data/counters.local.json
+data/config.local.json
