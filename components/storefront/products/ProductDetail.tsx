@@ -68,42 +68,46 @@ export async function ProductDetail({ product }: { product: Product }) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         <div>
           <div className="border border-[#DDE1E7] bg-[#F7F8FA] p-12 flex items-center justify-center aspect-square">
-            {product.moleculeImage ? (
-              <Image
-                src={product.moleculeImage}
-                alt={`${product.name} molecular structure`}
-                width={600}
-                height={600}
-                className="object-contain w-full h-full"
-                priority
-                unoptimized
-              />
-            ) : primaryImage ? (
-              <Image
-                src={primaryImage}
-                alt={`${product.name} research peptide vial`}
-                width={600}
-                height={600}
-                className="object-contain w-full h-full"
-                priority
-                unoptimized
-              />
-            ) : null}
+            <Image
+              src={primaryImage ?? "/placeholder-vial.svg"}
+              alt={`${product.name} research ${product.category === "supplies" ? "supply" : "peptide"} vial`}
+              width={600}
+              height={600}
+              className="object-contain w-full h-full"
+              priority
+              unoptimized
+            />
           </div>
         </div>
         <div>
           <p className="label-editorial mb-2">{categoryLabel}</p>
           <h1 className="text-5xl leading-tight mb-4">{product.name}</h1>
-          {(product.casNumber || product.molecularFormula || product.molecularWeight) && (
-            <p className="font-mono text-sm text-[#6B7280] mb-6">
-              {[
-                product.casNumber ? `CAS ${product.casNumber}` : null,
-                product.molecularFormula,
-                product.molecularWeight,
-              ]
-                .filter(Boolean)
-                .join(" · ")}
-            </p>
+          {(product.moleculeImage || product.casNumber || product.molecularFormula || product.molecularWeight) && (
+            <div className="flex items-center gap-5 mb-6">
+              {product.moleculeImage && (
+                <div className="shrink-0 bg-gradient-to-br from-[#F0F4FA] via-[#E6ECF5] to-[#CAD4E4] border border-[#DDE1E7] rounded-sm shadow-[0_8px_20px_-6px_rgba(13,27,62,0.3)] p-2">
+                  <Image
+                    src={product.moleculeImage}
+                    alt={`${product.name} molecular structure`}
+                    width={144}
+                    height={144}
+                    className="object-contain w-36 h-36 drop-shadow-md"
+                    unoptimized
+                  />
+                </div>
+              )}
+              {(product.casNumber || product.molecularFormula || product.molecularWeight) && (
+                <p className="font-mono text-sm text-[#6B7280]">
+                  {[
+                    product.casNumber ? `CAS ${product.casNumber}` : null,
+                    product.molecularFormula,
+                    product.molecularWeight,
+                  ]
+                    .filter(Boolean)
+                    .join(" · ")}
+                </p>
+              )}
+            </div>
           )}
           <div className="flex gap-3 mb-8">
             {product.purity && (
