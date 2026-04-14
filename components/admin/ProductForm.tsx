@@ -9,9 +9,8 @@ import { slugify } from "@/lib/slug";
 // _key is stripped before calling saveProduct.
 type DraftVariant = ProductVariant & { _key: string };
 
-let _keyCounter = 0;
-function nextKey() {
-  return `v-${++_keyCounter}`;
+function nextKey(): string {
+  return crypto.randomUUID();
 }
 
 type Draft = Omit<Product, "createdAt" | "updatedAt" | "updatedBy" | "variants"> & {
@@ -117,7 +116,7 @@ export function ProductForm({ initial }: { initial?: Product }) {
       };
       await saveProduct(dataToSave);
     } catch (err) {
-      // Re-throw Next.js redirect errors so the router can handle them
+      // Re-throw Next.js redirect errors — they are navigation, not failures
       if (
         err instanceof Error &&
         (err as { digest?: string }).digest?.startsWith("NEXT_REDIRECT")
@@ -353,13 +352,10 @@ export function ProductForm({ initial }: { initial?: Product }) {
                   min="0"
                   step="0.01"
                   value={(v.priceInPence / 100).toFixed(2)}
-                  onChange={(e) =>
-                    updateVariant(idx, {
-                      priceInPence: Math.round(
-                        parseFloat(e.target.value || "0") * 100
-                      ),
-                    })
-                  }
+                  onChange={(e) => {
+                    const parsed = parseFloat(e.target.value || "0");
+                    updateVariant(idx, { priceInPence: Math.round((isNaN(parsed) ? 0 : parsed) * 100) });
+                  }}
                   className="w-full border border-[#DDE1E7] p-2"
                 />
               </div>
@@ -390,7 +386,8 @@ export function ProductForm({ initial }: { initial?: Product }) {
               <button
                 type="button"
                 onClick={() => removeVariant(idx)}
-                className="text-xs text-red-700 underline"
+                disabled={draft.variants.length === 1}
+                className="text-xs text-red-700 underline disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 Remove
               </button>

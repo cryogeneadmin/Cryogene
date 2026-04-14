@@ -23,7 +23,7 @@ const VariantSchema = z.object({
 });
 
 const ProductSchema = z.object({
-  id: z.string().optional(),
+  id: z.string().min(1).optional(),
   slug: z.string().min(1),
   name: z.string().min(1),
   category: z.enum(["peptides", "mixers", "supplies"]),
@@ -75,10 +75,19 @@ async function writeLocalWrites(products: Product[]): Promise<void> {
 
 export async function saveProduct(data: unknown) {
   const parsed = ProductSchema.parse(data);
+  const isEdit = !!parsed.id && parsed.id.length > 0;
   const now = new Date();
 
+  // For edits in seed mode, preserve the original createdAt
+  let existingCreatedAt: Date | undefined;
+  if (isEdit && useSeed()) {
+    const writes = await readLocalWrites();
+    const existing = writes.find((p) => p.id === parsed.id);
+    existingCreatedAt = existing?.createdAt as Date | undefined;
+  }
+
   const product: Product = {
-    id: parsed.id ?? `local-${Date.now()}`,
+    id: (parsed.id && parsed.id.length > 0) ? parsed.id : `local-${Date.now()}`,
     slug: parsed.slug || slugify(parsed.name),
     name: parsed.name,
     category: parsed.category,
@@ -103,7 +112,7 @@ export async function saveProduct(data: unknown) {
     faq: parsed.faq,
     tags: parsed.tags,
     active: parsed.active,
-    createdAt: now,
+    createdAt: (isEdit && existingCreatedAt) ? existingCreatedAt : now,
     updatedAt: now,
     updatedBy: "admin-ui",
   };
@@ -119,7 +128,11 @@ export async function saveProduct(data: unknown) {
     await writeLocalWrites(writes);
   } else {
     const db = getAdminDb()!;
-    await db.doc(`products/${product.id}`).set(product);
+    if (isEdit) {
+      await db.doc(`products/${product.id}`).set(product, { merge: true });
+    } else {
+      await db.doc(`products/${product.id}`).set(product);
+    }
   }
 
   revalidatePath("/admin/products");
@@ -129,22 +142,27 @@ export async function saveProduct(data: unknown) {
 }
 
 export async function toggleProductActive(id: string, active: boolean) {
+  const validated = z.object({
+    id: z.string().min(1).max(128),
+    active: z.boolean(),
+  }).parse({ id, active });
+
   if (useSeed()) {
     const writes = await readLocalWrites();
-    const idx = writes.findIndex((p) => p.id === id);
+    const idx = writes.findIndex((p) => p.id === validated.id);
     if (idx === -1) {
-      throw new Error(`Product ${id} not found in local writes store`);
+      throw new Error(`Product ${validated.id} not found in local writes store`);
     }
     writes[idx] = {
       ...writes[idx]!,
-      active,
+      active: validated.active,
       updatedAt: new Date(),
     };
     await writeLocalWrites(writes);
   } else {
     await getAdminDb()!
-      .doc(`products/${id}`)
-      .update({ active, updatedAt: new Date() });
+      .doc(`products/${validated.id}`)
+      .update({ active: validated.active, updatedAt: new Date() });
   }
   revalidatePath("/admin/products");
 }
