@@ -16,9 +16,24 @@ export async function GET() {
   const supplies = products.filter((p) => p.category === "supplies");
   const mixers = products.filter((p) => p.category === "mixers");
 
+  const categoryLabel: Record<string, string> = {
+    peptides: "peptide",
+    mixers: "mixer / solvent",
+    supplies: "laboratory supply",
+  };
+
   const formatProduct = (p: Product) => {
     const sizes = p.variants.map((v) => v.size).join(", ");
-    return `- [${p.name}](${baseUrl}/${p.category}/${p.slug}): Research ${p.category.slice(0, -1)} — CAS ${p.casNumber ?? "N/A"}, ${p.molecularFormula ?? "N/A"}, ${p.molecularWeight ?? "N/A"}. Available in ${sizes}.`;
+    const label = categoryLabel[p.category] ?? p.category;
+    const chemParts = [
+      p.casNumber && `CAS ${p.casNumber}`,
+      p.molecularFormula && `formula ${p.molecularFormula}`,
+      p.molecularWeight && `MW ${p.molecularWeight}`,
+    ]
+      .filter(Boolean)
+      .join(", ");
+    const chemStr = chemParts ? ` — ${chemParts}` : "";
+    return `- [${p.name}](${baseUrl}/${p.category}/${p.slug}): Research ${label}${chemStr}. Available in ${sizes}.`;
   };
 
   const body = `# ${storeName}
