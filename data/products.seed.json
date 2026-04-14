@@ -15,10 +15,28 @@
     "pubchemCid": null,
     "moleculeImage": null,
     "variants": [
-      { "sku": "IG01", "size": "0.1mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "IG1", "size": "1mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "IG01",
+        "size": "0.1mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "IG1",
+        "size": "1mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -36,7 +54,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "685079-15-6",
     "molecularFormula": "C10H11N2+",
     "molecularWeight": "159.21",
     "synonyms": [],
@@ -45,11 +63,37 @@
     "pubchemCid": 950107,
     "moleculeImage": "/molecules/5-amino-1mg.png",
     "variants": [
-      { "sku": "5AM", "size": "5mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "10AM", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "50AM", "size": "50mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "5AM",
+        "size": "5mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "10AM",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "50AM",
+        "size": "50mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -67,7 +111,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "130019-48-6",
     "molecularFormula": "C7H15NO3",
     "molecularWeight": "161.20",
     "synonyms": [],
@@ -76,9 +120,19 @@
     "pubchemCid": 10917,
     "moleculeImage": "/molecules/l-carnitine-600mg.png",
     "variants": [
-      { "sku": "LC600", "size": "600mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "LC600",
+        "size": "600mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -96,7 +150,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "307297-39-8",
     "molecularFormula": "C14H22N4O9",
     "molecularWeight": "390.35",
     "synonyms": [],
@@ -105,10 +159,28 @@
     "pubchemCid": 219042,
     "moleculeImage": "/molecules/epitalon.png",
     "variants": [
-      { "sku": "ET10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "ET50", "size": "50mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "ET10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "ET50",
+        "size": "50mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -126,7 +198,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "170851-70-4",
     "molecularFormula": "C38H49N9O5",
     "molecularWeight": "711.9",
     "synonyms": [],
@@ -135,10 +207,28 @@
     "pubchemCid": 9831659,
     "moleculeImage": "/molecules/ipamorelin.png",
     "variants": [
-      { "sku": "IP5", "size": "5mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "IP10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "IP5",
+        "size": "5mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "IP10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -156,7 +246,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "80714-61-0",
     "molecularFormula": "C37H51N9O10S",
     "molecularWeight": "813.9",
     "synonyms": [],
@@ -165,11 +255,37 @@
     "pubchemCid": 9811102,
     "moleculeImage": "/molecules/semax.png",
     "variants": [
-      { "sku": "XA5", "size": "5mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "XA10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "XA50", "size": "50mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "XA5",
+        "size": "5mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "XA10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "XA50",
+        "size": "50mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -187,7 +303,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "1208243-50-8",
     "molecularFormula": "C51H84N16O21",
     "molecularWeight": "1257.3",
     "synonyms": [],
@@ -196,9 +312,19 @@
     "pubchemCid": 91810664,
     "moleculeImage": "/molecules/ara-290.png",
     "variants": [
-      { "sku": "RA10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "RA10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -216,7 +342,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "374675-21-5",
     "molecularFormula": "C63H83N17O14",
     "molecularWeight": "1302.4",
     "synonyms": [],
@@ -225,10 +351,28 @@
     "pubchemCid": 25240297,
     "moleculeImage": "/molecules/kisspeptin-10.png",
     "variants": [
-      { "sku": "KS5", "size": "5mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "KS10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "KS5",
+        "size": "5mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "KS10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -246,7 +390,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "129954-34-3",
     "molecularFormula": "C33H57N11O9",
     "molecularWeight": "751.9",
     "synonyms": [],
@@ -255,10 +399,28 @@
     "pubchemCid": 11765600,
     "moleculeImage": "/molecules/selank.png",
     "variants": [
-      { "sku": "SK5", "size": "5mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "SK10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "SK5",
+        "size": "5mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "SK10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -276,7 +438,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "106272-20-2",
     "molecularFormula": "C10H17N3O6S",
     "molecularWeight": "307.33",
     "synonyms": [],
@@ -285,10 +447,28 @@
     "pubchemCid": 124886,
     "moleculeImage": "/molecules/glutathione.png",
     "variants": [
-      { "sku": "GTT600", "size": "600mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "GTT1500", "size": "1500mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "GTT600",
+        "size": "600mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "GTT1500",
+        "size": "1500mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -306,7 +486,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "868844-74-0",
     "molecularFormula": "C42H72N16O15S",
     "molecularWeight": "1073.2",
     "synonyms": [],
@@ -315,9 +495,19 @@
     "pubchemCid": 71587832,
     "moleculeImage": "/molecules/snap-8.png",
     "variants": [
-      { "sku": "NP810", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "NP810",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -335,7 +525,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "37221-79-7",
     "molecularFormula": "C147H237N43O43S",
     "molecularWeight": "3326.8",
     "synonyms": [],
@@ -344,9 +534,19 @@
     "pubchemCid": 53314964,
     "moleculeImage": "/molecules/vip.png",
     "variants": [
-      { "sku": "VP10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "VP10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -364,7 +564,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "189691-06-3",
     "molecularFormula": "C50H68N14O10",
     "molecularWeight": "1025.2",
     "synonyms": [],
@@ -373,38 +573,19 @@
     "pubchemCid": 9941379,
     "moleculeImage": "/molecules/pt-141.png",
     "variants": [
-      { "sku": "P41", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "P41",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
-    "primaryImageIndex": 0,
-    "seoTitle": null,
-    "seoDescription": null,
-    "faq": [],
-    "tags": [],
-    "active": true,
-    "createdAt": "2026-04-14T00:00:00.000Z",
-    "updatedAt": "2026-04-14T00:00:00.000Z",
-    "updatedBy": "seed"
-  },
-  {
-    "id": "seed-lemon-bottle",
-    "slug": "lemon-bottle",
-    "name": "Lemon Bottle",
-    "category": "peptides",
-    "shortDescription": "",
-    "fullDescription": "",
-    "casNumber": null,
-    "molecularFormula": null,
-    "molecularWeight": null,
-    "synonyms": [],
-    "purity": "≥98%",
-    "testingMethod": "HPLC",
-    "pubchemCid": null,
-    "moleculeImage": null,
-    "variants": [
-      { "sku": "LC10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+    "images": [
+      "/placeholder-vial.svg"
     ],
-    "images": ["/placeholder-vial.svg"],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -422,7 +603,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "62568-57-4",
     "molecularFormula": "C35H48N10O15",
     "molecularWeight": "848.8",
     "synonyms": [],
@@ -431,40 +612,37 @@
     "pubchemCid": 68816,
     "moleculeImage": "/molecules/dsip.png",
     "variants": [
-      { "sku": "DS2", "size": "2mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "DS5", "size": "5mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "DS15", "size": "15mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "DS2",
+        "size": "2mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "DS5",
+        "size": "5mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "DS15",
+        "size": "15mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
-    "primaryImageIndex": 0,
-    "seoTitle": null,
-    "seoDescription": null,
-    "faq": [],
-    "tags": [],
-    "active": true,
-    "createdAt": "2026-04-14T00:00:00.000Z",
-    "updatedAt": "2026-04-14T00:00:00.000Z",
-    "updatedBy": "seed"
-  },
-  {
-    "id": "seed-mazdutide",
-    "slug": "mazdutide",
-    "name": "Mazdutide",
-    "category": "peptides",
-    "shortDescription": "",
-    "fullDescription": "",
-    "casNumber": null,
-    "molecularFormula": "C207H317N45O65",
-    "molecularWeight": "4476",
-    "synonyms": [],
-    "purity": "≥98%",
-    "testingMethod": "HPLC",
-    "pubchemCid": 167312357,
-    "moleculeImage": "/molecules/mazdutide.png",
-    "variants": [
-      { "sku": "MAZ10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+    "images": [
+      "/placeholder-vial.svg"
     ],
-    "images": ["/placeholder-vial.svg"],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -482,7 +660,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "2460055-10-9",
     "molecularFormula": "C228H388N86O64",
     "molecularWeight": "5358",
     "synonyms": [],
@@ -491,9 +669,19 @@
     "pubchemCid": 167312269,
     "moleculeImage": "/molecules/foxo4.png",
     "variants": [
-      { "sku": "F410", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "F410",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -511,7 +699,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "303760-60-3",
     "molecularFormula": "C18H14N2O2",
     "molecularWeight": "290.3",
     "synonyms": [],
@@ -520,9 +708,19 @@
     "pubchemCid": 5338394,
     "moleculeImage": "/molecules/slu-pp332.png",
     "variants": [
-      { "sku": "Slu5", "size": "5mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "Slu5",
+        "size": "5mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -540,7 +738,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "175175-23-2",
     "molecularFormula": "C15H26N6O8",
     "molecularWeight": "418.40",
     "synonyms": [],
@@ -549,9 +747,19 @@
     "pubchemCid": 10273502,
     "moleculeImage": "/molecules/pinealon.png",
     "variants": [
-      { "sku": "EDR10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "EDR10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -569,7 +777,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "63958-90-7",
     "molecularFormula": "C33H54N12O15",
     "molecularWeight": "858.9",
     "synonyms": [],
@@ -578,9 +786,19 @@
     "pubchemCid": 3085284,
     "moleculeImage": "/molecules/thymalin.png",
     "variants": [
-      { "sku": "TY10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "TY10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -598,7 +816,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "1337515-90-8",
     "molecularFormula": "C129H215N33O55",
     "molecularWeight": "3108.3",
     "synonyms": [],
@@ -607,39 +825,28 @@
     "pubchemCid": 16130571,
     "moleculeImage": "/molecules/thymosin-alpha-1.png",
     "variants": [
-      { "sku": "TA5", "size": "5mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "TA10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "TA5",
+        "size": "5mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "TA10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
-    "primaryImageIndex": 0,
-    "seoTitle": null,
-    "seoDescription": null,
-    "faq": [],
-    "tags": [],
-    "active": true,
-    "createdAt": "2026-04-14T00:00:00.000Z",
-    "updatedAt": "2026-04-14T00:00:00.000Z",
-    "updatedBy": "seed"
-  },
-  {
-    "id": "seed-hmg",
-    "slug": "hmg",
-    "name": "HMG",
-    "category": "peptides",
-    "shortDescription": "",
-    "fullDescription": "",
-    "casNumber": null,
-    "molecularFormula": null,
-    "molecularWeight": null,
-    "synonyms": [],
-    "purity": "≥98%",
-    "testingMethod": "HPLC",
-    "pubchemCid": null,
-    "moleculeImage": null,
-    "variants": [
-      { "sku": "G75", "size": "75iu", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+    "images": [
+      "/placeholder-vial.svg"
     ],
-    "images": ["/placeholder-vial.svg"],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -657,7 +864,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "859216-15-2",
     "molecularFormula": "C111H206N36O28S2",
     "molecularWeight": "2557.2",
     "synonyms": [],
@@ -666,10 +873,28 @@
     "pubchemCid": 163360068,
     "moleculeImage": "/molecules/adipotide.png",
     "variants": [
-      { "sku": "AP2", "size": "2mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "AP5", "size": "5mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "AP2",
+        "size": "2mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "AP5",
+        "size": "5mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -687,7 +912,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "158861-67-7",
     "molecularFormula": "C45H55N9O6",
     "molecularWeight": "818.0",
     "synonyms": [],
@@ -696,11 +921,37 @@
     "pubchemCid": 6918245,
     "moleculeImage": "/molecules/ghrp-2-acetate.png",
     "variants": [
-      { "sku": "G25", "size": "5mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "G210", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "G215", "size": "15mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "G25",
+        "size": "5mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "G210",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "G215",
+        "size": "15mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -718,7 +969,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "87616-84-0",
     "molecularFormula": "C46H56N12O6",
     "molecularWeight": "873.0",
     "synonyms": [],
@@ -727,10 +978,28 @@
     "pubchemCid": 4345065,
     "moleculeImage": "/molecules/ghrp-6-acetate.png",
     "variants": [
-      { "sku": "G65", "size": "5mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "G610", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "G65",
+        "size": "5mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "G610",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -757,40 +1026,37 @@
     "pubchemCid": null,
     "moleculeImage": null,
     "variants": [
-      { "sku": "WA10", "size": "10ml", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "WA20", "size": "20ml", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "WA30", "size": "30ml", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "WA10",
+        "size": "10ml",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "WA20",
+        "size": "20ml",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "WA30",
+        "size": "30ml",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
-    "primaryImageIndex": 0,
-    "seoTitle": null,
-    "seoDescription": null,
-    "faq": [],
-    "tags": [],
-    "active": true,
-    "createdAt": "2026-04-14T00:00:00.000Z",
-    "updatedAt": "2026-04-14T00:00:00.000Z",
-    "updatedBy": "seed"
-  },
-  {
-    "id": "seed-acetic-acid-water",
-    "slug": "acetic-acid-water",
-    "name": "Acetic Acid Water",
-    "category": "mixers",
-    "shortDescription": "",
-    "fullDescription": "",
-    "casNumber": null,
-    "molecularFormula": null,
-    "molecularWeight": null,
-    "synonyms": [],
-    "purity": null,
-    "testingMethod": null,
-    "pubchemCid": null,
-    "moleculeImage": null,
-    "variants": [
-      { "sku": "AA10", "size": "10ml", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+    "images": [
+      "/placeholder-vial.svg"
     ],
-    "images": ["/placeholder-vial.svg"],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -808,7 +1074,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "137525-51-0",
     "molecularFormula": "C62H98N16O22",
     "molecularWeight": "1419.5",
     "synonyms": [],
@@ -817,10 +1083,28 @@
     "pubchemCid": 9941957,
     "moleculeImage": "/molecules/bpc-157.png",
     "variants": [
-      { "sku": "BC5", "size": "5mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "BC10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "BC5",
+        "size": "5mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "BC10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -847,14 +1131,38 @@
     "pubchemCid": null,
     "moleculeImage": null,
     "composition": [
-      { "compound": "BPC-157", "amount": "5mg" },
-      { "compound": "TB-500", "amount": "5mg" }
+      {
+        "compound": "BPC-157",
+        "amount": "5mg"
+      },
+      {
+        "compound": "TB-500",
+        "amount": "5mg"
+      }
     ],
     "variants": [
-      { "sku": "BB10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "BB20", "size": "20mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "BB10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "BB20",
+        "size": "20mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -872,7 +1180,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "4090-29-3",
     "molecularFormula": "C21H27N7O14P2",
     "molecularWeight": "663.4",
     "synonyms": [],
@@ -881,11 +1189,37 @@
     "pubchemCid": 5892,
     "moleculeImage": "/molecules/nad-plus.png",
     "variants": [
-      { "sku": "NJ100", "size": "100mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "NJ500", "size": "500mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "NJ1000", "size": "1000mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "NJ100",
+        "size": "100mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "NJ500",
+        "size": "500mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "NJ1000",
+        "size": "1000mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -903,7 +1237,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "221231-10-3",
     "molecularFormula": "C78H123N23O23S2",
     "molecularWeight": "1815.1",
     "synonyms": [],
@@ -912,11 +1246,37 @@
     "pubchemCid": 71300630,
     "moleculeImage": "/molecules/aod9604.png",
     "variants": [
-      { "sku": "2AD", "size": "2mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "5AD", "size": "5mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "10AD", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "2AD",
+        "size": "2mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "5AD",
+        "size": "5mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "10AD",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -934,7 +1294,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "130120-56-8",
     "molecularFormula": "C28H46CuN12O8",
     "molecularWeight": "742.3",
     "synonyms": [],
@@ -943,10 +1303,28 @@
     "pubchemCid": 9831891,
     "moleculeImage": "/molecules/ghk-cu.png",
     "variants": [
-      { "sku": "CU50", "size": "50mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "CU100", "size": "100mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "CU50",
+        "size": "50mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "CU100",
+        "size": "100mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -964,7 +1342,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "1627580-64-6",
     "molecularFormula": "C101H152N28O22S2",
     "molecularWeight": "2174.6",
     "synonyms": [],
@@ -973,12 +1351,46 @@
     "pubchemCid": 146675088,
     "moleculeImage": "/molecules/mots-c.png",
     "variants": [
-      { "sku": "MS10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "MS20", "size": "20mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "MS30", "size": "30mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "MS40", "size": "40mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "MS10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "MS20",
+        "size": "20mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "MS30",
+        "size": "30mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "MS40",
+        "size": "40mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -996,7 +1408,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "200-680-0",
     "molecularFormula": "C63H88CoN14O14P",
     "molecularWeight": "1355.4",
     "synonyms": [],
@@ -1005,9 +1417,19 @@
     "pubchemCid": 166596686,
     "moleculeImage": "/molecules/b12.png",
     "variants": [
-      { "sku": "B12", "size": "3mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "B12",
+        "size": "3mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1025,7 +1447,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "51023-76-8",
     "molecularFormula": "C13H16N2O2",
     "molecularWeight": "232.28",
     "synonyms": [],
@@ -1034,9 +1456,19 @@
     "pubchemCid": 896,
     "moleculeImage": "/molecules/melatonin.png",
     "variants": [
-      { "sku": "MT10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "MT10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1063,39 +1495,19 @@
     "pubchemCid": null,
     "moleculeImage": null,
     "variants": [
-      { "sku": "CBL60", "size": "60mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "CBL60",
+        "size": "60mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
-    "primaryImageIndex": 0,
-    "seoTitle": null,
-    "seoDescription": null,
-    "faq": [],
-    "tags": [],
-    "active": true,
-    "createdAt": "2026-04-14T00:00:00.000Z",
-    "updatedAt": "2026-04-14T00:00:00.000Z",
-    "updatedBy": "seed"
-  },
-  {
-    "id": "seed-hcg",
-    "slug": "hcg",
-    "name": "HCG",
-    "category": "peptides",
-    "shortDescription": "",
-    "fullDescription": "",
-    "casNumber": null,
-    "molecularFormula": null,
-    "molecularWeight": null,
-    "synonyms": [],
-    "purity": "≥98%",
-    "testingMethod": "HPLC",
-    "pubchemCid": null,
-    "moleculeImage": null,
-    "variants": [
-      { "sku": "G5K", "size": "5000iu", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "G10K", "size": "10000iu", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+    "images": [
+      "/placeholder-vial.svg"
     ],
-    "images": ["/placeholder-vial.svg"],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1113,7 +1525,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "736992-21-5",
     "molecularFormula": "C32H49N9O5",
     "molecularWeight": "639.8",
     "synonyms": [],
@@ -1122,10 +1534,28 @@
     "pubchemCid": 11764719,
     "moleculeImage": "/molecules/ss-31.png",
     "variants": [
-      { "sku": "2S10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "2S50", "size": "50mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "2S10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "2S50",
+        "size": "50mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1143,7 +1573,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "3250-08-6",
     "molecularFormula": "C165H269N47O46",
     "molecularWeight": "3647.2",
     "synonyms": [],
@@ -1152,10 +1582,28 @@
     "pubchemCid": 91971820,
     "moleculeImage": "/molecules/cjc-1295-with-dac.png",
     "variants": [
-      { "sku": "CD2", "size": "2mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "CD5", "size": "5mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "CD2",
+        "size": "2mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "CD5",
+        "size": "5mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1182,11 +1630,37 @@
     "pubchemCid": null,
     "moleculeImage": null,
     "variants": [
-      { "sku": "CND2", "size": "2mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "CND5", "size": "5mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "CND10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "CND2",
+        "size": "2mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "CND5",
+        "size": "5mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "CND10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1213,13 +1687,29 @@
     "pubchemCid": null,
     "moleculeImage": null,
     "composition": [
-      { "compound": "CJC-1295 Without DAC", "amount": "5mg" },
-      { "compound": "Ipamorelin", "amount": "5mg" }
+      {
+        "compound": "CJC-1295 Without DAC",
+        "amount": "5mg"
+      },
+      {
+        "compound": "Ipamorelin",
+        "amount": "5mg"
+      }
     ],
     "variants": [
-      { "sku": "CP10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "CP10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1246,9 +1736,19 @@
     "pubchemCid": null,
     "moleculeImage": null,
     "variants": [
-      { "sku": "MT1", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "MT1",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1266,7 +1766,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "121062-08-6",
     "molecularFormula": "C50H69N15O9",
     "molecularWeight": "1024.2",
     "synonyms": [],
@@ -1275,9 +1775,19 @@
     "pubchemCid": 92432,
     "moleculeImage": "/molecules/melanotan-ii.png",
     "variants": [
-      { "sku": "ML10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "ML10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1295,7 +1805,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "67727-97-3",
     "molecularFormula": "C16H30N4O4",
     "molecularWeight": "342.43",
     "synonyms": [],
@@ -1304,9 +1814,19 @@
     "pubchemCid": 125672,
     "moleculeImage": "/molecules/kpv.png",
     "variants": [
-      { "sku": "KP10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "KP10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1324,7 +1844,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "114466-38-5",
     "molecularFormula": "C149H246N44O42S",
     "molecularWeight": "3357.9",
     "synonyms": [],
@@ -1333,10 +1853,28 @@
     "pubchemCid": 16132413,
     "moleculeImage": "/molecules/sermorelin.png",
     "variants": [
-      { "sku": "SMO5", "size": "5mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "SMO10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "SMO5",
+        "size": "5mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "SMO10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1354,7 +1892,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "218949-48-5",
     "molecularFormula": "C221H366N72O67S",
     "molecularWeight": "5136",
     "synonyms": [],
@@ -1363,12 +1901,46 @@
     "pubchemCid": 16137828,
     "moleculeImage": "/molecules/tesamorelin.png",
     "variants": [
-      { "sku": "TSM2", "size": "2mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "TSM5", "size": "5mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "TSM10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "TSM20", "size": "20mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "TSM2",
+        "size": "2mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "TSM5",
+        "size": "5mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "TSM10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "TSM20",
+        "size": "20mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1386,7 +1958,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "2023788-19-2",
     "molecularFormula": "C225H348N48O68",
     "molecularWeight": "4813",
     "synonyms": [],
@@ -1395,21 +1967,127 @@
     "pubchemCid": 166567236,
     "moleculeImage": "/molecules/tirzepatide.png",
     "variants": [
-      { "sku": "TR5", "size": "5mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "TR10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "TR15", "size": "15mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "TR20", "size": "20mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "TR30", "size": "30mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "TR40", "size": "40mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "TR50", "size": "50mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "TR60", "size": "60mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "TR70", "size": "70mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "TR80", "size": "80mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "TR90", "size": "90mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "TR100", "size": "100mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "TR120", "size": "120mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "TR5",
+        "size": "5mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "TR10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "TR15",
+        "size": "15mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "TR20",
+        "size": "20mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "TR30",
+        "size": "30mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "TR40",
+        "size": "40mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "TR50",
+        "size": "50mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "TR60",
+        "size": "60mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "TR70",
+        "size": "70mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "TR80",
+        "size": "80mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "TR90",
+        "size": "90mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "TR100",
+        "size": "100mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "TR120",
+        "size": "120mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1427,7 +2105,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "250685-44-0",
     "molecularFormula": "C187H291N45O59",
     "molecularWeight": "4114",
     "synonyms": [],
@@ -1436,15 +2114,73 @@
     "pubchemCid": 56843331,
     "moleculeImage": "/molecules/semaglutide.png",
     "variants": [
-      { "sku": "SM2", "size": "2mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "SM5", "size": "5mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "SM10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "SM15", "size": "15mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "SM20", "size": "20mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "SM30", "size": "30mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "SM50", "size": "50mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "SM2",
+        "size": "2mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "SM5",
+        "size": "5mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "SM10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "SM15",
+        "size": "15mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "SM20",
+        "size": "20mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "SM30",
+        "size": "30mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "SM50",
+        "size": "50mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1462,7 +2198,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "2381089-83-2",
     "molecularFormula": "C221H342N46O68",
     "molecularWeight": "4731",
     "synonyms": [],
@@ -1471,16 +2207,82 @@
     "pubchemCid": 171390338,
     "moleculeImage": "/molecules/retatrutide.png",
     "variants": [
-      { "sku": "RT5", "size": "5mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "RT10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "RT15", "size": "15mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "RT20", "size": "20mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "RT30", "size": "30mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "RT40", "size": "40mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "RT50", "size": "50mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "RT60", "size": "60mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "RT5",
+        "size": "5mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "RT10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "RT15",
+        "size": "15mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "RT20",
+        "size": "20mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "RT30",
+        "size": "30mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "RT40",
+        "size": "40mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "RT50",
+        "size": "50mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "RT60",
+        "size": "60mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1498,7 +2300,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "1415456-99-3",
     "molecularFormula": "C194H312N54O59S2",
     "molecularWeight": "4409",
     "synonyms": [],
@@ -1507,10 +2309,28 @@
     "pubchemCid": 171397054,
     "moleculeImage": "/molecules/cagrilintide.png",
     "variants": [
-      { "sku": "CGL5", "size": "5mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "CGL10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "CGL5",
+        "size": "5mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "CGL10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1537,9 +2357,19 @@
     "pubchemCid": null,
     "moleculeImage": null,
     "variants": [
-      { "sku": "LC216", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "LC216",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1566,14 +2396,33 @@
     "pubchemCid": null,
     "moleculeImage": null,
     "composition": [
-      { "compound": "TB-500", "amount": "10mg" },
-      { "compound": "BPC-157", "amount": "10mg" },
-      { "compound": "GHK-Cu", "amount": "50mg" }
+      {
+        "compound": "TB-500",
+        "amount": "10mg"
+      },
+      {
+        "compound": "BPC-157",
+        "amount": "10mg"
+      },
+      {
+        "compound": "GHK-Cu",
+        "amount": "50mg"
+      }
     ],
     "variants": [
-      { "sku": "BBG70", "size": "70mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "BBG70",
+        "size": "70mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1600,15 +2449,37 @@
     "pubchemCid": null,
     "moleculeImage": null,
     "composition": [
-      { "compound": "TB-500", "amount": "10mg" },
-      { "compound": "BPC-157", "amount": "10mg" },
-      { "compound": "GHK-Cu", "amount": "50mg" },
-      { "compound": "KPV", "amount": "10mg" }
+      {
+        "compound": "TB-500",
+        "amount": "10mg"
+      },
+      {
+        "compound": "BPC-157",
+        "amount": "10mg"
+      },
+      {
+        "compound": "GHK-Cu",
+        "amount": "50mg"
+      },
+      {
+        "compound": "KPV",
+        "amount": "10mg"
+      }
     ],
     "variants": [
-      { "sku": "Klow80", "size": "80mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "Klow80",
+        "size": "80mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1626,7 +2497,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
+    "casNumber": "885340-08-9",
     "molecularFormula": "C38H68N10O14",
     "molecularWeight": "889.0",
     "synonyms": [],
@@ -1635,11 +2506,37 @@
     "pubchemCid": 62707662,
     "moleculeImage": "/molecules/tb500.png",
     "variants": [
-      { "sku": "BT2", "size": "2mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "BT5", "size": "5mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "BT10", "size": "10mg", "packSize": "10 vials", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "BT2",
+        "size": "2mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "BT5",
+        "size": "5mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "BT10",
+        "size": "10mg",
+        "packSize": "10 vials",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1666,9 +2563,19 @@
     "pubchemCid": null,
     "moleculeImage": null,
     "variants": [
-      { "sku": "RS-PD1", "size": "90mm", "packSize": "Pack of 10", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "RS-PD1",
+        "size": "90mm",
+        "packSize": "Pack of 10",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1695,9 +2602,19 @@
     "pubchemCid": null,
     "moleculeImage": null,
     "variants": [
-      { "sku": "RS-SV1", "size": "10ml", "packSize": "Pack of 10", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "RS-SV1",
+        "size": "10ml",
+        "packSize": "Pack of 10",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1724,9 +2641,19 @@
     "pubchemCid": null,
     "moleculeImage": null,
     "variants": [
-      { "sku": "RS-AS1", "size": "70% IPA", "packSize": "Pack of 100", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "RS-AS1",
+        "size": "70% IPA",
+        "packSize": "Pack of 100",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1753,11 +2680,37 @@
     "pubchemCid": null,
     "moleculeImage": null,
     "variants": [
-      { "sku": "RS-NG-S", "size": "Small", "packSize": "Pack of 100", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "RS-NG-M", "size": "Medium", "packSize": "Pack of 100", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true },
-      { "sku": "RS-NG-L", "size": "Large", "packSize": "Pack of 100", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "RS-NG-S",
+        "size": "Small",
+        "packSize": "Pack of 100",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "RS-NG-M",
+        "size": "Medium",
+        "packSize": "Pack of 100",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      },
+      {
+        "sku": "RS-NG-L",
+        "size": "Large",
+        "packSize": "Pack of 100",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1784,9 +2737,19 @@
     "pubchemCid": null,
     "moleculeImage": null,
     "variants": [
-      { "sku": "RS-PP1", "size": "3ml", "packSize": "Pack of 25", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "RS-PP1",
+        "size": "3ml",
+        "packSize": "Pack of 25",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1813,9 +2776,19 @@
     "pubchemCid": null,
     "moleculeImage": null,
     "variants": [
-      { "sku": "RS-PH1", "size": "4.5-9.0 range", "packSize": "Pack of 100", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "RS-PH1",
+        "size": "4.5-9.0 range",
+        "packSize": "Pack of 100",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1842,9 +2815,19 @@
     "pubchemCid": null,
     "moleculeImage": null,
     "variants": [
-      { "sku": "RS-SF1", "size": "0.22 micron", "packSize": "Pack of 10", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "RS-SF1",
+        "size": "0.22 micron",
+        "packSize": "Pack of 10",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
@@ -1871,9 +2854,19 @@
     "pubchemCid": null,
     "moleculeImage": null,
     "variants": [
-      { "sku": "RS-LN1", "size": "A5 hardback grid", "packSize": "1 notebook", "priceInPence": 0, "stock": 100, "coaUrl": null, "active": true }
+      {
+        "sku": "RS-LN1",
+        "size": "A5 hardback grid",
+        "packSize": "1 notebook",
+        "priceInPence": 0,
+        "stock": 100,
+        "coaUrl": null,
+        "active": true
+      }
     ],
-    "images": ["/placeholder-vial.svg"],
+    "images": [
+      "/placeholder-vial.svg"
+    ],
     "primaryImageIndex": 0,
     "seoTitle": null,
     "seoDescription": null,
