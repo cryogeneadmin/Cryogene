@@ -24,7 +24,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified:
       p.updatedAt instanceof Date
         ? p.updatedAt
-        : new Date((p.updatedAt as unknown as { toDate(): Date }).toDate()),
+        : typeof p.updatedAt === "string"
+          ? new Date(p.updatedAt)
+          : new Date((p.updatedAt as unknown as { toDate(): Date }).toDate()),
     priority: 0.8,
     changeFrequency: "weekly" as const,
   }));
