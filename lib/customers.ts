@@ -3,12 +3,9 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import type { Customer } from "@/types";
 import { getAdminDb } from "@/lib/firebase/admin";
+import { isSeedMode } from "@/lib/data-mode";
 
 const LOCAL_CUSTOMERS_PATH = path.join(process.cwd(), "data", "customers.local.json");
-
-function useSeed(): boolean {
-  return getAdminDb() === null;
-}
 
 async function readLocal(): Promise<Customer[]> {
   try {
@@ -23,7 +20,7 @@ async function writeLocal(customers: Customer[]): Promise<void> {
 }
 
 export async function getCustomerById(id: string): Promise<Customer | null> {
-  if (useSeed()) {
+  if (isSeedMode()) {
     const list = await readLocal();
     return list.find((c) => c.id === id) ?? null;
   }
@@ -32,7 +29,7 @@ export async function getCustomerById(id: string): Promise<Customer | null> {
 }
 
 export async function getCustomerByEmail(email: string): Promise<Customer | null> {
-  if (useSeed()) {
+  if (isSeedMode()) {
     const list = await readLocal();
     return list.find((c) => c.email === email) ?? null;
   }
@@ -45,7 +42,7 @@ export async function getCustomerByEmail(email: string): Promise<Customer | null
 }
 
 export async function upsertCustomer(customer: Customer): Promise<void> {
-  if (useSeed()) {
+  if (isSeedMode()) {
     const list = await readLocal();
     const idx = list.findIndex((c) => c.id === customer.id);
     if (idx === -1) list.push(customer);
@@ -57,7 +54,7 @@ export async function upsertCustomer(customer: Customer): Promise<void> {
 }
 
 export async function getCustomers(limit?: number): Promise<Customer[]> {
-  if (useSeed()) {
+  if (isSeedMode()) {
     const list = await readLocal();
     return limit ? list.slice(0, limit) : list;
   }

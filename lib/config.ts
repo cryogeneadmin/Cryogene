@@ -3,6 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import type { Config } from "@/types";
 import { getAdminDb } from "@/lib/firebase/admin";
+import { isSeedMode } from "@/lib/data-mode";
 
 const LOCAL_CONFIG_PATH = path.join(process.cwd(), "data", "config.local.json");
 
@@ -31,8 +32,7 @@ const DEFAULT_CONFIG: Config = {
 };
 
 export async function getConfig(): Promise<Config> {
-  const db = getAdminDb();
-  if (!db) {
+  if (isSeedMode()) {
     try {
       const raw = await fs.readFile(LOCAL_CONFIG_PATH, "utf-8");
       return JSON.parse(raw) as Config;
@@ -40,13 +40,13 @@ export async function getConfig(): Promise<Config> {
       return DEFAULT_CONFIG;
     }
   }
+  const db = getAdminDb()!;
   const snap = await db.doc("config/main").get();
   return snap.exists ? (snap.data() as Config) : DEFAULT_CONFIG;
 }
 
 export async function updateConfig(patch: Partial<Config>): Promise<void> {
-  const db = getAdminDb();
-  if (!db) {
+  if (isSeedMode()) {
     const current = await getConfig();
     const updated = {
       ...current,
@@ -56,5 +56,6 @@ export async function updateConfig(patch: Partial<Config>): Promise<void> {
     await fs.writeFile(LOCAL_CONFIG_PATH, JSON.stringify(updated, null, 2), "utf-8");
     return;
   }
+  const db = getAdminDb()!;
   await db.doc("config/main").set({ ...patch, updatedAt: new Date() }, { merge: true });
 }

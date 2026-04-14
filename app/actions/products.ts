@@ -8,6 +8,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import type { Product } from "@/types";
 import { getAdminDb } from "@/lib/firebase/admin";
+import { isSeedMode } from "@/lib/data-mode";
 import { slugify } from "@/lib/slug";
 import { isAdminRequest } from "@/lib/admin-auth";
 
@@ -53,11 +54,6 @@ const ProductSchema = z.object({
   active: z.boolean().default(true),
 });
 
-function useSeed(): boolean {
-  const projectId = process.env.FIREBASE_PROJECT_ID;
-  return !projectId || projectId === "REPLACE_ME";
-}
-
 async function readLocalWrites(): Promise<Product[]> {
   try {
     return JSON.parse(await fs.readFile(LOCAL_WRITES_PATH, "utf-8")) as Product[];
@@ -82,7 +78,7 @@ export async function saveProduct(data: unknown) {
 
   // For edits in seed mode, preserve the original createdAt
   let existingCreatedAt: Date | undefined;
-  if (isEdit && useSeed()) {
+  if (isEdit && isSeedMode()) {
     const writes = await readLocalWrites();
     const existing = writes.find((p) => p.id === parsed.id);
     existingCreatedAt = existing?.createdAt as Date | undefined;
@@ -119,7 +115,7 @@ export async function saveProduct(data: unknown) {
     updatedBy: "admin-ui",
   };
 
-  if (useSeed()) {
+  if (isSeedMode()) {
     const writes = await readLocalWrites();
     const idx = writes.findIndex((p) => p.id === product.id);
     if (idx === -1) {
@@ -150,7 +146,7 @@ export async function toggleProductActive(id: string, active: boolean) {
     active: z.boolean(),
   }).parse({ id, active });
 
-  if (useSeed()) {
+  if (isSeedMode()) {
     const writes = await readLocalWrites();
     const idx = writes.findIndex((p) => p.id === validated.id);
     if (idx === -1) {

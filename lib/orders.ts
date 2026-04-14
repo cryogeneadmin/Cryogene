@@ -3,14 +3,10 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import type { Order, OrderStatus } from "@/types";
 import { getAdminDb } from "@/lib/firebase/admin";
+import { isSeedMode } from "@/lib/data-mode";
 
 const LOCAL_ORDERS_PATH = path.join(process.cwd(), "data", "orders.local.json");
 const LOCAL_COUNTERS_PATH = path.join(process.cwd(), "data", "counters.local.json");
-
-function useSeed(): boolean {
-  const db = getAdminDb();
-  return db === null;
-}
 
 async function readLocalOrders(): Promise<Order[]> {
   try {
@@ -28,7 +24,7 @@ async function writeLocalOrders(orders: Order[]): Promise<void> {
 async function nextOrderNumber(): Promise<string> {
   const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
 
-  if (useSeed()) {
+  if (isSeedMode()) {
     let counters: Record<string, number> = {};
     try {
       counters = JSON.parse(await fs.readFile(LOCAL_COUNTERS_PATH, "utf-8"));
@@ -50,7 +46,7 @@ async function nextOrderNumber(): Promise<string> {
 }
 
 export async function createOrderRecord(order: Omit<Order, "id">): Promise<Order> {
-  if (useSeed()) {
+  if (isSeedMode()) {
     const orders = await readLocalOrders();
     const id = `local-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
     const withId = { ...order, id } as Order;
@@ -69,7 +65,7 @@ export async function getOrders(options?: {
   status?: OrderStatus;
   limit?: number;
 }): Promise<Order[]> {
-  if (useSeed()) {
+  if (isSeedMode()) {
     let results = await readLocalOrders();
     if (options?.customerUid) {
       results = results.filter((o) => o.customer.uid === options.customerUid);
@@ -106,7 +102,7 @@ export async function getOrders(options?: {
 }
 
 export async function getOrderById(id: string): Promise<Order | null> {
-  if (useSeed()) {
+  if (isSeedMode()) {
     const orders = await readLocalOrders();
     return orders.find((o) => o.id === id) ?? null;
   }
@@ -116,7 +112,7 @@ export async function getOrderById(id: string): Promise<Order | null> {
 }
 
 export async function updateOrder(id: string, patch: Partial<Order>): Promise<void> {
-  if (useSeed()) {
+  if (isSeedMode()) {
     const orders = await readLocalOrders();
     const idx = orders.findIndex((o) => o.id === id);
     if (idx === -1) throw new Error(`Order ${id} not found`);

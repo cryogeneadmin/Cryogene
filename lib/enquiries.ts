@@ -3,12 +3,9 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import type { Enquiry, EnquiryStatus } from "@/types";
 import { getAdminDb } from "@/lib/firebase/admin";
+import { isSeedMode } from "@/lib/data-mode";
 
 const LOCAL_ENQUIRIES_PATH = path.join(process.cwd(), "data", "enquiries.local.json");
-
-function useSeed(): boolean {
-  return getAdminDb() === null;
-}
 
 async function readLocal(): Promise<Enquiry[]> {
   try {
@@ -32,7 +29,7 @@ export async function createEnquiry(
     createdAt: new Date(),
   };
 
-  if (useSeed()) {
+  if (isSeedMode()) {
     const list = await readLocal();
     list.push(enquiry);
     await writeLocal(list);
@@ -46,7 +43,7 @@ export async function createEnquiry(
 }
 
 export async function getEnquiries(status?: EnquiryStatus): Promise<Enquiry[]> {
-  if (useSeed()) {
+  if (isSeedMode()) {
     const list = await readLocal();
     return status ? list.filter((e) => e.status === status) : list;
   }
@@ -60,7 +57,7 @@ export async function updateEnquiryStatus(
   id: string,
   status: EnquiryStatus
 ): Promise<void> {
-  if (useSeed()) {
+  if (isSeedMode()) {
     const list = await readLocal();
     const idx = list.findIndex((e) => e.id === id);
     if (idx === -1) throw new Error(`Enquiry ${id} not found`);

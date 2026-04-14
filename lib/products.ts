@@ -3,6 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import seedProducts from "@/data/products.seed.json";
 import type { Product, ProductCategory } from "@/types";
+import { isSeedMode } from "@/lib/data-mode";
 
 /**
  * Data-layer abstraction for product reads.
@@ -17,11 +18,6 @@ import type { Product, ProductCategory } from "@/types";
 
 const LOCAL_OVERLAY_PATH = path.join(process.cwd(), "data", "products.local.json");
 const seed = seedProducts as unknown as Product[];
-
-function useSeed(): boolean {
-  const projectId = process.env.FIREBASE_PROJECT_ID;
-  return !projectId || projectId === "REPLACE_ME";
-}
 
 async function readLocalOverlay(): Promise<Product[]> {
   try {
@@ -45,7 +41,7 @@ export async function getProducts(options?: {
   activeOnly?: boolean;
   limit?: number;
 }): Promise<Product[]> {
-  if (useSeed()) {
+  if (isSeedMode()) {
     let results = await mergedSeed();
     if (options?.activeOnly) {
       results = results.filter((p) => p.active);
@@ -63,7 +59,7 @@ export async function getProducts(options?: {
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
-  if (useSeed()) {
+  if (isSeedMode()) {
     const all = await mergedSeed();
     return all.find((p) => p.slug === slug) ?? null;
   }
