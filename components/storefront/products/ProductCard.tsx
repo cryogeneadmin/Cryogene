@@ -8,7 +8,8 @@ export function ProductCard({ product }: { product: Product }) {
     v.priceInPence < lowest.priceInPence ? v : lowest
   );
   const totalStock = product.variants.reduce((sum, v) => sum + v.stock, 0);
-  const primaryImage = product.images[product.primaryImageIndex] ?? product.images[0];
+  const cardImage = product.moleculeImage ?? (product.images[product.primaryImageIndex] ?? product.images[0]);
+  const pricingTbc = lowestPriceVariant.priceInPence === 0;
 
   return (
     <Link
@@ -16,9 +17,9 @@ export function ProductCard({ product }: { product: Product }) {
       className="group block border border-[#DDE1E7] bg-white hover:border-[#0D1B3E] transition-colors"
     >
       <div className="relative aspect-square bg-[#F7F8FA] overflow-hidden">
-        {primaryImage && (
+        {cardImage && (
           <Image
-            src={primaryImage}
+            src={cardImage}
             alt={`${product.name} research peptide ${lowestPriceVariant.size} vial`}
             fill
             className="object-contain p-6"
@@ -31,12 +32,17 @@ export function ProductCard({ product }: { product: Product }) {
         <h3 className="font-serif text-xl text-[#0D1B3E] leading-tight mb-1">
           {product.name}
         </h3>
-        <p className="font-mono text-[11px] text-[#6B7280] mb-3">
-          CAS {product.casNumber}
-        </p>
+        <div className="flex items-center gap-2 mb-3">
+          {product.casNumber && (
+            <p className="mono text-xs text-[#9CA3AF]">CAS {product.casNumber}</p>
+          )}
+          {product.composition && (
+            <span className="label-editorial text-[#6B7280] bg-[#F7F8FA] border border-[#DDE1E7] px-1.5 py-0.5 text-[10px]">BLEND</span>
+          )}
+        </div>
         <div className="flex items-center justify-between">
           <span className="text-sm text-[#333333]">
-            From {formatPriceFromPence(lowestPriceVariant.priceInPence)}
+            {pricingTbc ? "Pricing TBC" : `From ${formatPriceFromPence(lowestPriceVariant.priceInPence)}`}
           </span>
           <span className="label-editorial text-[11px]">
             {product.purity} purity

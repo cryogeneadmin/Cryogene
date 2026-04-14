@@ -36,6 +36,7 @@ export function VariantSelector({ product }: { product: Product }) {
   };
 
   const outOfStock = selected.stock === 0;
+  const pricingTbc = selected.priceInPence === 0;
 
   return (
     <div className="space-y-6">
@@ -68,7 +69,7 @@ export function VariantSelector({ product }: { product: Product }) {
       </div>
       <div>
         <p className="text-3xl font-medium text-[#0D1B3E]">
-          {formatPriceFromPence(selected.priceInPence)}
+          {pricingTbc ? "Pricing TBC" : formatPriceFromPence(selected.priceInPence)}
         </p>
         {selected.stock > 0 && selected.stock <= 5 && (
           <p className="text-xs text-amber-700 mt-1">
@@ -82,10 +83,10 @@ export function VariantSelector({ product }: { product: Product }) {
       <button
         type="button"
         onClick={handleAdd}
-        disabled={outOfStock}
+        disabled={outOfStock || pricingTbc}
         className="w-full py-4 bg-[#0D1B3E] text-white uppercase tracking-wider text-sm hover:bg-[#162040] disabled:bg-[#6B7280] disabled:cursor-not-allowed"
       >
-        {outOfStock ? "Out of stock" : "Add to basket"}
+        {pricingTbc ? "Pricing to be confirmed" : outOfStock ? "Out of stock" : "Add to basket"}
       </button>
       {selected.coaUrl && (
         <a
