@@ -27,21 +27,119 @@
 
 ## Review notes from Plan 1
 
-> **This section is populated by Opus during the end-of-Plan-1 review.** It captures any drift, learnings, or adjustments from Plan 1 execution that Sonnet needs to know about before starting Plan 2. If this section still says "Awaiting review" when Sonnet opens this file, **STOP** and confirm with David that the Opus review has been run.
+> **This section is populated by Opus during the end-of-Plan-1 review.** It captures drift, learnings, and adjustments from Plan 1 execution that Sonnet needs to know about before starting Plan 2. If this section still says "Awaiting review" when Sonnet opens this file, **STOP** and confirm with David that the Opus review has been run.
 
-**Status:** ⏳ Awaiting review — populated after Plan 1 execution completes and David runs the Opus review.
+**Status:** ✅ **APPROVED** — reviewed by Opus 2026-04-14 against the running dev server via Playwright. Visual, structural, and behavioural layers all verified. Safe to proceed.
 
-**Package versions as installed (to be confirmed):**
-- next: TBC
-- tailwindcss: TBC
-- shadcn: TBC
-- firebase / firebase-admin: TBC
+**Package versions as installed:**
+- next: **16.2.3** (Turbopack, React 19.2.4)
+- tailwindcss: **^4** (v4-canary, CSS-first config, no `tailwind.config.ts`)
+- shadcn: **@canary 4.2.0-canary.0** — uses **`@base-ui/react`** as the headless primitive layer, NOT `@radix-ui`
+- firebase / firebase-admin: **12.12.0 / 13.8.0**
+- react-hook-form, @hookform/resolvers, zod: installed (pulled in by `form` component)
+- tw-animate-css: installed (pulled in by shadcn init)
 
-**Drift from plan (if any):** TBC
+**Visual verification (Opus, via Playwright against `npm run dev`):**
+- ✅ Compliance banner renders at top: navy `#0D1B3E` with muted blue `#AABBCC` all-caps text
+- ✅ Age gate overlay renders on first visit, dismissable via cookie-based Server Action, persistent after reload
+- ✅ Body background after dismiss: `rgb(247, 248, 250)` = our `#F7F8FA` off-white (unlayered brand CSS wins over shadcn's `@layer base { body { @apply bg-background } }` — cascade is correct)
+- ✅ Navbar renders with white background, `[PEPTIDE STORE]` logo in Cormorant serif, nav links in small-caps editorial style
+- ✅ Body font: DM Sans via `next/font`; heading font: Cormorant Garamond; h1 colour: navy `#0D1B3E`
+- ✅ Footer: navy background with 4-column grid, copyright bar with `[Store Name]` placeholder intact
+- ✅ Cookie consent banner: white, Accept (navy) / Decline (outline), `read our cookie policy` link to `/legal/cookies`
+- ✅ Amber callout on placeholder homepage is in the DOM with correct colours (`#FFF3CD` bg, `#6A4D00` text, `#E6C97A` border), but occluded by the fixed-position cookie banner in the viewport — not a bug, it's placeholder content that Plan 2 replaces
 
-**Adjustments to Plan 2 tasks (if any):** TBC
+**Drift from plan (all minor, no corrective action needed):**
+1. `create-next-app` auto-inits git and makes its own "Initial commit from Create Next App" commit. The repo ended up with 17 commits instead of the nominal 14 (14 task commits + 1 scaffold + 1 chore for the `.gitignore` `!.env.example` exception + 1 shadcn canary "feat: initial commit"). Harmless.
+2. `components/ui/form.tsx` was reported as "hand-authored because the canary form component was unavailable" — on review, what was actually written is the standard upstream shadcn `form.tsx` using `react-hook-form` (not a bespoke version). It's correct and consistent with the rest of the `components/ui/*` surface. No concern.
+3. `getFeaturedProducts` sort comparator in `lib/products.ts` was adapted to handle `Timestamp | Date | string | number` via an `unknown`-guarded helper instead of a direct `as string` cast. This is a better fix than the plan's original cast and should stay as-is.
+4. shadcn init added two extra `@import` lines to `globals.css` (`tw-animate-css`, `shadcn/tailwind.css`) plus a `@theme inline {}` block, a `:root` block with oklch greys, `.dark {}` rules, and a `@layer base {}` block. All additive, our brand palette `@theme {}` is intact and wins the cascade. Do NOT delete these — they're needed for shadcn components to render.
+5. The shadcn init also introduced `--font-heading: var(--font-sans)` in `@theme inline {}`. This means `className="font-heading"` resolves to **DM Sans, not Cormorant**. Our own `h1-h6` rule (unlayered) uses `--font-serif` (Cormorant) and wins for semantic headings. Card titles via shadcn use `font-heading` (DM Sans) which is fine for UI chrome.
 
-**Unresolved issues to watch in Plan 2:** TBC
+**CRITICAL things for Plan 2 to know:**
+
+### C1. shadcn canary uses `@base-ui/react`, NOT `@radix-ui`
+If Sonnet needs to import primitives directly (e.g. to build a custom combobox, drawer variant, or dialog wrapper), the import path is `@base-ui/react/<primitive>` — **not** `@radix-ui/react-<primitive>`. Most of Plan 2's work goes through the shadcn wrappers (`@/components/ui/sheet`, etc.) and won't touch primitives directly, so this is a warning for edge cases. If upstream shadcn docs say `import * as DialogPrimitive from "@radix-ui/react-dialog"`, translate to `@base-ui/react/dialog`.
+
+### C2. Next.js 16 is NOT the Next.js you know — AGENTS.md is now in the repo
+The repo root has a new `AGENTS.md` / `CLAUDE.md` (untracked — created by David between Plan 1 and review) with this directive:
+> "This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices."
+
+The Next.js 16 docs live at `node_modules/next/dist/docs/01-app/`. Before every task that touches a new Next.js API, Sonnet must first check the relevant doc in that directory. Specifically relevant for Plan 2:
+- `cookies()` and `headers()` are **async** in Next.js 16 — must be `await`ed (Plan 1 did this correctly)
+- Server Actions with `redirect()` — same pattern as Plan 1
+- `generateStaticParams` — Plan 2 Task 6 will use this for product detail pages
+- `next/image` — check the docs before using `fill`, `sizes`, or `priority` props
+- `metadata` / `generateMetadata` exports — Plan 2 adds page-level metadata
+- `not-found.tsx` and `error.tsx` conventions
+
+### C3. Zustand + SSR hydration mismatch — Plan 2 Task 3 needs a guard
+Plan 2's `BasketIconButton` calls `itemCount()` directly during render. Zustand's `persist` middleware rehydrates from `localStorage` on client mount, which happens AFTER the server render. If the basket has items, the server will render `Basket` with no count badge, then the client will swap in `Basket (3)` — producing a React hydration warning and a visible flicker.
+
+**Required fix in Plan 2 Task 3:** add a `useHasMounted` guard to `BasketIconButton` so the count badge only renders after client mount:
+
+```tsx
+"use client";
+import { useEffect, useState } from "react";
+import { useBasket } from "@/lib/basket";
+
+export function BasketIconButton() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  const { openDrawer, itemCount } = useBasket();
+  const count = mounted ? itemCount() : 0;
+
+  return (
+    <button
+      type="button"
+      onClick={openDrawer}
+      aria-label={`Open basket (${count} items)`}
+      className="label-editorial hover:text-[#0D1B3E] transition-colors flex items-center gap-2"
+    >
+      <span>Basket</span>
+      {mounted && count > 0 && (
+        <span className="inline-flex items-center justify-center h-5 w-5 rounded-full bg-[#0D1B3E] text-white text-[10px]">
+          {count}
+        </span>
+      )}
+    </button>
+  );
+}
+```
+
+Apply the same pattern to `BasketDrawer` if any derived state (subtotal, item list) is rendered before hydration completes — Zustand's `skipHydration: true` in the `persist` options is an alternative, but the `useHasMounted` pattern is simpler and matches Next.js 16 conventions.
+
+### C4. Brand buttons on the storefront should NOT use shadcn `<Button>` variants
+shadcn's `buttonVariants` map to `bg-primary`, `bg-muted`, etc., which resolve to shadcn's oklch greyscale (NOT our navy `#0D1B3E`). Plan 1's existing storefront buttons (on the age gate, cookie consent banner) hardcode `className="bg-[#0D1B3E] text-white"` — **keep doing this in Plan 2**. Reserve shadcn `<Button>` for Plan 4's admin UI where oklch grey chrome is the right aesthetic.
+
+Equivalent rule for typography: use `className="font-serif"` (Cormorant) for brand headings, not `font-heading` (DM Sans). Plain `<h1>`–`<h6>` also inherit Cormorant via the unlayered global rule.
+
+### C5. Next/Image with SVGs from `/public/`
+Plan 1's seed data uses `/placeholder-vial.svg` as every product image. Plan 2 Task 3's `BasketItem` and later tasks will feed this into `<Image src={item.primaryImage} fill />`. Next.js 16 serves `/public/*.svg` as static assets — `next/image` with `fill` will work, but SVGs bypass the optimizer and may log a console warning. For Plan 2 this is fine; no `dangerouslyAllowSVG` config needed because we're not pulling from a remote URL. If Plan 2 Sonnet hits an error about SVG handling, the fix is to add `unoptimized` to the `<Image>` invocations (not to add `dangerouslyAllowSVG`).
+
+### C6. `components/storefront/layout/Navbar.tsx` is currently a Server Component
+Plan 2 Task 3 Step 4 imports a **client component** (`BasketIconButton`) into Navbar. This is fine — Next.js 16 handles the client boundary automatically — but do NOT add `"use client"` to Navbar.tsx. Keep it as a Server Component and let the client boundary start at `BasketIconButton`.
+
+### C7. Cookie banner is `fixed bottom-0` and overlaps page content
+This is expected and not a bug. Plan 2's new homepage design must leave enough `pb-*` on the main container, or allow content below the fold, so the cookie banner doesn't permanently occlude a CTA. When writing the homepage in Plan 2, add `pb-32` (or similar) to the outer container so first-time visitors can still see the full hero above the fold before dismissing cookies.
+
+**Adjustments to Plan 2 tasks:**
+- **Task 3 (BasketIconButton):** apply the `useHasMounted` hydration guard shown in C3 above. The plan's existing code will break with a hydration mismatch warning on first load if the user has basket items in localStorage.
+- **Task 3 (BasketDrawer):** Same hydration consideration — if items list or subtotal renders before mount, wrap in `mounted && ...`. Sheet open/close is driven by local state so that's safe.
+- **Any task that uses shadcn `<Button>` for storefront CTAs:** replace with hardcoded brand classes (`bg-[#0D1B3E] text-white uppercase tracking-wider text-sm hover:bg-[#162040]`) following the age-gate button pattern in Plan 1.
+- **Any task adding page-level h1s:** use `<h1>` directly (it will inherit Cormorant + navy from the unlayered rule). Do NOT rely on `font-heading` — that's DM Sans.
+- **Product detail page (Task ~6):** before writing `generateStaticParams`, read `node_modules/next/dist/docs/01-app/03-building-your-application/02-data-fetching/02-generating-static-params.md` (or whichever path exists) to confirm the Next.js 16 signature.
+
+**Unresolved issues to watch in Plan 2:**
+- **h1 collision**: `AgeVerificationGate.tsx` has an `<h1 id="age-gate-title">`, and every page has its own `<h1>`. When the gate is visible, the DOM has two `<h1>`s. Minor a11y concern — not a blocker, but if Plan 2 (or Plan 5's a11y audit) wants to tighten this, demote the gate's to `<h2>` with `aria-level="1"` on the container, OR keep the gate's h1 and ensure pages use `<h2>` for the primary heading until the gate is dismissed. Not worth fixing now.
+- **`leaveSite` redirects to `https://www.google.com`**: placeholder destination. Flag for Plan 5's legal review — Sam may want it to point to an NHS or UK gov page instead.
+- **`placeholder-vial.svg` is a single shared asset for all 25 products**: fine for Plan 2 rendering, but Plan 5 will need to swap in Sam's real product photography.
+- **Seed products all have `coaUrl: null`** — this is by design. Plan 4's admin UI will enable COA uploads that write to `products.local.json` (and later Firestore Storage).
+- **The 2-extra-commits-from-create-next-app pattern is now baked in** — acknowledge but don't try to rewrite history.
+
+---
+
 
 ---
 
