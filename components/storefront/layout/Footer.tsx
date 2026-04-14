@@ -41,7 +41,7 @@ export function Footer() {
       </div>
       <div className="border-t border-[#162040]">
         <div className="max-w-[1280px] mx-auto px-6 py-6 text-xs text-[#8BAAD4] flex flex-col md:flex-row md:justify-between gap-2">
-          <p>&copy; 2026 [Store Name]. Registered in England. [ADDRESS]</p>
+          <p>&copy; 2026 Cryogene. Registered in England. [ADDRESS TBC]</p>
           <p className="uppercase tracking-wider">
             All products for research use only — not for human or veterinary consumption.
           </p>

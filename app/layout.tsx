@@ -31,12 +31,13 @@ const jetBrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://cryogene.co.uk"),
   title: {
-    default: "[Store Name] — UK Research Peptides, HPLC-Tested & Documented",
-    template: "%s | [Store Name]",
+    default: "Cryogene — UK Research Peptides, HPLC-Tested & Documented",
+    template: "%s | Cryogene",
   },
   description:
-    "Research-grade peptides, capsules, and mixers for UK laboratory research. Every product HPLC-tested with a Certificate of Analysis. For laboratory research use only.",
+    "Research-grade peptides and research supplies for UK laboratory research. Every product HPLC-tested with a Certificate of Analysis. For laboratory research use only.",
   robots: { index: true, follow: true },
 };
 

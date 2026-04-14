@@ -18,7 +18,7 @@ export function Navbar() {
       <nav className="sticky top-9 z-30 bg-white border-b border-[#DDE1E7]">
         <div className="max-w-[1280px] mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="text-2xl font-serif text-[#0D1B3E] tracking-tight">
-            [PEPTIDE STORE]
+            Cryogene
           </Link>
           <ul className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
