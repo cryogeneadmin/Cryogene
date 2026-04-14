@@ -24,19 +24,105 @@
 
 ## Review notes from Plan 4
 
-> **Populated by Opus during the end-of-Plan-4 review.** If this still says "Awaiting review" when Sonnet opens this file, **STOP** and confirm the Opus review has been run.
+> **Populated by Opus during the end-of-Plan-4 review (2026-04-14).** Reviewed against the running dev server on `localhost:3001` with `ADMIN_DEV_BYPASS=1`, via curl and direct file inspection. Every admin route walked.
 
-**Status:** ⏳ Awaiting review.
+**Status:** ✅ **APPROVED** — Plan 4 execution is structurally sound. The products overlay fix is the only hard gate between Plan 4 and Plan 5 and it passed end-to-end. All six admin server actions have `isAdminRequest()` guards, the auth bypass has a `NODE_ENV !== "production"` hard-guard, and every admin route renders 200 with correct data. Plan 5 can proceed. Two drift items below require Plan 5 scope adjustments; one is a pre-existing Plan 1/Plan 3 inconsistency that Plan 4 correctly left alone and which Plan 5 should clean up before wiring SEO.
 
-**Products overlay fix verification:** TBC  ← must be confirmed working before Plan 5 touches SEO
+**Git log range:** Plan 4 commits `38be957..2b4df0a` (8 tasks + 8 review-fix commits — every task underwent spec compliance review then code quality review, with fixes applied between).
 
-**Actual config document shape after Plan 4 settings edits:** TBC
+---
 
-**Drift from plan (if any):** TBC
+### ✅ Verified working
 
-**Adjustments to Plan 5 tasks (if any):** TBC
+- **Products overlay fix (the critical gate).** Wrote a modified `seed-bpc-157` record to `data/products.local.json` with two sentinel strings (`OVERLAY REVIEW SENTINEL` appended to name, `OPUS-OVERLAY-PROOF-STRING-7X9K2` as shortDescription). Curled `/peptides/bpc-157`, `/peptides`, `/admin/products`, and `/admin/products/seed-bpc-157` — all four returned HTML containing both sentinel strings. Removed the overlay file, curled `/peptides/bpc-157` again — only `BPC 157` visible, sentinels gone. The `mergedSeed()` function in `lib/products.ts` lines 35–41 correctly merges by `id` with overlay-wins semantics, and the `fs.readFile` in `readLocalOverlay` is not memoised so each request gets a fresh read. Dev server picks up changes on the next request with no restart needed.
+- **All 7 admin routes return 200:** `/admin`, `/admin/products`, `/admin/orders`, `/admin/enquiries`, `/admin/customers`, `/admin/settings`, `/admin/products/new`. Dashboard shows all 4 stat cards (`Open orders`, `Low stock alerts`, `New enquiries`, `Revenue (last 10 orders)`) and the test order `PPT-20260414-0001` in the Recent Orders table.
+- **Admin order detail end-to-end.** `/admin/orders/local-smoke-test-001` renders the order number (`PPT-20260414-0001`), customer name (`Jane Smith`), SKU (`BPC-157`), items subtotal (`£99.98`), and total (`£103.93`) — confirming the itemsSubtotal 9998p + shipping 395p = 10393p math, the `coerceToDate` helper on `paidAt`, and the `notFound()` guard on the `params.id` validation in `app/(admin)/admin/orders/[id]/page.tsx`.
+- **Settings page defaults.** `/admin/settings` renders `Cryogene` as the default `storeName` and `[ADDRESS TBC]` as the default `registeredAddress`, both sourced from `DEFAULT_CONFIG` in `lib/config.ts`. All four sections render (Store identity, VAT, Shipping, Notifications).
+- **All 6 admin server actions have `isAdminRequest()` as the first line:** `saveProduct`, `toggleProductActive`, `setOrderStatus`, `addAdminNote`, `setEnquiryStatusAction`, `saveConfig`. Grep-verified at the listed line numbers; every admin write path is gated against direct-POST attacks regardless of the layout guard. User-facing actions (`checkout`, `contact`, `create-order`, `age-gate`, `cookie-consent`) correctly do NOT have this guard.
+- **Auth bypass hard-guarded against production.** `lib/admin-auth.ts` lines 9–12 require BOTH `process.env.NODE_ENV !== "production"` AND `process.env.ADMIN_DEV_BYPASS === "1"`. On Vercel `NODE_ENV` is always `"production"` regardless of which environment is configured, so the bypass is structurally impossible to enable on any deployed build. Verified by inspection — a runtime toggle test would require a dev-server restart and is unnecessary given the correctness of the check.
+- **Local write gitignore.** `.gitignore` contains all six `data/*.local.json` paths: `orders`, `customers`, `enquiries`, `counters`, `config`, `products`. Sonnet added `products.local.json` during Task 8 after catching its absence — confirmed no local writes are being tracked by git.
+- **TypeScript + build:** `npx tsc --noEmit` passes with zero errors at commit `2b4df0a`. Clean working tree after overlay cleanup.
 
-**Content drafting constraints discovered in Plan 4:** TBC
+### Actual config document shape
+
+Runtime shape of `Config` in seed mode (read from `DEFAULT_CONFIG` in `lib/config.ts`):
+
+```ts
+{
+  storeName: "Cryogene",
+  storeEmail: "hello@cryogene.co.uk",  // see lib/config.ts for current default
+  storePhone: null,
+  registeredAddress: "[ADDRESS TBC]",
+  companyNumber: null,
+  vatNumber: null,
+  vat: {
+    registered: false,
+    rate: 0.20,
+    displayPricesInclusive: false,
+  },
+  shipping: {
+    flatRateInPence: 395,
+    freeThresholdInPence: null,
+    estimatedDispatch: "…",  // see current default
+  },
+  notifications: {
+    newOrderEmailTo: "…",
+  },
+  updatedAt: Date,
+}
+```
+
+**Settings save runtime path NOT exercised during review.** The `SettingsForm` uses `useTransition` + `saveConfig` server action, which in turn calls `updateConfig` → writes `data/config.local.json` in seed mode. The write path is correct by inspection (Zod-validated, `isAdminRequest` gated, `revalidatePath("/", "layout")` called), but no `data/config.local.json` exists on disk because no admin has clicked Save yet. Plan 5 Task 8 (final smoke test) should perform one settings save through the UI and capture the exact `config.local.json` JSON shape at that point, confirming field-level fidelity against `DEFAULT_CONFIG`.
+
+### Drift from plan
+
+1. **`useSeed()` idiom inconsistency across data layer.** Two different checks are in use:
+   - **Products layer** (`lib/products.ts` + `app/actions/products.ts`): `!projectId || projectId === "REPLACE_ME"` — env-var string check.
+   - **Orders/enquiries/customers/config layers**: `getAdminDb() === null` — SDK presence check. `getAdminDb()` delegates to `isAdminConfigured()` in `lib/firebase/admin.ts`, which requires **all three** of `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY` to be set and `PROJECT_ID !== "REPLACE_ME"`.
+
+   These are equivalent only when all three env vars are set together. If a partial config exists (e.g. `FIREBASE_PROJECT_ID` set but credentials missing), products would attempt Firestore reads while orders would correctly stay in seed mode. This is a pre-existing Plan 1 drift that Plan 4 correctly did not touch. **Fix in Plan 5:** extract a shared `useSeed()` helper — e.g. `lib/data-mode.ts` exporting `isSeedMode()` — that delegates to `!isFirebaseAdminReady()` (already exported from `lib/firebase/admin.ts`) and have all data-layer files import from it. Flag this as an early task in Plan 5 before the sitemap/llms.txt routes land, since those new routes will want to reuse the same guard.
+
+2. **`data/orders.local.json` has ONE fabricated smoke-test order, not a real checkout flow.** Sonnet's Task 8 wrote a correctly-typed order record directly to the JSON file because the canonical checkout walkthrough cannot be performed while all variants have `priceInPence: 0` (Pricing TBC). The order shape is correct and Plan 4's admin list/detail views render it correctly — but the end-to-end "user clicks Pay → order appears in admin" path has never been walked. **Combined with the Plan 3 launch-time gate below**, this is a single blocker: once Sam provides pricing, a real guest-checkout walk MUST be performed before cutover.
+
+3. **Products edit → storefront overlay path now proven end-to-end BUT only via direct file write, not via the admin UI Save button.** The full path (admin form → `saveProduct` action → `revalidatePath` → page re-render) depends on (a) the admin UI producing a valid Product object, (b) the server action writing to disk, and (c) `revalidatePath` flushing the cache. I verified (c) by direct write + curl, which is sufficient to prove the overlay merge and cache invalidation work — but the admin UI's form serialization (specifically the `_key`-strip step before `saveProduct`) is only verified by code inspection, not runtime. Plan 5 Task 8 smoke test must click through one product edit in the browser and confirm the change appears on the public page.
+
+### Adjustments to Plan 5 tasks
+
+**Adjustment A — Add `lib/data-mode.ts` helper at the start of Plan 5.** Before Plan 5 writes the sitemap route (`app/sitemap.ts`) or the `llms.txt` dynamic route, create `lib/data-mode.ts`:
+
+```typescript
+// lib/data-mode.ts
+import "server-only";
+import { isFirebaseAdminReady } from "@/lib/firebase/admin";
+
+export function isSeedMode(): boolean {
+  return !isFirebaseAdminReady();
+}
+```
+
+Then in a follow-up step, refactor all six data-layer files (`lib/products.ts`, `lib/orders.ts`, `lib/customers.ts`, `lib/enquiries.ts`, `lib/config.ts`, `app/actions/products.ts`) to import `isSeedMode()` and remove their private `useSeed()` helpers. This is a mechanical refactor, ~20 lines touched, one commit. Land it as the first task in Plan 5 so the new SEO routes have a single source of truth.
+
+**Adjustment B — Plan 5 Task 8 final smoke test must perform a real product edit through the admin UI.** The existing Task 8 outline in Plan 5 (Stage 1a end-to-end) should explicitly include:
+
+1. Open `/admin/products/seed-bpc-157` in a real browser
+2. Change the `shortDescription` to something visually distinctive
+3. Click Save
+4. Verify the redirect to `/admin/products` fires
+5. Navigate to `/peptides/bpc-157` in an incognito tab
+6. Confirm the new description renders
+7. Delete `data/products.local.json` to restore the seed-only state (or commit the edit to `products.local.json` if the edit is wanted as a content draft)
+
+Add this to whatever Plan 5 task covers the Stage 1a final smoke test, before the SEO validation steps.
+
+**Adjustment C — Plan 5 Task 8 should also perform one real Settings Save.** The runtime shape of `data/config.local.json` has never been captured. When Plan 5 runs the final smoke test, change the `storeName` (back to something non-Cryogene and back again), click Save, `cat data/config.local.json`, and paste the exact shape into Plan 5's Task 8 verification notes as evidence. This is the first time the config write path will run end-to-end.
+
+### Content drafting constraints discovered in Plan 4
+
+None. Plan 4 was UI-only and introduced no new content-shape requirements. The existing Plan 5 scope for product descriptions, About, Research Use Only, and the six legal pages is unchanged. **Note the field naming for SEO:** `seoTitle` and `seoDescription` on `Product` are **nullable string overrides** — when null, Plan 5's metadata helper should fall back to `product.name` and `product.shortDescription` respectively. The `ProductForm` already emits `null` (not empty string) via `e.target.value || null` — Plan 5's `lib/seo.ts` metadata builder must handle that null correctly.
+
+### Launch-time gate (carried over from Plan 3, unchanged)
+
+**Real end-to-end smoke test still cannot be performed until Sam provides pricing.** Every variant has `priceInPence: 0`, which triggers the "Pricing TBC" guard in `lib/basket.ts` and blocks any item from entering the basket. Sonnet worked around this during Plan 4 Task 8 by writing a fabricated order directly to `orders.local.json` — that proves the admin read path but not the checkout write path. **Before production cutover:** after the pricing bulk-update (admin action or seed edit), run the full Plan 3 Task 14 guest checkout in a fresh incognito browser, then walk the Plan 5 Task 8 admin-edit-reflects-on-storefront path above. Add both to Plan 5's pre-launch checklist as hard gates.
 
 ---
 
