@@ -1,12 +1,14 @@
+// app/actions/contact.ts
 "use server";
 
 import { z } from "zod";
+import { createEnquiry } from "@/lib/enquiries";
 
 const ContactSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Valid email required"),
-  subject: z.string().min(1, "Subject is required"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
+  name: z.string().min(1),
+  email: z.string().email(),
+  subject: z.string().min(1),
+  message: z.string().min(10),
 });
 
 export type ContactFormState = {
@@ -16,7 +18,7 @@ export type ContactFormState = {
 };
 
 export async function submitContactForm(
-  _prevState: ContactFormState,
+  _prev: ContactFormState,
   formData: FormData
 ): Promise<ContactFormState> {
   const parsed = ContactSchema.safeParse({
@@ -35,9 +37,15 @@ export async function submitContactForm(
     return { status: "error", errors };
   }
 
-  // TODO in Plan 3: write to Firestore enquiries collection via Admin SDK
-  // TODO in Plan 3: send Resend confirmation email to customer
-  // TODO in Plan 3: send Resend notification email to Sam
-  console.log("[Contact form submission]", parsed.data);
-  return { status: "success" };
+  try {
+    await createEnquiry(parsed.data);
+    // TODO Stage 1b: send Resend confirmation email to customer
+    // TODO Stage 1b: send Resend notification email to Sam
+    return { status: "success" };
+  } catch (err) {
+    return {
+      status: "error",
+      generalError: err instanceof Error ? err.message : "Failed to submit enquiry",
+    };
+  }
 }
