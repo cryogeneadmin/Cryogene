@@ -15,7 +15,9 @@ export function buildProductJsonLd(
 ): object {
   const siteUrl = getSiteUrl();
   const storeName = getStoreName(config);
-  const lowestPrice = Math.min(...product.variants.map((v) => v.priceInPence));
+  const lowestPrice = product.variants.length > 0
+    ? Math.min(...product.variants.map((v) => v.priceInPence))
+    : 0;
   const inStock = product.variants.some((v) => v.active && v.stock > 0);
 
   return {
@@ -45,7 +47,7 @@ export function buildProductJsonLd(
       { "@type": "PropertyValue", name: "Purity", value: product.purity },
       { "@type": "PropertyValue", name: "Testing Method", value: product.testingMethod },
       { "@type": "PropertyValue", name: "Intended Use", value: "Laboratory research only" },
-    ],
+    ].filter((p) => p.value !== null),
   };
 }
 
@@ -103,5 +105,5 @@ export function buildOrganizationJsonLd(config: Config | null): object {
 }
 
 export function renderJsonLd(data: object): string {
-  return JSON.stringify(data, null, 0);
+  return JSON.stringify(data, null, 0).replace(/<\//g, "<\\/");
 }
