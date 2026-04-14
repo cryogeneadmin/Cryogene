@@ -12,8 +12,8 @@ export async function ProductDetail({ product }: { product: Product }) {
   const categoryLabel =
     product.category === "peptides"
       ? "Research Peptides"
-      : product.category === "capsules"
-      ? "Research Capsules"
+      : product.category === "supplies"
+      ? "Research Supplies"
       : "Mixers & Solvents";
 
   const related = (await getProducts({ category: product.category, activeOnly: true }))

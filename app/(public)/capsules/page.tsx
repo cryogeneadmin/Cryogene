@@ -1,23 +1,12 @@
-import { ProductListingPage } from "@/components/storefront/products/ProductListingPage";
+import { notFound } from "next/navigation";
 
-export default async function CapsulesPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | undefined }>;
-}) {
-  const params = await searchParams;
-  return (
-    <ProductListingPage
-      category="capsules"
-      categoryLabel="Research Capsules"
-      categoryDescription="Research-grade capsule formulations supplied with a Certificate of Analysis for every batch. Sold strictly for laboratory research use."
-      searchParams={params}
-    />
-  );
-}
+// The capsules category has been removed from the product catalogue.
+// This route is kept as a placeholder — all requests 404.
 
 export const metadata = {
-  title: "Research Capsules",
-  description:
-    "Research-grade capsules for UK laboratories. Every formulation tested and documented. For laboratory research use only.",
+  title: "Page Not Found",
 };
+
+export default function CapsulesPage() {
+  notFound();
+}

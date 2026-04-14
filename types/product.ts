@@ -1,10 +1,11 @@
 import type { Timestamp } from "firebase/firestore";
 
-export type ProductCategory = "peptides" | "capsules" | "mixers";
+export type ProductCategory = "peptides" | "mixers" | "supplies";
 
 export type ProductVariant = {
   sku: string;
   size: string;
+  packSize: string;
   priceInPence: number;
   stock: number;
   coaUrl: string | null;
@@ -25,12 +26,17 @@ export type Product = {
   shortDescription: string;
   fullDescription: string;
 
-  casNumber: string;
-  molecularFormula: string;
-  molecularWeight: string;
+  casNumber: string | null;
+  molecularFormula: string | null;
+  molecularWeight: string | null;
   synonyms: string[];
-  purity: string;
-  testingMethod: "HPLC" | "MS" | "HPLC-MS";
+  purity: string | null;
+  testingMethod: "HPLC" | "MS" | "HPLC-MS" | null;
+
+  pubchemCid: number | null;
+  moleculeImage: string | null;
+
+  composition?: Array<{ compound: string; amount: string }>;
 
   variants: ProductVariant[];
 

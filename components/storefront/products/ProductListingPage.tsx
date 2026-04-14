@@ -24,7 +24,7 @@ function applyFilters(
       const productSizes = p.variants.map((v) => v.size);
       if (!sizes.some((s) => productSizes.includes(s))) return false;
     }
-    if (methods.length > 0 && !methods.includes(p.testingMethod)) {
+    if (methods.length > 0 && (p.testingMethod === null || !methods.includes(p.testingMethod))) {
       return false;
     }
     if (inStockOnly) {
@@ -66,7 +66,7 @@ export async function ProductListingPage({
     new Set(allProducts.flatMap((p) => p.variants.map((v) => v.size)))
   ).sort();
   const availableMethods = Array.from(
-    new Set(allProducts.map((p) => p.testingMethod))
+    new Set(allProducts.map((p) => p.testingMethod).filter((m): m is NonNullable<typeof m> => m !== null))
   );
 
   return (
