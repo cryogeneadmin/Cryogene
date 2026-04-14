@@ -148,24 +148,35 @@ Sam's `Product_List.csv` has **120 confirmed peptide SKUs + 10 research supplies
    - **(b)** Make the chemistry fields optional on the `Product` type and have the PDP hide the chemistry row entirely when all fields are null. Useful as a fallback for blends and supplies.
    - **Plan 3 Task 0 should do both:** widen the types to optional, AND populate the major compounds (the 30–40 most common peptides) via subagent research. Blends and supplies legitimately have no chemistry data and should render without the row.
 
-#### S1.3 TrueLayer MCP server must be connected before Plan 3's payment work
+#### S1.3 TrueLayer — build against sandbox, swap to production at launch
 
-Sam's docx confirms TrueLayer (already in Plan 1's env var scaffolding — good). But it adds a new instruction:
+Sam's docx confirms TrueLayer (already in Plan 1's env var scaffolding — good). Two distinct TrueLayer tracks run in parallel, and only the first one gates Plan 3:
 
-> "Connect the TrueLayer MCP server to Claude Code before building Phase 2. This allows Claude Code to query the TrueLayer API directly during development."
+**Track A — Sandbox (David, complete before Plan 3 starts).**
+TrueLayer's sandbox environment (`https://api.truelayer-sandbox.com`) is the canonical way to develop against their API. Sandbox apps are free, instant to provision, and include fake banks and fake identities that let us test the full payment + Signup+ age verification flow end-to-end without Sam's involvement. **The entire Plan 3 build runs against sandbox.** Zero code changes are required at launch — Plan 5's deployment task swaps `.env.local` from sandbox → production values.
 
-MCP docs: https://docs.truelayer.com/docs/truelayer-mcp-integration-for-claude-ai
+What David does, before Plan 3 Sonnet starts:
+1. Sign up at https://console.truelayer.com under personal/Actually AI email
+2. Create a new "Pay" app in the sandbox environment
+3. Generate the signing keypair via the console (downloads a PEM private key)
+4. Populate `.env.local` with all eight `TRUELAYER_*` variables (sandbox values), including `TRUELAYER_ENVIRONMENT=sandbox`
+5. Confirm the MCP server is connected (already done 2026-04-14) and can hit the sandbox API
 
-**Action for David (human, not Sonnet):** Install and authenticate the TrueLayer MCP server in Claude Code BEFORE resuming Plan 3. Sonnet cannot do this — MCP server installation is user-side.
+**Track B — Production merchant account (Sam, parallel, not gating).**
+Sam opens a TrueLayer merchant account under Cryogene Ltd's legal entity. This requires KYC (business incorporation docs, director ID, proof of address, UK business bank account for settlements) and takes 2–4 weeks for TrueLayer's compliance review. Kick this off NOW — do not wait until code is ready. David should forward Sam the sign-up link at https://truelayer.com/sign-up/ today. The build proceeds on sandbox while Sam's merchant account gets reviewed; the two tracks converge at the end of Plan 3 / start of Plan 5 when production credentials swap in.
 
-**Action for Plan 3 Sonnet:** At the start of the TrueLayer integration task, verify that `mcp__truelayer__*` tools are available via `ToolSearch`. If they aren't, stop and tell David to connect the MCP before proceeding.
+**Action for Plan 3 Sonnet:**
+- At the start of the TrueLayer integration task, verify that `mcp__truelayer__*` tools are available via `ToolSearch`. If they aren't, stop and tell David to connect the MCP before proceeding. (Already confirmed connected 2026-04-14 but worth a re-check.)
+- Use the TrueLayer MCP server to query the sandbox API during development — it's faster than reading the docs and safer than guessing parameter shapes.
+- **Write all API calls to use `process.env.TRUELAYER_ENVIRONMENT` to pick between `https://api.truelayer-sandbox.com` and `https://api.truelayer.com`.** Do NOT hard-code either URL. The base URL selector lives in `lib/payments/truelayer.ts` as a single exported constant.
+- Plan 3's Task 14 smoke test must verify a complete fake-bank payment flow via TrueLayer sandbox (sandbox HSBC or sandbox Barclays), including the Signup+ age verification step. Document which fake bank was used in the smoke-test report.
 
 Also confirmed from the docx:
 - **Sandbox base URL:** `https://api.truelayer-sandbox.com`
 - **Production base URL:** `https://api.truelayer.com`
 - **Web SDK:** `@truelayer/web-sdk`
-- **Signup+ for age verification:** Include the Signup+ scope when creating a payment to trigger bank-level identity + age check. This is STRONGER than a frontend checkbox and Sam wants it enabled. Plan 3's payment-initiate route must set this scope.
-- **Return URL:** `NEXT_PUBLIC_TRUELAYER_RETURN_URL=https://cryogene.co.uk/checkout/confirm`
+- **Signup+ for age verification:** Include the Signup+ scope when creating a payment to trigger bank-level identity + age check. This is STRONGER than a frontend checkbox and Sam wants it enabled. Plan 3's payment-initiate route must set this scope. Sandbox supports Signup+ with fake identity data.
+- **Return URL:** `NEXT_PUBLIC_TRUELAYER_RETURN_URL=https://cryogene.co.uk/checkout/confirm` (same URL works for both environments — the environment is determined by which credentials the backend is using, not the return URL)
 - **API routes to build (per Sam's brief — matches Plan 3 existing scope):** `POST /api/checkout/initiate`, `POST /api/webhooks/truelayer`, `GET /api/checkout/status/[paymentId]`
 
 #### S1.4 Royal Mail Click and Drop (Phase 3, not Plan 3)
