@@ -81,7 +81,7 @@ export async function getOrders(options?: {
       results = results.slice(0, options.limit);
     }
     return results.sort((a, b) => {
-      const bTime = a.createdAt instanceof Date
+      const bTime = b.createdAt instanceof Date
         ? (b.createdAt as Date).getTime()
         : new Date((b.createdAt as unknown as string)).getTime();
       const aTime = a.createdAt instanceof Date

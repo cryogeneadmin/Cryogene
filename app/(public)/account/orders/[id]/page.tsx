@@ -12,6 +12,9 @@ export default async function AccountOrderDetailPage({
   const { id } = await params;
   const order = await getOrderById(id);
   if (!order) notFound();
+  // TODO Stage 1b: verify order.customer.uid matches the Firebase Auth session cookie.
+  // Server-side auth check must happen here before returning order data in HTML.
+  // Client-side AuthGuard below is insufficient protection for server-rendered content.
 
   return (
     <AuthGuard>

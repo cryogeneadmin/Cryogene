@@ -43,7 +43,8 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
     );
   }
 
-  if (!authed) return null;
+  // Keep loading state visible while navigation to /sign-in completes (avoids blank flash)
+  if (!authed) return <div className="max-w-[1280px] mx-auto px-6 py-16 text-center text-[#6B7280]">Loading...</div>;
 
   return <>{children}</>;
 }
