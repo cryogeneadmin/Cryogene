@@ -16,7 +16,9 @@ import type { Product } from "../types";
 async function main() {
   if (
     !process.env.FIREBASE_PROJECT_ID ||
-    process.env.FIREBASE_PROJECT_ID === "REPLACE_ME"
+    process.env.FIREBASE_PROJECT_ID === "REPLACE_ME" ||
+    !process.env.FIREBASE_CLIENT_EMAIL ||
+    !process.env.FIREBASE_PRIVATE_KEY
   ) {
     console.error("Firebase credentials missing. Set FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, FIREBASE_PRIVATE_KEY in .env.local first.");
     process.exit(1);
