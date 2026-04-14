@@ -26,17 +26,90 @@
 
 ## Review notes from Plan 3
 
-> **Populated by Opus during the end-of-Plan-3 review.** If this still says "Awaiting review" when Sonnet opens this file, **STOP** and confirm the Opus review has been run.
+> **Populated by Opus during the end-of-Plan-3 review (2026-04-14).** Reviewed against the running dev server with a real injected order end-to-end through the confirmation page.
 
-**Status:** ⏳ Awaiting review.
+**Status:** ✅ **APPROVED** — Plan 3 execution is structurally sound. Checkout flow, server actions, route guards, data layer, catalogue migration, and confirmation page are all verified. Plan 4 can proceed. One fix was applied during review (`ce0afd7`, superRefine for account-password validation); three items below require Plan 4 scope adjustments.
 
-**Actual order document shape on disk (after Plan 3 test orders):** TBC
+**Git log range:** Plan 3 commits `921ca6b..ce0afd7` (22 task commits + catalogue migration + 1 post-review fix).
 
-**Drift from plan (if any):** TBC
+---
 
-**Adjustments to Plan 4 tasks (if any):** TBC
+### ✅ Verified working
 
-**Admin UI field requirements that emerged from Plan 3 order shape:** TBC
+- **Catalogue migration:** 57 products / 124 variants / 41 PubChem molecule PNGs / 41 CAS numbers / 4 blended products with composition tables. HGH excluded, peptidelist2 SKU removals applied.
+- **Checkout route flow:** `/checkout` 307→`/checkout/delivery`, `/checkout/review` 307→`/checkout/delivery` when no session cookie, both confirmed via curl.
+- **Confirmation page end-to-end:** Opus injected a real `Order` record into `orders.local.json` and verified `/checkout/confirmation/{id}?stub=true` renders: first-name greeting, order number, line items, subtotal + shipping + total (correctly omits VAT line when `vat.registered === false`), delivery address with line2 null-guard, estimatedDispatch copy, research reminder amber box, guest account prompt.
+- **Server-authoritative pricing:** `createOrderAction` re-reads product + variant via `getProductBySlug`, never trusts client-submitted prices or totals.
+- **Basket clearing:** `ResearchConfirmCheckbox.handlePay` calls `clearBasket()` synchronously before `window.location.href` redirect — Zustand persist flushes before navigation.
+- **Build + type check:** 82 pages, zero TypeScript errors, clean working tree.
+
+### Actual order document shape on disk
+
+The order shape matches `types/order.ts` exactly — no drift. Key points for Plan 4 admin list/detail views:
+
+- `id` is `local-{timestamp}-{random}` in Stage 1a, Firestore doc ID in Stage 1b
+- `orderNumber` is `PPT-YYYYMMDD-NNNN` (zero-padded 4 digits)
+- `customer.uid` is `null` for guest orders (always null in Stage 1a)
+- `customer.address.line2` is nullable
+- `payment.provider` is `"stub"` in Stage 1a; `providerRef` is `STUB-{id}`
+- `payment.paidAt` is set for paid orders, null for pending
+- `fulfilment.*` fields are all null/empty until Plan 4+ admin actions populate them (carrier, trackingNumber, labelUrl, printedAt, printerStatus, dispatchedAt, customerEmailedAt)
+- `researchConfirmed: true` + `researchConfirmedAt` + `ageGatePassedAt` are always set — admin doesn't need to edit these, only display
+- `createdAt` / `updatedAt` are `Date` objects in Firestore mode, ISO strings after JSON round-trip in seed mode — admin list sort must handle both (already handled correctly in `lib/orders.ts` `getOrders` after the Opus-reviewed sort-comparator fix in `0a44e01`)
+
+### Drift from plan
+
+1. **No stock decrement on order creation.** The Plan 3 architecture statement says the order transaction should "read current prices, **decrements stock**, generates an order number, and links to the customer". `createOrderAction` checks `variant.stock >= quantity` but never writes the new stock level back. In seed mode this is unavoidable — `products.seed.json` is a read-only source-of-truth committed to git. In Firestore mode (Plan 4 wiring), `createOrderRecord` just calls `ref.set(order)` without touching the product document. **This is a Plan 4 gap, not a Plan 3 bug** — see adjustments below.
+
+2. **`createAccount` and `accountPassword` from the checkout session are dropped on the floor.** `createOrderAction` reads delivery fields but ignores the account-creation flag. Guests can tick "Save your details for next time" on the delivery step but no account is created in Stage 1a (Firebase inactive) OR in Stage 1b (no code path calls the Firebase Admin SDK to provision the account). The Zod validation bug where an empty password silently passed was **fixed during review in commit `ce0afd7`** — but the broader account-creation wiring remains a Plan 4 task.
+
+3. **Account order detail IDOR at `/account/orders/[id]`.** Fetches the order server-side before any auth check runs. Current state: a client-side `AuthGuard` component and a TODO comment, but the order JSON is already in the initial HTML payload regardless of auth. Safe in Stage 1a (non-guessable IDs, no real customers, no Firebase). Plan 4 must fix when wiring Firebase admin — see adjustments.
+
+### Adjustments to Plan 4 tasks
+
+**Adjustment A — Stock decrement inside the Firestore transaction (affects `lib/orders.ts` → `createOrderRecord`).** When Plan 4 activates Firebase Admin SDK and the `useSeed()` guard starts returning `false`, the `createOrderRecord` function must be upgraded to a transaction that:
+
+1. Reads each line item's product doc
+2. Verifies `variant.stock >= quantity` (redundant with `createOrderAction`'s check, but race-safe)
+3. Decrements `variant.stock` atomically
+4. Writes the order doc
+5. All in one `db.runTransaction(...)` block
+
+This is NOT a new task — it's an expansion of whatever task in Plan 4 first touches `lib/orders.ts` or the Firestore wiring. Add a paragraph to that task's "Steps" section before writing it. The seed-mode path stays unchanged (stock is immutable in seed mode; admin test orders inflate synthetic counters and it doesn't matter). A line comment on the seed branch should read `// seed-mode stock is immutable — real decrement happens in Firestore mode only`.
+
+**Adjustment B — Server-side session verification for `/account/orders/[id]` (affects the admin-auth / `lib/auth.ts` server-side helpers).** When Plan 4 implements the admin auth guard (`lib/admin-auth.ts` per the existing task list), also add a customer-facing `getSessionUid()` server helper that reads the Firebase session cookie and returns the current user's uid. Then update `app/(public)/account/orders/[id]/page.tsx` to:
+
+```tsx
+const { id } = await params;
+const sessionUid = await getSessionUid();
+if (!sessionUid) redirect("/sign-in");
+const order = await getOrderById(id);
+if (!order || order.customer.uid !== sessionUid) notFound();
+```
+
+The client-side `AuthGuard` becomes purely cosmetic at that point. Same pattern should apply to `/account/orders/page.tsx` — the Stage 1b wiring there must filter by `customerUid: sessionUid`.
+
+**Adjustment C — Account provisioning from checkout delivery (affects `createOrderAction` AND Plan 4's customer management).** When Plan 4 wires Firebase Auth admin, add a step to `createOrderAction` (or extract a helper `provisionAccountFromCheckout`) that:
+
+1. Reads `delivery.createAccount` and `delivery.accountPassword` from the session
+2. If both are set, calls Firebase Admin SDK `createUser({ email, password, displayName })`
+3. Writes the `Customer` doc via `lib/customers.ts` with the returned uid
+4. Sets `order.customer.uid = <new uid>` on the order record
+
+The Zod validation for this flow is already fixed (`ce0afd7`), so by the time Plan 4 wires the Admin SDK the form guarantees a valid password if `createAccount === true`. This is **new functional scope for Plan 4** — the existing Plan 4 task list doesn't cover it and should have one task added under the "Customers" section.
+
+### Admin UI field requirements from Plan 3 order shape
+
+- **Orders list columns:** `orderNumber`, `createdAt`, `customer.name`, `customer.email`, `totalInPence` (formatted), `status` badge, `payment.provider` (stub vs truelayer pill), fulfilment indicator (shows icon if `dispatchedAt` set)
+- **Orders list filters:** status (pending/paid/fulfilled/cancelled/refunded), date range, guest-vs-registered (`customer.uid === null` check)
+- **Order detail page must render:** full customer block, full items list, price breakdown including `vatRateAtPurchase` (historical rate at purchase time, not current config), `researchConfirmed*` + `ageGatePassedAt` timestamps as display-only compliance evidence, payment detail, fulfilment section with editable trackingNumber + courierReference + status dropdown
+- **Mark-as-dispatched action:** writes `fulfilment.dispatchedAt`, `fulfilment.carrier`, `fulfilment.trackingNumber`, `fulfilment.customerEmailedAt` (after Resend send) in one call
+- **Customers list:** joins `customer.uid` to Firebase Auth to get display name + email; "guest order count" column counts orders where `uid === null` matched by email
+- **Config form fields:** `storeName`, `storeEmail`, `storePhone`, `registeredAddress`, `companyNumber`, `vatNumber`, `shipping.flatRateInPence`, `shipping.freeThresholdInPence`, `shipping.estimatedDispatch`, `vat.registered` (boolean toggle — when flipping ON, also require `vatNumber`), `vat.rate`, `vat.displayPricesInclusive`, `notifications.newOrderEmailTo`. **Update `storeName` default from `"[PEPTIDE STORE]"` to `"Cryogene"` and `registeredAddress` from `"[ADDRESS]"` to `"[ADDRESS TBC]"` when writing Plan 4's config-form task** (already noted in Plan 3's S1 branding section, repeating here for visibility).
+
+### Launch-time gate (not a Plan 4 concern)
+
+**Real end-to-end smoke test cannot be performed until Sam provides pricing.** The `priceInPence: 0` placeholder triggers the `addItem` TBC guard in `lib/basket.ts`, which blocks any item from entering the basket. Opus worked around this during review by patching one variant to £29.95 and injecting a fabricated order — but the canonical guest-checkout walk through a real browser was never performed during Plan 3 execution. **Before production cutover in Plan 5:** after the pricing bulk-update (admin action or seed edit), run Task 14 of Plan 3 in a fresh incognito Chrome with Playwright MCP or manually. Document the tested cart path, the order number returned, and verify `orders.local.json` / Firestore contains the complete record. Add this to Plan 5's pre-launch checklist as a hard gate.
 
 ---
 
