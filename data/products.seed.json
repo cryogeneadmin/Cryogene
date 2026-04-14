@@ -48,8 +48,8 @@
     "updatedBy": "seed"
   },
   {
-    "id": "seed-5-amino-1mg",
-    "slug": "5-amino-1mg",
+    "id": "seed-5-amino-1mq",
+    "slug": "5-amino-1mq",
     "name": "5-Amino-1MQ",
     "category": "peptides",
     "shortDescription": "",
@@ -61,7 +61,7 @@
     "purity": "≥98%",
     "testingMethod": "HPLC",
     "pubchemCid": 950107,
-    "moleculeImage": "/molecules/5-amino-1mg.png",
+    "moleculeImage": "/molecules/5-amino-1mq.png",
     "variants": [
       {
         "sku": "5AM",
@@ -1408,7 +1408,7 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": "200-680-0",
+    "casNumber": "68-19-9",
     "molecularFormula": "C63H88CoN14O14P",
     "molecularWeight": "1355.4",
     "synonyms": [],
@@ -1621,14 +1621,14 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
-    "molecularFormula": null,
-    "molecularWeight": null,
+    "casNumber": "863288-34-0",
+    "molecularFormula": "C152H252N44O42",
+    "molecularWeight": "3367.9",
     "synonyms": [],
     "purity": "≥98%",
     "testingMethod": "HPLC",
-    "pubchemCid": null,
-    "moleculeImage": null,
+    "pubchemCid": 56841945,
+    "moleculeImage": "/molecules/cjc-1295-without-dac.png",
     "variants": [
       {
         "sku": "CND2",
@@ -1727,14 +1727,14 @@
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
-    "casNumber": null,
-    "molecularFormula": null,
-    "molecularWeight": null,
+    "casNumber": "75921-69-6",
+    "molecularFormula": "C78H111N21O19",
+    "molecularWeight": "1646.8",
     "synonyms": [],
     "purity": "≥98%",
     "testingMethod": "HPLC",
-    "pubchemCid": null,
-    "moleculeImage": null,
+    "pubchemCid": 16197727,
+    "moleculeImage": "/molecules/melanotani.png",
     "variants": [
       {
         "sku": "MT1",
@@ -2344,7 +2344,7 @@
   {
     "id": "seed-lipo-c",
     "slug": "lipo-c",
-    "name": "Lipo-c",
+    "name": "Lipo-C",
     "category": "peptides",
     "shortDescription": "",
     "fullDescription": "",
