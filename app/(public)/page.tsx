@@ -54,8 +54,8 @@ export default async function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
             { slug: "peptides", label: "Research Peptides", description: "HPLC-tested peptide compounds for laboratory research." },
-            { slug: "capsules", label: "Research Capsules", description: "Encapsulated formulations supplied with batch documentation." },
             { slug: "mixers", label: "Mixers & Solvents", description: "Laboratory-grade bacteriostatic water and sterile saline." },
+            { slug: "supplies", label: "Research Supplies", description: "Laboratory supplies and consumables with batch documentation." },
           ].map((cat) => (
             <Link
               key={cat.slug}

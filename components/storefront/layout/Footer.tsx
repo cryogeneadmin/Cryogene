@@ -9,7 +9,7 @@ export function Footer() {
           <p className="label-editorial text-[#AABBCC] mb-4">Shop</p>
           <ul className="space-y-2 text-sm">
             <li><Link href="/peptides" className="hover:text-white">Research Peptides</Link></li>
-            <li><Link href="/capsules" className="hover:text-white">Research Capsules</Link></li>
+            <li><Link href="/supplies" className="hover:text-white">Research Supplies</Link></li>
             <li><Link href="/mixers" className="hover:text-white">Mixers &amp; Solvents</Link></li>
           </ul>
         </div>

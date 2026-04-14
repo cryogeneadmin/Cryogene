@@ -5,8 +5,8 @@ import { BasketDrawer } from "@/components/storefront/basket/BasketDrawer";
 
 const navLinks = [
   { href: "/peptides", label: "Peptides" },
-  { href: "/capsules", label: "Capsules" },
   { href: "/mixers", label: "Mixers" },
+  { href: "/supplies", label: "Supplies" },
   { href: "/product-information", label: "Product Info" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
