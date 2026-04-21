@@ -1,8 +1,15 @@
 import Link from "next/link";
+import Image from "next/image";
 import { getProducts } from "@/lib/products";
 import type { ProductCategory, Product } from "@/types";
 import { ProductCard } from "./ProductCard";
 import { ProductFilters } from "./ProductFilters";
+
+const CATEGORY_HERO: Record<ProductCategory, string> = {
+  peptides: "/site/peptides-hero.png",
+  mixers: "/site/mixers-hero.png",
+  supplies: "/site/supplies-hero.png",
+};
 
 type ListingPageProps = {
   category: ProductCategory;
@@ -76,8 +83,22 @@ export async function ProductListingPage({
         <span className="mx-2">/</span>
         <span className="text-[#0D1B3E]">{categoryLabel}</span>
       </nav>
-      <h1 className="text-5xl mb-3 leading-tight">{categoryLabel}</h1>
-      <p className="text-lg text-[#6B7280] max-w-2xl mb-12">{categoryDescription}</p>
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 items-center mb-12">
+        <div>
+          <h1 className="text-5xl mb-3 leading-tight">{categoryLabel}</h1>
+          <p className="text-lg text-[#6B7280] max-w-2xl">{categoryDescription}</p>
+        </div>
+        <div className="relative w-full md:w-[360px] aspect-[3/2] bg-[#F7F8FA] border border-[#DDE1E7] overflow-hidden">
+          <Image
+            src={CATEGORY_HERO[category]}
+            alt={`${categoryLabel} research imagery`}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 360px"
+            priority
+          />
+        </div>
+      </div>
       <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-8">
         <ProductFilters sizes={availableSizes} testingMethods={availableMethods} />
         <div>
@@ -87,7 +108,17 @@ export async function ProductListingPage({
             </p>
           </div>
           {filtered.length === 0 ? (
-            <div className="text-center py-16 border border-dashed border-[#DDE1E7]">
+            <div className="text-center py-12 border border-dashed border-[#DDE1E7]">
+              <div className="relative w-40 h-40 mx-auto mb-4">
+                <Image
+                  src="/site/no-results.png"
+                  alt=""
+                  fill
+                  className="object-contain"
+                  sizes="160px"
+                  aria-hidden="true"
+                />
+              </div>
               <p className="font-serif text-2xl text-[#0D1B3E] mb-2">No products match your filters</p>
               <p className="text-sm text-[#6B7280]">Try clearing some filters to see more results.</p>
             </div>

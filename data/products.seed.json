@@ -651,6 +651,7 @@
       }
     ],
     "images": [
+      "/products/dsip--2mg.png",
       "/products/dsip--5mg.png",
       "/products/dsip--15mg.png"
     ],
@@ -1013,6 +1014,7 @@
       }
     ],
     "images": [
+      "/products/ghrp-6-acetate--5mg.png",
       "/products/ghrp-6-acetate--10mg.png"
     ],
     "primaryImageIndex": 0,
@@ -1070,7 +1072,9 @@
       }
     ],
     "images": [
-      "/placeholder-vial.svg"
+      "/products/bacteriostatic-water--10ml.png",
+      "/products/bacteriostatic-water--20ml.png",
+      "/products/bacteriostatic-water--30ml.png"
     ],
     "primaryImageIndex": 0,
     "seoTitle": null,
@@ -1579,6 +1583,7 @@
       }
     ],
     "images": [
+      "/products/ss-31--10mg.png",
       "/products/ss-31--50mg.png"
     ],
     "primaryImageIndex": 0,
@@ -1901,6 +1906,7 @@
       }
     ],
     "images": [
+      "/products/sermorelin--5mg.png",
       "/products/sermorelin--10mg.png"
     ],
     "primaryImageIndex": 0,
@@ -2331,8 +2337,11 @@
     ],
     "images": [
       "/products/retatrutide--5mg.png",
+      "/products/retatrutide--10mg.png",
       "/products/retatrutide--15mg.png",
       "/products/retatrutide--20mg.png",
+      "/products/retatrutide--30mg.png",
+      "/products/retatrutide--40mg.png",
       "/products/retatrutide--50mg.png",
       "/products/retatrutide--60mg.png"
     ],
@@ -2382,7 +2391,8 @@
       }
     ],
     "images": [
-      "/products/cagrilintide--5mg.png"
+      "/products/cagrilintide--5mg.png",
+      "/products/cagrilintide--10mg.png"
     ],
     "primaryImageIndex": 0,
     "seoTitle": null,
@@ -2629,7 +2639,7 @@
       }
     ],
     "images": [
-      "/placeholder-vial.svg"
+      "/products/sterile-petri-dishes--90mm.png"
     ],
     "primaryImageIndex": 0,
     "seoTitle": null,
@@ -2668,7 +2678,7 @@
       }
     ],
     "images": [
-      "/placeholder-vial.svg"
+      "/products/sterile-empty-vials--10ml.png"
     ],
     "primaryImageIndex": 0,
     "seoTitle": null,
@@ -2707,7 +2717,7 @@
       }
     ],
     "images": [
-      "/placeholder-vial.svg"
+      "/products/alcohol-prep-swabs--70-ipa.png"
     ],
     "primaryImageIndex": 0,
     "seoTitle": null,
@@ -2764,7 +2774,9 @@
       }
     ],
     "images": [
-      "/placeholder-vial.svg"
+      "/products/nitrile-examination-gloves--small.png",
+      "/products/nitrile-examination-gloves--medium.png",
+      "/products/nitrile-examination-gloves--large.png"
     ],
     "primaryImageIndex": 0,
     "seoTitle": null,
@@ -2803,7 +2815,7 @@
       }
     ],
     "images": [
-      "/placeholder-vial.svg"
+      "/products/disposable-transfer-pipettes--3ml.png"
     ],
     "primaryImageIndex": 0,
     "seoTitle": null,
@@ -2842,7 +2854,7 @@
       }
     ],
     "images": [
-      "/placeholder-vial.svg"
+      "/products/ph-test-strips--4-5-9-0-range.png"
     ],
     "primaryImageIndex": 0,
     "seoTitle": null,
@@ -2881,7 +2893,7 @@
       }
     ],
     "images": [
-      "/placeholder-vial.svg"
+      "/products/sterile-syringe-filters--0-22-micron.png"
     ],
     "primaryImageIndex": 0,
     "seoTitle": null,
@@ -2920,7 +2932,7 @@
       }
     ],
     "images": [
-      "/placeholder-vial.svg"
+      "/products/laboratory-notebook--a5-hardback-grid.png"
     ],
     "primaryImageIndex": 0,
     "seoTitle": null,

@@ -58,12 +58,48 @@ function safeSize(size: string): string {
 }
 
 function buildPrompt(product: Product, variant: Variant): string {
+  // Mixers (bacteriostatic water) share the vial form factor.
+  if (product.category === "peptides" || product.category === "mixers") {
+    return (
+      `Replace the text 'LOT: F9042A' in the top blue band with nothing. ` +
+      `Replace the '0,9 mL' text and the barcode and QR code at the bottom of the label with empty white background. ` +
+      `Add the text '${product.name}' in large dark-navy serif font centered in the middle of the label, with '${variant.size}' in smaller dark-grey text directly below it. ` +
+      `Keep the Cryogene hexagon logo, the 'CRYOGENE LABORATORIES' wordmark, the 'FOR RESEARCH USE ONLY' blue band, the 'KEEP REFRIGERATED' text, the metal cap, the glass bottle, and the shadow all exactly as they are.`
+    );
+  }
+
+  // Supplies are not vials — ask Kontext to replace the subject entirely while
+  // preserving the pure-white background and clean laboratory product-photo look.
+  const subject = suppliesSubject(product);
   return (
-    `Replace the text 'LOT: F9042A' in the top blue band with nothing. ` +
-    `Replace the '0,9 mL' text and the barcode and QR code at the bottom of the label with empty white background. ` +
-    `Add the text '${product.name}' in large dark-navy serif font centered in the middle of the label, with '${variant.size}' in smaller dark-grey text directly below it. ` +
-    `Keep the Cryogene hexagon logo, the 'CRYOGENE LABORATORIES' wordmark, the 'FOR RESEARCH USE ONLY' blue band, the 'KEEP REFRIGERATED' text, the metal cap, the glass bottle, and the shadow all exactly as they are.`
+    `Transform this image. Completely replace the glass vial with cap and label with a clean professional product photograph of ${subject}. ` +
+    `Keep the pure white background, studio lighting, soft shadow, and centered composition. ` +
+    `Add a small navy blue 'Cryogene Laboratories' hexagon logo with molecule diagram in the bottom-right corner. ` +
+    `Clean boutique laboratory-grade aesthetic, high resolution, sharp focus, no text overlays, no price tags, no banners.`
   );
+}
+
+function suppliesSubject(product: Product): string {
+  switch (product.slug) {
+    case "sterile-petri-dishes":
+      return "a stack of three clear plastic sterile 90mm petri dishes with transparent lids";
+    case "sterile-empty-vials":
+      return "a row of three clear glass 10ml empty sterile vials with silver metal crimp caps";
+    case "alcohol-prep-swabs":
+      return "a small stack of individually-wrapped alcohol prep swabs in clean white and blue foil packaging";
+    case "nitrile-examination-gloves":
+      return "a box of blue nitrile examination gloves with a single glove partially pulled out";
+    case "disposable-transfer-pipettes":
+      return "three clear plastic 3ml graduated disposable transfer pipettes lying parallel";
+    case "ph-test-strips":
+      return "a plastic vial containing pH test strips with a colour reference chart on the label (range 4.5 to 9.0)";
+    case "sterile-syringe-filters":
+      return "three sterile syringe filter units with blue and white plastic housings, 0.22 micron";
+    case "laboratory-notebook":
+      return "a closed A5 hardback laboratory notebook with a plain navy cover, spine facing the viewer";
+    default:
+      return `professional laboratory supply product: ${product.name}`;
+  }
 }
 
 async function uploadTemplateOnce(): Promise<string> {
@@ -156,10 +192,10 @@ async function main() {
     (await fs.readdir(OUT_DIR).catch(() => [])).filter((f) => f.endsWith(".png")),
   );
 
-  const peptides = (products as Product[]).filter((p) => p.category === "peptides");
+  const allProducts = products as Product[];
   let targets: { product: Product; variant: Variant }[] = [];
   let skipped = 0;
-  for (const p of peptides) {
+  for (const p of allProducts) {
     if (only && p.slug !== only) continue;
     for (const v of p.variants) {
       const filename = `${p.slug}--${safeSize(v.size)}.png`;

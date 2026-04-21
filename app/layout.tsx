@@ -39,6 +39,16 @@ export const metadata: Metadata = {
   description:
     "Research-grade peptides and research supplies for UK laboratory research. Every product HPLC-tested with a Certificate of Analysis. For laboratory research use only.",
   robots: { index: true, follow: true },
+  openGraph: {
+    type: "website",
+    siteName: "Cryogene",
+    locale: "en_GB",
+    images: [{ url: "/site/og-default.png", width: 1200, height: 630, alt: "Cryogene Laboratories" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/site/og-default.png"],
+  },
 };
 
 export default async function RootLayout({

@@ -1,8 +1,20 @@
+import Image from "next/image";
+
 export default function AboutPage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
       <p className="label-editorial mb-4">About</p>
-      <h1 className="text-5xl mb-10 leading-tight">Research supply, done carefully.</h1>
+      <h1 className="text-5xl mb-6 leading-tight">Research supply, done carefully.</h1>
+
+      <div className="relative aspect-[16/9] bg-[#F7F8FA] border border-[#DDE1E7] overflow-hidden mb-12">
+        <Image
+          src="/site/about-lab.png"
+          alt="Laboratory bench with HPLC instrument and glass vials"
+          fill
+          className="object-cover"
+          sizes="(max-width: 1024px) 100vw, 768px"
+        />
+      </div>
 
       <div className="prose prose-lg max-w-none text-[#333333] leading-relaxed space-y-6">
         <p className="text-xl">

@@ -46,13 +46,12 @@ export default async function HomePage() {
         </div>
         <div className="relative aspect-square bg-[#F7F8FA] border border-[#DDE1E7]">
           <Image
-            src="/placeholder-vial.svg"
-            alt="Research peptide vial on white background"
+            src="/site/homepage-hero.png"
+            alt="Clear glass research vial on a neutral background"
             fill
-            className="object-contain p-16"
+            className="object-cover"
             sizes="(max-width: 768px) 100vw, 50vw"
             priority
-            unoptimized
           />
         </div>
       </section>

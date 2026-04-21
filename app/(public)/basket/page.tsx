@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useBasket, formatPriceFromPence } from "@/lib/basket";
 import { BasketItem } from "@/components/storefront/basket/BasketItem";
 
@@ -10,6 +11,16 @@ export default function BasketPage() {
   if (items.length === 0) {
     return (
       <div className="max-w-[1280px] mx-auto px-6 py-24 text-center">
+        <div className="relative w-48 h-48 mx-auto mb-6">
+          <Image
+            src="/site/empty-basket.png"
+            alt=""
+            fill
+            className="object-contain"
+            sizes="192px"
+            aria-hidden="true"
+          />
+        </div>
         <h1 className="text-4xl mb-4">Your basket is empty</h1>
         <p className="text-[#6B7280] mb-8">Add research products to see them here.</p>
         <Link

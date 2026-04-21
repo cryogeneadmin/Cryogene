@@ -51,9 +51,7 @@ async function main() {
   const missing: string[] = [];
 
   for (const p of products) {
-    if (p.category !== "peptides") continue;
-
-    // Find images for each variant in size order.
+    // Find images for each variant in size order (numeric sizes only; non-numeric keep source order).
     const variantsSorted = [...p.variants].sort(
       (a, b) => sizeAmount(a.size) - sizeAmount(b.size),
     );
