@@ -3,6 +3,7 @@ import Image from "next/image";
 import type { Product } from "@/types";
 import { formatPriceFromPence } from "@/lib/basket";
 import { RESEARCH_TAGS, TAG_SLUGS } from "@/data/research-tags";
+import { ProductImageShell } from "./ProductImageShell";
 
 const TAG_LABEL: Record<string, string> = Object.fromEntries(
   RESEARCH_TAGS.map((t) => [t.slug, t.label]),
@@ -18,26 +19,43 @@ export function ProductCard({ product }: { product: Product }) {
   const cardImage =
     product.images[product.primaryImageIndex] ?? product.images[0] ?? "/placeholder-vial.svg";
   const pricingTbc = lowestPriceVariant.priceInPence === 0;
+  const href = `/${product.category}/${product.slug}`;
+  const tags = (product.tags ?? []).filter((t) => TAG_SLUGS.has(t)).slice(0, 2);
+  const descriptionId = `product-${product.id}-meta`;
 
   return (
-    <Link
-      href={`/${product.category}/${product.slug}`}
-      className="group block border border-[#DDE1E7] bg-white hover:border-[#0D1B3E] transition-colors"
+    <article
+      aria-labelledby={`product-${product.id}-name`}
+      className="group block border border-[#DDE1E7] bg-white hover:border-[#0D1B3E] focus-within:border-[#0D1B3E] transition-colors"
     >
-      <div className="relative aspect-square bg-[#F7F8FA] overflow-hidden">
-        <Image
+      <Link
+        href={href}
+        className="block relative aspect-square focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0D1B3E] focus-visible:ring-offset-2"
+        aria-describedby={descriptionId}
+      >
+        <ProductImageShell
           src={cardImage}
           alt={`${product.name} research ${product.category === "supplies" ? "supply" : "peptide"} vial`}
-          fill
-          className="object-contain p-6"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          unoptimized
+          padding="p-6"
         />
-      </div>
-      <div className="p-5 border-t border-[#DDE1E7] flex items-end gap-3">
+        {/* hover reveal: "View datasheet →" */}
+        <span
+          aria-hidden="true"
+          className="absolute bottom-3 right-3 text-[11px] uppercase tracking-wider text-[#0D1B3E] bg-white/90 border border-[#C0C8D8] px-2 py-1 opacity-0 translate-y-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0"
+        >
+          View datasheet →
+        </span>
+      </Link>
+      <div className="p-5 border-t border-[#DDE1E7] flex items-end gap-3" id={descriptionId}>
         <div className="flex-1 min-w-0">
-          <h3 className="font-serif text-xl text-[#0D1B3E] leading-tight mb-1">
-            {product.name}
+          <h3
+            id={`product-${product.id}-name`}
+            className="font-serif text-xl text-[#0D1B3E] leading-tight mb-1"
+          >
+            <Link href={href} className="hover:underline focus:outline-none focus-visible:underline">
+              {product.name}
+            </Link>
           </h3>
           <div className="flex items-center gap-2 mb-3">
             {product.casNumber && (
@@ -47,22 +65,17 @@ export function ProductCard({ product }: { product: Product }) {
               <span className="label-editorial text-[#6B7280] bg-[#F7F8FA] border border-[#DDE1E7] px-1.5 py-0.5 text-[10px]">BLEND</span>
             )}
           </div>
-          {(() => {
-            const tags = (product.tags ?? []).filter((t) => TAG_SLUGS.has(t)).slice(0, 2);
-            if (tags.length === 0) return null;
-            return (
-              <div className="flex flex-wrap gap-1.5 mb-3">
-                {tags.map((t) => (
-                  <span
-                    key={t}
-                    className="inline-block text-[10px] uppercase tracking-wider bg-[#0D1B3E] text-white px-2 py-0.5"
-                  >
+          {tags.length > 0 && (
+            <ul className="flex flex-wrap gap-1.5 mb-3 list-none p-0">
+              {tags.map((t) => (
+                <li key={t}>
+                  <span className="inline-block text-[10px] uppercase tracking-wider bg-[#0D1B3E] text-white px-2 py-0.5">
                     {TAG_LABEL[t] ?? t}
                   </span>
-                ))}
-              </div>
-            );
-          })()}
+                </li>
+              ))}
+            </ul>
+          )}
           <div className="flex items-center justify-between">
             <span className="text-sm text-[#333333]">
               {pricingTbc ? "Pricing TBC" : `From ${formatPriceFromPence(lowestPriceVariant.priceInPence)}`}
@@ -72,11 +85,14 @@ export function ProductCard({ product }: { product: Product }) {
             </span>
           </div>
           {totalStock === 0 && (
-            <p className="text-xs text-red-700 mt-2">Out of stock</p>
+            <p className="text-xs text-red-700 mt-2" role="status">Out of stock</p>
           )}
         </div>
         {product.moleculeImage && (
-          <div className="shrink-0 w-12 h-12 bg-gradient-to-br from-[#F0F4FA] via-[#E6ECF5] to-[#CAD4E4] border border-[#DDE1E7] rounded-sm shadow-[0_4px_10px_-2px_rgba(13,27,62,0.25)] p-1">
+          <div
+            aria-hidden="true"
+            className="shrink-0 w-12 h-12 bg-gradient-to-br from-[#F0F4FA] via-[#E6ECF5] to-[#CAD4E4] border border-[#DDE1E7] rounded-sm shadow-[0_4px_10px_-2px_rgba(13,27,62,0.25)] p-1"
+          >
             <Image
               src={product.moleculeImage}
               alt=""
@@ -84,11 +100,10 @@ export function ProductCard({ product }: { product: Product }) {
               height={40}
               className="object-contain w-full h-full"
               unoptimized
-              aria-hidden="true"
             />
           </div>
         )}
       </div>
-    </Link>
+    </article>
   );
 }

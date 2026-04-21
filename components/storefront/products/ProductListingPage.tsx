@@ -4,6 +4,7 @@ import { getProducts } from "@/lib/products";
 import type { ProductCategory, Product } from "@/types";
 import { ProductCard } from "./ProductCard";
 import { ProductFilters } from "./ProductFilters";
+import { ListingToolbar } from "./ListingToolbar";
 import { TAG_SLUGS } from "@/data/research-tags";
 
 const CATEGORY_HERO: Record<ProductCategory, string> = {
@@ -97,8 +98,8 @@ export async function ProductListingPage({
     <div className="max-w-[1280px] mx-auto px-6 py-12">
       <nav aria-label="Breadcrumb" className="label-editorial mb-6">
         <Link href="/" className="hover:text-[#0D1B3E]">Home</Link>
-        <span className="mx-2">/</span>
-        <span className="text-[#0D1B3E]">{categoryLabel}</span>
+        <span aria-hidden="true" className="mx-2">/</span>
+        <span className="text-[#0D1B3E]" aria-current="page">{categoryLabel}</span>
       </nav>
       <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 items-center mb-12">
         <div>
@@ -117,13 +118,26 @@ export async function ProductListingPage({
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-8">
-        <ProductFilters sizes={availableSizes} testingMethods={availableMethods} tagFacets={tagFacets} />
+        <div className="hidden lg:block">
+          <ProductFilters sizes={availableSizes} testingMethods={availableMethods} tagFacets={tagFacets} />
+        </div>
         <div>
-          <div className="flex items-center justify-between mb-6">
-            <p className="text-sm text-[#6B7280]">
-              {filtered.length} {filtered.length === 1 ? "product" : "products"}
-            </p>
-          </div>
+          <ListingToolbar
+            count={filtered.length}
+            activeFilterCount={
+              (searchParams.sizes?.split(",").filter(Boolean).length ?? 0) +
+              (searchParams.methods?.split(",").filter(Boolean).length ?? 0) +
+              (searchParams.tags?.split(",").filter(Boolean).length ?? 0) +
+              (searchParams.instock === "1" ? 1 : 0)
+            }
+            filtersSlot={
+              <ProductFilters
+                sizes={availableSizes}
+                testingMethods={availableMethods}
+                tagFacets={tagFacets}
+              />
+            }
+          />
           {filtered.length === 0 ? (
             <div className="text-center py-12 border border-dashed border-[#DDE1E7]">
               <div className="relative w-40 h-40 mx-auto mb-4">

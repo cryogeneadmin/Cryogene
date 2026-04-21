@@ -63,9 +63,9 @@ export function ProductFilters({ sizes, testingMethods, tagFacets = [] }: Filter
   return (
     <aside className="space-y-8 pr-6">
       {tagFacets.length > 0 && (
-        <div>
-          <p className="label-editorial mb-3">Research Application</p>
-          <ul className="space-y-2">
+        <fieldset className="border-0 p-0 m-0">
+          <legend className="label-editorial mb-3 p-0">Research Application</legend>
+          <ul className="space-y-2 list-none p-0">
             {tagFacets.map(({ slug, count }) => (
               <li key={slug}>
                 <label className="flex items-center gap-2 text-sm cursor-pointer">
@@ -81,11 +81,11 @@ export function ProductFilters({ sizes, testingMethods, tagFacets = [] }: Filter
               </li>
             ))}
           </ul>
-        </div>
+        </fieldset>
       )}
-      <div>
-        <p className="label-editorial mb-3">Size</p>
-        <ul className="space-y-2">
+      <fieldset className="border-0 p-0 m-0">
+        <legend className="label-editorial mb-3 p-0">Size</legend>
+        <ul className="space-y-2 list-none p-0">
           {sizes.map((size) => (
             <li key={size}>
               <label className="flex items-center gap-2 text-sm cursor-pointer">
@@ -100,10 +100,10 @@ export function ProductFilters({ sizes, testingMethods, tagFacets = [] }: Filter
             </li>
           ))}
         </ul>
-      </div>
-      <div>
-        <p className="label-editorial mb-3">Testing Method</p>
-        <ul className="space-y-2">
+      </fieldset>
+      <fieldset className="border-0 p-0 m-0">
+        <legend className="label-editorial mb-3 p-0">Testing Method</legend>
+        <ul className="space-y-2 list-none p-0">
           {testingMethods.map((method) => (
             <li key={method}>
               <label className="flex items-center gap-2 text-sm cursor-pointer">
@@ -118,7 +118,7 @@ export function ProductFilters({ sizes, testingMethods, tagFacets = [] }: Filter
             </li>
           ))}
         </ul>
-      </div>
+      </fieldset>
       <div>
         <label className="flex items-center gap-2 text-sm cursor-pointer">
           <input

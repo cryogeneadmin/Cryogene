@@ -7,6 +7,8 @@ import { ProductFAQ } from "./ProductFAQ";
 import { ProductCard } from "./ProductCard";
 import { BlendedProductComposition } from "./BlendedProductComposition";
 import { CompoundStatsBar } from "./CompoundStatsBar";
+import { StorageHandlingPanel } from "./StorageHandlingPanel";
+import { ProductAnchorNav } from "./ProductAnchorNav";
 import { getProducts } from "@/lib/products";
 import { getConfig } from "@/lib/config";
 import { RESEARCH_TAGS, TAG_SLUGS } from "@/data/research-tags";
@@ -64,15 +66,15 @@ export async function ProductDetail({ product }: { product: Product }) {
       />
       <nav aria-label="Breadcrumb" className="label-editorial mb-6">
         <Link href="/" className="hover:text-[#0D1B3E]">Home</Link>
-        <span className="mx-2">/</span>
+        <svg aria-hidden="true" viewBox="0 0 8 12" className="inline-block w-2 h-3 mx-2 text-[#C0C8D8]"><path d="M1 1l5 5-5 5" stroke="currentColor" strokeWidth="1.5" fill="none"/></svg>
         <Link href={`/${product.category}`} className="hover:text-[#0D1B3E]">
           {categoryLabel}
         </Link>
-        <span className="mx-2">/</span>
-        <span className="text-[#0D1B3E]">{product.name}</span>
+        <svg aria-hidden="true" viewBox="0 0 8 12" className="inline-block w-2 h-3 mx-2 text-[#C0C8D8]"><path d="M1 1l5 5-5 5" stroke="currentColor" strokeWidth="1.5" fill="none"/></svg>
+        <span className="text-[#0D1B3E]" aria-current="page">{product.name}</span>
       </nav>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div>
+        <div className="md:sticky md:top-28 self-start">
           <div className="border border-[#DDE1E7] bg-[#F7F8FA] p-12 flex items-center justify-center aspect-square">
             <Image
               src={primaryImage ?? "/placeholder-vial.svg"}
@@ -107,6 +109,7 @@ export async function ProductDetail({ product }: { product: Product }) {
           })()}
 
           <CompoundStatsBar product={product} />
+          <StorageHandlingPanel product={product} />
           {product.moleculeImage && (
             <div className="flex items-center gap-5 mb-6">
               <div className="shrink-0 bg-gradient-to-br from-[#F0F4FA] via-[#E6ECF5] to-[#CAD4E4] border border-[#DDE1E7] rounded-sm shadow-[0_8px_20px_-6px_rgba(13,27,62,0.3)] p-2">
@@ -134,7 +137,20 @@ export async function ProductDetail({ product }: { product: Product }) {
         </div>
       </div>
 
-      <section className="mt-16 max-w-3xl">
+      <ProductAnchorNav
+        anchors={[
+          { id: "overview", label: "Overview" },
+          { id: "chemistry", label: "Chemistry" },
+          ...(product.composition && product.composition.length > 0
+            ? [{ id: "composition", label: "Composition" }]
+            : []),
+          ...(product.faq && product.faq.length > 0
+            ? [{ id: "faq", label: "FAQ" }]
+            : []),
+        ]}
+      />
+
+      <section id="overview" className="mt-16 max-w-3xl scroll-mt-40">
         <h2 className="text-3xl mb-6">About {product.name}</h2>
         <div className="prose prose-lg max-w-none text-[#333333] leading-relaxed">
           {product.fullDescription.split("\n\n").map((para, i) => (
@@ -143,7 +159,7 @@ export async function ProductDetail({ product }: { product: Product }) {
         </div>
       </section>
 
-      <section className="mt-16 max-w-3xl">
+      <section id="chemistry" className="mt-16 max-w-3xl scroll-mt-40">
         <h2 className="text-3xl mb-6">Chemical information</h2>
         <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 border-t border-[#DDE1E7] pt-6">
           {product.casNumber && (
@@ -177,7 +193,12 @@ export async function ProductDetail({ product }: { product: Product }) {
         )}
       </section>
 
-      <ProductFAQ items={product.faq} />
+      <div id="composition" className="scroll-mt-40">
+        {/* composition anchor target — BlendedProductComposition renders within the right column above */}
+      </div>
+      <div id="faq" className="scroll-mt-40">
+        <ProductFAQ items={product.faq} />
+      </div>
 
       {related.length > 0 && (
         <section className="mt-24">

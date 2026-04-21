@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { BasketIconButton } from "@/components/storefront/basket/BasketIconButton";
 import { BasketDrawer } from "@/components/storefront/basket/BasketDrawer";
+import { NavbarShell } from "./NavbarShell";
 import { getConfig } from "@/lib/config";
 
 const navLinks = [
@@ -18,35 +19,37 @@ export async function Navbar() {
   const config = await getConfig();
   return (
     <>
-      <nav className="sticky top-9 z-30 bg-white border-b border-[#DDE1E7]">
-        <div className="max-w-[1280px] mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" aria-label={`${config.storeName} home`} className="flex items-center">
-            <Image
-              src="/brand/cryogene-logo-nav.png"
-              alt={config.storeName}
-              width={216}
-              height={60}
-              priority
-              className="h-10 w-auto"
-            />
-          </Link>
-          <ul className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} className="label-editorial hover:text-[#0D1B3E] transition-colors">
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className="flex items-center gap-6">
-            <Link href="/sign-in" className="label-editorial hover:text-[#0D1B3E] hidden sm:inline-block">
-              Sign in
+      <NavbarShell>
+        <nav className="bg-white">
+          <div className="max-w-[1280px] mx-auto px-6 h-16 flex items-center justify-between transition-[height] duration-200 group-data-[scrolled=true]:h-14">
+            <Link href="/" aria-label={`${config.storeName} home`} className="flex items-center">
+              <Image
+                src="/brand/cryogene-logo-nav.png"
+                alt={config.storeName}
+                width={216}
+                height={60}
+                priority
+                className="h-10 w-auto transition-[height] duration-200 group-data-[scrolled=true]:h-8"
+              />
             </Link>
-            <BasketIconButton />
+            <ul className="hidden md:flex items-center gap-8">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="label-editorial hover:text-[#0D1B3E] transition-colors">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <div className="flex items-center gap-6">
+              <Link href="/sign-in" className="label-editorial hover:text-[#0D1B3E] hidden sm:inline-block">
+                Sign in
+              </Link>
+              <BasketIconButton />
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </NavbarShell>
       <BasketDrawer />
     </>
   );

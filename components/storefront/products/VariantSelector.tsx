@@ -2,7 +2,7 @@
 "use client";
 
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { Product, ProductVariant } from "@/types";
 import { useBasket, formatPriceFromPence } from "@/lib/basket";
 
@@ -38,28 +38,62 @@ export function VariantSelector({ product }: { product: Product }) {
   const outOfStock = selected.stock === 0;
   const pricingTbc = selected.priceInPence === 0;
 
+  const radioRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const selectableIndices = product.variants
+    .map((v, i) => ({ v, i }))
+    .filter(({ v }) => v.active && v.stock > 0)
+    .map(({ i }) => i);
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLButtonElement>, currentIdx: number) => {
+      const pos = selectableIndices.indexOf(currentIdx);
+      if (pos === -1) return;
+      let next = pos;
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") next = (pos + 1) % selectableIndices.length;
+      else if (e.key === "ArrowLeft" || e.key === "ArrowUp") next = (pos - 1 + selectableIndices.length) % selectableIndices.length;
+      else if (e.key === "Home") next = 0;
+      else if (e.key === "End") next = selectableIndices.length - 1;
+      else return;
+      e.preventDefault();
+      const targetIdx = selectableIndices[next];
+      const targetVariant = product.variants[targetIdx];
+      setSelectedSku(targetVariant.sku);
+      radioRefs.current[targetIdx]?.focus();
+    },
+    [product.variants, selectableIndices],
+  );
+
   return (
     <div className="space-y-6">
       <div>
-        <p className="label-editorial mb-2">Size</p>
-        <div className="flex flex-wrap gap-2">
-          {product.variants.map((variant) => {
+        <p id={`${product.id}-size-label`} className="label-editorial mb-2">Size</p>
+        <div
+          role="radiogroup"
+          aria-labelledby={`${product.id}-size-label`}
+          className="flex flex-wrap gap-2"
+        >
+          {product.variants.map((variant, idx) => {
             const isSelected = variant.sku === selectedSku;
             const unavailable = !variant.active || variant.stock === 0;
             return (
               <button
                 key={variant.sku}
+                ref={(el) => { radioRefs.current[idx] = el; }}
                 type="button"
+                role="radio"
+                aria-checked={isSelected}
+                aria-disabled={unavailable || undefined}
+                tabIndex={isSelected ? 0 : -1}
                 onClick={() => !unavailable && setSelectedSku(variant.sku)}
+                onKeyDown={(e) => !unavailable && handleKeyDown(e, idx)}
                 disabled={unavailable}
-                className={`px-5 py-2 border text-sm transition-colors ${
+                className={`px-5 py-2 border text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0D1B3E] focus-visible:ring-offset-1 ${
                   isSelected
                     ? "bg-[#0D1B3E] text-white border-[#0D1B3E]"
                     : unavailable
                     ? "border-[#DDE1E7] text-[#6B7280] line-through cursor-not-allowed"
                     : "border-[#DDE1E7] hover:border-[#0D1B3E]"
                 }`}
-                aria-pressed={isSelected}
               >
                 {variant.size}
               </button>
