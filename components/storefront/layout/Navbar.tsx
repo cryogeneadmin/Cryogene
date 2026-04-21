@@ -1,5 +1,6 @@
 // components/storefront/layout/Navbar.tsx
 import Link from "next/link";
+import Image from "next/image";
 import { BasketIconButton } from "@/components/storefront/basket/BasketIconButton";
 import { BasketDrawer } from "@/components/storefront/basket/BasketDrawer";
 import { getConfig } from "@/lib/config";
@@ -19,8 +20,15 @@ export async function Navbar() {
     <>
       <nav className="sticky top-9 z-30 bg-white border-b border-[#DDE1E7]">
         <div className="max-w-[1280px] mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-serif text-[#0D1B3E] tracking-tight">
-            {config.storeName}
+          <Link href="/" aria-label={`${config.storeName} home`} className="flex items-center">
+            <Image
+              src="/brand/cryogene-logo-nav.png"
+              alt={config.storeName}
+              width={216}
+              height={60}
+              priority
+              className="h-10 w-auto"
+            />
           </Link>
           <ul className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
