@@ -60,10 +60,20 @@ function safeSize(size: string): string {
 function buildPrompt(product: Product, variant: Variant): string {
   // Mixers (bacteriostatic water) share the vial form factor.
   if (product.category === "peptides" || product.category === "mixers") {
+    // For names that FLUX consistently mis-spells, force character-by-character spelling.
+    const SPELLED: Record<string, string> = {
+      "GHRP-2 Acetate": "G H R P dash 2 A C E T A T E (spelled: GHRP-2 Acetate)",
+      "Retatrutide": "R E T A T R U T I D E (spelled: Retatrutide)",
+    };
+    const nameHint = SPELLED[product.name];
+    const nameInstruction = nameHint
+      ? `Add the text '${product.name}' — spell it letter by letter as ${nameHint} — in large dark-navy serif font centered in the middle of the label`
+      : `Add the text '${product.name}' in large dark-navy serif font centered in the middle of the label`;
+
     return (
       `Replace the text 'LOT: F9042A' in the top blue band with nothing. ` +
       `Replace the '0,9 mL' text and the barcode and QR code at the bottom of the label with empty white background. ` +
-      `Add the text '${product.name}' in large dark-navy serif font centered in the middle of the label, with '${variant.size}' in smaller dark-grey text directly below it. ` +
+      `${nameInstruction}, with '${variant.size}' in smaller dark-grey text directly below it. ` +
       `Keep the Cryogene hexagon logo, the 'CRYOGENE LABORATORIES' wordmark, the 'FOR RESEARCH USE ONLY' blue band, the 'KEEP REFRIGERATED' text, the metal cap, the glass bottle, and the shadow all exactly as they are.`
     );
   }
