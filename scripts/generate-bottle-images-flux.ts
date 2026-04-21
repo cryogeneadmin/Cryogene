@@ -151,15 +151,27 @@ async function main() {
 
   const inputImage = await uploadTemplateOnce();
 
+  const force = args.includes("--force");
+  const existing = new Set(
+    (await fs.readdir(OUT_DIR).catch(() => [])).filter((f) => f.endsWith(".png")),
+  );
+
   const peptides = (products as Product[]).filter((p) => p.category === "peptides");
   let targets: { product: Product; variant: Variant }[] = [];
+  let skipped = 0;
   for (const p of peptides) {
     if (only && p.slug !== only) continue;
     for (const v of p.variants) {
+      const filename = `${p.slug}--${safeSize(v.size)}.png`;
+      if (!force && existing.has(filename)) {
+        skipped += 1;
+        continue;
+      }
       targets.push({ product: p, variant: v });
     }
   }
   if (pilot) targets = targets.slice(0, 1);
+  if (skipped > 0) console.log(`Skipping ${skipped} already-rendered images (use --force to regenerate).`);
 
   console.log(`FLUX Kontext Max — rendering ${targets.length} images with concurrency ${CONCURRENCY}`);
 

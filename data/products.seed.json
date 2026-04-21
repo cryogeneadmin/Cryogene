@@ -35,7 +35,8 @@
       }
     ],
     "images": [
-      "/placeholder-vial.svg"
+      "/products/igf-1lr3--0-1mg.png",
+      "/products/igf-1lr3--1mg.png"
     ],
     "primaryImageIndex": 0,
     "seoTitle": null,
@@ -92,7 +93,9 @@
       }
     ],
     "images": [
-      "/products/5-amino-1mq--5mg.png"
+      "/products/5-amino-1mq--5mg.png",
+      "/products/5-amino-1mq--10mg.png",
+      "/products/5-amino-1mq--50mg.png"
     ],
     "primaryImageIndex": 0,
     "seoTitle": null,
@@ -131,7 +134,7 @@
       }
     ],
     "images": [
-      "/placeholder-vial.svg"
+      "/products/l-carnitine-600mg--600mg.png"
     ],
     "primaryImageIndex": 0,
     "seoTitle": null,
@@ -179,7 +182,8 @@
       }
     ],
     "images": [
-      "/placeholder-vial.svg"
+      "/products/epitalon--10mg.png",
+      "/products/epitalon--50mg.png"
     ],
     "primaryImageIndex": 0,
     "seoTitle": null,
@@ -227,7 +231,8 @@
       }
     ],
     "images": [
-      "/placeholder-vial.svg"
+      "/products/ipamorelin--5mg.png",
+      "/products/ipamorelin--10mg.png"
     ],
     "primaryImageIndex": 0,
     "seoTitle": null,
@@ -646,7 +651,6 @@
       }
     ],
     "images": [
-      "/products/dsip--2mg.png",
       "/products/dsip--5mg.png",
       "/products/dsip--15mg.png"
     ],
@@ -1009,7 +1013,6 @@
       }
     ],
     "images": [
-      "/products/ghrp-6-acetate--5mg.png",
       "/products/ghrp-6-acetate--10mg.png"
     ],
     "primaryImageIndex": 0,
@@ -1576,7 +1579,6 @@
       }
     ],
     "images": [
-      "/products/ss-31--10mg.png",
       "/products/ss-31--50mg.png"
     ],
     "primaryImageIndex": 0,
@@ -1899,7 +1901,6 @@
       }
     ],
     "images": [
-      "/products/sermorelin--5mg.png",
       "/products/sermorelin--10mg.png"
     ],
     "primaryImageIndex": 0,
@@ -2223,8 +2224,10 @@
     "images": [
       "/products/semaglutide--2mg.png",
       "/products/semaglutide--5mg.png",
+      "/products/semaglutide--10mg.png",
       "/products/semaglutide--15mg.png",
       "/products/semaglutide--20mg.png",
+      "/products/semaglutide--30mg.png",
       "/products/semaglutide--50mg.png"
     ],
     "primaryImageIndex": 0,
@@ -2327,8 +2330,10 @@
       }
     ],
     "images": [
+      "/products/retatrutide--5mg.png",
       "/products/retatrutide--15mg.png",
       "/products/retatrutide--20mg.png",
+      "/products/retatrutide--50mg.png",
       "/products/retatrutide--60mg.png"
     ],
     "primaryImageIndex": 0,
@@ -2469,7 +2474,7 @@
       }
     ],
     "images": [
-      "/placeholder-vial.svg"
+      "/products/glow-blend--70mg.png"
     ],
     "primaryImageIndex": 0,
     "seoTitle": null,
@@ -2583,7 +2588,9 @@
       }
     ],
     "images": [
-      "/products/tb500--5mg.png"
+      "/products/tb500--2mg.png",
+      "/products/tb500--5mg.png",
+      "/products/tb500--10mg.png"
     ],
     "primaryImageIndex": 0,
     "seoTitle": null,
