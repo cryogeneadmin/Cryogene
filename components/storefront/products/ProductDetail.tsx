@@ -6,6 +6,7 @@ import { ResearchDisclaimerCallout } from "./ResearchDisclaimerCallout";
 import { ProductFAQ } from "./ProductFAQ";
 import { ProductCard } from "./ProductCard";
 import { BlendedProductComposition } from "./BlendedProductComposition";
+import { CompoundStatsBar } from "./CompoundStatsBar";
 import { getProducts } from "@/lib/products";
 import { getConfig } from "@/lib/config";
 import { RESEARCH_TAGS, TAG_SLUGS } from "@/data/research-tags";
@@ -104,47 +105,27 @@ export async function ProductDetail({ product }: { product: Product }) {
               </div>
             );
           })()}
-          {(product.moleculeImage || product.casNumber || product.molecularFormula || product.molecularWeight) && (
+
+          <CompoundStatsBar product={product} />
+          {product.moleculeImage && (
             <div className="flex items-center gap-5 mb-6">
-              {product.moleculeImage && (
-                <div className="shrink-0 bg-gradient-to-br from-[#F0F4FA] via-[#E6ECF5] to-[#CAD4E4] border border-[#DDE1E7] rounded-sm shadow-[0_8px_20px_-6px_rgba(13,27,62,0.3)] p-2">
-                  <Image
-                    src={product.moleculeImage}
-                    alt={`${product.name} molecular structure`}
-                    width={144}
-                    height={144}
-                    className="object-contain w-36 h-36 drop-shadow-md"
-                    unoptimized
-                  />
-                </div>
-              )}
-              {(product.casNumber || product.molecularFormula || product.molecularWeight) && (
-                <p className="font-mono text-sm text-[#6B7280]">
-                  {[
-                    product.casNumber ? `CAS ${product.casNumber}` : null,
-                    product.molecularFormula,
-                    product.molecularWeight,
-                  ]
-                    .filter(Boolean)
-                    .join(" · ")}
+              <div className="shrink-0 bg-gradient-to-br from-[#F0F4FA] via-[#E6ECF5] to-[#CAD4E4] border border-[#DDE1E7] rounded-sm shadow-[0_8px_20px_-6px_rgba(13,27,62,0.3)] p-2">
+                <Image
+                  src={product.moleculeImage}
+                  alt={`${product.name} molecular structure`}
+                  width={144}
+                  height={144}
+                  className="object-contain w-36 h-36 drop-shadow-md"
+                  unoptimized
+                />
+              </div>
+              {product.testingMethod && (
+                <p className="font-mono text-xs uppercase tracking-wider text-[#6B7280]">
+                  Tested by {product.testingMethod}
                 </p>
               )}
             </div>
           )}
-          <div className="flex gap-3 mb-8">
-            {product.purity && (
-              <div className="px-3 py-1 border border-[#DDE1E7]">
-                <p className="label-editorial text-[10px] mb-0.5">Purity</p>
-                <p className="text-sm">{product.purity}</p>
-              </div>
-            )}
-            {product.testingMethod && (
-              <div className="px-3 py-1 border border-[#DDE1E7]">
-                <p className="label-editorial text-[10px] mb-0.5">Tested</p>
-                <p className="text-sm">{product.testingMethod}</p>
-              </div>
-            )}
-          </div>
           {product.composition && product.composition.length > 0 && (
             <BlendedProductComposition composition={product.composition} />
           )}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Sans, JetBrains_Mono } from "next/font/google";
+import { Playfair_Display, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 import { ComplianceBanner } from "@/components/storefront/layout/ComplianceBanner";
@@ -9,23 +9,24 @@ import { Navbar } from "@/components/storefront/layout/Navbar";
 import { Footer } from "@/components/storefront/layout/Footer";
 import { isAgeVerified } from "@/app/actions/age-gate";
 
-const cormorant = Cormorant_Garamond({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-cormorant",
+  weight: ["400", "500", "600", "700", "800"],
+  style: ["normal", "italic"],
+  variable: "--font-playfair",
   display: "swap",
 });
 
-const dmSans = DM_Sans({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-dm-sans",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
   display: "swap",
 });
 
 const jetBrains = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400", "500", "600"],
   variable: "--font-jetbrains",
   display: "swap",
 });
@@ -61,7 +62,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en-GB"
-      className={`${cormorant.variable} ${dmSans.variable} ${jetBrains.variable}`}
+      className={`${playfair.variable} ${inter.variable} ${jetBrains.variable} font-sans`}
     >
       <body className="min-h-screen flex flex-col">
         <ComplianceBanner />

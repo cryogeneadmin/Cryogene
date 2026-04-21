@@ -5,24 +5,35 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  /* Brand palette */
-  --color-navy: #0D1B3E;
-  --color-mid-navy: #162040;
+  /* Brand palette — refined Cryogene tokens */
+  --color-navy: #0D1B3E;           /* primary — backgrounds, headers, CTAs */
+  --color-mid-navy: #162040;       /* primary hover state */
+  --color-blue: #2B4A8A;           /* accent — links, badges, hover */
+  --color-silver: #C0C8D8;         /* vial-label silver; borders, secondary */
+  --color-white: #FFFFFF;
+  --color-offwhite: #F7F8FA;       /* page background */
+  --color-panel: #F1F3F6;          /* science data panels, stats bars */
+  --color-muted: #6B7280;          /* secondary text */
+  --color-border: #DDE1E7;         /* card borders, dividers */
+  --color-body-grey: #333333;
+
+  /* Aliases kept for residual utilities still referencing old names. */
   --color-accent-blue: #2B4A8A;
   --color-off-white: #F7F8FA;
   --color-warm-grey: #E8EAED;
   --color-border-grey: #DDE1E7;
-  --color-body-grey: #333333;
   --color-muted-grey: #6B7280;
+
+  /* Compliance / status palette (unchanged) */
   --color-compliance-amber-bg: #FFF3CD;
   --color-compliance-amber-text: #6A4D00;
   --color-compliance-amber-border: #E6C97A;
   --color-success-bg: #DCFCE7;
   --color-success-text: #166534;
 
-  /* Typography */
-  --font-serif: var(--font-cormorant), Georgia, serif;
-  --font-sans: var(--font-dm-sans), system-ui, -apple-system, sans-serif;
+  /* Typography — Playfair Display for headings, Inter for body, JetBrains Mono for data. */
+  --font-serif: var(--font-playfair), Georgia, "Cormorant Garamond", serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 
   /* Compliance banner height — used for root layout padding */
