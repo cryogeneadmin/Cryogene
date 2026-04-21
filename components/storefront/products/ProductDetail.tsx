@@ -8,6 +8,11 @@ import { ProductCard } from "./ProductCard";
 import { BlendedProductComposition } from "./BlendedProductComposition";
 import { getProducts } from "@/lib/products";
 import { getConfig } from "@/lib/config";
+import { RESEARCH_TAGS, TAG_SLUGS } from "@/data/research-tags";
+
+const TAG_LABEL: Record<string, string> = Object.fromEntries(
+  RESEARCH_TAGS.map((t) => [t.slug, t.label]),
+);
 import {
   buildProductJsonLd,
   buildFaqJsonLd,
@@ -82,6 +87,23 @@ export async function ProductDetail({ product }: { product: Product }) {
         <div>
           <p className="label-editorial mb-2">{categoryLabel}</p>
           <h1 className="text-5xl leading-tight mb-4">{product.name}</h1>
+          {(() => {
+            const tags = (product.tags ?? []).filter((t) => TAG_SLUGS.has(t));
+            if (tags.length === 0) return null;
+            return (
+              <div className="flex flex-wrap gap-2 mb-6">
+                {tags.map((t) => (
+                  <Link
+                    key={t}
+                    href={`/${product.category}?tags=${t}`}
+                    className="inline-block text-xs uppercase tracking-wider bg-[#0D1B3E] text-white px-3 py-1 hover:bg-[#162040]"
+                  >
+                    {TAG_LABEL[t] ?? t}
+                  </Link>
+                ))}
+              </div>
+            );
+          })()}
           {(product.moleculeImage || product.casNumber || product.molecularFormula || product.molecularWeight) && (
             <div className="flex items-center gap-5 mb-6">
               {product.moleculeImage && (

@@ -60,6 +60,7 @@
       }
     ],
     "tags": [
+      "growth-hormone-research",
       "growth-factor",
       "igf",
       "receptor-binding"
@@ -139,6 +140,7 @@
       }
     ],
     "tags": [
+      "metabolic-research",
       "nnmt-inhibitor",
       "metabolism",
       "small-molecule"
@@ -198,6 +200,8 @@
       }
     ],
     "tags": [
+      "metabolic-research",
+      "biochemistry-reference",
       "mitochondrial",
       "fatty-acid-metabolism",
       "metabolomics-reference"
@@ -268,6 +272,7 @@
       }
     ],
     "tags": [
+      "longevity-research",
       "tetrapeptide",
       "senescence-research",
       "bioregulator"
@@ -336,6 +341,7 @@
       }
     ],
     "tags": [
+      "growth-hormone-research",
       "growth-hormone-secretagogue",
       "ghs-r1a",
       "ghrelin-receptor"
@@ -415,6 +421,8 @@
       }
     ],
     "tags": [
+      "cognitive-research",
+      "neuropeptide-research",
       "acth-analogue",
       "neurotrophic-research",
       "heptapeptide"
@@ -475,6 +483,8 @@
       }
     ],
     "tags": [
+      "tissue-repair-research",
+      "immunology-research",
       "erythropoietin-derived",
       "innate-repair-receptor",
       "cibinetide"
@@ -544,6 +554,8 @@
       }
     ],
     "tags": [
+      "reproductive-research",
+      "neuropeptide-research",
       "kisspeptin",
       "gpr54",
       "neuroendocrine-research"
@@ -612,6 +624,8 @@
       }
     ],
     "tags": [
+      "cognitive-research",
+      "neuropeptide-research",
       "tuftsin-analogue",
       "neurochemistry-research",
       "heptapeptide"
@@ -682,6 +696,7 @@
       }
     ],
     "tags": [
+      "biochemistry-reference",
       "antioxidant-reference",
       "redox-research",
       "tripeptide"
@@ -741,6 +756,7 @@
       }
     ],
     "tags": [
+      "ecm-skin-research",
       "snare-research",
       "cosmetic-chemistry-reference",
       "acetyl-octapeptide"
@@ -800,6 +816,7 @@
       }
     ],
     "tags": [
+      "neuropeptide-research",
       "neuropeptide",
       "vpac-receptor",
       "glucagon-family"
@@ -859,6 +876,7 @@
       }
     ],
     "tags": [
+      "melanocortin-research",
       "melanocortin",
       "bremelanotide",
       "cyclic-peptide"
@@ -938,6 +956,7 @@
       }
     ],
     "tags": [
+      "neuropeptide-research",
       "sleep-research",
       "nonapeptide",
       "neurochemistry"
@@ -997,6 +1016,7 @@
       }
     ],
     "tags": [
+      "longevity-research",
       "senescence-research",
       "foxo4-p53",
       "dri-peptide"
@@ -1055,6 +1075,7 @@
       }
     ],
     "tags": [
+      "metabolic-research",
       "err-agonist",
       "nuclear-receptor",
       "mitochondrial-research"
@@ -1114,6 +1135,8 @@
       }
     ],
     "tags": [
+      "cognitive-research",
+      "longevity-research",
       "khavinson-peptide",
       "tripeptide",
       "bioregulator"
@@ -1173,8 +1196,8 @@
       }
     ],
     "tags": [
-      "thymus-peptide",
-      "immunology-research"
+      "immunology-research",
+      "thymus-peptide"
     ],
     "active": true,
     "createdAt": "2026-04-14T00:00:00.000Z",
@@ -1241,6 +1264,7 @@
       }
     ],
     "tags": [
+      "immunology-research",
       "thymosin",
       "prothymosin-derived",
       "immunology"
@@ -1310,6 +1334,7 @@
       }
     ],
     "tags": [
+      "metabolic-research",
       "proapoptotic-peptide",
       "prohibitin-targeting",
       "chimeric-peptide"
@@ -1390,6 +1415,7 @@
       }
     ],
     "tags": [
+      "growth-hormone-research",
       "ghrp",
       "pralmorelin",
       "ghs-r1a"
@@ -1458,6 +1484,7 @@
       }
     ],
     "tags": [
+      "growth-hormone-research",
       "ghrp",
       "ghs-r1a",
       "secretagogue"
@@ -1607,8 +1634,8 @@
       }
     ],
     "tags": [
-      "pentadecapeptide",
       "tissue-repair-research",
+      "pentadecapeptide",
       "body-protection-compound"
     ],
     "active": true,
@@ -1686,6 +1713,7 @@
       }
     ],
     "tags": [
+      "tissue-repair-research",
       "peptide-blend",
       "bpc-157",
       "tb-500"
@@ -1765,6 +1793,9 @@
       }
     ],
     "tags": [
+      "longevity-research",
+      "metabolic-research",
+      "biochemistry-reference",
       "coenzyme",
       "sirtuin-research",
       "redox"
@@ -1844,6 +1875,7 @@
       }
     ],
     "tags": [
+      "metabolic-research",
       "hgh-fragment",
       "lipolysis-research",
       "fragment-peptide"
@@ -1913,6 +1945,8 @@
       }
     ],
     "tags": [
+      "ecm-skin-research",
+      "tissue-repair-research",
       "copper-peptide",
       "ghk",
       "ecm-research"
@@ -2001,6 +2035,8 @@
       }
     ],
     "tags": [
+      "metabolic-research",
+      "longevity-research",
       "mitochondrial-peptide",
       "ampk-research",
       "sorf-peptide"
@@ -2061,6 +2097,7 @@
       }
     ],
     "tags": [
+      "biochemistry-reference",
       "cobalamin",
       "vitamin",
       "cofactor"
@@ -2119,6 +2156,8 @@
       }
     ],
     "tags": [
+      "biochemistry-reference",
+      "neuropeptide-research",
       "indoleamine",
       "chronobiology",
       "mt1-mt2"
@@ -2177,6 +2216,8 @@
       }
     ],
     "tags": [
+      "cognitive-research",
+      "neuropeptide-research",
       "neuropeptide-mixture",
       "neuroscience-research"
     ],
@@ -2247,6 +2288,8 @@
       }
     ],
     "tags": [
+      "longevity-research",
+      "metabolic-research",
       "mitochondria-targeted",
       "elamipretide",
       "cardiolipin"
@@ -2316,6 +2359,7 @@
       }
     ],
     "tags": [
+      "growth-hormone-research",
       "ghrh-analogue",
       "dac",
       "albumin-binding"
@@ -2396,6 +2440,7 @@
       }
     ],
     "tags": [
+      "growth-hormone-research",
       "ghrh-analogue",
       "mod-grf-29",
       "peptide-stability-research"
@@ -2465,6 +2510,7 @@
       }
     ],
     "tags": [
+      "growth-hormone-research",
       "peptide-blend",
       "ghrh-ghs",
       "comparative-pharmacology"
@@ -2525,6 +2571,7 @@
       }
     ],
     "tags": [
+      "melanocortin-research",
       "melanocortin",
       "alpha-msh-analogue",
       "afamelanotide"
@@ -2585,6 +2632,7 @@
       }
     ],
     "tags": [
+      "melanocortin-research",
       "melanocortin",
       "cyclic-peptide",
       "mt-ii"
@@ -2644,6 +2692,8 @@
       }
     ],
     "tags": [
+      "immunology-research",
+      "melanocortin-research",
       "tripeptide",
       "alpha-msh-fragment",
       "inflammation-research"
@@ -2714,6 +2764,7 @@
       }
     ],
     "tags": [
+      "growth-hormone-research",
       "ghrh-fragment",
       "growth-hormone-releasing-hormone",
       "grf-1-29"
@@ -2803,6 +2854,8 @@
       }
     ],
     "tags": [
+      "growth-hormone-research",
+      "metabolic-research",
       "ghrh-analogue",
       "dpp4-resistant",
       "tesamorelin"
@@ -2982,6 +3035,8 @@
       }
     ],
     "tags": [
+      "incretin-research",
+      "metabolic-research",
       "incretin",
       "glp-1-gip",
       "dual-agonist"
@@ -3102,6 +3157,8 @@
       }
     ],
     "tags": [
+      "incretin-research",
+      "metabolic-research",
       "glp-1-agonist",
       "incretin",
       "albumin-binding"
@@ -3230,6 +3287,8 @@
       }
     ],
     "tags": [
+      "incretin-research",
+      "metabolic-research",
       "triple-agonist",
       "glp-1-gip-glucagon",
       "retatrutide"
@@ -3298,6 +3357,8 @@
       }
     ],
     "tags": [
+      "incretin-research",
+      "metabolic-research",
       "amylin-analogue",
       "calcitonin-receptor",
       "cagrilintide"
@@ -3357,6 +3418,8 @@
       }
     ],
     "tags": [
+      "metabolic-research",
+      "biochemistry-reference",
       "lipotropic-blend",
       "methionine-inositol-choline",
       "metabolism-research"
@@ -3429,6 +3492,7 @@
       }
     ],
     "tags": [
+      "ecm-skin-research",
       "research-blend",
       "ghk-cu-glutathione-vitamin-c",
       "ecm-redox"
@@ -3505,6 +3569,8 @@
       }
     ],
     "tags": [
+      "ecm-skin-research",
+      "immunology-research",
       "research-blend",
       "kpv-ghk-cu",
       "inflammation-ecm"
@@ -3585,6 +3651,7 @@
       }
     ],
     "tags": [
+      "tissue-repair-research",
       "thymosin-beta-4",
       "actin-sequestering",
       "tissue-biology"

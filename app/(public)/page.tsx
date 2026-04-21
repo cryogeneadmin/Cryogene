@@ -1,14 +1,26 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getFeaturedProducts } from "@/lib/products";
+import { getFeaturedProducts, getProducts } from "@/lib/products";
 import { ProductCard } from "@/components/storefront/products/ProductCard";
 import { getConfig } from "@/lib/config";
 import { buildOrganizationJsonLd, renderJsonLd } from "@/lib/seo";
+import { RESEARCH_TAGS, TAG_SLUGS } from "@/data/research-tags";
 
 export default async function HomePage() {
   const featured = await getFeaturedProducts(6);
   const config = await getConfig();
   const orgJsonLd = buildOrganizationJsonLd(config);
+
+  // Build research-tag counts across the entire active catalogue.
+  const allActive = await getProducts({ activeOnly: true });
+  const tagCount = new Map<string, number>();
+  for (const p of allActive) {
+    for (const t of p.tags ?? []) if (TAG_SLUGS.has(t)) tagCount.set(t, (tagCount.get(t) ?? 0) + 1);
+  }
+  const tagCloud = RESEARCH_TAGS
+    .map((t) => ({ ...t, count: tagCount.get(t.slug) ?? 0 }))
+    .filter((t) => t.count > 0)
+    .sort((a, b) => b.count - a.count);
 
   return (
     <div className="pb-32">
@@ -55,6 +67,39 @@ export default async function HomePage() {
           />
         </div>
       </section>
+
+      {/* Research application tag cloud */}
+      {tagCloud.length > 0 && (
+        <section className="max-w-[1280px] mx-auto px-6 py-16 border-t border-[#DDE1E7]">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:items-start">
+            <div>
+              <p className="label-editorial mb-3">Browse by Application</p>
+              <h2 className="text-3xl text-[#0D1B3E] leading-tight">
+                Find compounds by the research area you work in.
+              </h2>
+              <p className="text-sm text-[#6B7280] mt-4 max-w-sm">
+                Every peptide in the catalogue is tagged by its primary research application.
+                Click a tag to see the compounds studied in that area.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              {tagCloud.map((t) => (
+                <Link
+                  key={t.slug}
+                  href={`/peptides?tags=${t.slug}`}
+                  className="group inline-flex items-center gap-2 bg-white border border-[#DDE1E7] px-4 py-2 hover:border-[#0D1B3E] transition-colors"
+                  title={t.description}
+                >
+                  <span className="text-sm text-[#0D1B3E] group-hover:text-[#162040]">
+                    {t.label}
+                  </span>
+                  <span className="text-xs text-[#9CA3AF] mono">{t.count}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Categories */}
       <section className="max-w-[1280px] mx-auto px-6 py-16">

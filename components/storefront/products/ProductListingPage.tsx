@@ -4,6 +4,7 @@ import { getProducts } from "@/lib/products";
 import type { ProductCategory, Product } from "@/types";
 import { ProductCard } from "./ProductCard";
 import { ProductFilters } from "./ProductFilters";
+import { TAG_SLUGS } from "@/data/research-tags";
 
 const CATEGORY_HERO: Record<ProductCategory, string> = {
   peptides: "/site/peptides-hero.png",
@@ -24,6 +25,7 @@ function applyFilters(
 ): Product[] {
   const sizes = params.sizes?.split(",").filter(Boolean) ?? [];
   const methods = params.methods?.split(",").filter(Boolean) ?? [];
+  const tags = params.tags?.split(",").filter(Boolean) ?? [];
   const inStockOnly = params.instock === "1";
 
   let filtered = products.filter((p) => {
@@ -33,6 +35,10 @@ function applyFilters(
     }
     if (methods.length > 0 && (p.testingMethod === null || !methods.includes(p.testingMethod))) {
       return false;
+    }
+    if (tags.length > 0) {
+      const productTags = p.tags ?? [];
+      if (!tags.some((t) => productTags.includes(t))) return false;
     }
     if (inStockOnly) {
       const totalStock = p.variants.reduce((sum, v) => sum + v.stock, 0);
@@ -76,6 +82,17 @@ export async function ProductListingPage({
     new Set(allProducts.map((p) => p.testingMethod).filter((m): m is NonNullable<typeof m> => m !== null))
   );
 
+  // Build research-tag facet counts from the unfiltered product set in this category.
+  const tagCountMap = new Map<string, number>();
+  for (const p of allProducts) {
+    for (const t of p.tags ?? []) {
+      if (TAG_SLUGS.has(t)) tagCountMap.set(t, (tagCountMap.get(t) ?? 0) + 1);
+    }
+  }
+  const tagFacets = Array.from(tagCountMap.entries())
+    .map(([slug, count]) => ({ slug, count }))
+    .sort((a, b) => b.count - a.count);
+
   return (
     <div className="max-w-[1280px] mx-auto px-6 py-12">
       <nav aria-label="Breadcrumb" className="label-editorial mb-6">
@@ -100,7 +117,7 @@ export async function ProductListingPage({
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-8">
-        <ProductFilters sizes={availableSizes} testingMethods={availableMethods} />
+        <ProductFilters sizes={availableSizes} testingMethods={availableMethods} tagFacets={tagFacets} />
         <div>
           <div className="flex items-center justify-between mb-6">
             <p className="text-sm text-[#6B7280]">

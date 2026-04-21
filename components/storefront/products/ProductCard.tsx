@@ -2,6 +2,11 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Product } from "@/types";
 import { formatPriceFromPence } from "@/lib/basket";
+import { RESEARCH_TAGS, TAG_SLUGS } from "@/data/research-tags";
+
+const TAG_LABEL: Record<string, string> = Object.fromEntries(
+  RESEARCH_TAGS.map((t) => [t.slug, t.label]),
+);
 
 export function ProductCard({ product }: { product: Product }) {
   const activeVariants = product.variants.filter((v) => v.active);
@@ -42,6 +47,22 @@ export function ProductCard({ product }: { product: Product }) {
               <span className="label-editorial text-[#6B7280] bg-[#F7F8FA] border border-[#DDE1E7] px-1.5 py-0.5 text-[10px]">BLEND</span>
             )}
           </div>
+          {(() => {
+            const tags = (product.tags ?? []).filter((t) => TAG_SLUGS.has(t)).slice(0, 2);
+            if (tags.length === 0) return null;
+            return (
+              <div className="flex flex-wrap gap-1.5 mb-3">
+                {tags.map((t) => (
+                  <span
+                    key={t}
+                    className="inline-block text-[10px] uppercase tracking-wider bg-[#0D1B3E] text-white px-2 py-0.5"
+                  >
+                    {TAG_LABEL[t] ?? t}
+                  </span>
+                ))}
+              </div>
+            );
+          })()}
           <div className="flex items-center justify-between">
             <span className="text-sm text-[#333333]">
               {pricingTbc ? "Pricing TBC" : `From ${formatPriceFromPence(lowestPriceVariant.priceInPence)}`}

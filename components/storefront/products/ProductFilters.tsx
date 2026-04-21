@@ -2,19 +2,24 @@
 
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useCallback } from "react";
+import { RESEARCH_TAGS } from "@/data/research-tags";
+
+type TagFacet = { slug: string; count: number };
 
 type FilterOptions = {
   sizes: string[];
   testingMethods: string[];
+  tagFacets?: TagFacet[];
 };
 
-export function ProductFilters({ sizes, testingMethods }: FilterOptions) {
+export function ProductFilters({ sizes, testingMethods, tagFacets = [] }: FilterOptions) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const currentSizes = searchParams.get("sizes")?.split(",").filter(Boolean) ?? [];
   const currentMethods = searchParams.get("methods")?.split(",").filter(Boolean) ?? [];
+  const currentTags = searchParams.get("tags")?.split(",").filter(Boolean) ?? [];
   const inStockOnly = searchParams.get("instock") === "1";
 
   const updateParam = useCallback(
@@ -45,8 +50,39 @@ export function ProductFilters({ sizes, testingMethods }: FilterOptions) {
     updateParam("methods", next.join(","));
   };
 
+  const toggleTag = (slug: string) => {
+    const next = currentTags.includes(slug)
+      ? currentTags.filter((t) => t !== slug)
+      : [...currentTags, slug];
+    updateParam("tags", next.join(","));
+  };
+
+  const tagLabel = (slug: string) =>
+    RESEARCH_TAGS.find((t) => t.slug === slug)?.label ?? slug;
+
   return (
     <aside className="space-y-8 pr-6">
+      {tagFacets.length > 0 && (
+        <div>
+          <p className="label-editorial mb-3">Research Application</p>
+          <ul className="space-y-2">
+            {tagFacets.map(({ slug, count }) => (
+              <li key={slug}>
+                <label className="flex items-center gap-2 text-sm cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={currentTags.includes(slug)}
+                    onChange={() => toggleTag(slug)}
+                    className="accent-[#0D1B3E]"
+                  />
+                  <span className="flex-1">{tagLabel(slug)}</span>
+                  <span className="text-xs text-[#9CA3AF]">({count})</span>
+                </label>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       <div>
         <p className="label-editorial mb-3">Size</p>
         <ul className="space-y-2">
@@ -94,7 +130,7 @@ export function ProductFilters({ sizes, testingMethods }: FilterOptions) {
           <span>In stock only</span>
         </label>
       </div>
-      {(currentSizes.length > 0 || currentMethods.length > 0 || inStockOnly) && (
+      {(currentSizes.length > 0 || currentMethods.length > 0 || currentTags.length > 0 || inStockOnly) && (
         <button
           type="button"
           onClick={() => router.replace(pathname, { scroll: false })}
