@@ -41,7 +41,7 @@ const emptyDraft: Draft = {
   molecularFormula: null,
   molecularWeight: null,
   synonyms: [],
-  purity: "≥98%",
+  purity: "≥99%",
   testingMethod: "HPLC",
   pubchemCid: null,
   moleculeImage: null,

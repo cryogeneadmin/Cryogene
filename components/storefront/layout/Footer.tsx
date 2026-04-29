@@ -6,7 +6,7 @@ import { getConfig } from "@/lib/config";
 const CREDIBILITY_ITEMS: { label: string; sub: string; icon: React.ReactNode }[] = [
   {
     label: "HPLC-Tested",
-    sub: "Every batch ≥98% purity",
+    sub: "Every batch ≥99% purity",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" aria-hidden="true">
         <path d="M3 20h18M5 20V8l4-4h6l4 4v12M9 12h6M9 16h6" stroke="currentColor" strokeWidth="1.2" />

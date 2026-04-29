@@ -20,7 +20,7 @@ Ipamorelin is a synthetic pentapeptide growth hormone secretagogue. It acts as a
 
 ## Certificate of Analysis
 
-Every batch of ipamorelin we supply is independently HPLC-tested to a purity of ≥98%. The Certificate of Analysis accompanies every order and is available for download from the product page.
+Every batch of ipamorelin we supply is independently HPLC-tested to a purity of ≥99%. The Certificate of Analysis accompanies every order and is available for download from the product page.
 
 ## Research use only
 

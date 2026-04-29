@@ -20,7 +20,7 @@ Tirzepatide is a synthetic 39-amino-acid dual agonist peptide that activates bot
 
 ## Certificate of Analysis
 
-Every batch of tirzepatide we supply is independently HPLC-tested to a purity of ≥98%. The Certificate of Analysis accompanies every order and is available for download from the product page.
+Every batch of tirzepatide we supply is independently HPLC-tested to a purity of ≥99%. The Certificate of Analysis accompanies every order and is available for download from the product page.
 
 ## Research use only
 

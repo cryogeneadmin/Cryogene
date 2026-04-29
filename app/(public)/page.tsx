@@ -128,7 +128,7 @@ export default async function HomePage() {
         <div className="max-w-[1280px] mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
           {[
             { label: "HPLC Tested", value: "Every batch" },
-            { label: "≥98% Purity", value: "Documented on COA" },
+            { label: "≥99% Purity", value: "Documented on COA" },
             { label: "UK Research Grade", value: "Sourced and tested in Britain" },
             { label: "Certificate of Analysis", value: "Downloadable for every SKU" },
           ].map((item) => (

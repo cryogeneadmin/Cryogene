@@ -20,7 +20,7 @@ GHK-Cu (Copper Tripeptide-1) is a naturally occurring copper complex of the trip
 
 ## Certificate of Analysis
 
-Every batch of GHK-Cu we supply is independently HPLC-tested to a purity of ≥98%. The Certificate of Analysis accompanies every order and is available for download from the product page.
+Every batch of GHK-Cu we supply is independently HPLC-tested to a purity of ≥99%. The Certificate of Analysis accompanies every order and is available for download from the product page.
 
 ## Research use only
 

@@ -20,7 +20,7 @@ Semaglutide is a synthetic glucagon-like peptide-1 (GLP-1) receptor agonist. It 
 
 ## Certificate of Analysis
 
-Every batch of semaglutide we supply is independently HPLC-tested to a purity of ≥98%. The Certificate of Analysis accompanies every order and is available for download from the product page.
+Every batch of semaglutide we supply is independently HPLC-tested to a purity of ≥99%. The Certificate of Analysis accompanies every order and is available for download from the product page.
 
 ## Research use only
 

@@ -34,15 +34,15 @@ const jetBrains = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://cryogene.co.uk"),
   title: {
-    default: "Cryogene — UK Research Peptides, HPLC-Tested & Documented",
-    template: "%s | Cryogene",
+    default: "Cryogene Laboratories — UK Research Peptides, HPLC-Tested & Documented",
+    template: "%s | Cryogene Laboratories",
   },
   description:
     "Research-grade peptides and research supplies for UK laboratory research. Every product HPLC-tested with a Certificate of Analysis. For laboratory research use only.",
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
-    siteName: "Cryogene",
+    siteName: "Cryogene Laboratories",
     locale: "en_GB",
     images: [{ url: "/site/og-default.png", width: 1200, height: 630, alt: "Cryogene Laboratories" }],
   },

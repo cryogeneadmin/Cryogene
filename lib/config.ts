@@ -8,7 +8,7 @@ import { isSeedMode } from "@/lib/data-mode";
 const LOCAL_CONFIG_PATH = path.join(process.cwd(), "data", "config.local.json");
 
 const DEFAULT_CONFIG: Config = {
-  storeName: "Cryogene",
+  storeName: "Cryogene Laboratories",
   storeEmail: "hello@cryogene.co.uk",
   storePhone: null,
   registeredAddress: "[ADDRESS TBC]",

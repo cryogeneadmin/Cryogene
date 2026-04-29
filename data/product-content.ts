@@ -53,7 +53,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
     shortDescription:
       "Long-chain analogue of insulin-like growth factor 1 with an Arg³ substitution and an N-terminal 13-amino-acid extension. Supplied as a lyophilised research reagent.",
     fullDescription:
-      "IGF-1LR3 is a synthetic 83-amino-acid analogue of human insulin-like growth factor 1 (IGF-1) featuring an arginine substitution at position 3 and a 13-residue N-terminal extension. These modifications reduce binding affinity for IGF-binding proteins (IGFBPs) in comparison to native IGF-1, which is a feature of interest in in vitro studies of IGF-1 receptor activity.\n\nIn research contexts, IGF-1LR3 has been used to investigate IGF-1 receptor signalling pathways, cellular proliferation assays, and models of growth factor biology. The literature addresses its molecular interactions with the IGF-1R, its half-life relative to native IGF-1, and its use as a reference compound in receptor-binding assays.\n\nThis material is characterised by HPLC at ≥98% purity. A Certificate of Analysis is issued for each batch. " +
+      "IGF-1LR3 is a synthetic 83-amino-acid analogue of human insulin-like growth factor 1 (IGF-1) featuring an arginine substitution at position 3 and a 13-residue N-terminal extension. These modifications reduce binding affinity for IGF-binding proteins (IGFBPs) in comparison to native IGF-1, which is a feature of interest in in vitro studies of IGF-1 receptor activity.\n\nIn research contexts, IGF-1LR3 has been used to investigate IGF-1 receptor signalling pathways, cellular proliferation assays, and models of growth factor biology. The literature addresses its molecular interactions with the IGF-1R, its half-life relative to native IGF-1, and its use as a reference compound in receptor-binding assays.\n\nThis material is characterised by HPLC at ≥99% purity. A Certificate of Analysis is issued for each batch. " +
       RUO_DISCLAIMER,
     faq: [
       {
@@ -64,9 +64,9 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "IGF-1LR3 (Long R3 IGF-1) — Research Peptide | Cryogene",
+    seoTitle: "IGF-1LR3 (Long R3 IGF-1) — Research Peptide | Cryogene Laboratories",
     seoDescription:
-      "IGF-1LR3 supplied as a lyophilised research reagent for UK laboratory use. HPLC-tested ≥98%, Certificate of Analysis included. For research use only.",
+      "IGF-1LR3 supplied as a lyophilised research reagent for UK laboratory use. HPLC-tested ≥99%, Certificate of Analysis included. For research use only.",
     tags: ["growth-factor", "igf", "receptor-binding"],
   },
 
@@ -89,7 +89,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "5-Amino-1MQ (NNMT Inhibitor) — Research Reagent | Cryogene",
+    seoTitle: "5-Amino-1MQ (NNMT Inhibitor) — Research Reagent | Cryogene Laboratories",
     seoDescription:
       "5-Amino-1MQ supplied as a research-grade NNMT-inhibitor reagent for UK laboratory study. HPLC-tested, CoA included. For research use only.",
     tags: ["nnmt-inhibitor", "metabolism", "small-molecule"],
@@ -114,7 +114,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "L-Carnitine (Levocarnitine) — Research Reagent | Cryogene",
+    seoTitle: "L-Carnitine (Levocarnitine) — Research Reagent | Cryogene Laboratories",
     seoDescription:
       "L-Carnitine supplied as a research-grade reagent for UK laboratory mitochondrial and fatty acid metabolism studies. HPLC-tested. Research use only.",
     tags: ["mitochondrial", "fatty-acid-metabolism", "metabolomics-reference"],
@@ -128,7 +128,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
     shortDescription:
       "Synthetic tetrapeptide (Ala-Glu-Asp-Gly) investigated in research on telomerase expression and cellular senescence.",
     fullDescription:
-      "Epitalon is a synthetic tetrapeptide with the sequence Ala-Glu-Asp-Gly, originally described by researchers investigating peptide bioregulators of the pineal gland. It has drawn attention in longevity and senescence research contexts.\n\nThe peer-reviewed literature discusses Epitalon in the context of telomerase expression in in vitro systems, cellular replicative capacity, and studies of pineal-peptide biology. It appears in papers examining peptide bioregulators and their proposed interactions with chromatin and transcription.\n\nSupplied as a lyophilised white powder, HPLC-characterised at ≥98% purity, with a Certificate of Analysis per batch. " +
+      "Epitalon is a synthetic tetrapeptide with the sequence Ala-Glu-Asp-Gly, originally described by researchers investigating peptide bioregulators of the pineal gland. It has drawn attention in longevity and senescence research contexts.\n\nThe peer-reviewed literature discusses Epitalon in the context of telomerase expression in in vitro systems, cellular replicative capacity, and studies of pineal-peptide biology. It appears in papers examining peptide bioregulators and their proposed interactions with chromatin and transcription.\n\nSupplied as a lyophilised white powder, HPLC-characterised at ≥99% purity, with a Certificate of Analysis per batch. " +
       RUO_DISCLAIMER,
     faq: [
       {
@@ -139,9 +139,9 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Epitalon (Ala-Glu-Asp-Gly) — Research Peptide | Cryogene",
+    seoTitle: "Epitalon (Ala-Glu-Asp-Gly) — Research Peptide | Cryogene Laboratories",
     seoDescription:
-      "Epitalon supplied as a lyophilised research peptide for UK laboratory use. HPLC-tested ≥98% with Certificate of Analysis. Research use only.",
+      "Epitalon supplied as a lyophilised research peptide for UK laboratory use. HPLC-tested ≥99% with Certificate of Analysis. Research use only.",
     tags: ["tetrapeptide", "senescence-research", "bioregulator"],
   },
 
@@ -164,7 +164,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Ipamorelin — Selective GHS-R1a Research Peptide | Cryogene",
+    seoTitle: "Ipamorelin — Selective GHS-R1a Research Peptide | Cryogene Laboratories",
     seoDescription:
       "Ipamorelin supplied as a research-grade pentapeptide for UK laboratory GHS receptor studies. HPLC-tested, CoA included. Research use only.",
     tags: ["growth-hormone-secretagogue", "ghs-r1a", "ghrelin-receptor"],
@@ -189,7 +189,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Semax (ACTH 4-10 Analogue) — Research Peptide | Cryogene",
+    seoTitle: "Semax (ACTH 4-10 Analogue) — Research Peptide | Cryogene Laboratories",
     seoDescription:
       "Semax supplied as a lyophilised research heptapeptide for UK laboratory neurochemistry studies. HPLC-tested, CoA included. Research use only.",
     tags: ["acth-analogue", "neurotrophic-research", "heptapeptide"],
@@ -214,7 +214,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "ARA 290 (Cibinetide) — Research Peptide | Cryogene",
+    seoTitle: "ARA 290 (Cibinetide) — Research Peptide | Cryogene Laboratories",
     seoDescription:
       "ARA 290 (cibinetide) supplied as a research-grade peptide for UK laboratory innate-repair receptor studies. HPLC-tested, CoA included. Research use only.",
     tags: ["erythropoietin-derived", "innate-repair-receptor", "cibinetide"],
@@ -228,7 +228,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
     shortDescription:
       "Decapeptide fragment of kisspeptin (KiSS-1) studied as an agonist at the GPR54 (KISS1R) receptor.",
     fullDescription:
-      "Kisspeptin-10 is the C-terminal decapeptide of the KiSS-1-derived kisspeptin protein. It is catalogued in the research literature as a high-potency agonist at the GPR54 receptor (also known as KISS1R), a G-protein-coupled receptor of significant interest in reproductive-axis neuroendocrinology research.\n\nLaboratory studies reference Kisspeptin-10 in investigations of GnRH neuron signalling, neuroendocrine cell culture work, and preclinical models of the hypothalamic-pituitary-gonadal axis. The KISS1/GPR54 signalling system is well-documented in academic reviews.\n\nSupplied as a lyophilised research reagent, HPLC-characterised at ≥98% purity, with a Certificate of Analysis per batch. " +
+      "Kisspeptin-10 is the C-terminal decapeptide of the KiSS-1-derived kisspeptin protein. It is catalogued in the research literature as a high-potency agonist at the GPR54 receptor (also known as KISS1R), a G-protein-coupled receptor of significant interest in reproductive-axis neuroendocrinology research.\n\nLaboratory studies reference Kisspeptin-10 in investigations of GnRH neuron signalling, neuroendocrine cell culture work, and preclinical models of the hypothalamic-pituitary-gonadal axis. The KISS1/GPR54 signalling system is well-documented in academic reviews.\n\nSupplied as a lyophilised research reagent, HPLC-characterised at ≥99% purity, with a Certificate of Analysis per batch. " +
       RUO_DISCLAIMER,
     faq: [
       {
@@ -239,9 +239,9 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Kisspeptin-10 (KP-10, Metastin 45-54) — Research Peptide | Cryogene",
+    seoTitle: "Kisspeptin-10 (KP-10, Metastin 45-54) — Research Peptide | Cryogene Laboratories",
     seoDescription:
-      "Kisspeptin-10 supplied as a research-grade decapeptide for UK laboratory GPR54/KISS1R studies. HPLC-tested ≥98%, CoA included. Research use only.",
+      "Kisspeptin-10 supplied as a research-grade decapeptide for UK laboratory GPR54/KISS1R studies. HPLC-tested ≥99%, CoA included. Research use only.",
     tags: ["kisspeptin", "gpr54", "neuroendocrine-research"],
   },
 
@@ -264,7 +264,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Selank (Tuftsin Analogue) — Research Peptide | Cryogene",
+    seoTitle: "Selank (Tuftsin Analogue) — Research Peptide | Cryogene Laboratories",
     seoDescription:
       "Selank supplied as a research-grade heptapeptide for UK laboratory neurochemistry studies. HPLC-tested, CoA included. Research use only.",
     tags: ["tuftsin-analogue", "neurochemistry-research", "heptapeptide"],
@@ -289,7 +289,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Glutathione (GSH, Reduced) — Research Reagent | Cryogene",
+    seoTitle: "Glutathione (GSH, Reduced) — Research Reagent | Cryogene Laboratories",
     seoDescription:
       "Reduced L-Glutathione supplied as a research-grade reagent for UK laboratory oxidative-stress and redox studies. HPLC-tested. Research use only.",
     tags: ["antioxidant-reference", "redox-research", "tripeptide"],
@@ -314,7 +314,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Snap-8 (Acetyl Octapeptide-3) — Research Peptide | Cryogene",
+    seoTitle: "Snap-8 (Acetyl Octapeptide-3) — Research Peptide | Cryogene Laboratories",
     seoDescription:
       "Snap-8 supplied as a research-grade acetyl octapeptide for UK laboratory SNARE-complex studies. HPLC-tested, CoA included. Research use only.",
     tags: ["snare-research", "cosmetic-chemistry-reference", "acetyl-octapeptide"],
@@ -339,7 +339,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "VIP (Vasoactive Intestinal Peptide) — Research Peptide | Cryogene",
+    seoTitle: "VIP (Vasoactive Intestinal Peptide) — Research Peptide | Cryogene Laboratories",
     seoDescription:
       "Vasoactive Intestinal Peptide supplied as a research-grade 28-mer peptide for UK laboratory VPAC receptor studies. HPLC-tested. Research use only.",
     tags: ["neuropeptide", "vpac-receptor", "glucagon-family"],
@@ -364,7 +364,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "PT-141 (Bremelanotide) — Research Peptide | Cryogene",
+    seoTitle: "PT-141 (Bremelanotide) — Research Peptide | Cryogene Laboratories",
     seoDescription:
       "PT-141 supplied as a research-grade melanocortin-receptor cyclic peptide for UK laboratory use. HPLC-tested, CoA included. Research use only.",
     tags: ["melanocortin", "bremelanotide", "cyclic-peptide"],
@@ -389,7 +389,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "DSIP (Delta Sleep-Inducing Peptide) — Research Peptide | Cryogene",
+    seoTitle: "DSIP (Delta Sleep-Inducing Peptide) — Research Peptide | Cryogene Laboratories",
     seoDescription:
       "DSIP supplied as a research-grade nonapeptide for UK laboratory sleep-neurochemistry studies. HPLC-tested, CoA included. Research use only.",
     tags: ["sleep-research", "nonapeptide", "neurochemistry"],
@@ -414,7 +414,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "FOXO4 (FOXO4-DRI) — Research Peptide | Cryogene",
+    seoTitle: "FOXO4 (FOXO4-DRI) — Research Peptide | Cryogene Laboratories",
     seoDescription:
       "FOXO4 research peptide supplied for UK laboratory senescent-cell biology studies. HPLC-tested, CoA included. Research use only.",
     tags: ["senescence-research", "foxo4-p53", "dri-peptide"],
@@ -439,7 +439,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "SLU-PP-332 (ERR Pan-Agonist) — Research Reagent | Cryogene",
+    seoTitle: "SLU-PP-332 (ERR Pan-Agonist) — Research Reagent | Cryogene Laboratories",
     seoDescription:
       "SLU-PP-332 supplied as a research-grade ERRα/β/γ pan-agonist for UK laboratory metabolic studies. HPLC-tested. Research use only.",
     tags: ["err-agonist", "nuclear-receptor", "mitochondrial-research"],
@@ -464,7 +464,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Pinealon (Glu-Asp-Arg) — Research Peptide | Cryogene",
+    seoTitle: "Pinealon (Glu-Asp-Arg) — Research Peptide | Cryogene Laboratories",
     seoDescription:
       "Pinealon supplied as a research-grade tripeptide for UK laboratory neurochemistry studies. HPLC-tested, CoA included. Research use only.",
     tags: ["khavinson-peptide", "tripeptide", "bioregulator"],
@@ -489,7 +489,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Thymalin — Research-Grade Thymus Peptide | Cryogene",
+    seoTitle: "Thymalin — Research-Grade Thymus Peptide | Cryogene Laboratories",
     seoDescription:
       "Thymalin supplied as a research-grade thymic peptide reagent for UK laboratory immunology studies. HPLC-tested. Research use only.",
     tags: ["thymus-peptide", "immunology-research"],
@@ -503,7 +503,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
     shortDescription:
       "Acetylated 28-residue peptide derived from the N-terminus of prothymosin α, studied in immunological research.",
     fullDescription:
-      "Thymosin Alpha-1 (Tα1) is a 28-amino-acid acetylated peptide corresponding to the N-terminal region of prothymosin α. It is one of the most extensively studied synthetic thymic peptides in the academic literature, with references across immunology, virology research, and cell-signalling studies.\n\nThymosin Alpha-1 has been used in preclinical research on Toll-like receptor signalling, T-cell maturation in in vitro systems, and comparative work with other thymic peptide fractions.\n\nSupplied as a lyophilised research peptide, HPLC-characterised at ≥98% purity, with a Certificate of Analysis per batch. " +
+      "Thymosin Alpha-1 (Tα1) is a 28-amino-acid acetylated peptide corresponding to the N-terminal region of prothymosin α. It is one of the most extensively studied synthetic thymic peptides in the academic literature, with references across immunology, virology research, and cell-signalling studies.\n\nThymosin Alpha-1 has been used in preclinical research on Toll-like receptor signalling, T-cell maturation in in vitro systems, and comparative work with other thymic peptide fractions.\n\nSupplied as a lyophilised research peptide, HPLC-characterised at ≥99% purity, with a Certificate of Analysis per batch. " +
       RUO_DISCLAIMER,
     faq: [
       {
@@ -514,9 +514,9 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Thymosin Alpha-1 (Tα1) — Research Peptide | Cryogene",
+    seoTitle: "Thymosin Alpha-1 (Tα1) — Research Peptide | Cryogene Laboratories",
     seoDescription:
-      "Thymosin Alpha-1 supplied as a research-grade 28-residue peptide for UK laboratory immunology studies. HPLC-tested ≥98%. Research use only.",
+      "Thymosin Alpha-1 supplied as a research-grade 28-residue peptide for UK laboratory immunology studies. HPLC-tested ≥99%. Research use only.",
     tags: ["thymosin", "prothymosin-derived", "immunology"],
   },
 
@@ -539,7 +539,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Adipotide — Research Peptide | Cryogene",
+    seoTitle: "Adipotide — Research Peptide | Cryogene Laboratories",
     seoDescription:
       "Adipotide supplied as a research-grade chimeric peptide for UK laboratory adipose-targeted research. HPLC-tested, CoA included. Research use only.",
     tags: ["proapoptotic-peptide", "prohibitin-targeting", "chimeric-peptide"],
@@ -564,7 +564,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "GHRP-2 Acetate (Pralmorelin) — Research Peptide | Cryogene",
+    seoTitle: "GHRP-2 Acetate (Pralmorelin) — Research Peptide | Cryogene Laboratories",
     seoDescription:
       "GHRP-2 Acetate supplied as a research-grade hexapeptide secretagogue for UK laboratory GHS-R1a studies. HPLC-tested. Research use only.",
     tags: ["ghrp", "pralmorelin", "ghs-r1a"],
@@ -589,7 +589,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "GHRP-6 Acetate — Research Peptide | Cryogene",
+    seoTitle: "GHRP-6 Acetate — Research Peptide | Cryogene Laboratories",
     seoDescription:
       "GHRP-6 Acetate supplied as a research-grade hexapeptide secretagogue for UK laboratory ghrelin-receptor studies. HPLC-tested. Research use only.",
     tags: ["ghrp", "ghs-r1a", "secretagogue"],
@@ -618,7 +618,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       },
       RUO_FAQ,
     ],
-    seoTitle: "Bacteriostatic Water — Laboratory Reconstitution Solvent | Cryogene",
+    seoTitle: "Bacteriostatic Water — Laboratory Reconstitution Solvent | Cryogene Laboratories",
     seoDescription:
       "Bacteriostatic water (0.9% benzyl alcohol) supplied for UK laboratory reconstitution of research reagents. Sterile, multi-dose vials. Research use only.",
     tags: ["solvent", "reconstitution", "benzyl-alcohol"],
@@ -632,7 +632,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
     shortDescription:
       "Synthetic 15-amino-acid peptide fragment studied in preclinical research on tissue repair mechanisms and gastrointestinal biology.",
     fullDescription:
-      "BPC-157 is a synthetic pentadecapeptide whose sequence derives from a region of human gastric juice proteins. In the published research literature it is catalogued as a research reagent in preclinical models of gastrointestinal tissue, connective-tissue biology, and vascular-response research.\n\nPapers discuss BPC-157 in the context of VEGF pathway signalling, preclinical wound-repair models, and comparative peptide-chemistry studies. It is a frequently cited compound in the tissue-repair research literature.\n\nSupplied as a lyophilised research peptide, HPLC-characterised at ≥98% purity, with a Certificate of Analysis per batch. " +
+      "BPC-157 is a synthetic pentadecapeptide whose sequence derives from a region of human gastric juice proteins. In the published research literature it is catalogued as a research reagent in preclinical models of gastrointestinal tissue, connective-tissue biology, and vascular-response research.\n\nPapers discuss BPC-157 in the context of VEGF pathway signalling, preclinical wound-repair models, and comparative peptide-chemistry studies. It is a frequently cited compound in the tissue-repair research literature.\n\nSupplied as a lyophilised research peptide, HPLC-characterised at ≥99% purity, with a Certificate of Analysis per batch. " +
       RUO_DISCLAIMER,
     faq: [
       {
@@ -643,9 +643,9 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "BPC-157 (Pentadecapeptide) — Research Peptide | Cryogene",
+    seoTitle: "BPC-157 (Pentadecapeptide) — Research Peptide | Cryogene Laboratories",
     seoDescription:
-      "BPC-157 supplied as a lyophilised research pentadecapeptide for UK laboratory tissue-repair studies. HPLC-tested ≥98%, CoA included. Research use only.",
+      "BPC-157 supplied as a lyophilised research pentadecapeptide for UK laboratory tissue-repair studies. HPLC-tested ≥99%, CoA included. Research use only.",
     tags: ["pentadecapeptide", "tissue-repair-research", "body-protection-compound"],
   },
 
@@ -668,7 +668,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "BPC-157 + TB-500 Blend — Research Peptide Combination | Cryogene",
+    seoTitle: "BPC-157 + TB-500 Blend — Research Peptide Combination | Cryogene Laboratories",
     seoDescription:
       "BPC-157 + TB-500 blend supplied as a research-grade peptide combination for UK laboratory comparative studies. HPLC-tested. Research use only.",
     tags: ["peptide-blend", "bpc-157", "tb-500"],
@@ -682,7 +682,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
     shortDescription:
       "Endogenous coenzyme central to cellular redox reactions; supplied as a research-grade reagent for in vitro biochemistry.",
     fullDescription:
-      "NAD⁺ (nicotinamide adenine dinucleotide, oxidised form) is a fundamental redox coenzyme in all living cells, central to hundreds of oxidoreductase reactions, the sirtuin (SIRT) enzyme family, and PARP-mediated signalling. It is a foundational reference reagent in biochemistry research.\n\nLaboratory applications include enzyme-kinetics studies, sirtuin and PARP activity assays, metabolic-pathway reconstructions, and mass-spectrometry reference work on the NAD metabolome.\n\nSupplied as a research-grade powder, HPLC-characterised at ≥98% purity, with a Certificate of Analysis per batch. " +
+      "NAD⁺ (nicotinamide adenine dinucleotide, oxidised form) is a fundamental redox coenzyme in all living cells, central to hundreds of oxidoreductase reactions, the sirtuin (SIRT) enzyme family, and PARP-mediated signalling. It is a foundational reference reagent in biochemistry research.\n\nLaboratory applications include enzyme-kinetics studies, sirtuin and PARP activity assays, metabolic-pathway reconstructions, and mass-spectrometry reference work on the NAD metabolome.\n\nSupplied as a research-grade powder, HPLC-characterised at ≥99% purity, with a Certificate of Analysis per batch. " +
       RUO_DISCLAIMER,
     faq: [
       {
@@ -693,9 +693,9 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "NAD⁺ (Nicotinamide Adenine Dinucleotide) — Research Reagent | Cryogene",
+    seoTitle: "NAD⁺ (Nicotinamide Adenine Dinucleotide) — Research Reagent | Cryogene Laboratories",
     seoDescription:
-      "NAD⁺ supplied as a research-grade biochemistry reagent for UK laboratory enzyme-kinetics and metabolomics studies. HPLC-tested ≥98%. Research use only.",
+      "NAD⁺ supplied as a research-grade biochemistry reagent for UK laboratory enzyme-kinetics and metabolomics studies. HPLC-tested ≥99%. Research use only.",
     tags: ["coenzyme", "sirtuin-research", "redox"],
   },
 
@@ -718,7 +718,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "AOD9604 (hGH 176-191) — Research Peptide | Cryogene",
+    seoTitle: "AOD9604 (hGH 176-191) — Research Peptide | Cryogene Laboratories",
     seoDescription:
       "AOD9604 supplied as a research-grade hGH-fragment peptide for UK laboratory lipid-metabolism studies. HPLC-tested, CoA included. Research use only.",
     tags: ["hgh-fragment", "lipolysis-research", "fragment-peptide"],
@@ -743,7 +743,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "GHK-Cu (Copper Tripeptide-1) — Research Peptide | Cryogene",
+    seoTitle: "GHK-Cu (Copper Tripeptide-1) — Research Peptide | Cryogene Laboratories",
     seoDescription:
       "GHK-Cu supplied as a research-grade copper-peptide complex for UK laboratory extracellular-matrix studies. HPLC-tested, CoA included. Research use only.",
     tags: ["copper-peptide", "ghk", "ecm-research"],
@@ -768,7 +768,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "MOTS-c (Mitochondrial Peptide) — Research Peptide | Cryogene",
+    seoTitle: "MOTS-c (Mitochondrial Peptide) — Research Peptide | Cryogene Laboratories",
     seoDescription:
       "MOTS-c supplied as a research-grade mitochondrial peptide for UK laboratory metabolic-biology studies. HPLC-tested, CoA included. Research use only.",
     tags: ["mitochondrial-peptide", "ampk-research", "sorf-peptide"],
@@ -793,7 +793,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Vitamin B12 (Cyanocobalamin) — Research Reagent | Cryogene",
+    seoTitle: "Vitamin B12 (Cyanocobalamin) — Research Reagent | Cryogene Laboratories",
     seoDescription:
       "Vitamin B12 (cyanocobalamin) supplied as a research-grade biochemistry reagent for UK laboratory studies. HPLC-tested. Research use only.",
     tags: ["cobalamin", "vitamin", "cofactor"],
@@ -818,7 +818,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Melatonin — Research Reagent | Cryogene",
+    seoTitle: "Melatonin — Research Reagent | Cryogene Laboratories",
     seoDescription:
       "Melatonin supplied as a research-grade indoleamine reference reagent for UK laboratory chronobiology studies. HPLC-tested. Research use only.",
     tags: ["indoleamine", "chronobiology", "mt1-mt2"],
@@ -843,7 +843,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Cerebrolysin — Research-Grade Neuropeptide Preparation | Cryogene",
+    seoTitle: "Cerebrolysin — Research-Grade Neuropeptide Preparation | Cryogene Laboratories",
     seoDescription:
       "Cerebrolysin supplied as a research-grade neuropeptide preparation for UK laboratory neuroscience studies. Research use only.",
     tags: ["neuropeptide-mixture", "neuroscience-research"],
@@ -868,7 +868,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "SS-31 (Elamipretide) — Research Peptide | Cryogene",
+    seoTitle: "SS-31 (Elamipretide) — Research Peptide | Cryogene Laboratories",
     seoDescription:
       "SS-31 supplied as a research-grade mitochondria-targeted tetrapeptide for UK laboratory cardiolipin studies. HPLC-tested. Research use only.",
     tags: ["mitochondria-targeted", "elamipretide", "cardiolipin"],
@@ -893,7 +893,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "CJC-1295 with DAC — GHRH Analogue Research Peptide | Cryogene",
+    seoTitle: "CJC-1295 with DAC — GHRH Analogue Research Peptide | Cryogene Laboratories",
     seoDescription:
       "CJC-1295 with DAC supplied as a research-grade GHRH analogue peptide for UK laboratory pharmacokinetic studies. HPLC-tested. Research use only.",
     tags: ["ghrh-analogue", "dac", "albumin-binding"],
@@ -918,7 +918,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "CJC-1295 Without DAC (Mod GRF 1-29) — Research Peptide | Cryogene",
+    seoTitle: "CJC-1295 Without DAC (Mod GRF 1-29) — Research Peptide | Cryogene Laboratories",
     seoDescription:
       "CJC-1295 without DAC supplied as a research-grade GHRH analogue for UK laboratory receptor studies. HPLC-tested, CoA included. Research use only.",
     tags: ["ghrh-analogue", "mod-grf-29", "peptide-stability-research"],
@@ -943,7 +943,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "CJC-1295 + Ipamorelin Blend — Research Peptide | Cryogene",
+    seoTitle: "CJC-1295 + Ipamorelin Blend — Research Peptide | Cryogene Laboratories",
     seoDescription:
       "CJC-1295 + Ipamorelin blend supplied as a research-grade peptide combination for UK laboratory GHRH/GHS studies. HPLC-tested. Research use only.",
     tags: ["peptide-blend", "ghrh-ghs", "comparative-pharmacology"],
@@ -968,7 +968,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Melanotan I (Afamelanotide) — Research Peptide | Cryogene",
+    seoTitle: "Melanotan I (Afamelanotide) — Research Peptide | Cryogene Laboratories",
     seoDescription:
       "Melanotan I supplied as a research-grade α-MSH analogue for UK laboratory melanocortin studies. HPLC-tested. Research use only.",
     tags: ["melanocortin", "alpha-msh-analogue", "afamelanotide"],
@@ -993,7 +993,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Melanotan II (MT-II) — Research Peptide | Cryogene",
+    seoTitle: "Melanotan II (MT-II) — Research Peptide | Cryogene Laboratories",
     seoDescription:
       "Melanotan II supplied as a research-grade cyclic melanocortin-receptor peptide for UK laboratory studies. HPLC-tested. Research use only.",
     tags: ["melanocortin", "cyclic-peptide", "mt-ii"],
@@ -1018,7 +1018,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "KPV (Lys-Pro-Val) — Research Peptide | Cryogene",
+    seoTitle: "KPV (Lys-Pro-Val) — Research Peptide | Cryogene Laboratories",
     seoDescription:
       "KPV supplied as a research-grade α-MSH tripeptide fragment for UK laboratory inflammation-signalling studies. HPLC-tested. Research use only.",
     tags: ["tripeptide", "alpha-msh-fragment", "inflammation-research"],
@@ -1043,7 +1043,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Sermorelin (GHRH 1-29) — Research Peptide | Cryogene",
+    seoTitle: "Sermorelin (GHRH 1-29) — Research Peptide | Cryogene Laboratories",
     seoDescription:
       "Sermorelin supplied as a research-grade GHRH(1-29) peptide for UK laboratory growth hormone receptor studies. HPLC-tested. Research use only.",
     tags: ["ghrh-fragment", "growth-hormone-releasing-hormone", "grf-1-29"],
@@ -1068,7 +1068,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Tesamorelin (TH9507) — Research Peptide | Cryogene",
+    seoTitle: "Tesamorelin (TH9507) — Research Peptide | Cryogene Laboratories",
     seoDescription:
       "Tesamorelin supplied as a research-grade GHRH analogue for UK laboratory receptor studies. HPLC-tested, CoA included. Research use only.",
     tags: ["ghrh-analogue", "dpp4-resistant", "tesamorelin"],
@@ -1093,7 +1093,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Tirzepatide — GLP-1/GIP Dual-Agonist Research Peptide | Cryogene",
+    seoTitle: "Tirzepatide — GLP-1/GIP Dual-Agonist Research Peptide | Cryogene Laboratories",
     seoDescription:
       "Tirzepatide supplied as a research-grade dual-incretin-agonist peptide for UK laboratory receptor studies. HPLC-tested. Research use only.",
     tags: ["incretin", "glp-1-gip", "dual-agonist"],
@@ -1118,7 +1118,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Semaglutide — GLP-1 Receptor Agonist Research Peptide | Cryogene",
+    seoTitle: "Semaglutide — GLP-1 Receptor Agonist Research Peptide | Cryogene Laboratories",
     seoDescription:
       "Semaglutide supplied as a research-grade GLP-1 receptor agonist for UK laboratory incretin-axis studies. HPLC-tested. Research use only.",
     tags: ["glp-1-agonist", "incretin", "albumin-binding"],
@@ -1143,7 +1143,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Retatrutide — Triple Incretin/Glucagon Research Peptide | Cryogene",
+    seoTitle: "Retatrutide — Triple Incretin/Glucagon Research Peptide | Cryogene Laboratories",
     seoDescription:
       "Retatrutide supplied as a research-grade triple-agonist peptide for UK laboratory incretin/glucagon receptor studies. HPLC-tested. Research use only.",
     tags: ["triple-agonist", "glp-1-gip-glucagon", "retatrutide"],
@@ -1168,7 +1168,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Cagrilintide — Amylin Analogue Research Peptide | Cryogene",
+    seoTitle: "Cagrilintide — Amylin Analogue Research Peptide | Cryogene Laboratories",
     seoDescription:
       "Cagrilintide supplied as a research-grade amylin-analogue peptide for UK laboratory receptor studies. HPLC-tested, CoA included. Research use only.",
     tags: ["amylin-analogue", "calcitonin-receptor", "cagrilintide"],
@@ -1193,7 +1193,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Lipo-C (MIC + Carnitine Blend) — Research Reagent | Cryogene",
+    seoTitle: "Lipo-C (MIC + Carnitine Blend) — Research Reagent | Cryogene Laboratories",
     seoDescription:
       "Lipo-C supplied as a research-grade lipotropic blend for UK laboratory lipid-metabolism studies. HPLC-tested. Research use only.",
     tags: ["lipotropic-blend", "methionine-inositol-choline", "metabolism-research"],
@@ -1218,7 +1218,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Glow Blend (GHK-Cu + Glutathione + Vitamin C) — Research Blend | Cryogene",
+    seoTitle: "Glow Blend (GHK-Cu + Glutathione + Vitamin C) — Research Blend | Cryogene Laboratories",
     seoDescription:
       "Glow Blend supplied as a research-grade peptide/antioxidant blend for UK laboratory ECM and redox studies. HPLC-tested. Research use only.",
     tags: ["research-blend", "ghk-cu-glutathione-vitamin-c", "ecm-redox"],
@@ -1243,7 +1243,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "Klow Blend (KPV + GHK-Cu + Glutathione + Vitamin C) — Research Blend | Cryogene",
+    seoTitle: "Klow Blend (KPV + GHK-Cu + Glutathione + Vitamin C) — Research Blend | Cryogene Laboratories",
     seoDescription:
       "Klow Blend supplied as a research-grade peptide/antioxidant blend for UK laboratory inflammation and ECM studies. HPLC-tested. Research use only.",
     tags: ["research-blend", "kpv-ghk-cu", "inflammation-ecm"],
@@ -1257,7 +1257,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
     shortDescription:
       "Synthetic 43-amino-acid peptide corresponding to thymosin β4, studied in tissue-biology research.",
     fullDescription:
-      "TB-500 is a synthetic peptide corresponding to thymosin β4 (Tβ4), a 43-residue peptide widely characterised in the biology literature as the principal G-actin-sequestering protein in mammalian cells. It is extensively referenced in research on cytoskeletal dynamics and tissue-repair signalling.\n\nPapers reference TB-500 / Tβ4 in in vitro cytoskeletal-assembly assays, preclinical tissue-repair model research, and comparative work against BPC-157 in the wound-biology literature.\n\nSupplied as a lyophilised research peptide, HPLC-characterised at ≥98% purity, with a Certificate of Analysis per batch. " +
+      "TB-500 is a synthetic peptide corresponding to thymosin β4 (Tβ4), a 43-residue peptide widely characterised in the biology literature as the principal G-actin-sequestering protein in mammalian cells. It is extensively referenced in research on cytoskeletal dynamics and tissue-repair signalling.\n\nPapers reference TB-500 / Tβ4 in in vitro cytoskeletal-assembly assays, preclinical tissue-repair model research, and comparative work against BPC-157 in the wound-biology literature.\n\nSupplied as a lyophilised research peptide, HPLC-characterised at ≥99% purity, with a Certificate of Analysis per batch. " +
       RUO_DISCLAIMER,
     faq: [
       {
@@ -1268,9 +1268,9 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       STORAGE_FAQ,
       RUO_FAQ,
     ],
-    seoTitle: "TB-500 (Thymosin Beta 4) — Research Peptide | Cryogene",
+    seoTitle: "TB-500 (Thymosin Beta 4) — Research Peptide | Cryogene Laboratories",
     seoDescription:
-      "TB-500 supplied as a research-grade thymosin β4 peptide for UK laboratory cytoskeletal studies. HPLC-tested ≥98%. Research use only.",
+      "TB-500 supplied as a research-grade thymosin β4 peptide for UK laboratory cytoskeletal studies. HPLC-tested ≥99%. Research use only.",
     tags: ["thymosin-beta-4", "actin-sequestering", "tissue-biology"],
   },
 
@@ -1285,7 +1285,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       "Single-use sterile 90mm polystyrene petri dishes with vented lids, supplied in sealed sleeves. Intended for laboratory cell-culture, microbiology plating, and general research protocols.\n\nSupplied pre-sterilised by gamma irradiation. Not intended for clinical or diagnostic use. " +
       RUO_DISCLAIMER,
     tags: ["petri-dish", "cell-culture", "sterile-consumable"],
-    seoTitle: "Sterile 90mm Petri Dishes — Laboratory Supplies | Cryogene",
+    seoTitle: "Sterile 90mm Petri Dishes — Laboratory Supplies | Cryogene Laboratories",
     seoDescription:
       "Sterile 90mm polystyrene petri dishes supplied for UK laboratory cell-culture and microbiology research. Gamma-irradiated, vented lids. Research use only.",
     faq: [
@@ -1305,7 +1305,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       "Sterile empty 10ml borosilicate-glass vials with butyl-rubber stoppers and aluminium crimp seals. Intended for laboratory reconstitution of lyophilised research reagents, sample-storage workflows, and stock-solution preparation.\n\nSupplied pre-sterilised. Not intended for clinical or diagnostic use. " +
       RUO_DISCLAIMER,
     tags: ["empty-vial", "sterile-container", "reconstitution-supply"],
-    seoTitle: "Sterile 10ml Empty Vials — Laboratory Supplies | Cryogene",
+    seoTitle: "Sterile 10ml Empty Vials — Laboratory Supplies | Cryogene Laboratories",
     seoDescription:
       "Sterile 10ml borosilicate-glass empty vials supplied for UK laboratory reconstitution and sample-storage work. Research use only.",
     faq: [
@@ -1325,7 +1325,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       "Individually wrapped sterile swabs saturated with 70% isopropyl alcohol. Intended for laboratory surface cleaning, preparation of vial septa prior to piercing, and general aseptic technique in research settings.\n\nEach sachet is pre-sterilised. Not intended for clinical or personal-care use. " +
       RUO_DISCLAIMER,
     tags: ["alcohol-swab", "sterile-swab", "aseptic-technique"],
-    seoTitle: "70% IPA Alcohol Prep Swabs — Laboratory Supplies | Cryogene",
+    seoTitle: "70% IPA Alcohol Prep Swabs — Laboratory Supplies | Cryogene Laboratories",
     seoDescription:
       "Individually wrapped 70% isopropyl alcohol prep swabs for UK laboratory aseptic technique. Research use only.",
     faq: [
@@ -1345,7 +1345,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       "Powder-free, latex-free blue nitrile examination gloves for laboratory research use. Available in small, medium and large sizes. Not intended for sterile-field or surgical use — supplied as laboratory consumables.\n\nBatch-lot traceability available on request. " +
       RUO_DISCLAIMER,
     tags: ["nitrile-glove", "laboratory-consumable", "powder-free"],
-    seoTitle: "Nitrile Examination Gloves (Powder-Free) — Laboratory Supplies | Cryogene",
+    seoTitle: "Nitrile Examination Gloves (Powder-Free) — Laboratory Supplies | Cryogene Laboratories",
     seoDescription:
       "Powder-free nitrile examination gloves supplied in S/M/L for UK laboratory research handling. Research use only.",
     faq: [
@@ -1365,7 +1365,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       "Single-use graduated polyethylene transfer pipettes with a 3ml maximum draw volume. Intended for general liquid-handling work in the laboratory, including aliquoting, sample transfer, and reconstitution protocols.\n\nNot sterile unless specifically labelled. " +
       RUO_DISCLAIMER,
     tags: ["transfer-pipette", "disposable-pipette", "liquid-handling"],
-    seoTitle: "3ml Disposable Transfer Pipettes — Laboratory Supplies | Cryogene",
+    seoTitle: "3ml Disposable Transfer Pipettes — Laboratory Supplies | Cryogene Laboratories",
     seoDescription:
       "Graduated 3ml polyethylene transfer pipettes for UK laboratory liquid-handling. Research use only.",
     faq: [
@@ -1385,7 +1385,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       "Laboratory pH test strips covering the 4.5–9.0 pH range with a colour-reference chart on the vial label. Intended for semi-quantitative pH measurement of aqueous laboratory solutions.\n\nFor higher-precision requirements, a calibrated pH meter is recommended. " +
       RUO_DISCLAIMER,
     tags: ["ph-strip", "laboratory-consumable", "semi-quantitative"],
-    seoTitle: "pH Test Strips (4.5-9.0 Range) — Laboratory Supplies | Cryogene",
+    seoTitle: "pH Test Strips (4.5-9.0 Range) — Laboratory Supplies | Cryogene Laboratories",
     seoDescription:
       "Laboratory pH test strips covering 4.5-9.0 with colour reference chart for UK laboratory aqueous pH measurement. Research use only.",
     faq: [
@@ -1405,7 +1405,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       "Single-use sterile syringe filters with a 0.22 µm polyethersulfone (PES) membrane. Intended for laboratory sterile-filtration of aqueous research solutions, reconstitution of lyophilised reagents into sterile stocks, and general cell-culture media filtration.\n\nSterilised by gamma irradiation. " +
       RUO_DISCLAIMER,
     tags: ["syringe-filter", "sterile-filtration", "pes-membrane"],
-    seoTitle: "0.22 µm PES Sterile Syringe Filters — Laboratory Supplies | Cryogene",
+    seoTitle: "0.22 µm PES Sterile Syringe Filters — Laboratory Supplies | Cryogene Laboratories",
     seoDescription:
       "Sterile 0.22 µm polyethersulfone syringe filters for UK laboratory sterile-filtration. Gamma-irradiated. Research use only.",
     faq: [
@@ -1425,7 +1425,7 @@ export const PRODUCT_CONTENT: Record<string, ProductContent> = {
       "Hardback A5 laboratory notebook with 200 pre-numbered 5mm grid-ruled pages, sewn binding, and archival-quality paper suitable for ink and pencil. Intended for documenting research protocols, experimental observations, and calculations in accordance with standard good laboratory practice record-keeping.\n\nSupplied with a navy cover. " +
       RUO_DISCLAIMER,
     tags: ["laboratory-notebook", "glp-record-keeping", "a5-grid"],
-    seoTitle: "A5 Laboratory Notebook (Grid-Ruled) — Laboratory Supplies | Cryogene",
+    seoTitle: "A5 Laboratory Notebook (Grid-Ruled) — Laboratory Supplies | Cryogene Laboratories",
     seoDescription:
       "A5 hardback laboratory notebook with numbered pages and archival-quality paper for UK laboratory research record-keeping.",
     faq: [

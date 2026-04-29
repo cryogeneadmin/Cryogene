@@ -35,7 +35,7 @@ tested by high-performance liquid chromatography (HPLC) before release for
 sale. We claim that the Certificate of Analysis we publish for each
 variant is an accurate record of the testing performed on the batch from
 which that variant was drawn. We claim that the products we sell are
-supplied at a purity of at least 98% unless otherwise stated on the
+supplied at a purity of at least 99% unless otherwise stated on the
 product page.
 
 ## Who our customers are

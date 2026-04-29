@@ -42,7 +42,7 @@ export default function ProductInformationPage() {
           on the chromatogram corresponds to a compound in the sample. The
           area under the target peptide peak, expressed as a percentage of
           all detected peak areas, is the measured purity. We require a minimum
-          purity of 98% HPLC before a batch is listed for sale.
+          purity of 99% HPLC before a batch is listed for sale.
         </p>
 
         <h2 className="text-3xl mt-12">How to read a Certificate of Analysis</h2>
