@@ -13,7 +13,7 @@ Phase 1 variables only. Phase 2 (TrueLayer) and Phase 3 (fulfilment) variables a
 
 | Item | Where | Status check |
 |---|---|---|
-| Firebase project created in `europe-west2` | Sam's Firebase console | Project ID matches `cryogene-prod` (or whatever Sam chose) |
+| Firebase project created in `europe-west2` | Sam's Firebase console | Project ID = `cryogene` (confirmed by Sam 2026-04-29) |
 | Firestore Database enabled, **production mode** | Firebase console → Firestore | Region: europe-west2 |
 | Firebase Storage enabled | Firebase console → Storage | Region: europe-west2 |
 | Firebase Authentication enabled, **Email/Password provider** on | Firebase console → Authentication → Sign-in method | Email/Password toggle = on |
@@ -44,9 +44,9 @@ These come from **Firebase console → Project settings → General → Your app
 | Key | Value | Vercel envs | Notes |
 |---|---|---|---|
 | `NEXT_PUBLIC_FIREBASE_API_KEY` | `apiKey` field | Prod, Preview, Dev | Public by design — restricted via Firebase security rules + domain allowlist. |
-| `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` | `authDomain` field (e.g. `cryogene-prod.firebaseapp.com`) | Prod, Preview, Dev | |
+| `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` | `authDomain` field (e.g. `cryogene.firebaseapp.com`) | Prod, Preview, Dev | |
 | `NEXT_PUBLIC_FIREBASE_PROJECT_ID` | `projectId` field | Prod, Preview, Dev | Same value as the server-side `FIREBASE_PROJECT_ID` below. |
-| `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` | `storageBucket` field (e.g. `cryogene-prod.appspot.com`) | Prod, Preview, Dev | Used by both client SDK and admin SDK (admin reads it from this same key — see `lib/firebase/admin.ts:41`). |
+| `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` | `storageBucket` field (e.g. `cryogene.appspot.com`) | Prod, Preview, Dev | Used by both client SDK and admin SDK (admin reads it from this same key — see `lib/firebase/admin.ts:41`). |
 | `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | `messagingSenderId` field | Prod, Preview, Dev | |
 | `NEXT_PUBLIC_FIREBASE_APP_ID` | `appId` field | Prod, Preview, Dev | |
 
@@ -57,14 +57,14 @@ These come from the **service-account JSON** Sam (or you, if Sam shared admin) d
 | Key | Value | Vercel envs | Notes |
 |---|---|---|---|
 | `FIREBASE_PROJECT_ID` | `project_id` field from the JSON (same as the public one above) | Prod, Preview, Dev | The code's `isFirebaseConfigured()` guard checks this is set AND not the literal string `REPLACE_ME` — anything else makes the app try to connect to Firestore. |
-| `FIREBASE_CLIENT_EMAIL` | `client_email` field — looks like `firebase-adminsdk-xxxxx@cryogene-prod.iam.gserviceaccount.com` | Prod, Preview, Dev | |
+| `FIREBASE_CLIENT_EMAIL` | `client_email` field — looks like `firebase-adminsdk-xxxxx@cryogene.iam.gserviceaccount.com` | Prod, Preview, Dev | |
 | `FIREBASE_PRIVATE_KEY` | **Base64-encoded** `private_key` field — see encoding step below | Prod, Preview, Dev | The code base64-decodes this at runtime (`lib/firebase/admin.ts:31-33`). Do NOT paste the raw `-----BEGIN PRIVATE KEY-----...-----END PRIVATE KEY-----\n` blob — the multi-line value triggers Vercel paste bugs and the code expects base64. |
 
 **Encoding `FIREBASE_PRIVATE_KEY`:**
 
 ```bash
 # Replace path with wherever you saved the service account JSON
-cat ~/Downloads/cryogene-prod-firebase-adminsdk-*.json \
+cat ~/Downloads/cryogene-firebase-adminsdk-*.json \
   | jq -r '.private_key' \
   | base64 -w 0
 ```
@@ -130,7 +130,7 @@ vercel env add NEXT_PUBLIC_FIREBASE_API_KEY production
 # (CLI prompts for value — paste the apiKey string from Firebase console)
 
 # For the base64-encoded private key:
-cat ~/Downloads/cryogene-prod-firebase-adminsdk-*.json \
+cat ~/Downloads/cryogene-firebase-adminsdk-*.json \
   | jq -r '.private_key' \
   | base64 -w 0 \
   | vercel env add FIREBASE_PRIVATE_KEY production
@@ -172,7 +172,7 @@ vercel --prod
    - Resend sends the notification email to `RESEND_NOTIFICATION_EMAIL`
 10. **Verify `firestore.rules` and `storage.rules` are deployed:**
     ```bash
-    firebase deploy --only firestore:rules,storage:rules --project cryogene-prod
+    firebase deploy --only firestore:rules,storage:rules --project cryogene
     ```
     (Requires the Firebase CLI logged in as a project owner.)
 
