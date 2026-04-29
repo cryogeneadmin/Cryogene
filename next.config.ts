@@ -13,6 +13,12 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      // Common alternative spelling — readers expect /cart, site uses /basket.
+      { source: "/cart", destination: "/basket", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

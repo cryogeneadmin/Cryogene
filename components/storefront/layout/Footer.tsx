@@ -46,9 +46,6 @@ export async function Footer() {
   const config = await getConfig();
   const year = new Date().getFullYear();
 
-  // Reference code echoes the physical vial label typography.
-  const refCode = `CRY-${year}-Q${Math.floor((new Date().getMonth() + 3) / 3)}`;
-
   return (
     <footer className="bg-[#0D1B3E] text-[#8BAAD4] mt-24">
       {/* Trust manifold — credibility row */}
@@ -80,9 +77,16 @@ export async function Footer() {
             UK-based research-peptide supply. HPLC-documented, batch-traceable,
             research-use only.
           </p>
-          <p className="text-[11px] mono text-[#5B7BA3] mt-4 tracking-[0.25em]">
-            REF {refCode}
-          </p>
+          {config.companyNumber && (
+            <p className="text-[11px] mono text-[#5B7BA3] mt-4 tracking-[0.25em]">
+              Company No. {config.companyNumber}
+            </p>
+          )}
+          {config.vatNumber && (
+            <p className="text-[11px] mono text-[#5B7BA3] mt-1 tracking-[0.25em]">
+              VAT No. {config.vatNumber}
+            </p>
+          )}
         </div>
         <div>
           <p className="label-editorial text-[#AABBCC] mb-4">Shop</p>
