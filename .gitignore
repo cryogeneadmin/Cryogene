@@ -61,3 +61,8 @@ data/enquiries.local.json
 data/counters.local.json
 data/config.local.json
 data/products.local.json
+
+# Firebase service account JSON — NEVER commit
+*-firebase-adminsdk-*.json
+*-service-account*.json
+serviceAccountKey*.json

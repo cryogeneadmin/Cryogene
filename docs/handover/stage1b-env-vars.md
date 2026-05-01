@@ -13,7 +13,7 @@ Phase 1 variables only. Phase 2 (TrueLayer) and Phase 3 (fulfilment) variables a
 
 | Item | Where | Status check |
 |---|---|---|
-| Firebase project created in `europe-west2` | Sam's Firebase console | Project ID = `cryogene` (confirmed by Sam 2026-04-29) |
+| Firebase project created in `europe-west2` | Sam's Firebase console | Project ID = `cryogene-5ee94` (auto-suffixed because the bare `cryogene` ID was unavailable globally — confirmed 2026-05-01) |
 | Firestore Database enabled, **production mode** | Firebase console → Firestore | Region: europe-west2 |
 | Firebase Storage enabled | Firebase console → Storage | Region: europe-west2 |
 | Firebase Authentication enabled, **Email/Password provider** on | Firebase console → Authentication → Sign-in method | Email/Password toggle = on |
@@ -44,9 +44,9 @@ These come from **Firebase console → Project settings → General → Your app
 | Key | Value | Vercel envs | Notes |
 |---|---|---|---|
 | `NEXT_PUBLIC_FIREBASE_API_KEY` | `apiKey` field | Prod, Preview, Dev | Public by design — restricted via Firebase security rules + domain allowlist. |
-| `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` | `authDomain` field (e.g. `cryogene.firebaseapp.com`) | Prod, Preview, Dev | |
+| `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` | `authDomain` field (`cryogene-5ee94.firebaseapp.com`) | Prod, Preview, Dev | |
 | `NEXT_PUBLIC_FIREBASE_PROJECT_ID` | `projectId` field | Prod, Preview, Dev | Same value as the server-side `FIREBASE_PROJECT_ID` below. |
-| `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` | `storageBucket` field (e.g. `cryogene.appspot.com`) | Prod, Preview, Dev | Used by both client SDK and admin SDK (admin reads it from this same key — see `lib/firebase/admin.ts:41`). |
+| `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` | `storageBucket` field (likely `cryogene-5ee94.firebasestorage.app` for newer projects, or `cryogene-5ee94.appspot.com` for legacy — copy the exact string Firebase displays) | Prod, Preview, Dev | Used by both client SDK and admin SDK (admin reads it from this same key — see `lib/firebase/admin.ts:41`). |
 | `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | `messagingSenderId` field | Prod, Preview, Dev | |
 | `NEXT_PUBLIC_FIREBASE_APP_ID` | `appId` field | Prod, Preview, Dev | |
 
@@ -56,8 +56,8 @@ These come from the **service-account JSON** Sam (or you, if Sam shared admin) d
 
 | Key | Value | Vercel envs | Notes |
 |---|---|---|---|
-| `FIREBASE_PROJECT_ID` | `project_id` field from the JSON (same as the public one above) | Prod, Preview, Dev | The code's `isFirebaseConfigured()` guard checks this is set AND not the literal string `REPLACE_ME` — anything else makes the app try to connect to Firestore. |
-| `FIREBASE_CLIENT_EMAIL` | `client_email` field — looks like `firebase-adminsdk-xxxxx@cryogene.iam.gserviceaccount.com` | Prod, Preview, Dev | |
+| `FIREBASE_PROJECT_ID` | `project_id` field from the JSON (`cryogene-5ee94`, same as the public one above) | Prod, Preview, Dev | The code's `isFirebaseConfigured()` guard checks this is set AND not the literal string `REPLACE_ME` — anything else makes the app try to connect to Firestore. |
+| `FIREBASE_CLIENT_EMAIL` | `client_email` field (`firebase-adminsdk-fbsvc@cryogene-5ee94.iam.gserviceaccount.com`) | Prod, Preview, Dev | |
 | `FIREBASE_PRIVATE_KEY` | **Base64-encoded** `private_key` field — see encoding step below | Prod, Preview, Dev | The code base64-decodes this at runtime (`lib/firebase/admin.ts:31-33`). Do NOT paste the raw `-----BEGIN PRIVATE KEY-----...-----END PRIVATE KEY-----\n` blob — the multi-line value triggers Vercel paste bugs and the code expects base64. |
 
 **Encoding `FIREBASE_PRIVATE_KEY`:**
@@ -80,6 +80,14 @@ The output is one long unbroken string starting with `LS0tLS1CRUdJTi...`. Copy t
 | `RESEND_API_KEY` | API key from Resend dashboard (starts with `re_`) | Prod, Preview, Dev | |
 | `RESEND_FROM_EMAIL` | `orders@cryogene.co.uk` | Prod, Preview, Dev | Must be on the verified Resend domain. If you want a friendly name, use the format: `Cryogene Laboratories <orders@cryogene.co.uk>`. |
 | `RESEND_NOTIFICATION_EMAIL` | Sam's address where new-order alerts arrive (e.g. `sam@cryogene.co.uk` or `samcowling118@googlemail.com`) | Prod, Preview, Dev | Internal recipient — does not need to be on a verified domain. |
+
+### 4b. Data layer (TEMPORARY — until Firestore read migration lands)
+
+| Key | Value | Vercel envs | Notes |
+|---|---|---|---|
+| `DATA_MODE` | `seed` | Prod, Preview, Dev | Forces every domain module (`products`, `orders`, `customers`, `config`, `enquiries`) to read from the bundled `data/*.seed.json` files instead of Firestore. The Firestore read paths are currently `not yet implemented` stubs that throw at build-time. **Remove this variable once the Firestore migration ships** — `isSeedMode()` will then auto-detect Firestore mode based on admin credentials. |
+
+**Migration debt:** `lib/data-mode.ts` currently honours `DATA_MODE=seed` regardless of credential presence. Once `lib/products.ts`, `lib/orders.ts`, `lib/customers.ts`, `lib/config.ts`, `lib/enquiries.ts`, and `app/actions/products.ts` have working Firestore branches, drop the env var from Vercel and the override from `data-mode.ts` in the same PR.
 
 ### 5. Payments (Phase 1 = stub)
 
@@ -172,7 +180,7 @@ vercel --prod
    - Resend sends the notification email to `RESEND_NOTIFICATION_EMAIL`
 10. **Verify `firestore.rules` and `storage.rules` are deployed:**
     ```bash
-    firebase deploy --only firestore:rules,storage:rules --project cryogene
+    firebase deploy --only firestore:rules,storage:rules --project cryogene-5ee94
     ```
     (Requires the Firebase CLI logged in as a project owner.)
 
