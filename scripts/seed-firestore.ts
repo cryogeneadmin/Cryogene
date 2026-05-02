@@ -50,8 +50,54 @@ async function main() {
     console.log(`  ✓ ${product.name}`);
   }
 
+  const defaultConfig = {
+    storeName: "Cryogene Laboratories",
+    storeEmail: "hello@cryogene.co.uk",
+    storePhone: null,
+    registeredAddress: "[ADDRESS TBC]",
+    companyNumber: null,
+    vatNumber: null,
+    shipping: {
+      flatRateInPence: 495,
+      freeThresholdInPence: 7500,
+      estimatedDispatch: "Dispatched within 1 working day",
+    },
+    vat: {
+      registered: false,
+      rate: 0.2,
+      displayPricesInclusive: false,
+    },
+    notifications: {
+      newOrderEmailTo: "orders@cryogene.co.uk",
+    },
+    updatedAt: new Date(),
+    updatedBy: "seed-script",
+  };
+  await db.doc("config/main").set(defaultConfig);
+  console.log(`  ✓ config/main seeded`);
+
   console.log(`\nDone. ${products.length} products written to Firestore.`);
   console.log(`\nNext step: run \`npx tsx scripts/set-admin-claim.ts <admin-email>\` to grant admin access.`);
+
+  // Verification: read back what we just wrote
+  const productCountSnap = await db.collection("products").count().get();
+  const productCount = productCountSnap.data().count;
+  const configSnap = await db.doc("config/main").get();
+  console.log(`\n--- Verification ---`);
+  console.log(`Products in Firestore: ${productCount}`);
+  console.log(`config/main exists: ${configSnap.exists}`);
+  if (configSnap.exists) {
+    console.log(`config/main.storeName: ${(configSnap.data() as { storeName: string }).storeName}`);
+  }
+  if (productCount !== products.length) {
+    console.error(`MISMATCH: expected ${products.length}, got ${productCount}`);
+    process.exit(2);
+  }
+  if (!configSnap.exists) {
+    console.error(`MISMATCH: config/main not found after write`);
+    process.exit(3);
+  }
+  console.log(`Verification passed.`);
 }
 
 main().catch((err) => {
