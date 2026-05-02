@@ -35,7 +35,7 @@ async function nextOrderNumber(): Promise<string> {
   }
 
   const db = getAdminDb()!;
-  const counterRef = db.doc(`config/orderCounters/${today}`);
+  const counterRef = db.doc(`orderCounters/${today}`);
   const counter = await db.runTransaction(async (tx) => {
     const snap = await tx.get(counterRef);
     const next = (snap.exists ? (snap.data()!.count as number) : 0) + 1;
