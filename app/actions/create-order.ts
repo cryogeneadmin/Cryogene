@@ -2,6 +2,10 @@
 
 import { cookies } from "next/headers";
 import { getCheckoutSession, clearCheckoutSession } from "@/lib/checkout-session";
+import {
+  confirmationCookieName,
+  CONFIRMATION_COOKIE_OPTIONS,
+} from "@/lib/auth-cookies";
 import { getProductBySlug } from "@/lib/products";
 import { getConfig } from "@/lib/config";
 import { computeShippingInPence } from "@/lib/shipping";
@@ -136,6 +140,14 @@ export async function createOrderAction(
   const payment = await provider.initiatePayment(order);
 
   await clearCheckoutSession();
+
+  // Set a short-TTL capability cookie so the guest can view their own
+  // confirmation page. httpOnly + SameSite=Strict prevents exfiltration.
+  cookieStore.set(
+    confirmationCookieName(order.id),
+    "1",
+    CONFIRMATION_COOKIE_OPTIONS
+  );
 
   return {
     status: "success",
