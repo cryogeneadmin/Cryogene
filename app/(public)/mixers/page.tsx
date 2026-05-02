@@ -1,18 +1,20 @@
+import { Suspense } from "react";
 import { ProductListingPage } from "@/components/storefront/products/ProductListingPage";
 
-export default async function MixersPage({
+export default function MixersPage({
   searchParams,
 }: {
   searchParams: Promise<{ [key: string]: string | undefined }>;
 }) {
-  const params = await searchParams;
   return (
-    <ProductListingPage
-      category="mixers"
-      categoryLabel="Mixers & Solvents"
-      categoryDescription="Laboratory-grade bacteriostatic water and sterile saline for reconstitution in research protocols. For laboratory research use only."
-      searchParams={params}
-    />
+    <Suspense>
+      <ProductListingPage
+        category="mixers"
+        categoryLabel="Mixers & Solvents"
+        categoryDescription="Laboratory-grade bacteriostatic water and sterile saline for reconstitution in research protocols. For laboratory research use only."
+        searchParams={searchParams}
+      />
+    </Suspense>
   );
 }
 

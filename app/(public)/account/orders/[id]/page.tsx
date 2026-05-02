@@ -1,14 +1,13 @@
+import { Suspense } from "react";
+import { connection } from "next/server";
 import { notFound } from "next/navigation";
 import { AccountLayout } from "@/components/storefront/account/AccountLayout";
 import { getOrderById } from "@/lib/orders";
 import { getCustomerSession } from "@/lib/customer-auth";
 import { formatPriceFromPence } from "@/lib/basket";
 
-export default async function AccountOrderDetailPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+async function OrderDetailContent({ params }: { params: Promise<{ id: string }> }) {
+  await connection();
   const { id } = await params;
 
   // Server-side auth gate: read the session cookie BEFORE fetching any order data.
@@ -47,5 +46,17 @@ export default async function AccountOrderDetailPage({
         <span>{formatPriceFromPence(order.totalInPence)}</span>
       </div>
     </AccountLayout>
+  );
+}
+
+export default function AccountOrderDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  return (
+    <Suspense>
+      <OrderDetailContent params={params} />
+    </Suspense>
   );
 }

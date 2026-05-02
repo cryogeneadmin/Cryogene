@@ -6,6 +6,7 @@ import type { Product, ProductCategory } from "@/types";
 import { isSeedMode } from "@/lib/data-mode";
 import { getAdminDb } from "@/lib/firebase/admin";
 import { Timestamp, type Query } from "firebase-admin/firestore";
+import { cacheTag } from "next/cache";
 
 // Firestore Timestamp instances are class objects — Next.js RSC cannot
 // serialize them across the Server→Client boundary. Convert to Date
@@ -55,6 +56,8 @@ export async function getProducts(options?: {
   activeOnly?: boolean;
   limit?: number;
 }): Promise<Product[]> {
+  "use cache";
+  cacheTag("products");
   if (isSeedMode()) {
     let results = await mergedSeed();
     if (options?.activeOnly) {
@@ -85,6 +88,8 @@ export async function getProducts(options?: {
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
+  "use cache";
+  cacheTag("products");
   if (isSeedMode()) {
     const all = await mergedSeed();
     return all.find((p) => p.slug === slug) ?? null;
@@ -115,6 +120,8 @@ export async function getFeaturedProducts(limit = 6): Promise<Product[]> {
 }
 
 export async function getAllProductSlugs(): Promise<string[]> {
+  "use cache";
+  cacheTag("products");
   const all = await getProducts({ activeOnly: true });
   return all.map((p) => p.slug);
 }

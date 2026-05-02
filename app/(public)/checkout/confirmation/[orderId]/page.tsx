@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+import { connection } from "next/server";
 import { notFound } from "next/navigation";
 import { cookies } from "next/headers";
 import { getOrderById } from "@/lib/orders";
@@ -6,16 +8,16 @@ import { confirmationCookieName } from "@/lib/auth-cookies";
 import { ConfirmationContent } from "@/components/storefront/checkout/ConfirmationContent";
 import { getConfig } from "@/lib/config";
 
-export default async function ConfirmationPage({
+async function ConfirmationLoader({
   params,
   searchParams,
 }: {
   params: Promise<{ orderId: string }>;
   searchParams: Promise<{ stub?: string }>;
 }) {
+  await connection();
   const { orderId } = await params;
   const { stub } = await searchParams;
-
   const cookieStore = await cookies();
   const confirmationCookie = cookieStore.get(confirmationCookieName(orderId));
   const session = await getCustomerSession();
@@ -39,5 +41,19 @@ export default async function ConfirmationPage({
       config={config}
       isStub={stub === "true"}
     />
+  );
+}
+
+export default function ConfirmationPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ orderId: string }>;
+  searchParams: Promise<{ stub?: string }>;
+}) {
+  return (
+    <Suspense>
+      <ConfirmationLoader params={params} searchParams={searchParams} />
+    </Suspense>
   );
 }

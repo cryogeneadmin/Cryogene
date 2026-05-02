@@ -5,6 +5,7 @@ import type { Config } from "@/types";
 import { getAdminDb } from "@/lib/firebase/admin";
 import { isSeedMode } from "@/lib/data-mode";
 import { Timestamp } from "firebase-admin/firestore";
+import { cacheTag } from "next/cache";
 
 function normalizeConfig(raw: Record<string, unknown>): Config {
   const out: Record<string, unknown> = { ...raw };
@@ -39,6 +40,8 @@ const DEFAULT_CONFIG: Config = {
 };
 
 export async function getConfig(): Promise<Config> {
+  "use cache";
+  cacheTag("config");
   if (isSeedMode()) {
     try {
       const raw = await fs.readFile(LOCAL_CONFIG_PATH, "utf-8");

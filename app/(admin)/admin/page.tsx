@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+import { connection } from "next/server";
 import Link from "next/link";
 import { getOrders } from "@/lib/orders";
 import { getEnquiries } from "@/lib/enquiries";
@@ -5,7 +7,8 @@ import { getProducts } from "@/lib/products";
 import { formatPriceFromPence } from "@/lib/basket";
 import type { OrderStatus } from "@/types";
 
-export default async function AdminDashboard() {
+async function AdminDashboardContent() {
+  await connection();
   const [allOrders, newEnquiries, products] = await Promise.all([
     getOrders(),
     getEnquiries("new"),
@@ -105,5 +108,13 @@ function StatusBadge({ status }: { status: OrderStatus }) {
     <span className={`px-2 py-0.5 text-xs rounded ${colorMap[status] ?? "bg-gray-100"}`}>
       {status}
     </span>
+  );
+}
+
+export default function AdminDashboard() {
+  return (
+    <Suspense>
+      <AdminDashboardContent />
+    </Suspense>
   );
 }

@@ -43,6 +43,7 @@ const CREDIBILITY_ITEMS: { label: string; sub: string; icon: React.ReactNode }[]
 ];
 
 export async function Footer() {
+  "use cache";
   const config = await getConfig();
   const year = new Date().getFullYear();
 

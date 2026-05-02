@@ -38,6 +38,7 @@ export async function getAllLegalSlugs(): Promise<string[]> {
 }
 
 export async function LegalPage({ slug }: { slug: string }) {
+  "use cache";
   const page = await getLegalPage(slug);
   if (!page) notFound();
 

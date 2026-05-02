@@ -5,6 +5,7 @@ import type { Customer } from "@/types";
 import { getAdminDb } from "@/lib/firebase/admin";
 import { isSeedMode } from "@/lib/data-mode";
 import { Timestamp } from "firebase-admin/firestore";
+import { cacheTag } from "next/cache";
 
 const LOCAL_CUSTOMERS_PATH = path.join(process.cwd(), "data", "customers.local.json");
 
@@ -66,6 +67,8 @@ export async function upsertCustomer(customer: Customer): Promise<void> {
 }
 
 export async function getCustomers(limit?: number): Promise<Customer[]> {
+  "use cache";
+  cacheTag("customers");
   if (isSeedMode()) {
     const list = await readLocal();
     return limit ? list.slice(0, limit) : list;

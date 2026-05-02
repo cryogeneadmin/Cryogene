@@ -6,6 +6,7 @@ import { getAdminDb } from "@/lib/firebase/admin";
 import { isSeedMode } from "@/lib/data-mode";
 import { Timestamp } from "firebase-admin/firestore";
 import type { DocumentReference } from "firebase-admin/firestore";
+import { cacheTag } from "next/cache";
 
 const LOCAL_ORDERS_PATH = path.join(process.cwd(), "data", "orders.local.json");
 const LOCAL_COUNTERS_PATH = path.join(process.cwd(), "data", "counters.local.json");
@@ -102,6 +103,8 @@ export async function getOrders(options?: {
   status?: OrderStatus;
   limit?: number;
 }): Promise<Order[]> {
+  "use cache";
+  cacheTag("orders");
   if (isSeedMode()) {
     let results = await readLocalOrders();
     if (options?.customerUid) {
@@ -139,6 +142,8 @@ export async function getOrders(options?: {
 }
 
 export async function getOrderById(id: string): Promise<Order | null> {
+  "use cache";
+  cacheTag("orders");
   if (isSeedMode()) {
     const orders = await readLocalOrders();
     return orders.find((o) => o.id === id) ?? null;

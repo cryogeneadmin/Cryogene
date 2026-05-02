@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { Product, ProductCategory } from "@/types";
@@ -132,7 +133,9 @@ export async function ProductDetail({ product }: { product: Product }) {
           {product.composition && product.composition.length > 0 && (
             <BlendedProductComposition composition={product.composition} />
           )}
-          <VariantSelector product={product} />
+          <Suspense>
+            <VariantSelector product={product} />
+          </Suspense>
           <ResearchDisclaimerCallout />
         </div>
       </div>

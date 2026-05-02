@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { z } from "zod";
 import { isAdminRequest } from "@/lib/admin-auth";
 import { updateConfig } from "@/lib/config";
@@ -41,5 +41,6 @@ export async function saveConfig(patch: Partial<Config>) {
 
   const validated = ConfigPatchSchema.parse(patch);
   await updateConfig(validated as Partial<Config>);
+  revalidateTag("config", "max");
   revalidatePath("/", "layout");
 }

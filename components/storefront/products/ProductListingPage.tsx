@@ -17,12 +17,12 @@ type ListingPageProps = {
   category: ProductCategory;
   categoryLabel: string;
   categoryDescription: string;
-  searchParams: { [key: string]: string | undefined };
+  searchParams: Promise<{ [key: string]: string | undefined }>;
 };
 
 function applyFilters(
   products: Product[],
-  params: ListingPageProps["searchParams"]
+  params: { [key: string]: string | undefined }
 ): Product[] {
   const sizes = params.sizes?.split(",").filter(Boolean) ?? [];
   const methods = params.methods?.split(",").filter(Boolean) ?? [];
@@ -71,8 +71,9 @@ export async function ProductListingPage({
   category,
   categoryLabel,
   categoryDescription,
-  searchParams,
+  searchParams: searchParamsPromise,
 }: ListingPageProps) {
+  const searchParams = await searchParamsPromise;
   const allProducts = await getProducts({ category, activeOnly: true });
   const filtered = applyFilters(allProducts, searchParams);
 

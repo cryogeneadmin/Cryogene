@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans, JetBrains_Mono } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
 
 import { ComplianceBanner } from "@/components/storefront/layout/ComplianceBanner";
@@ -8,6 +9,12 @@ import { CookieConsent } from "@/components/storefront/layout/CookieConsent";
 import { Navbar } from "@/components/storefront/layout/Navbar";
 import { Footer } from "@/components/storefront/layout/Footer";
 import { isAgeVerified } from "@/app/actions/age-gate";
+
+async function AgeGateCheck() {
+  const verified = await isAgeVerified();
+  if (verified) return null;
+  return <AgeVerificationGate />;
+}
 
 const cormorantGaramond = Cormorant_Garamond({
   subsets: ["latin"],
@@ -52,13 +59,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const verified = await isAgeVerified();
-
   return (
     <html
       lang="en-GB"
@@ -66,13 +71,17 @@ export default async function RootLayout({
     >
       <body className="min-h-screen flex flex-col">
         <ComplianceBanner />
-        {!verified && <AgeVerificationGate />}
+        <Suspense>
+          <AgeGateCheck />
+        </Suspense>
         <div className="pt-9 flex-1 flex flex-col">
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
         </div>
-        <CookieConsent />
+        <Suspense>
+          <CookieConsent />
+        </Suspense>
       </body>
     </html>
   );

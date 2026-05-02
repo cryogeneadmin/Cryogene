@@ -1,15 +1,14 @@
 // app/(admin)/admin/orders/[id]/page.tsx
+import { Suspense } from "react";
+import { connection } from "next/server";
 import { notFound } from "next/navigation";
 import { getOrderById } from "@/lib/orders";
 import { formatPriceFromPence } from "@/lib/basket";
 import { OrderStatusControls } from "@/components/admin/OrderStatusControls";
 import { coerceToDate } from "@/lib/utils";
 
-export default async function AdminOrderDetailPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+async function OrderDetailContent({ params }: { params: Promise<{ id: string }> }) {
+  await connection();
   const { id } = await params;
   if (!id || id.length > 128 || !/^[\w-]+$/.test(id)) notFound();
   const order = await getOrderById(id);
@@ -112,5 +111,17 @@ export default async function AdminOrderDetailPage({
         </aside>
       </div>
     </div>
+  );
+}
+
+export default function AdminOrderDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  return (
+    <Suspense>
+      <OrderDetailContent params={params} />
+    </Suspense>
   );
 }

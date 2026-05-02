@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import "server-only";
@@ -133,6 +133,7 @@ export async function saveProduct(data: unknown) {
     }
   }
 
+  revalidateTag("products", "max");
   revalidatePath("/admin/products");
   revalidatePath(`/${product.category}`);
   revalidatePath(`/${product.category}/${product.slug}`);
@@ -163,5 +164,6 @@ export async function toggleProductActive(id: string, active: boolean) {
       .doc(`products/${validated.id}`)
       .update({ active: validated.active, updatedAt: new Date() });
   }
+  revalidateTag("products", "max");
   revalidatePath("/admin/products");
 }

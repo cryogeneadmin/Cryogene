@@ -1,7 +1,10 @@
+import { Suspense } from "react";
+import { connection } from "next/server";
 import { getCustomers } from "@/lib/customers";
 import { formatPriceFromPence } from "@/lib/basket";
 
-export default async function AdminCustomersPage() {
+async function CustomersContent() {
+  await connection();
   const customers = await getCustomers();
   return (
     <div>
@@ -35,5 +38,13 @@ export default async function AdminCustomersPage() {
         </table>
       )}
     </div>
+  );
+}
+
+export default function AdminCustomersPage() {
+  return (
+    <Suspense>
+      <CustomersContent />
+    </Suspense>
   );
 }
