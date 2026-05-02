@@ -70,13 +70,19 @@ export default function RootLayout({
       className={`${cormorantGaramond.variable} ${dmSans.variable} ${jetBrains.variable} font-sans`}
     >
       <body className="min-h-screen flex flex-col">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:bg-[#0D1B3E] focus:text-white focus:px-4 focus:py-2 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-[#0D1B3E]"
+        >
+          Skip to main content
+        </a>
         <ComplianceBanner />
         <Suspense>
           <AgeGateCheck />
         </Suspense>
         <div className="pt-9 flex-1 flex flex-col">
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main id="main" className="flex-1">{children}</main>
           <Footer />
         </div>
         <Suspense>
