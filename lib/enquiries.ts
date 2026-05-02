@@ -4,8 +4,18 @@ import path from "node:path";
 import type { Enquiry, EnquiryStatus } from "@/types";
 import { getAdminDb } from "@/lib/firebase/admin";
 import { isSeedMode } from "@/lib/data-mode";
+import { Timestamp } from "firebase-admin/firestore";
 
 const LOCAL_ENQUIRIES_PATH = path.join(process.cwd(), "data", "enquiries.local.json");
+
+// Firestore Admin SDK returns Timestamp class instances; normalize to Date
+// at the read boundary so RSC can serialize across Server→Client.
+function normalizeEnquiry(raw: Record<string, unknown>): Enquiry {
+  const out: Record<string, unknown> = { ...raw };
+  const v = out.createdAt;
+  if (v instanceof Timestamp) out.createdAt = v.toDate();
+  return out as unknown as Enquiry;
+}
 
 async function readLocal(): Promise<Enquiry[]> {
   try {
@@ -50,7 +60,7 @@ export async function getEnquiries(status?: EnquiryStatus): Promise<Enquiry[]> {
   let query = getAdminDb()!.collection("enquiries").orderBy("createdAt", "desc");
   if (status) query = query.where("status", "==", status);
   const snap = await query.get();
-  return snap.docs.map((d) => d.data() as Enquiry);
+  return snap.docs.map((d) => normalizeEnquiry(d.data() as Record<string, unknown>));
 }
 
 export async function updateEnquiryStatus(

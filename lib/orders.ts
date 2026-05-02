@@ -4,9 +4,45 @@ import path from "node:path";
 import type { Order, OrderStatus } from "@/types";
 import { getAdminDb } from "@/lib/firebase/admin";
 import { isSeedMode } from "@/lib/data-mode";
+import { Timestamp } from "firebase-admin/firestore";
 
 const LOCAL_ORDERS_PATH = path.join(process.cwd(), "data", "orders.local.json");
 const LOCAL_COUNTERS_PATH = path.join(process.cwd(), "data", "counters.local.json");
+
+// Firestore Admin SDK returns Timestamp class instances for date fields.
+// Next.js 16 RSC cannot serialize class instances across the Server→Client
+// boundary. Normalize all date fields to Date at the read boundary.
+function normalizeOrder(raw: Record<string, unknown>): Order {
+  const out: Record<string, unknown> = { ...raw };
+
+  // Top-level date fields
+  for (const key of ["createdAt", "updatedAt", "researchConfirmedAt", "ageGatePassedAt"] as const) {
+    const v = out[key];
+    if (v instanceof Timestamp) out[key] = v.toDate();
+  }
+
+  // Nested: payment sub-object
+  if (out.payment && typeof out.payment === "object") {
+    const payment = { ...(out.payment as Record<string, unknown>) };
+    for (const key of ["initiatedAt", "paidAt", "failedAt"] as const) {
+      const v = payment[key];
+      if (v instanceof Timestamp) payment[key] = v.toDate();
+    }
+    out.payment = payment;
+  }
+
+  // Nested: fulfilment sub-object
+  if (out.fulfilment && typeof out.fulfilment === "object") {
+    const fulfilment = { ...(out.fulfilment as Record<string, unknown>) };
+    for (const key of ["printedAt", "dispatchedAt", "customerEmailedAt"] as const) {
+      const v = fulfilment[key];
+      if (v instanceof Timestamp) fulfilment[key] = v.toDate();
+    }
+    out.fulfilment = fulfilment;
+  }
+
+  return out as unknown as Order;
+}
 
 async function readLocalOrders(): Promise<Order[]> {
   try {
@@ -98,7 +134,7 @@ export async function getOrders(options?: {
     query = query.limit(options.limit);
   }
   const snap = await query.get();
-  return snap.docs.map((d) => d.data() as Order);
+  return snap.docs.map((d) => normalizeOrder(d.data() as Record<string, unknown>));
 }
 
 export async function getOrderById(id: string): Promise<Order | null> {
@@ -108,7 +144,7 @@ export async function getOrderById(id: string): Promise<Order | null> {
   }
   const db = getAdminDb()!;
   const snap = await db.doc(`orders/${id}`).get();
-  return snap.exists ? (snap.data() as Order) : null;
+  return snap.exists ? normalizeOrder(snap.data() as Record<string, unknown>) : null;
 }
 
 export async function updateOrder(id: string, patch: Partial<Order>): Promise<void> {

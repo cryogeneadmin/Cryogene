@@ -4,8 +4,20 @@ import path from "node:path";
 import type { Customer } from "@/types";
 import { getAdminDb } from "@/lib/firebase/admin";
 import { isSeedMode } from "@/lib/data-mode";
+import { Timestamp } from "firebase-admin/firestore";
 
 const LOCAL_CUSTOMERS_PATH = path.join(process.cwd(), "data", "customers.local.json");
+
+// Firestore Admin SDK returns Timestamp class instances; normalize to Date
+// at the read boundary so RSC can serialize across Server→Client.
+function normalizeCustomer(raw: Record<string, unknown>): Customer {
+  const out: Record<string, unknown> = { ...raw };
+  for (const key of ["createdAt", "lastLoginAt"] as const) {
+    const v = out[key];
+    if (v instanceof Timestamp) out[key] = v.toDate();
+  }
+  return out as unknown as Customer;
+}
 
 async function readLocal(): Promise<Customer[]> {
   try {
@@ -25,7 +37,7 @@ export async function getCustomerById(id: string): Promise<Customer | null> {
     return list.find((c) => c.id === id) ?? null;
   }
   const snap = await getAdminDb()!.doc(`customers/${id}`).get();
-  return snap.exists ? (snap.data() as Customer) : null;
+  return snap.exists ? normalizeCustomer(snap.data() as Record<string, unknown>) : null;
 }
 
 export async function getCustomerByEmail(email: string): Promise<Customer | null> {
@@ -38,7 +50,7 @@ export async function getCustomerByEmail(email: string): Promise<Customer | null
     .where("email", "==", email)
     .limit(1)
     .get();
-  return snap.empty ? null : (snap.docs[0]!.data() as Customer);
+  return snap.empty ? null : normalizeCustomer(snap.docs[0]!.data() as Record<string, unknown>);
 }
 
 export async function upsertCustomer(customer: Customer): Promise<void> {
@@ -61,7 +73,7 @@ export async function getCustomers(limit?: number): Promise<Customer[]> {
   let query = getAdminDb()!.collection("customers").orderBy("createdAt", "desc");
   if (limit) query = query.limit(limit);
   const snap = await query.get();
-  return snap.docs.map((d) => d.data() as Customer);
+  return snap.docs.map((d) => normalizeCustomer(d.data() as Record<string, unknown>));
 }
 
 export async function incrementCustomerStats(
