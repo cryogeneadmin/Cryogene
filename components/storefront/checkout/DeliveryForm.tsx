@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState, useState } from "react";
 import { saveDeliveryStep, type DeliveryFormState } from "@/app/actions/checkout";
 
@@ -88,9 +89,27 @@ export function DeliveryForm({
         {createAccount && (
           <div>
             <label htmlFor="accountPassword" className="label-editorial block mb-2">Password (min 8 characters)</label>
+            {/* Password lives only in form state for this page lifetime.
+                It is passed directly to the server action which creates the
+                Firebase Auth user immediately — it never persists to cookie,
+                session, or any server-side store. */}
             <input id="accountPassword" name="accountPassword" type="password" minLength={8} className="w-full border border-[#DDE1E7] p-3" />
             {fieldError("accountPassword") && <p className="text-xs text-red-700 mt-1">{fieldError("accountPassword")}</p>}
           </div>
+        )}
+        {/* Account-creation error: email already exists */}
+        {state.accountError && state.accountError.includes("already exists") && (
+          <p className="text-xs text-red-700">
+            An account with that email already exists.{" "}
+            <Link href="/sign-in?redirect=/checkout/delivery" className="underline">
+              Sign in
+            </Link>{" "}
+            or use a different email.
+          </p>
+        )}
+        {/* Account-creation error: service unavailable or other */}
+        {state.accountError && !state.accountError.includes("already exists") && (
+          <p className="text-xs text-red-700">{state.accountError}</p>
         )}
       </div>
 

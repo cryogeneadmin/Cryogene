@@ -136,7 +136,7 @@ export async function createOrderAction(
       itemRefs,
       status: "pending",
       customer: {
-        uid: null,
+        uid: delivery.customerUid ?? null,
         email: delivery.email,
         name: delivery.fullName,
         phone: delivery.phone ?? null,

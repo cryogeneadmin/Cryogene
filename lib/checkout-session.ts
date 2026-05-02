@@ -4,28 +4,21 @@ import { z } from "zod";
 
 const CHECKOUT_COOKIE = "checkout_session";
 
-export const DeliveryDataSchema = z
-  .object({
-    fullName: z.string().min(1),
-    email: z.string().email(),
-    phone: z.string().optional().nullable(),
-    line1: z.string().min(1),
-    line2: z.string().optional().nullable(),
-    city: z.string().min(1),
-    postcode: z.string().min(1),
-    researchInstitution: z.string().optional().nullable(),
-    createAccount: z.boolean(),
-    accountPassword: z.string().min(8).optional().nullable(),
-  })
-  .superRefine((data, ctx) => {
-    if (data.createAccount && (!data.accountPassword || data.accountPassword.length < 8)) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "Password must be at least 8 characters to create an account",
-        path: ["accountPassword"],
-      });
-    }
-  });
+export const DeliveryDataSchema = z.object({
+  fullName: z.string().min(1),
+  email: z.string().email(),
+  phone: z.string().optional().nullable(),
+  line1: z.string().min(1),
+  line2: z.string().optional().nullable(),
+  city: z.string().min(1),
+  postcode: z.string().min(1),
+  researchInstitution: z.string().optional().nullable(),
+  createAccount: z.boolean(),
+  // accountPassword removed — Firebase Auth user is created inline via
+  // createCheckoutAccount server action during the delivery step.
+  // Password never persists to any cookie or session store.
+  customerUid: z.string().nullable().optional(),
+});
 
 export type DeliveryData = z.infer<typeof DeliveryDataSchema>;
 

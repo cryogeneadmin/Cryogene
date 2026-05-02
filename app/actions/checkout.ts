@@ -2,10 +2,13 @@
 
 import { redirect } from "next/navigation";
 import { DeliveryDataSchema, setCheckoutSession, clearCheckoutSession, getCheckoutSession } from "@/lib/checkout-session";
+import { createCheckoutAccount } from "@/app/actions/create-checkout-account";
 
 export type DeliveryFormState = {
   status: "idle" | "error";
   errors?: Record<string, string>;
+  // accountError carries friendly messages for Firebase Auth failures
+  accountError?: string;
 };
 
 export async function saveDeliveryStep(
@@ -13,6 +16,9 @@ export async function saveDeliveryStep(
   formData: FormData
 ): Promise<DeliveryFormState> {
   const createAccount = formData.get("createAccount") === "on";
+
+  // Parse delivery fields only — accountPassword is no longer part of the
+  // session schema and must not be included.
   const parsed = DeliveryDataSchema.safeParse({
     fullName: formData.get("fullName"),
     email: formData.get("email"),
@@ -23,7 +29,7 @@ export async function saveDeliveryStep(
     postcode: formData.get("postcode"),
     researchInstitution: formData.get("researchInstitution") || null,
     createAccount,
-    accountPassword: createAccount ? formData.get("accountPassword") : null,
+    customerUid: null,
   });
 
   if (!parsed.success) {
@@ -35,7 +41,45 @@ export async function saveDeliveryStep(
     return { status: "error", errors };
   }
 
-  await setCheckoutSession(parsed.data);
+  let customerUid: string | null = null;
+
+  if (createAccount) {
+    const password = formData.get("accountPassword");
+    const result = await createCheckoutAccount({
+      email: parsed.data.email,
+      password,
+    });
+
+    if (!result.ok) {
+      switch (result.error) {
+        case "email_exists":
+          return {
+            status: "error",
+            accountError:
+              "An account with that email already exists. Sign in at /sign-in or use a different email.",
+          };
+        case "weak_password":
+          return {
+            status: "error",
+            errors: {
+              accountPassword: "Password must be at least 8 characters.",
+            },
+          };
+        case "auth_unavailable":
+        case "invalid_input":
+        default:
+          return {
+            status: "error",
+            accountError:
+              "Account creation temporarily unavailable. Please try again in a moment, or continue as guest.",
+          };
+      }
+    }
+
+    customerUid = result.uid;
+  }
+
+  await setCheckoutSession({ ...parsed.data, customerUid });
   redirect("/checkout/review");
 }
 
