@@ -5,7 +5,19 @@ import seedProducts from "@/data/products.seed.json";
 import type { Product, ProductCategory } from "@/types";
 import { isSeedMode } from "@/lib/data-mode";
 import { getAdminDb } from "@/lib/firebase/admin";
-import type { Query } from "firebase-admin/firestore";
+import { Timestamp, type Query } from "firebase-admin/firestore";
+
+// Firestore Timestamp instances are class objects — Next.js RSC cannot
+// serialize them across the Server→Client boundary. Convert to Date
+// (which RSC supports as a built-in) at the data-layer read boundary.
+function normalizeProduct(raw: Record<string, unknown>): Product {
+  const out: Record<string, unknown> = { ...raw };
+  for (const key of ["createdAt", "updatedAt"] as const) {
+    const v = out[key];
+    if (v instanceof Timestamp) out[key] = v.toDate();
+  }
+  return out as unknown as Product;
+}
 
 /**
  * Data-layer abstraction for product reads.
@@ -69,7 +81,7 @@ export async function getProducts(options?: {
     query = query.limit(options.limit);
   }
   const snap = await query.get();
-  return snap.docs.map((d) => d.data() as Product);
+  return snap.docs.map((d) => normalizeProduct(d.data()));
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
@@ -84,7 +96,7 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
     .where("slug", "==", slug)
     .limit(1)
     .get();
-  return snap.empty ? null : (snap.docs[0]!.data() as Product);
+  return snap.empty ? null : normalizeProduct(snap.docs[0]!.data());
 }
 
 export async function getFeaturedProducts(limit = 6): Promise<Product[]> {

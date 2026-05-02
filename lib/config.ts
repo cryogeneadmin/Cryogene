@@ -4,6 +4,13 @@ import path from "node:path";
 import type { Config } from "@/types";
 import { getAdminDb } from "@/lib/firebase/admin";
 import { isSeedMode } from "@/lib/data-mode";
+import { Timestamp } from "firebase-admin/firestore";
+
+function normalizeConfig(raw: Record<string, unknown>): Config {
+  const out: Record<string, unknown> = { ...raw };
+  if (out.updatedAt instanceof Timestamp) out.updatedAt = out.updatedAt.toDate();
+  return out as unknown as Config;
+}
 
 const LOCAL_CONFIG_PATH = path.join(process.cwd(), "data", "config.local.json");
 
@@ -42,7 +49,7 @@ export async function getConfig(): Promise<Config> {
   }
   const db = getAdminDb()!;
   const snap = await db.doc("config/main").get();
-  return snap.exists ? (snap.data() as Config) : DEFAULT_CONFIG;
+  return snap.exists ? normalizeConfig(snap.data() as Record<string, unknown>) : DEFAULT_CONFIG;
 }
 
 export async function updateConfig(patch: Partial<Config>): Promise<void> {
