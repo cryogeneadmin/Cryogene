@@ -4,6 +4,8 @@ import path from "node:path";
 import seedProducts from "@/data/products.seed.json";
 import type { Product, ProductCategory } from "@/types";
 import { isSeedMode } from "@/lib/data-mode";
+import { getAdminDb } from "@/lib/firebase/admin";
+import type { Query } from "firebase-admin/firestore";
 
 /**
  * Data-layer abstraction for product reads.
@@ -54,8 +56,20 @@ export async function getProducts(options?: {
     }
     return results;
   }
-  // Firestore path will be added in a future plan.
-  throw new Error("Firestore product reads not yet implemented");
+  const db = getAdminDb();
+  if (!db) throw new Error("Firestore not configured (admin SDK unavailable)");
+  let query: Query = db.collection("products");
+  if (options?.activeOnly) {
+    query = query.where("active", "==", true);
+  }
+  if (options?.category) {
+    query = query.where("category", "==", options.category);
+  }
+  if (options?.limit) {
+    query = query.limit(options.limit);
+  }
+  const snap = await query.get();
+  return snap.docs.map((d) => d.data() as Product);
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
@@ -63,7 +77,14 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
     const all = await mergedSeed();
     return all.find((p) => p.slug === slug) ?? null;
   }
-  throw new Error("Firestore product reads not yet implemented");
+  const db = getAdminDb();
+  if (!db) throw new Error("Firestore not configured (admin SDK unavailable)");
+  const snap = await db
+    .collection("products")
+    .where("slug", "==", slug)
+    .limit(1)
+    .get();
+  return snap.empty ? null : (snap.docs[0]!.data() as Product);
 }
 
 export async function getFeaturedProducts(limit = 6): Promise<Product[]> {
