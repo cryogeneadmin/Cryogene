@@ -33,7 +33,7 @@ service cloud.firestore {
       allow write: if request.auth.token.admin == true;
     }
 
-    match /config/orderCounters/{day} {
+    match /orderCounters/{day} {
       allow read: if false;
       allow write: if false;
     }
