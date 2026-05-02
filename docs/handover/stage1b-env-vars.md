@@ -81,14 +81,6 @@ The output is one long unbroken string starting with `LS0tLS1CRUdJTi...`. Copy t
 | `RESEND_FROM_EMAIL` | `orders@cryogene.co.uk` | Prod, Preview, Dev | Must be on the verified Resend domain. If you want a friendly name, use the format: `Cryogene Laboratories <orders@cryogene.co.uk>`. |
 | `RESEND_NOTIFICATION_EMAIL` | Sam's address where new-order alerts arrive (e.g. `sam@cryogene.co.uk` or `samcowling118@googlemail.com`) | Prod, Preview, Dev | Internal recipient — does not need to be on a verified domain. |
 
-### 4b. Data layer (TEMPORARY — until Firestore read migration lands)
-
-| Key | Value | Vercel envs | Notes |
-|---|---|---|---|
-| `DATA_MODE` | `seed` | Prod, Preview, Dev | Forces every domain module (`products`, `orders`, `customers`, `config`, `enquiries`) to read from the bundled `data/*.seed.json` files instead of Firestore. The Firestore read paths are currently `not yet implemented` stubs that throw at build-time. **Remove this variable once the Firestore migration ships** — `isSeedMode()` will then auto-detect Firestore mode based on admin credentials. |
-
-**Migration debt:** `lib/data-mode.ts` currently honours `DATA_MODE=seed` regardless of credential presence. Once `lib/products.ts`, `lib/orders.ts`, `lib/customers.ts`, `lib/config.ts`, `lib/enquiries.ts`, and `app/actions/products.ts` have working Firestore branches, drop the env var from Vercel and the override from `data-mode.ts` in the same PR.
-
 ### 5. Payments (Phase 1 = stub)
 
 | Key | Value | Vercel envs | Notes |
