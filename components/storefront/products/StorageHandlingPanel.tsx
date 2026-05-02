@@ -28,6 +28,13 @@ function specsFor(product: Product): Spec[] {
   ];
 }
 
+const colsByCount: Record<number, string> = {
+  1: "md:grid-cols-1",
+  2: "md:grid-cols-2",
+  3: "md:grid-cols-3",
+  4: "md:grid-cols-4",
+};
+
 export function StorageHandlingPanel({ product }: { product: Product }) {
   const specs = specsFor(product);
   if (specs.length === 0) return null;
@@ -42,7 +49,7 @@ export function StorageHandlingPanel({ product }: { product: Product }) {
           Storage &amp; Handling
         </h2>
       </header>
-      <dl className={`grid grid-cols-2 ${specs.length >= 4 ? "md:grid-cols-4" : "md:grid-cols-" + specs.length}`}>
+      <dl className={`grid grid-cols-2 ${colsByCount[specs.length] ?? "md:grid-cols-4"}`}>
         {specs.map((s, i) => (
           <div
             key={s.label}
