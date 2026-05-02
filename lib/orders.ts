@@ -1,10 +1,11 @@
 import "server-only";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { Order, OrderStatus } from "@/types";
+import type { Order, OrderStatus, Product, ProductVariant } from "@/types";
 import { getAdminDb } from "@/lib/firebase/admin";
 import { isSeedMode } from "@/lib/data-mode";
 import { Timestamp } from "firebase-admin/firestore";
+import type { DocumentReference } from "firebase-admin/firestore";
 
 const LOCAL_ORDERS_PATH = path.join(process.cwd(), "data", "orders.local.json");
 const LOCAL_COUNTERS_PATH = path.join(process.cwd(), "data", "counters.local.json");
@@ -161,3 +162,114 @@ export async function updateOrder(id: string, patch: Partial<Order>): Promise<vo
 }
 
 export { nextOrderNumber };
+
+// ---------------------------------------------------------------------------
+// Transactional order creation with atomic stock decrement
+// ---------------------------------------------------------------------------
+
+type OrderItemRef = { productId: string; sku: string; quantity: number };
+
+type CreateOrderTransactionInput = Omit<Order, "id" | "orderNumber" | "createdAt" | "updatedAt"> & {
+  itemRefs: OrderItemRef[];
+};
+
+export async function createOrderTransaction(
+  input: CreateOrderTransactionInput
+): Promise<Order> {
+  if (isSeedMode()) {
+    // Seed mode: no real txn, fall back to existing behaviour
+    const orderNumber = await nextOrderNumber();
+    const orders = await readLocalOrders();
+    const id = `local-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+    const { itemRefs, ...orderFields } = input;
+    void itemRefs;
+    const order = {
+      ...orderFields,
+      id,
+      orderNumber,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    } as Order;
+    orders.push(order);
+    await writeLocalOrders(orders);
+    return order;
+  }
+
+  const db = getAdminDb();
+  if (!db) throw new Error("Firestore not configured");
+
+  const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+  const counterRef = db.doc(`orderCounters/${today}`);
+  const orderRef = db.collection("orders").doc();
+
+  const productRefs = input.itemRefs.map((i) =>
+    db.doc(`products/${i.productId}`)
+  );
+
+  return db.runTransaction(async (tx) => {
+    // Read-phase
+    const productSnaps = await tx.getAll(...productRefs);
+    const counterSnap = await tx.get(counterRef);
+
+    const productUpdates: Array<{
+      ref: DocumentReference;
+      newVariants: ProductVariant[];
+    }> = [];
+
+    for (let i = 0; i < input.itemRefs.length; i++) {
+      const item = input.itemRefs[i]!;
+      const productSnap = productSnaps[i];
+      if (!productSnap || !productSnap.exists) {
+        throw new Error(`Product ${item.productId} no longer exists`);
+      }
+      const product = productSnap.data() as Product;
+      const variantIndex = product.variants.findIndex(
+        (v) => v.sku === item.sku
+      );
+      if (variantIndex === -1) {
+        throw new Error(`Variant ${item.sku} no longer exists`);
+      }
+      const variant = product.variants[variantIndex]!;
+      if (!variant.active) {
+        throw new Error(`${product.name} (${variant.size}) is no longer active`);
+      }
+      if (variant.stock < item.quantity) {
+        throw new Error(
+          `Only ${variant.stock} of ${product.name} (${variant.size}) remain in stock`
+        );
+      }
+
+      const newVariants = [...product.variants];
+      newVariants[variantIndex] = {
+        ...variant,
+        stock: variant.stock - item.quantity,
+      };
+      productUpdates.push({ ref: productSnap.ref, newVariants });
+    }
+
+    const currentCount = counterSnap.exists
+      ? (counterSnap.data()!.count as number)
+      : 0;
+    const newCount = currentCount + 1;
+    const orderNumber = `PPT-${today}-${String(newCount).padStart(4, "0")}`;
+
+    // Write-phase
+    for (const update of productUpdates) {
+      tx.update(update.ref, { variants: update.newVariants });
+    }
+    tx.set(counterRef, { count: newCount });
+
+    const { itemRefs, ...orderFields } = input;
+    void itemRefs;
+    const orderDoc = {
+      ...orderFields,
+      id: orderRef.id,
+      orderNumber,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    } as Order;
+    tx.set(orderRef, orderDoc);
+
+    return orderDoc;
+  });
+}

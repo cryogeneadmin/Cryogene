@@ -10,7 +10,7 @@ import { getProductBySlug } from "@/lib/products";
 import { getConfig } from "@/lib/config";
 import { computeShippingInPence } from "@/lib/shipping";
 import { computeVatInPence } from "@/lib/vat";
-import { createOrderRecord, nextOrderNumber } from "@/lib/orders";
+import { createOrderTransaction } from "@/lib/orders";
 import { getPaymentProvider } from "@/lib/payments";
 import type { BasketItem } from "@/lib/basket";
 import type { Order, OrderLineItem } from "@/types";
@@ -46,8 +46,11 @@ export async function createOrderAction(
 
   const config = await getConfig();
 
-  // Re-read prices and stock server-side. Never trust client prices.
+  // Re-read prices server-side (slug→productId resolution, price verification).
+  // Stock validation + decrement happen atomically inside createOrderTransaction.
+  // Never trust client prices.
   const verifiedItems: OrderLineItem[] = [];
+  const itemRefs: Array<{ productId: string; sku: string; quantity: number }> = [];
   let itemsSubtotalInPence = 0;
 
   for (const item of input.items) {
@@ -59,6 +62,8 @@ export async function createOrderAction(
     if (!variant || !variant.active) {
       return { status: "error", message: `${item.name} (${item.size}) is no longer available` };
     }
+    // Optimistic stock pre-check (non-atomic): surfaces obvious errors early
+    // before entering the transaction. The real atomic check is inside the txn.
     if (variant.stock < item.quantity) {
       return {
         status: "error",
@@ -77,6 +82,7 @@ export async function createOrderAction(
       quantity: item.quantity,
       lineTotalInPence: lineTotal,
     });
+    itemRefs.push({ productId: product.id, sku: variant.sku, quantity: item.quantity });
   }
 
   const shippingCostInPence = computeShippingInPence(itemsSubtotalInPence, config.shipping);
@@ -86,55 +92,58 @@ export async function createOrderAction(
   );
   const totalInPence = itemsSubtotalInPence + shippingCostInPence + vatAmountInPence;
 
-  const orderNumber = await nextOrderNumber();
   const now = new Date();
 
-  const order = await createOrderRecord({
-    orderNumber,
-    status: "pending",
-    customer: {
-      uid: null,
-      email: delivery.email,
-      name: delivery.fullName,
-      phone: delivery.phone ?? null,
-      address: {
-        line1: delivery.line1,
-        line2: delivery.line2 ?? null,
-        city: delivery.city,
-        postcode: delivery.postcode,
-        country: "GB",
+  let order: Order;
+  try {
+    order = await createOrderTransaction({
+      itemRefs,
+      status: "pending",
+      customer: {
+        uid: null,
+        email: delivery.email,
+        name: delivery.fullName,
+        phone: delivery.phone ?? null,
+        address: {
+          line1: delivery.line1,
+          line2: delivery.line2 ?? null,
+          city: delivery.city,
+          postcode: delivery.postcode,
+          country: "GB",
+        },
       },
-    },
-    items: verifiedItems,
-    itemsSubtotalInPence,
-    shippingCostInPence,
-    vatAmountInPence,
-    totalInPence,
-    vatRateAtPurchase: config.vat.rate,
-    researchConfirmed: true,
-    researchConfirmedAt: now,
-    ageGatePassedAt: now,
-    payment: {
-      provider: "stub",
-      providerRef: null,
-      initiatedAt: now,
-      paidAt: null,
-      failedAt: null,
-      failureReason: null,
-    },
-    fulfilment: {
-      carrier: null,
-      trackingNumber: null,
-      labelUrl: null,
-      printedAt: null,
-      printerStatus: null,
-      dispatchedAt: null,
-      customerEmailedAt: null,
-    },
-    adminNotes: null,
-    createdAt: now,
-    updatedAt: now,
-  });
+      items: verifiedItems,
+      itemsSubtotalInPence,
+      shippingCostInPence,
+      vatAmountInPence,
+      totalInPence,
+      vatRateAtPurchase: config.vat.rate,
+      researchConfirmed: true,
+      researchConfirmedAt: now,
+      ageGatePassedAt: now,
+      payment: {
+        provider: "stub",
+        providerRef: null,
+        initiatedAt: now,
+        paidAt: null,
+        failedAt: null,
+        failureReason: null,
+      },
+      fulfilment: {
+        carrier: null,
+        trackingNumber: null,
+        labelUrl: null,
+        printedAt: null,
+        printerStatus: null,
+        dispatchedAt: null,
+        customerEmailedAt: null,
+      },
+      adminNotes: null,
+    });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Could not create order — please try again";
+    return { status: "error", message };
+  }
 
   const provider = getPaymentProvider();
   const payment = await provider.initiatePayment(order);
