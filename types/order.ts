@@ -69,7 +69,10 @@ export type Order = {
 
   researchConfirmed: boolean;
   researchConfirmedAt: Timestamp | Date;
+  ageGateConfirmed: boolean;
   ageGatePassedAt: Timestamp | Date;
+  researchUseConfirmationVersion: string;
+  ageGateConfirmationVersion: string;
 
   payment: OrderPayment;
   fulfilment: OrderFulfilment;

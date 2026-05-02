@@ -1,5 +1,6 @@
 "use server";
 
+import { z } from "zod";
 import { cookies } from "next/headers";
 import { getCheckoutSession, clearCheckoutSession } from "@/lib/checkout-session";
 import {
@@ -12,23 +13,62 @@ import { computeShippingInPence } from "@/lib/shipping";
 import { computeVatInPence } from "@/lib/vat";
 import { createOrderTransaction } from "@/lib/orders";
 import { getPaymentProvider } from "@/lib/payments";
-import type { BasketItem } from "@/lib/basket";
-import type { Order, OrderLineItem } from "@/types";
+import type { OrderLineItem } from "@/types";
 
-export type CreateOrderInput = {
-  items: BasketItem[];
-  shippingInPence: number;
-  vatInPence: number;
-  totalInPence: number;
-};
+// ── Audit-trail version constants ──────────────────────────────────────────
+// Bump these strings whenever the wording of the research/age confirmation
+// copy changes. Stored verbatim on every order doc so compliance can always
+// reconstruct which text the customer saw.
+const RESEARCH_USE_CONFIRMATION_VERSION = "v1-2026-05-02";
+const AGE_GATE_CONFIRMATION_VERSION = "v1-2026-05-02";
+
+// ── Input schema ────────────────────────────────────────────────────────────
+// Accepts only the minimum identifiers needed to reconstruct the order
+// server-side. All pricing fields are intentionally absent — the server
+// re-reads prices from Firestore and recomputes shipping/VAT/total.
+// Dead client-price fields (shippingInPence, vatInPence, totalInPence,
+// unitPriceInPence, name, etc.) have been removed to prevent future drift.
+
+const ItemSchema = z.object({
+  productSlug: z.string().min(1).max(200),
+  sku: z.string().min(1).max(200),
+  quantity: z.number().int().min(1).max(99),
+});
+
+const CreateOrderInputSchema = z.object({
+  items: z.array(ItemSchema).min(1).max(50),
+  // z.literal(true) — Zod rejects the action at parse time if either
+  // confirmation is absent or false. No more hardcoded true writes.
+  researchConfirmed: z.literal(true),
+  ageGateConfirmed: z.literal(true),
+});
+
+export type CreateOrderInput = z.infer<typeof CreateOrderInputSchema>;
 
 export type CreateOrderResult =
   | { status: "success"; redirectUrl: string; orderId: string }
   | { status: "error"; message: string };
 
 export async function createOrderAction(
-  input: CreateOrderInput
+  input: unknown
 ): Promise<CreateOrderResult> {
+  // Validate input — rejects if researchConfirmed or ageGateConfirmed is not
+  // literally true, or if items contain any client price fields.
+  const parsed = CreateOrderInputSchema.safeParse(input);
+  if (!parsed.success) {
+    const firstIssue = parsed.error.issues[0];
+    // Surface a human-readable message for the two compliance-critical fields
+    if (firstIssue?.path[0] === "researchConfirmed") {
+      return { status: "error", message: "You must confirm research-only use before placing an order" };
+    }
+    if (firstIssue?.path[0] === "ageGateConfirmed") {
+      return { status: "error", message: "Age confirmation is required before placing an order" };
+    }
+    return { status: "error", message: firstIssue?.message ?? "Invalid order input" };
+  }
+
+  const { items, researchConfirmed, ageGateConfirmed } = parsed.data;
+
   const cookieStore = await cookies();
   const ageVerified = cookieStore.get("age_verified")?.value === "1";
   if (!ageVerified) {
@@ -40,10 +80,6 @@ export async function createOrderAction(
     return { status: "error", message: "Checkout session expired — please start again" };
   }
 
-  if (input.items.length === 0) {
-    return { status: "error", message: "Basket is empty" };
-  }
-
   const config = await getConfig();
 
   // Re-read prices server-side (slug→productId resolution, price verification).
@@ -53,21 +89,21 @@ export async function createOrderAction(
   const itemRefs: Array<{ productId: string; sku: string; quantity: number }> = [];
   let itemsSubtotalInPence = 0;
 
-  for (const item of input.items) {
+  for (const item of items) {
     const product = await getProductBySlug(item.productSlug);
     if (!product) {
-      return { status: "error", message: `Product ${item.name} no longer available` };
+      return { status: "error", message: `Product ${item.productSlug} no longer available` };
     }
     const variant = product.variants.find((v) => v.sku === item.sku);
     if (!variant || !variant.active) {
-      return { status: "error", message: `${item.name} (${item.size}) is no longer available` };
+      return { status: "error", message: `${item.sku} is no longer available` };
     }
     // Optimistic stock pre-check (non-atomic): surfaces obvious errors early
     // before entering the transaction. The real atomic check is inside the txn.
     if (variant.stock < item.quantity) {
       return {
         status: "error",
-        message: `Insufficient stock for ${item.name} ${item.size} — only ${variant.stock} remaining`,
+        message: `Insufficient stock for ${product.name} ${variant.size} — only ${variant.stock} remaining`,
       };
     }
     const lineTotal = variant.priceInPence * item.quantity;
@@ -94,7 +130,7 @@ export async function createOrderAction(
 
   const now = new Date();
 
-  let order: Order;
+  let order;
   try {
     order = await createOrderTransaction({
       itemRefs,
@@ -118,9 +154,14 @@ export async function createOrderAction(
       vatAmountInPence,
       totalInPence,
       vatRateAtPurchase: config.vat.rate,
-      researchConfirmed: true,
+      // Zod-validated — only true if the customer actually confirmed both
+      researchConfirmed,
       researchConfirmedAt: now,
+      ageGateConfirmed,
       ageGatePassedAt: now,
+      // Audit-trail snapshots: which version of each confirmation text was shown
+      researchUseConfirmationVersion: RESEARCH_USE_CONFIRMATION_VERSION,
+      ageGateConfirmationVersion: AGE_GATE_CONFIRMATION_VERSION,
       payment: {
         provider: "stub",
         providerRef: null,

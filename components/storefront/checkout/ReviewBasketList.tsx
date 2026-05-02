@@ -56,11 +56,7 @@ export function ReviewBasketList({
           <span>Total</span><span>{formatPriceFromPence(total)}</span>
         </div>
       </div>
-      <ResearchConfirmCheckbox
-        shippingInPence={shipping}
-        vatInPence={vat}
-        totalInPence={total}
-      />
+      <ResearchConfirmCheckbox />
     </div>
   );
 }

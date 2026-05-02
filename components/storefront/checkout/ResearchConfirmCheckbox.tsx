@@ -4,29 +4,32 @@ import { useState } from "react";
 import { useBasket } from "@/lib/basket";
 import { createOrderAction } from "@/app/actions/create-order";
 
-export function ResearchConfirmCheckbox({
-  shippingInPence,
-  vatInPence,
-  totalInPence,
-}: {
-  shippingInPence: number;
-  vatInPence: number;
-  totalInPence: number;
-}) {
+export function ResearchConfirmCheckbox() {
   const [confirmed, setConfirmed] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { items, clearBasket } = useBasket();
 
   const handlePay = async () => {
+    if (!confirmed) {
+      setError("Please confirm research-only use before placing your order");
+      return;
+    }
     setPending(true);
     setError(null);
     try {
       const result = await createOrderAction({
-        items,
-        shippingInPence,
-        vatInPence,
-        totalInPence,
+        // Only send the minimum identifiers — server recomputes all prices
+        items: items.map(({ productSlug, sku, quantity }) => ({
+          productSlug,
+          sku,
+          quantity,
+        })),
+        // Zod z.literal(true) — these only reach the action if the customer
+        // actively ticked the checkbox. If either is false/missing the action
+        // returns an error before touching Firestore.
+        researchConfirmed: true,
+        ageGateConfirmed: true,
       });
       if (result.status === "error") {
         setError(result.message);
