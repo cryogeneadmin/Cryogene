@@ -29,13 +29,13 @@ export function DeliveryForm({
     <form action={formAction} className="space-y-6 max-w-xl">
       <div>
         <label htmlFor="fullName" className="label-editorial block mb-2">Full name</label>
-        <input id="fullName" name="fullName" type="text" defaultValue={initialData?.fullName} required className="w-full border border-[#DDE1E7] p-3" />
-        {fieldError("fullName") && <p className="text-xs text-red-700 mt-1">{fieldError("fullName")}</p>}
+        <input id="fullName" name="fullName" type="text" defaultValue={initialData?.fullName} required aria-invalid={!!fieldError("fullName")} aria-describedby={fieldError("fullName") ? "fullName-error" : undefined} className="w-full border border-[#DDE1E7] p-3" />
+        {fieldError("fullName") && <p id="fullName-error" className="text-xs text-red-700 mt-1">{fieldError("fullName")}</p>}
       </div>
       <div>
         <label htmlFor="email" className="label-editorial block mb-2">Email</label>
-        <input id="email" name="email" type="email" defaultValue={initialData?.email} required className="w-full border border-[#DDE1E7] p-3" />
-        {fieldError("email") && <p className="text-xs text-red-700 mt-1">{fieldError("email")}</p>}
+        <input id="email" name="email" type="email" defaultValue={initialData?.email} required aria-invalid={!!fieldError("email")} aria-describedby={fieldError("email") ? "email-error" : undefined} className="w-full border border-[#DDE1E7] p-3" />
+        {fieldError("email") && <p id="email-error" className="text-xs text-red-700 mt-1">{fieldError("email")}</p>}
       </div>
       <div>
         <label htmlFor="phone" className="label-editorial block mb-2">Phone (optional)</label>
@@ -43,8 +43,8 @@ export function DeliveryForm({
       </div>
       <div>
         <label htmlFor="line1" className="label-editorial block mb-2">Address line 1</label>
-        <input id="line1" name="line1" type="text" defaultValue={initialData?.line1} required className="w-full border border-[#DDE1E7] p-3" />
-        {fieldError("line1") && <p className="text-xs text-red-700 mt-1">{fieldError("line1")}</p>}
+        <input id="line1" name="line1" type="text" defaultValue={initialData?.line1} required aria-invalid={!!fieldError("line1")} aria-describedby={fieldError("line1") ? "line1-error" : undefined} className="w-full border border-[#DDE1E7] p-3" />
+        {fieldError("line1") && <p id="line1-error" className="text-xs text-red-700 mt-1">{fieldError("line1")}</p>}
       </div>
       <div>
         <label htmlFor="line2" className="label-editorial block mb-2">Address line 2 (optional)</label>
@@ -53,13 +53,13 @@ export function DeliveryForm({
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label htmlFor="city" className="label-editorial block mb-2">Town / City</label>
-          <input id="city" name="city" type="text" defaultValue={initialData?.city} required className="w-full border border-[#DDE1E7] p-3" />
-          {fieldError("city") && <p className="text-xs text-red-700 mt-1">{fieldError("city")}</p>}
+          <input id="city" name="city" type="text" defaultValue={initialData?.city} required aria-invalid={!!fieldError("city")} aria-describedby={fieldError("city") ? "city-error" : undefined} className="w-full border border-[#DDE1E7] p-3" />
+          {fieldError("city") && <p id="city-error" className="text-xs text-red-700 mt-1">{fieldError("city")}</p>}
         </div>
         <div>
           <label htmlFor="postcode" className="label-editorial block mb-2">Postcode</label>
-          <input id="postcode" name="postcode" type="text" defaultValue={initialData?.postcode} required className="w-full border border-[#DDE1E7] p-3" />
-          {fieldError("postcode") && <p className="text-xs text-red-700 mt-1">{fieldError("postcode")}</p>}
+          <input id="postcode" name="postcode" type="text" defaultValue={initialData?.postcode} required aria-invalid={!!fieldError("postcode")} aria-describedby={fieldError("postcode") ? "postcode-error" : undefined} className="w-full border border-[#DDE1E7] p-3" />
+          {fieldError("postcode") && <p id="postcode-error" className="text-xs text-red-700 mt-1">{fieldError("postcode")}</p>}
         </div>
       </div>
       <div>
@@ -93,13 +93,13 @@ export function DeliveryForm({
                 It is passed directly to the server action which creates the
                 Firebase Auth user immediately — it never persists to cookie,
                 session, or any server-side store. */}
-            <input id="accountPassword" name="accountPassword" type="password" minLength={8} className="w-full border border-[#DDE1E7] p-3" />
-            {fieldError("accountPassword") && <p className="text-xs text-red-700 mt-1">{fieldError("accountPassword")}</p>}
+            <input id="accountPassword" name="accountPassword" type="password" minLength={8} aria-invalid={!!fieldError("accountPassword")} aria-describedby={fieldError("accountPassword") ? "accountPassword-error" : undefined} className="w-full border border-[#DDE1E7] p-3" />
+            {fieldError("accountPassword") && <p id="accountPassword-error" className="text-xs text-red-700 mt-1">{fieldError("accountPassword")}</p>}
           </div>
         )}
         {/* Account-creation error: email already exists */}
         {state.accountError && state.accountError.includes("already exists") && (
-          <p className="text-xs text-red-700">
+          <p role="alert" className="text-xs text-red-700">
             An account with that email already exists.{" "}
             <Link href="/sign-in?redirect=/checkout/delivery" className="underline">
               Sign in
@@ -109,7 +109,7 @@ export function DeliveryForm({
         )}
         {/* Account-creation error: service unavailable or other */}
         {state.accountError && !state.accountError.includes("already exists") && (
-          <p className="text-xs text-red-700">{state.accountError}</p>
+          <p role="alert" className="text-xs text-red-700">{state.accountError}</p>
         )}
       </div>
 

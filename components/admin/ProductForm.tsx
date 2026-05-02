@@ -433,7 +433,7 @@ export function ProductForm({ initial }: { initial?: Product }) {
         </div>
       </section>
 
-      {error && <p className="text-sm text-red-700">{error}</p>}
+      {error && <p role="alert" className="text-sm text-red-700">{error}</p>}
 
       <div className="flex gap-3 sticky bottom-0 bg-[#F7F8FA] py-4 border-t border-[#DDE1E7]">
         <button

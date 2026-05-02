@@ -68,7 +68,7 @@ export function SignUpForm() {
           <label htmlFor="password" className="label-editorial block mb-2">Password (min 8 characters)</label>
           <input id="password" type="password" minLength={8} value={password} onChange={(e) => setPassword(e.target.value)} required className="w-full border border-[#DDE1E7] p-3" />
         </div>
-        {error && <p className="text-sm text-red-700">{error}</p>}
+        {error && <p role="alert" className="text-sm text-red-700">{error}</p>}
         <button type="submit" disabled={pending || !firebaseReady} className="w-full py-3 bg-[#0D1B3E] text-white uppercase tracking-wider text-sm hover:bg-[#162040] disabled:bg-[#6B7280]">
           {pending ? "Creating account..." : "Create account"}
         </button>
