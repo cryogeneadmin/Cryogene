@@ -24,10 +24,26 @@ export function SignUpForm() {
     setPending(true);
     setError(null);
     try {
-      await signUpWithEmail(email, password);
+      const result = await signUpWithEmail(email, password);
+      const idToken = await result.user.getIdToken();
+      const sessionResponse = await fetch("/api/auth/session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken }),
+      });
+      if (!sessionResponse.ok) {
+        setError("Account created but session could not be established. Try signing in.");
+        setPending(false);
+        return;
+      }
       router.push("/account");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Sign-up failed");
+    } catch (err: unknown) {
+      const code = (err as { code?: string })?.code ?? "";
+      if (code === "auth/network-request-failed") {
+        setError("Network error. Try again.");
+      } else {
+        setError("Could not create account. Email may already be in use.");
+      }
       setPending(false);
     }
   };

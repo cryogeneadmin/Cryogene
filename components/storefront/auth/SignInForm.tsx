@@ -2,13 +2,14 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { signInWithEmail } from "@/lib/auth";
 import { isFirebaseClientReady } from "@/lib/firebase/client";
 
 export function SignInForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -21,10 +22,31 @@ export function SignInForm() {
     setPending(true);
     setError(null);
     try {
-      await signInWithEmail(email, password);
-      router.push("/account");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Sign-in failed");
+      const result = await signInWithEmail(email, password);
+      const idToken = await result.user.getIdToken();
+      const sessionResponse = await fetch("/api/auth/session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken }),
+      });
+      if (!sessionResponse.ok) {
+        setError("Sign-in succeeded but session could not be created. Try again.");
+        setPending(false);
+        return;
+      }
+      const rawRedirect = searchParams.get("redirect");
+      const safeRedirect =
+        rawRedirect && rawRedirect.startsWith("/") && !rawRedirect.startsWith("//")
+          ? rawRedirect
+          : "/account";
+      router.push(safeRedirect);
+    } catch (err: unknown) {
+      const code = (err as { code?: string })?.code ?? "";
+      if (code === "auth/network-request-failed") {
+        setError("Network error. Try again.");
+      } else {
+        setError("Email or password incorrect.");
+      }
       setPending(false);
     }
   };
