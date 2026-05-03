@@ -105,18 +105,33 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
 }
 
 export async function getFeaturedProducts(limit = 6): Promise<Product[]> {
-  const all = await getProducts({ activeOnly: true });
-  return all
-    .sort((a, b) => {
-      const toMs = (v: unknown): number =>
-        v instanceof Date
-          ? v.getTime()
-          : typeof v === "string" || typeof v === "number"
-          ? new Date(v).getTime()
-          : 0;
-      return toMs(b.createdAt) - toMs(a.createdAt);
-    })
-    .slice(0, limit);
+  "use cache";
+  cacheTag("products");
+  if (isSeedMode()) {
+    // Seed mode: sort in memory (catalogue size unbounded by query, fine)
+    const all = await mergedSeed();
+    return all
+      .filter((p) => p.active)
+      .sort((a, b) => {
+        const toMs = (v: unknown): number =>
+          v instanceof Date
+            ? v.getTime()
+            : typeof v === "string" || typeof v === "number"
+            ? new Date(v).getTime()
+            : 0;
+        return toMs(b.createdAt) - toMs(a.createdAt);
+      })
+      .slice(0, limit);
+  }
+  const db = getAdminDb();
+  if (!db) throw new Error("Firestore not configured");
+  const snap = await db
+    .collection("products")
+    .where("active", "==", true)
+    .orderBy("createdAt", "desc")
+    .limit(limit)
+    .get();
+  return snap.docs.map((d) => normalizeProduct(d.data()));
 }
 
 export async function getAllProductSlugs(): Promise<string[]> {
