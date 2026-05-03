@@ -73,6 +73,8 @@ export type Order = {
   ageGatePassedAt: Timestamp | Date;
   researchUseConfirmationVersion: string;
   ageGateConfirmationVersion: string;
+  termsAccepted: boolean;
+  termsAcceptedVersion: string;
 
   payment: OrderPayment;
   fulfilment: OrderFulfilment;

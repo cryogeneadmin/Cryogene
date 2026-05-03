@@ -16,11 +16,12 @@ import { getPaymentProvider } from "@/lib/payments";
 import type { OrderLineItem } from "@/types";
 
 // ── Audit-trail version constants ──────────────────────────────────────────
-// Bump these strings whenever the wording of the research/age confirmation
-// copy changes. Stored verbatim on every order doc so compliance can always
-// reconstruct which text the customer saw.
+// Bump these strings whenever the wording of the research/age/terms
+// confirmation copy changes. Stored verbatim on every order doc so compliance
+// can always reconstruct which text the customer saw.
 const RESEARCH_USE_CONFIRMATION_VERSION = "v1-2026-05-02";
 const AGE_GATE_CONFIRMATION_VERSION = "v1-2026-05-02";
+const TERMS_ACCEPTED_VERSION = "v1-2026-05-02";
 
 // ── Input schema ────────────────────────────────────────────────────────────
 // Accepts only the minimum identifiers needed to reconstruct the order
@@ -37,10 +38,11 @@ const ItemSchema = z.object({
 
 const CreateOrderInputSchema = z.object({
   items: z.array(ItemSchema).min(1).max(50),
-  // z.literal(true) — Zod rejects the action at parse time if either
+  // z.literal(true) — Zod rejects the action at parse time if any
   // confirmation is absent or false. No more hardcoded true writes.
   researchConfirmed: z.literal(true),
   ageGateConfirmed: z.literal(true),
+  termsAccepted: z.literal(true),
 });
 
 export type CreateOrderInput = z.infer<typeof CreateOrderInputSchema>;
@@ -64,10 +66,13 @@ export async function createOrderAction(
     if (firstIssue?.path[0] === "ageGateConfirmed") {
       return { status: "error", message: "Age confirmation is required before placing an order" };
     }
+    if (firstIssue?.path[0] === "termsAccepted") {
+      return { status: "error", message: "You must accept the Terms & Conditions and Privacy Policy before placing an order" };
+    }
     return { status: "error", message: firstIssue?.message ?? "Invalid order input" };
   }
 
-  const { items, researchConfirmed, ageGateConfirmed } = parsed.data;
+  const { items, researchConfirmed, ageGateConfirmed, termsAccepted } = parsed.data;
 
   const cookieStore = await cookies();
   const ageVerified = cookieStore.get("age_verified")?.value === "1";
@@ -154,14 +159,16 @@ export async function createOrderAction(
       vatAmountInPence,
       totalInPence,
       vatRateAtPurchase: config.vat.rate,
-      // Zod-validated — only true if the customer actually confirmed both
+      // Zod-validated — only true if the customer actually confirmed all three
       researchConfirmed,
       researchConfirmedAt: now,
       ageGateConfirmed,
       ageGatePassedAt: now,
+      termsAccepted,
       // Audit-trail snapshots: which version of each confirmation text was shown
       researchUseConfirmationVersion: RESEARCH_USE_CONFIRMATION_VERSION,
       ageGateConfirmationVersion: AGE_GATE_CONFIRMATION_VERSION,
+      termsAcceptedVersion: TERMS_ACCEPTED_VERSION,
       payment: {
         provider: "stub",
         providerRef: null,

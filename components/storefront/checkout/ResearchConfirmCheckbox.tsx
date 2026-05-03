@@ -6,6 +6,7 @@ import { createOrderAction } from "@/app/actions/create-order";
 
 export function ResearchConfirmCheckbox() {
   const [confirmed, setConfirmed] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { items, clearBasket } = useBasket();
@@ -13,6 +14,10 @@ export function ResearchConfirmCheckbox() {
   const handlePay = async () => {
     if (!confirmed) {
       setError("Please confirm research-only use before placing your order");
+      return;
+    }
+    if (!termsAccepted) {
+      setError("Please accept the Terms & Conditions and Privacy Policy before placing your order");
       return;
     }
     setPending(true);
@@ -26,10 +31,11 @@ export function ResearchConfirmCheckbox() {
           quantity,
         })),
         // Zod z.literal(true) — these only reach the action if the customer
-        // actively ticked the checkbox. If either is false/missing the action
+        // actively ticked each checkbox. If any is false/missing the action
         // returns an error before touching Firestore.
         researchConfirmed: true,
         ageGateConfirmed: true,
+        termsAccepted: true,
       });
       if (result.status === "error") {
         setError(result.message);
@@ -60,13 +66,31 @@ export function ResearchConfirmCheckbox() {
           these products are not for human or veterinary consumption.
         </span>
       </label>
+      <label className="flex items-start gap-2 mt-4 cursor-pointer">
+        <input
+          type="checkbox"
+          checked={termsAccepted}
+          onChange={(e) => setTermsAccepted(e.target.checked)}
+          className="mt-1 accent-[#0D1B3E]"
+        />
+        <span className="text-sm">
+          I have read and accept the{" "}
+          <a href="/legal/terms" target="_blank" rel="noopener" className="underline text-[#0D1B3E]">
+            Terms &amp; Conditions
+          </a>
+          {" "}and{" "}
+          <a href="/legal/privacy" target="_blank" rel="noopener" className="underline text-[#0D1B3E]">
+            Privacy Policy
+          </a>.
+        </span>
+      </label>
       {error && (
         <p className="text-sm text-red-700">{error}</p>
       )}
       <button
         type="button"
         onClick={handlePay}
-        disabled={!confirmed || pending || items.length === 0}
+        disabled={!confirmed || !termsAccepted || pending || items.length === 0}
         className="w-full py-4 bg-[#0D1B3E] text-white uppercase tracking-wider text-sm hover:bg-[#162040] disabled:bg-[#6B7280] disabled:cursor-not-allowed"
       >
         {pending ? "Processing..." : "Pay now"}
