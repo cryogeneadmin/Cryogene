@@ -237,12 +237,19 @@ export async function createOrderAction(
 
   // Fire-and-forget customer-events emit (groundwork for future cart-recovery
   // + funnel-completion upsells). Synchronous void; do not await.
+  // Note on semantics: this fires after createOrderTransaction succeeds but
+  // BEFORE provider.initiatePayment. With the current stub provider, payment
+  // always "succeeds" — but real payment paths can fail or be abandoned post
+  // redirect. The status field makes the actual order state explicit so the
+  // future cart-recovery upsell can join delivery_submitted → purchased and
+  // filter on status === "paid" rather than treating creation as completion.
   writeCustomerEvent({
     eventType: "checkout.purchased",
     emailOverride: delivery.email,
     payload: {
       orderId: order.id,
       orderNumber: order.orderNumber,
+      status: order.status,
       totalInPence,
       itemCount: verifiedItems.reduce((sum, i) => sum + i.quantity, 0),
     },
