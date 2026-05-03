@@ -15,6 +15,7 @@ import { createOrderTransaction } from "@/lib/orders";
 import { getPaymentProvider } from "@/lib/payments";
 import { writeAuditEvent } from "@/lib/audit-log";
 import { writeCustomerEvent } from "@/lib/customer-events";
+import { setMarketingConsent } from "@/lib/marketing-consent";
 import type { OrderLineItem } from "@/types";
 
 // ── Audit-trail version constants ──────────────────────────────────────────
@@ -254,6 +255,20 @@ export async function createOrderAction(
       itemCount: verifiedItems.reduce((sum, i) => sum + i.quantity, 0),
     },
   });
+
+  // If the customer registered AND opted in at checkout, write consent.
+  // Only registered customers — guest checkout has no customer doc to write to.
+  if (delivery.customerUid && delivery.marketingOptIn) {
+    try {
+      await setMarketingConsent(
+        delivery.customerUid,
+        true,
+        "checkout"
+      );
+    } catch (err) {
+      console.warn("[checkout] marketing-consent write failed:", err);
+    }
+  }
 
   const provider = getPaymentProvider();
   const payment = await provider.initiatePayment(order);

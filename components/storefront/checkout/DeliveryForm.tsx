@@ -113,6 +113,19 @@ export function DeliveryForm({
         )}
       </div>
 
+      <label className="flex items-start gap-3 cursor-pointer mt-3">
+        <input
+          type="checkbox"
+          name="marketingOptIn"
+          defaultChecked={false}
+          className="mt-1 accent-navy"
+        />
+        <span className="text-sm text-navy">
+          Email me about new products and special offers. You can unsubscribe at
+          any time.
+        </span>
+      </label>
+
       <button type="submit" disabled={pending} className="px-8 py-3 bg-navy text-white uppercase tracking-wider text-sm hover:bg-mid-navy disabled:bg-muted">
         {pending ? "Saving..." : "Continue to review"}
       </button>

@@ -14,6 +14,7 @@ export const DeliveryDataSchema = z.object({
   postcode: z.string().min(1),
   researchInstitution: z.string().optional().nullable(),
   createAccount: z.boolean(),
+  marketingOptIn: z.boolean().default(false),  // NEW — captured at checkout, written to consent on order success
   // accountPassword removed — Firebase Auth user is created inline via
   // createCheckoutAccount server action during the delivery step.
   // Password never persists to any cookie or session store.

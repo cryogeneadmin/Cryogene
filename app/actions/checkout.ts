@@ -30,6 +30,7 @@ export async function saveDeliveryStep(
     postcode: formData.get("postcode"),
     researchInstitution: formData.get("researchInstitution") || null,
     createAccount,
+    marketingOptIn: formData.get("marketingOptIn") === "on",  // NEW
     customerUid: null,
   });
 
