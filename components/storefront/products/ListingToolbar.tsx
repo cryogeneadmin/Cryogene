@@ -86,7 +86,7 @@ export function ListingToolbar({
             onClick={() => setDrawerOpen(false)}
             aria-hidden="true"
           />
-          <div className="absolute right-0 top-0 bottom-0 w-[85vw] max-w-sm bg-white shadow-xl overflow-y-auto">
+          <div className="absolute right-0 top-0 bottom-0 w-[85vw] max-w-sm bg-white overflow-y-auto">
             <div className="flex items-center justify-between px-4 py-3 border-b border-[#DDE1E7] sticky top-0 bg-white">
               <p className="label-editorial text-sm text-[#0D1B3E]">Filters</p>
               <button

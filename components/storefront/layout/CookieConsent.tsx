@@ -21,7 +21,7 @@ export async function CookieConsent() {
       <div
         role="region"
         aria-label="Cookie consent"
-        className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-[#DDE1E7] shadow-[0_-4px_12px_rgba(13,27,62,0.06)]"
+        className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-[#DDE1E7]"
       >
         <div className="max-w-[1280px] mx-auto px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <p className="text-sm leading-relaxed text-[#333333] max-w-2xl">
