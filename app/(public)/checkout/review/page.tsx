@@ -5,6 +5,7 @@ import { getCheckoutSession } from "@/app/actions/checkout";
 import { getConfig } from "@/lib/config";
 import { ReviewSummary } from "@/components/storefront/checkout/ReviewSummary";
 import { ReviewBasketList } from "@/components/storefront/checkout/ReviewBasketList";
+import { CheckoutSteps } from "@/components/storefront/checkout/CheckoutSteps";
 
 async function ReviewContent() {
   await connection();
@@ -31,7 +32,7 @@ async function ReviewContent() {
 export default function ReviewStepPage() {
   return (
     <div className="max-w-[1280px] mx-auto px-6 py-12">
-      <p className="label-editorial mb-4">Checkout — Step 2 of 2</p>
+      <CheckoutSteps current="review" />
       <h1 className="text-4xl mb-8">Review your order</h1>
       <Suspense>
         <ReviewContent />

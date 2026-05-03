@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useBasket, formatPriceFromPence } from "@/lib/basket";
 import { BasketItem } from "@/components/storefront/basket/BasketItem";
+import { CheckoutSteps } from "@/components/storefront/checkout/CheckoutSteps";
 
 export default function BasketPage() {
   const { items, subtotalInPence } = useBasket();
@@ -35,6 +36,7 @@ export default function BasketPage() {
 
   return (
     <div className="max-w-[1280px] mx-auto px-6 py-16">
+      <CheckoutSteps current="basket" />
       <h1 className="text-4xl mb-8">Your basket</h1>
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-12">
         <div>

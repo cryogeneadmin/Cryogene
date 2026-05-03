@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Order, Config } from "@/types";
 import { formatPriceFromPence } from "@/lib/basket";
+import { CheckoutSteps } from "./CheckoutSteps";
 
 export function ConfirmationContent({
   order,
@@ -13,6 +14,7 @@ export function ConfirmationContent({
 }) {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
+      <CheckoutSteps current="confirmation" />
       {isStub && (
         <div className="bg-compliance-amber-bg border border-compliance-amber-border p-4 mb-8">
           <p className="label-editorial text-compliance-amber-text mb-1">Stage 1 stub payment</p>
