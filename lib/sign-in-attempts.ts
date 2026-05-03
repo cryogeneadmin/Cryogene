@@ -47,8 +47,11 @@ export async function recordFailedSignIn(ip: string | null, attemptedEmail: stri
     }
 
     const data = snap.data()!;
-    const windowStartedAtMs = (data.windowStartedAt as Timestamp).toMillis();
-    const windowExpired = nowMs - windowStartedAtMs > WINDOW_MS;
+    const windowStartedAt = data.windowStartedAt;
+    const windowStartedAtMs =
+      windowStartedAt instanceof Timestamp ? windowStartedAt.toMillis() : 0;
+    const windowExpired =
+      windowStartedAtMs === 0 || nowMs - windowStartedAtMs > WINDOW_MS;
 
     if (windowExpired) {
       txn.update(ref, {
@@ -99,5 +102,11 @@ export async function clearFailedSignIns(ip: string | null): Promise<void> {
   if (!hash) return;
   const db = getAdminDb();
   if (!db) return;
-  await db.collection("signInAttempts").doc(hash).delete().catch(() => {});
+  await db
+    .collection("signInAttempts")
+    .doc(hash)
+    .delete()
+    .catch((err) => {
+      console.warn("[sign-in-attempts] clearFailedSignIns delete failed:", err);
+    });
 }

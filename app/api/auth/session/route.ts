@@ -43,11 +43,19 @@ export async function POST(request: NextRequest) {
       expiresIn: SESSION_COOKIE_MAX_AGE_SECONDS * 1000,
     });
   } catch {
-    await recordFailedSignIn(ip, null);
+    try {
+      await recordFailedSignIn(ip, null);
+    } catch (err) {
+      console.warn("[sign-in] recordFailedSignIn failed:", err);
+    }
     return NextResponse.json({ error: "Invalid ID token" }, { status: 401 });
   }
 
-  await clearFailedSignIns(ip);
+  try {
+    await clearFailedSignIns(ip);
+  } catch (err) {
+    console.warn("[sign-in] clearFailedSignIns failed:", err);
+  }
 
   const response = NextResponse.json({ ok: true });
   response.cookies.set(SESSION_COOKIE_NAME, sessionCookie, SESSION_COOKIE_OPTIONS);
