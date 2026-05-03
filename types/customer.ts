@@ -1,5 +1,6 @@
 import type { Timestamp } from "firebase/firestore";
 import type { Address } from "./order";
+import type { MarketingConsent } from "./data-rights";
 
 export type Customer = {
   id: string;
@@ -8,7 +9,8 @@ export type Customer = {
   phone: string | null;
   defaultAddress: Address | null;
   researchInstitution: string | null;
-  marketingOptIn: boolean;
+  /** Per UK GDPR + ICO: explicit grant + provenance + withdrawal mechanism. */
+  marketingConsent: MarketingConsent;
   orderCount: number;
   lifetimeValueInPence: number;
   createdAt: Timestamp | Date;

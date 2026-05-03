@@ -56,7 +56,12 @@ export async function createCheckoutAccount(
       phone: null,
       defaultAddress: null,
       researchInstitution: null,
-      marketingOptIn: false,
+      marketingConsent: {
+        granted: false,
+        grantedAt: null,
+        withdrawnAt: null,
+        source: "signup" as const,
+      },
       orderCount: 0,
       lifetimeValueInPence: 0,
       createdAt: now,
