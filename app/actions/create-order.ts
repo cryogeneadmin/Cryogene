@@ -13,6 +13,7 @@ import { computeShippingInPence } from "@/lib/shipping";
 import { computeVatInPence } from "@/lib/vat";
 import { createOrderTransaction } from "@/lib/orders";
 import { getPaymentProvider } from "@/lib/payments";
+import { writeAuditEvent } from "@/lib/audit-log";
 import type { OrderLineItem } from "@/types";
 
 // ── Audit-trail version constants ──────────────────────────────────────────
@@ -205,6 +206,33 @@ export async function createOrderAction(
     const message = err instanceof Error ? err.message : "Could not create order — please try again";
     return { status: "error", message };
   }
+
+  await writeAuditEvent({
+    eventType: "order.created",
+    actor: {
+      type: delivery.customerUid ? "customer" : "anonymous",
+      uid: delivery.customerUid ?? null,
+      email: delivery.email,
+    },
+    target: { kind: "order", id: order.id },
+    after: {
+      status: order.status,
+      itemsSubtotalInPence,
+      shippingCostInPence,
+      vatAmountInPence,
+      totalInPence,
+      items: verifiedItems.map((i) => ({
+        productId: i.productId,
+        sku: i.sku,
+        quantity: i.quantity,
+        unitPriceInPence: i.unitPriceInPence,
+      })),
+    },
+    metadata: {
+      orderNumber: order.orderNumber,
+      customerEmail: delivery.email,
+    },
+  });
 
   const provider = getPaymentProvider();
   const payment = await provider.initiatePayment(order);
