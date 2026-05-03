@@ -48,7 +48,7 @@ export function ListingToolbar({
           >
             Filters
             {activeFilterCount > 0 && (
-              <span className="bg-[#0D1B3E] text-white text-[10px] px-1.5 py-0.5 font-mono">
+              <span className="bg-[#0D1B3E] text-white text-[10px] px-1.5 py-0.5 font-sans">
                 {activeFilterCount}
               </span>
             )}

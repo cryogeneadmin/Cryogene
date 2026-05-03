@@ -124,7 +124,7 @@ export async function ProductDetail({ product }: { product: Product }) {
                 />
               </div>
               {product.testingMethod && (
-                <p className="font-mono text-xs uppercase tracking-wider text-[#6B7280]">
+                <p className="font-sans text-xs uppercase tracking-wider text-[#6B7280]">
                   Tested by {product.testingMethod}
                 </p>
               )}

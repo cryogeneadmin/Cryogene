@@ -36,7 +36,7 @@ export function CompoundStatsBar({ product }: { product: Product }) {
     {
       label: "Purity",
       value: product.purity ?? "—",
-      mono: true,
+      mono: false,
     },
     {
       label: "Classification",

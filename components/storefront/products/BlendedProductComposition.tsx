@@ -12,7 +12,7 @@ export function BlendedProductComposition({
         {composition.map((item) => (
           <div key={item.compound} className="flex justify-between text-sm py-1 border-b border-[#F0F1F3] last:border-0">
             <span className="text-[#333333]">{item.compound}</span>
-            <span className="mono text-[#6B7280]">{item.amount}</span>
+            <span className="text-[#6B7280]">{item.amount}</span>
           </div>
         ))}
       </div>
