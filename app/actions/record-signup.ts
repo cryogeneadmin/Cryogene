@@ -17,7 +17,15 @@ const InputSchema = z.object({
  */
 export async function recordSignupCompleted(input: unknown): Promise<void> {
   const parsed = InputSchema.safeParse(input);
-  if (!parsed.success) return;
+  if (!parsed.success) {
+    // Silent drop is intentional (don't expose validation errors to client)
+    // but log so we can spot client/server contract drift in production.
+    console.warn(
+      "[record-signup] input failed validation; signup event NOT recorded:",
+      parsed.error.issues,
+    );
+    return;
+  }
 
   writeCustomerEvent({
     eventType: "auth.signup_completed",
@@ -29,7 +37,12 @@ export async function recordSignupCompleted(input: unknown): Promise<void> {
     try {
       await setMarketingConsent(parsed.data.uid, true, "signup");
     } catch (err) {
-      console.warn("[record-signup] marketing-consent write failed:", err);
+      console.warn(
+        "[record-signup] marketing-consent write failed for uid",
+        parsed.data.uid,
+        ":",
+        err,
+      );
     }
   }
 }

@@ -20,8 +20,11 @@ function ipHash(ip: string | null): string | null {
  * Called from: checkout (granting at order time), signup, /account/data
  * toggle, public /data-rights objection, unsubscribe link.
  *
- * Idempotent — calling with the same `granted` value still appends a
- * history entry (the entry is the authoritative trail).
+ * Append-only audit log: repeat calls produce repeat history entries by
+ * design — the entries are the authoritative trail. The customer doc
+ * `marketingConsent` field is overwritten each call (latest state),
+ * preserving `grantedAt` only when the previous state was already granted
+ * so re-confirmations don't reset the original grant time.
  */
 export async function setMarketingConsent(
   uid: string,
@@ -33,7 +36,7 @@ export async function setMarketingConsent(
 
   const hdrs = await headers();
   const ip = hdrs.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null;
-  const userAgent = hdrs.get("user-agent")?.slice(0, 200) ?? null;
+  const userAgent = hdrs.get("user-agent")?.slice(0, 512) ?? null;
   const now = Timestamp.now();
 
   const consent: Omit<MarketingConsent, "grantedAt" | "withdrawnAt"> & {
@@ -95,7 +98,7 @@ export async function getMarketingConsent(uid: string): Promise<MarketingConsent
       granted: false,
       grantedAt: null,
       withdrawnAt: null,
-      source: "withdrawal",
+      source: "legacy",
     };
   }
   const c = data.marketingConsent;

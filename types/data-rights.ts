@@ -7,7 +7,8 @@ export type ConsentSource =
   | "post-purchase"
   | "withdrawal"
   | "admin-override"
-  | "unsubscribe-link";
+  | "unsubscribe-link"
+  | "legacy";  // sentinel for customers predating the structured consent record — never written, only returned by getMarketingConsent fallback
 
 export type MarketingConsent = {
   granted: boolean;

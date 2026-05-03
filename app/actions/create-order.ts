@@ -266,7 +266,12 @@ export async function createOrderAction(
         "checkout"
       );
     } catch (err) {
-      console.warn("[checkout] marketing-consent write failed:", err);
+      console.warn(
+        "[checkout] marketing-consent write failed for uid",
+        delivery.customerUid,
+        ":",
+        err,
+      );
     }
   }
 

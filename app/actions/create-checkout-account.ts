@@ -60,7 +60,7 @@ export async function createCheckoutAccount(
         granted: false,
         grantedAt: null,
         withdrawnAt: null,
-        source: "signup" as const,
+        source: "signup",
       },
       orderCount: 0,
       lifetimeValueInPence: 0,
