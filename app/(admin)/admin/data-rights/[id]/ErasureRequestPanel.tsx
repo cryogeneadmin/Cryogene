@@ -40,6 +40,8 @@ export function ErasureRequestPanel({ request }: { request: DataRightsRequest })
         return;
       }
       setCompletedAt(new Date().toISOString());
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Erasure failed. Please try again.");
     } finally {
       setBusy(false);
     }
@@ -86,6 +88,8 @@ export function ErasureRequestPanel({ request }: { request: DataRightsRequest })
                 value={confirmEmail}
                 onChange={(e) => setConfirmEmail(e.target.value)}
                 placeholder={request.requester.email}
+                autoComplete="off"
+                spellCheck={false}
                 className="w-full border border-border bg-white px-3 py-2 mb-4 mono text-sm"
               />
               <button

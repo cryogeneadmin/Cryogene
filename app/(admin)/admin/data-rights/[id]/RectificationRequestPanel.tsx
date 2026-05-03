@@ -35,9 +35,14 @@ export function RectificationRequestPanel({ request }: { request: DataRightsRequ
             type="button"
             onClick={async () => {
               setBusy(true);
-              await markRectificationComplete(request.id);
-              setDone(true);
-              setBusy(false);
+              try {
+                await markRectificationComplete(request.id);
+                setDone(true);
+              } catch (err) {
+                console.warn("[rectification] mark complete failed:", err);
+              } finally {
+                setBusy(false);
+              }
             }}
             disabled={busy}
             className="px-4 py-2 bg-navy text-white text-xs uppercase tracking-wider hover:bg-mid-navy disabled:opacity-50"

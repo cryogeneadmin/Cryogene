@@ -35,7 +35,13 @@ export async function runErasure(
   await assertAdmin();
   const request = await getRequestById(requestId);
   if (!request) return { ok: false, reason: "Request not found" };
-  if (confirmEmail !== request.requester.email) {
+  // Normalise both sides — Section B's data-rights helpers store emails
+  // lowercased + trimmed, but the typed admin input may include differing
+  // case. Avoid spurious mismatches from "Foo@Example.com" vs "foo@example.com".
+  if (
+    confirmEmail.trim().toLowerCase() !==
+    request.requester.email.trim().toLowerCase()
+  ) {
     return { ok: false, reason: "Confirmation email mismatch" };
   }
 
@@ -47,18 +53,20 @@ export async function runErasure(
 
   if (!result.ok) return result;
 
-  const db = getAdminDb()!;
-  await db.doc(`dataRightsRequests/${requestId}`).update({
-    status: "completed",
-    respondedAt: Timestamp.now(),
-    responseArtefactRef: `erasure-summary:${result.summaryId}`,
-  });
+  const db = getAdminDb();
+  if (!db) {
+    return { ok: false, reason: "Firestore not configured" };
+  }
 
+  // Audit FIRST — this is the legally-significant compliance signal. If
+  // writeAuditEvent fails (it swallows internally), better to record the
+  // attempt before the status flip than after.
   await writeAuditEvent({
     eventType: "customer.erasure_completed",
-    target: { kind: "user", id: request.requester.uid ?? request.requester.email },
+    target: { kind: "user", id: request.requester.uid },
     metadata: {
       requestId,
+      requesterEmail: request.requester.email,
       ordersAnonymised: result.ordersAnonymised,
       eventsDeleted: result.eventsDeleted,
       auditLogsScrubbed: result.auditLogsScrubbed,
@@ -68,7 +76,19 @@ export async function runErasure(
     },
   });
 
-  await sendErasureConfirmedEmail({ to: request.requester.email });
+  await db.doc(`dataRightsRequests/${requestId}`).update({
+    status: "completed",
+    respondedAt: Timestamp.now(),
+    responseArtefactRef: `erasure-summary:${result.summaryId}`,
+  });
+
+  // Email is best-effort — wrap in try/catch + console.warn so a transient
+  // SMTP issue doesn't 500 the route after the work is done.
+  try {
+    await sendErasureConfirmedEmail({ to: request.requester.email });
+  } catch (err) {
+    console.warn("[erasure] confirmation email failed:", err);
+  }
 
   revalidatePath("/admin/data-rights");
   revalidatePath(`/admin/data-rights/${requestId}`);
@@ -88,22 +108,33 @@ export async function generateAndSendAccessExport(
     requestId,
   });
 
-  await sendAccessExportEmail({
-    to: request.requester.email,
-    downloadUrl,
+  try {
+    await sendAccessExportEmail({
+      to: request.requester.email,
+      downloadUrl,
+    });
+  } catch (err) {
+    console.warn("[access-export] email failed:", err);
+  }
+
+  const db = getAdminDb();
+  if (!db) {
+    return { ok: false, reason: "Firestore not configured" };
+  }
+
+  // Audit FIRST — this is the legally-significant compliance signal. If
+  // writeAuditEvent fails (it swallows internally), better to record the
+  // attempt before the status flip than after.
+  await writeAuditEvent({
+    eventType: "customer.access_completed",
+    target: { kind: "user", id: request.requester.uid },
+    metadata: { requestId, requesterEmail: request.requester.email, downloadUrl },
   });
 
-  const db = getAdminDb()!;
   await db.doc(`dataRightsRequests/${requestId}`).update({
     status: "completed",
     respondedAt: Timestamp.now(),
     responseArtefactRef: downloadUrl,
-  });
-
-  await writeAuditEvent({
-    eventType: "customer.access_completed",
-    target: { kind: "user", id: request.requester.uid },
-    metadata: { requestId, downloadUrl },
   });
 
   revalidatePath("/admin/data-rights");
@@ -113,16 +144,26 @@ export async function generateAndSendAccessExport(
 
 export async function markRectificationComplete(requestId: string): Promise<void> {
   await assertAdmin();
-  const db = getAdminDb()!;
+  const request = await getRequestById(requestId);
+  if (!request) throw new Error("Request not found");
+
+  const db = getAdminDb();
+  if (!db) throw new Error("Firestore not configured");
+
+  // Audit FIRST so a failed status-update doesn't leave an undocumented
+  // completion. writeAuditEvent swallows internal failures, but at least
+  // we attempt it before mutating state.
+  await writeAuditEvent({
+    eventType: "customer.rectification_completed",
+    target: { kind: "user", id: request.requester.uid },
+    metadata: { requestId, requesterEmail: request.requester.email },
+  });
+
   await db.doc(`dataRightsRequests/${requestId}`).update({
     status: "completed",
     respondedAt: Timestamp.now(),
   });
-  await writeAuditEvent({
-    eventType: "customer.rectification_completed",
-    target: { kind: "user", id: null },
-    metadata: { requestId },
-  });
+
   revalidatePath("/admin/data-rights");
   revalidatePath(`/admin/data-rights/${requestId}`);
 }

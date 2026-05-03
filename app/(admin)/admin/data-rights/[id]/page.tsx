@@ -29,6 +29,12 @@ async function RequestDetail({
       return <RectificationRequestPanel request={request} />;
     case "objection":
       return <ObjectionRequestPanel request={request} />;
+    default: {
+      // Exhaustiveness check — adding a new DataRightType causes a
+      // compile error here, forcing the dispatcher to handle it.
+      const _exhaustive: never = request.type;
+      return <p className="text-red-700">Unknown request type: {String(_exhaustive)}</p>;
+    }
   }
 }
 

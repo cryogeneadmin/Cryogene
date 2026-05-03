@@ -4,15 +4,16 @@ import { connection } from "next/server";
 import Link from "next/link";
 import { assertAdmin } from "@/lib/admin-auth";
 import { listRequests } from "@/lib/data-rights";
+import type { DataRightsRequest } from "@/types/data-rights";
 
-const TYPE_LABELS: Record<string, string> = {
+const TYPE_LABELS: Record<DataRightsRequest["type"], string> = {
   access: "Access",
   rectification: "Rectification",
   erasure: "Erasure",
   objection: "Objection",
 };
 
-const STATUS_LABELS: Record<string, string> = {
+const STATUS_LABELS: Record<DataRightsRequest["status"], string> = {
   pending_email_verification: "Awaiting email confirmation",
   queued: "Queued",
   in_progress: "In progress",
