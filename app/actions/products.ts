@@ -11,6 +11,8 @@ import { getAdminDb } from "@/lib/firebase/admin";
 import { isSeedMode } from "@/lib/data-mode";
 import { slugify } from "@/lib/slug";
 import { assertAdmin } from "@/lib/admin-auth";
+import { writeAuditEvent } from "@/lib/audit-log";
+import { getProductById } from "@/lib/products";
 
 const LOCAL_WRITES_PATH = path.join(process.cwd(), "data", "products.local.json");
 
@@ -84,6 +86,14 @@ export async function saveProduct(data: unknown) {
     existingCreatedAt = existing?.createdAt as Date | undefined;
   }
 
+  // Capture before-state for audit. seed-mode reads from local writes;
+  // Firestore mode reads via getProductById.
+  const beforeProduct = isEdit && parsed.id
+    ? isSeedMode()
+      ? (await readLocalWrites()).find((p) => p.id === parsed.id) ?? null
+      : await getProductById(parsed.id)
+    : null;
+
   const product: Product = {
     id: (parsed.id && parsed.id.length > 0) ? parsed.id : `local-${Date.now()}`,
     slug: parsed.slug || slugify(parsed.name),
@@ -134,11 +144,42 @@ export async function saveProduct(data: unknown) {
     }
   }
 
+  await writeAuditEvent({
+    eventType: isEdit ? "product.updated" : "product.created",
+    target: { kind: "product", id: product.id },
+    before: beforeProduct ? productAuditShape(beforeProduct) : null,
+    after: productAuditShape(product),
+    snapshotAfter: productAuditShape(product),
+    metadata: { name: product.name, slug: product.slug },
+  });
+
   revalidateTag("products", "max");
   revalidatePath("/admin/products");
   revalidatePath(`/${product.category}`);
   revalidatePath(`/${product.category}/${product.slug}`);
   redirect("/admin/products");
+}
+
+/**
+ * Reduces a Product to the audit-relevant subset — keeps doc size small +
+ * avoids capturing transient fields like updatedBy/updatedAt.
+ */
+function productAuditShape(p: Product): Record<string, unknown> {
+  return {
+    id: p.id,
+    slug: p.slug,
+    name: p.name,
+    category: p.category,
+    active: p.active,
+    variants: p.variants.map((v) => ({
+      sku: v.sku,
+      size: v.size,
+      priceInPence: v.priceInPence,
+      stock: v.stock,
+      active: v.active,
+    })),
+    purity: p.purity,
+  };
 }
 
 export async function toggleProductActive(id: string, active: boolean) {

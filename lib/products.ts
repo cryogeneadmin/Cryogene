@@ -140,3 +140,16 @@ export async function getAllProductSlugs(): Promise<string[]> {
   const all = await getProducts({ activeOnly: true });
   return all.map((p) => p.slug);
 }
+
+export async function getProductById(id: string): Promise<Product | null> {
+  "use cache";
+  cacheTag("products");
+  if (isSeedMode()) {
+    const all = await mergedSeed();
+    return all.find((p) => p.id === id) ?? null;
+  }
+  const db = getAdminDb();
+  if (!db) throw new Error("Firestore not configured (admin SDK unavailable)");
+  const snap = await db.doc(`products/${id}`).get();
+  return snap.exists ? normalizeProduct(snap.data()!) : null;
+}
