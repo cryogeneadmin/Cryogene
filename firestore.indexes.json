@@ -88,6 +88,15 @@
         { "fieldPath": "requester.email", "order": "ASCENDING" },
         { "fieldPath": "createdAt", "order": "DESCENDING" }
       ]
+    },
+    {
+      "collectionGroup": "dataRightsRequests",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "requester.uid", "order": "ASCENDING" },
+        { "fieldPath": "type", "order": "ASCENDING" },
+        { "fieldPath": "createdAt", "order": "DESCENDING" }
+      ]
     }
   ],
   "fieldOverrides": []

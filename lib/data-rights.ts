@@ -233,6 +233,38 @@ export async function getRequestById(id: string): Promise<DataRightsRequest | nu
   return snap.exists ? normaliseRequest(snap.id, snap.data()!) : null;
 }
 
+/**
+ * Returns the most-recent open request for this customer of the given
+ * type, or null if none. "Open" means status in [pending_email_verification,
+ * queued, in_progress] — completed and rejected requests don't block new
+ * ones.
+ */
+export async function findOpenRequestForCustomer(
+  uid: string,
+  type: DataRightType
+): Promise<DataRightsRequest | null> {
+  const db = getAdminDb();
+  if (!db) throw new Error("Firestore not configured");
+  const snap = await db
+    .collection("dataRightsRequests")
+    .where("requester.uid", "==", uid)
+    .where("type", "==", type)
+    .orderBy("createdAt", "desc")
+    .limit(5)
+    .get();
+  for (const doc of snap.docs) {
+    const r = normaliseRequest(doc.id, doc.data());
+    if (
+      r.status === "pending_email_verification" ||
+      r.status === "queued" ||
+      r.status === "in_progress"
+    ) {
+      return r;
+    }
+  }
+  return null;
+}
+
 export async function listRequests(
   filters: { status?: DataRightStatus; type?: DataRightType } = {}
 ): Promise<DataRightsRequest[]> {

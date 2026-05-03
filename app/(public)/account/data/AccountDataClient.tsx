@@ -36,7 +36,10 @@ export function AccountDataClient({
         setError("Could not update preference. Please try again.");
         return;
       }
-      setGranted(next);
+      // Sync UI to the persisted state from the response (defends against
+      // edge cases where audit/email failed but consent did land).
+      const json = (await res.json().catch(() => null)) as { granted?: boolean } | null;
+      setGranted(json?.granted ?? next);
     } finally {
       setBusy(false);
     }
