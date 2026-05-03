@@ -51,9 +51,9 @@ export function SignUpForm() {
   return (
     <div className="max-w-md mx-auto">
       {!firebaseReady && (
-        <div className="bg-[#FFF3CD] border border-[#E6C97A] p-4 mb-6">
-          <p className="label-editorial text-[#6A4D00] mb-1">Stage 1a notice</p>
-          <p className="text-xs text-[#6A4D00]">
+        <div className="bg-compliance-amber-bg border border-compliance-amber-border p-4 mb-6">
+          <p className="label-editorial text-compliance-amber-text mb-1">Stage 1a notice</p>
+          <p className="text-xs text-compliance-amber-text">
             Account creation will be enabled once Firebase credentials are
             wired in Stage 1b.
           </p>
@@ -62,19 +62,19 @@ export function SignUpForm() {
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
           <label htmlFor="email" className="label-editorial block mb-2">Email</label>
-          <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className="w-full border border-[#DDE1E7] p-3" />
+          <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className="w-full border border-border p-3" />
         </div>
         <div>
           <label htmlFor="password" className="label-editorial block mb-2">Password (min 8 characters)</label>
-          <input id="password" type="password" minLength={8} value={password} onChange={(e) => setPassword(e.target.value)} required className="w-full border border-[#DDE1E7] p-3" />
+          <input id="password" type="password" minLength={8} value={password} onChange={(e) => setPassword(e.target.value)} required className="w-full border border-border p-3" />
         </div>
         {error && <p role="alert" className="text-sm text-red-700">{error}</p>}
-        <button type="submit" disabled={pending || !firebaseReady} className="w-full py-3 bg-[#0D1B3E] text-white uppercase tracking-wider text-sm hover:bg-[#162040] disabled:bg-[#6B7280]">
+        <button type="submit" disabled={pending || !firebaseReady} className="w-full py-3 bg-navy text-white uppercase tracking-wider text-sm hover:bg-mid-navy disabled:bg-muted">
           {pending ? "Creating account..." : "Create account"}
         </button>
-        <p className="text-sm text-center text-[#6B7280]">
+        <p className="text-sm text-center text-muted">
           Already have an account?{" "}
-          <Link href="/sign-in" className="underline hover:text-[#0D1B3E]">
+          <Link href="/sign-in" className="underline hover:text-navy">
             Sign in
           </Link>
         </p>

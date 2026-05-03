@@ -46,25 +46,25 @@ export function CompoundStatsBar({ product }: { product: Product }) {
   ];
 
   return (
-    <dl className="grid grid-cols-2 md:grid-cols-5 bg-[#F1F3F6] border border-[#C0C8D8] mb-8">
+    <dl className="grid grid-cols-2 md:grid-cols-5 bg-panel border border-silver mb-8">
       {cells.map((cell, i) => (
         <div
           key={cell.label}
           className={[
             "px-4 py-3 flex flex-col gap-1",
             // Inner dividers: right on all but last in row; bottom on mobile wraps.
-            "border-[#C0C8D8]",
+            "border-silver",
             i < cells.length - 1 ? "md:border-r" : "",
             i % 2 === 0 ? "border-r" : "",
             i < cells.length - 2 ? "border-b md:border-b-0" : "",
           ].join(" ")}
         >
-          <dt className="text-[10px] uppercase tracking-wider text-[#6B7280] font-sans font-medium">
+          <dt className="text-[10px] uppercase tracking-wider text-muted font-sans font-medium">
             {cell.label}
           </dt>
           <dd
             className={[
-              "text-[14px] font-semibold text-[#0D1B3E] truncate",
+              "text-[14px] font-semibold text-navy truncate",
               cell.mono ? "font-mono" : "font-sans",
             ].join(" ")}
             title={cell.value}

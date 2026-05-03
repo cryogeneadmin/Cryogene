@@ -4,7 +4,7 @@ export default function ProductInformationPage() {
       <p className="label-editorial mb-4">Product Information</p>
       <h1 className="text-5xl mb-10 leading-tight">Understanding our products and testing.</h1>
 
-      <div className="prose prose-lg max-w-none text-[#333333] leading-relaxed space-y-6">
+      <div className="prose prose-lg max-w-none text-body-grey leading-relaxed space-y-6">
 
         <p className="text-xl">
           [DRAFT — REVIEW AND ADAPT] This page explains the categories of
@@ -106,7 +106,7 @@ export default function ProductInformationPage() {
           item, please contact us within 48 hours of receipt with photographic
           evidence and your order number. Please retain all original packaging.
           We will investigate and respond within one working day. See our{" "}
-          <a href="/legal/refunds" className="text-[#0D1B3E] underline">Refund and Returns Policy</a>{" "}
+          <a href="/legal/refunds" className="text-navy underline">Refund and Returns Policy</a>{" "}
           for full details.
         </p>
 

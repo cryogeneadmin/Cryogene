@@ -24,9 +24,9 @@ export function ReviewBasketList({
 
   if (items.length === 0) {
     return (
-      <div className="border border-dashed border-[#DDE1E7] p-8 text-center">
-        <p className="font-serif text-xl text-[#0D1B3E] mb-2">Your basket is empty</p>
-        <p className="text-sm text-[#6B7280]">Add items to your basket before checking out.</p>
+      <div className="border border-dashed border-border p-8 text-center">
+        <p className="font-serif text-xl text-navy mb-2">Your basket is empty</p>
+        <p className="text-sm text-muted">Add items to your basket before checking out.</p>
       </div>
     );
   }
@@ -35,10 +35,10 @@ export function ReviewBasketList({
     <div>
       <div className="space-y-4">
         {items.map((item) => (
-          <div key={item.sku} className="flex justify-between py-3 border-b border-[#DDE1E7]">
+          <div key={item.sku} className="flex justify-between py-3 border-b border-border">
             <div>
-              <p className="font-serif text-lg text-[#0D1B3E]">{item.name}</p>
-              <p className="mono text-xs text-[#6B7280]">{item.sku} · {item.size} · qty {item.quantity}</p>
+              <p className="font-serif text-lg text-navy">{item.name}</p>
+              <p className="mono text-xs text-muted">{item.sku} · {item.size} · qty {item.quantity}</p>
             </div>
             <p className="text-sm font-medium">
               {formatPriceFromPence(item.unitPriceInPence * item.quantity)}
@@ -47,12 +47,12 @@ export function ReviewBasketList({
         ))}
       </div>
       <div className="mt-6 space-y-2 text-sm">
-        <div className="flex justify-between"><span className="text-[#6B7280]">Subtotal</span><span>{formatPriceFromPence(subtotal)}</span></div>
-        <div className="flex justify-between"><span className="text-[#6B7280]">Shipping</span><span>{formatPriceFromPence(shipping)}</span></div>
+        <div className="flex justify-between"><span className="text-muted">Subtotal</span><span>{formatPriceFromPence(subtotal)}</span></div>
+        <div className="flex justify-between"><span className="text-muted">Shipping</span><span>{formatPriceFromPence(shipping)}</span></div>
         {vatRule.registered && (
-          <div className="flex justify-between"><span className="text-[#6B7280]">VAT ({(vatRule.rate * 100).toFixed(0)}%)</span><span>{formatPriceFromPence(vat)}</span></div>
+          <div className="flex justify-between"><span className="text-muted">VAT ({(vatRule.rate * 100).toFixed(0)}%)</span><span>{formatPriceFromPence(vat)}</span></div>
         )}
-        <div className="flex justify-between pt-3 border-t border-[#DDE1E7] text-lg font-medium">
+        <div className="flex justify-between pt-3 border-t border-border text-lg font-medium">
           <span>Total</span><span>{formatPriceFromPence(total)}</span>
         </div>
       </div>

@@ -27,21 +27,21 @@ async function OrderDetailContent({ params }: { params: Promise<{ id: string }> 
   return (
     <AccountLayout>
       <h1 className="text-4xl mb-2">Order {order.orderNumber}</h1>
-      <p className="text-sm text-[#6B7280] mb-8">
+      <p className="text-sm text-muted mb-8">
         Status: {order.status}
       </p>
       <div className="space-y-4">
         {order.items.map((item, i) => (
-          <div key={`${item.sku}-${i}`} className="flex justify-between py-3 border-b border-[#DDE1E7]">
+          <div key={`${item.sku}-${i}`} className="flex justify-between py-3 border-b border-border">
             <div>
               <p className="font-serif text-lg">{item.name}</p>
-              <p className="mono text-xs text-[#6B7280]">{item.sku} · {item.size} · qty {item.quantity}</p>
+              <p className="mono text-xs text-muted">{item.sku} · {item.size} · qty {item.quantity}</p>
             </div>
             <p className="text-sm font-medium">{formatPriceFromPence(item.lineTotalInPence)}</p>
           </div>
         ))}
       </div>
-      <div className="mt-8 pt-6 border-t border-[#DDE1E7] flex justify-between text-lg font-medium">
+      <div className="mt-8 pt-6 border-t border-border flex justify-between text-lg font-medium">
         <span>Total</span>
         <span>{formatPriceFromPence(order.totalInPence)}</span>
       </div>

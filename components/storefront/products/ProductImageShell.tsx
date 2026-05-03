@@ -31,7 +31,7 @@ export function ProductImageShell({
 
   return (
     <div
-      className={`relative w-full h-full overflow-hidden bg-[#F7F8FA] ${className}`}
+      className={`relative w-full h-full overflow-hidden bg-offwhite ${className}`}
       aria-busy={!loaded}
     >
       {/* Spec-sheet grid lines + shimmer until the image has loaded. */}

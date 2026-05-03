@@ -19,43 +19,43 @@ async function OrderDetailContent({ params }: { params: Promise<{ id: string }> 
   return (
     <div>
       <h1 className="text-4xl mb-2">Order {order.orderNumber}</h1>
-      <p className="mono text-xs text-[#6B7280] mb-8">ID: {order.id}</p>
+      <p className="mono text-xs text-muted mb-8">ID: {order.id}</p>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8">
         <div className="space-y-6">
           {/* Items */}
-          <section className="bg-white border border-[#DDE1E7] p-6">
+          <section className="bg-white border border-border p-6">
             <p className="label-editorial mb-4">Items</p>
             {order.items.map((item, i) => (
               <div
                 key={`${item.sku}-${i}`}
-                className="flex justify-between py-2 border-b border-[#DDE1E7] last:border-0"
+                className="flex justify-between py-2 border-b border-border last:border-0"
               >
                 <div>
                   <p className="font-medium">{item.name}</p>
-                  <p className="mono text-xs text-[#6B7280]">
+                  <p className="mono text-xs text-muted">
                     {item.sku} · {item.size} · qty {item.quantity}
                   </p>
                 </div>
                 <p className="mono text-sm">{formatPriceFromPence(item.lineTotalInPence)}</p>
               </div>
             ))}
-            <div className="mt-4 pt-4 border-t border-[#DDE1E7] space-y-1 text-sm">
+            <div className="mt-4 pt-4 border-t border-border space-y-1 text-sm">
               <div className="flex justify-between">
-                <span className="text-[#6B7280]">Subtotal</span>
+                <span className="text-muted">Subtotal</span>
                 <span>{formatPriceFromPence(order.itemsSubtotalInPence)}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#6B7280]">Shipping</span>
+                <span className="text-muted">Shipping</span>
                 <span>{formatPriceFromPence(order.shippingCostInPence)}</span>
               </div>
               {order.vatAmountInPence > 0 && (
                 <div className="flex justify-between">
-                  <span className="text-[#6B7280]">VAT</span>
+                  <span className="text-muted">VAT</span>
                   <span>{formatPriceFromPence(order.vatAmountInPence)}</span>
                 </div>
               )}
-              <div className="flex justify-between pt-2 border-t border-[#DDE1E7] font-medium">
+              <div className="flex justify-between pt-2 border-t border-border font-medium">
                 <span>Total</span>
                 <span>{formatPriceFromPence(order.totalInPence)}</span>
               </div>
@@ -63,13 +63,13 @@ async function OrderDetailContent({ params }: { params: Promise<{ id: string }> 
           </section>
 
           {/* Customer */}
-          <section className="bg-white border border-[#DDE1E7] p-6">
+          <section className="bg-white border border-border p-6">
             <p className="label-editorial mb-4">Customer</p>
             <div className="text-sm leading-relaxed">
               <p className="font-medium">{order.customer.name}</p>
               <p>{order.customer.email}</p>
               {order.customer.phone && <p>{order.customer.phone}</p>}
-              <div className="mt-3 text-[#6B7280]">
+              <div className="mt-3 text-muted">
                 <p>{order.customer.address.line1}</p>
                 {order.customer.address.line2 && <p>{order.customer.address.line2}</p>}
                 <p>{order.customer.address.city}</p>
@@ -79,19 +79,19 @@ async function OrderDetailContent({ params }: { params: Promise<{ id: string }> 
           </section>
 
           {/* Payment */}
-          <section className="bg-white border border-[#DDE1E7] p-6">
+          <section className="bg-white border border-border p-6">
             <p className="label-editorial mb-4">Payment</p>
             <dl className="text-sm space-y-2">
               <div className="flex justify-between">
-                <dt className="text-[#6B7280]">Provider</dt>
+                <dt className="text-muted">Provider</dt>
                 <dd>{order.payment.provider}</dd>
               </div>
               <div className="flex justify-between">
-                <dt className="text-[#6B7280]">Reference</dt>
+                <dt className="text-muted">Reference</dt>
                 <dd className="mono text-xs">{order.payment.providerRef ?? "—"}</dd>
               </div>
               <div className="flex justify-between">
-                <dt className="text-[#6B7280]">Paid at</dt>
+                <dt className="text-muted">Paid at</dt>
                 <dd>{paidAt ? paidAt.toLocaleString("en-GB") : "—"}</dd>
               </div>
             </dl>
@@ -99,9 +99,9 @@ async function OrderDetailContent({ params }: { params: Promise<{ id: string }> 
 
           {/* Admin notes */}
           {order.adminNotes && (
-            <section className="bg-white border border-[#DDE1E7] p-6">
+            <section className="bg-white border border-border p-6">
               <p className="label-editorial mb-4">Admin notes</p>
-              <p className="text-sm whitespace-pre-wrap text-[#333333]">{order.adminNotes}</p>
+              <p className="text-sm whitespace-pre-wrap text-body-grey">{order.adminNotes}</p>
             </section>
           )}
         </div>

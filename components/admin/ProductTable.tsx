@@ -27,12 +27,12 @@ export function ProductTable({ products }: { products: Product[] }) {
           placeholder="Search products..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="border border-[#DDE1E7] px-3 py-2 text-sm flex-1 min-w-[200px]"
+          className="border border-border px-3 py-2 text-sm flex-1 min-w-[200px]"
         />
         <select
           value={categoryFilter}
           onChange={(e) => setCategoryFilter(e.target.value as "all" | ProductCategory)}
-          className="border border-[#DDE1E7] px-3 py-2 text-sm"
+          className="border border-border px-3 py-2 text-sm"
         >
           <option value="all">All categories</option>
           <option value="peptides">Peptides</option>
@@ -42,15 +42,15 @@ export function ProductTable({ products }: { products: Product[] }) {
         <select
           value={activeFilter}
           onChange={(e) => setActiveFilter(e.target.value as "all" | "active" | "inactive")}
-          className="border border-[#DDE1E7] px-3 py-2 text-sm"
+          className="border border-border px-3 py-2 text-sm"
         >
           <option value="all">All statuses</option>
           <option value="active">Active only</option>
           <option value="inactive">Inactive only</option>
         </select>
       </div>
-      <table className="w-full text-sm bg-white border border-[#DDE1E7]">
-        <thead className="text-left border-b border-[#DDE1E7]">
+      <table className="w-full text-sm bg-white border border-border">
+        <thead className="text-left border-b border-border">
           <tr>
             <th className="p-3">Image</th>
             <th className="p-3">Name</th>
@@ -68,17 +68,17 @@ export function ProductTable({ products }: { products: Product[] }) {
             const activeVariantPrices = p.variants.filter((v) => v.active).map((v) => v.priceInPence);
             const lowestPrice = activeVariantPrices.length > 0 ? Math.min(...activeVariantPrices) : 0;
             return (
-              <tr key={p.id} className="border-b border-[#DDE1E7] last:border-0">
+              <tr key={p.id} className="border-b border-border last:border-0">
                 <td className="p-3">
-                  <div className="relative h-10 w-10 bg-[#F7F8FA]">
+                  <div className="relative h-10 w-10 bg-offwhite">
                     {p.images[0] && (
                       <Image src={p.images[0]} alt={p.name} fill className="object-contain p-1" sizes="40px" />
                     )}
                   </div>
                 </td>
                 <td className="p-3 font-medium">{p.name}</td>
-                <td className="p-3 text-[#6B7280] capitalize">{p.category}</td>
-                <td className="p-3 text-[#6B7280]">
+                <td className="p-3 text-muted capitalize">{p.category}</td>
+                <td className="p-3 text-muted">
                   {p.variants.length === 0 ? (
                     <span className="text-red-600 text-xs">No variants</span>
                   ) : (
@@ -101,7 +101,7 @@ export function ProductTable({ products }: { products: Product[] }) {
         </tbody>
       </table>
       {filtered.length === 0 && (
-        <p className="text-sm text-[#6B7280] mt-4">No products match your filters.</p>
+        <p className="text-sm text-muted mt-4">No products match your filters.</p>
       )}
     </div>
   );

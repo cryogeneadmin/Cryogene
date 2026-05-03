@@ -31,6 +31,13 @@
   --color-success-bg: #DCFCE7;
   --color-success-text: #166534;
 
+  /* Navy-foreground ramp — text/icons rendered on navy backgrounds.
+     Used by ComplianceBanner, Footer, AdminSidebar. Lightest → darkest. */
+  --color-navy-text: #C8D4E4;       /* primary text on navy */
+  --color-navy-text-dim: #AABBCC;   /* secondary copy + section headers */
+  --color-navy-icon: #8BAAD4;       /* icons, links, list items */
+  --color-navy-label: #5B7BA3;      /* micro labels, fine print */
+
   /* Typography — Cormorant Garamond for headings, DM Sans for body, JetBrains Mono for data.
      next/font injects --font-serif / --font-sans / --font-mono on <html>; the fallback
      chains here are used only when the Google Font has not yet loaded. */

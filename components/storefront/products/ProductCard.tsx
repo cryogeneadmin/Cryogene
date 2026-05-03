@@ -26,11 +26,11 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <article
       aria-labelledby={`product-${product.id}-name`}
-      className="group block border border-[#DDE1E7] bg-white hover:border-[#0D1B3E] focus-within:border-[#0D1B3E] transition-colors"
+      className="group block border border-border bg-white hover:border-navy focus-within:border-navy transition-colors"
     >
       <Link
         href={href}
-        className="block relative aspect-square focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0D1B3E] focus-visible:ring-offset-2"
+        className="block relative aspect-square focus:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2"
         aria-describedby={descriptionId}
       >
         <ProductImageShell
@@ -42,16 +42,16 @@ export function ProductCard({ product }: { product: Product }) {
         {/* hover reveal: "View datasheet →" */}
         <span
           aria-hidden="true"
-          className="absolute bottom-3 right-3 text-[11px] uppercase tracking-wider text-[#0D1B3E] bg-white/90 border border-[#C0C8D8] px-2 py-1 opacity-0 translate-y-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0"
+          className="absolute bottom-3 right-3 text-[11px] uppercase tracking-wider text-navy bg-white/90 border border-silver px-2 py-1 opacity-0 translate-y-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0"
         >
           View datasheet →
         </span>
       </Link>
-      <div className="p-5 border-t border-[#DDE1E7] flex items-end gap-3" id={descriptionId}>
+      <div className="p-5 border-t border-border flex items-end gap-3" id={descriptionId}>
         <div className="flex-1 min-w-0">
           <h3
             id={`product-${product.id}-name`}
-            className="font-serif text-xl text-[#0D1B3E] leading-tight mb-1"
+            className="font-serif text-xl text-navy leading-tight mb-1"
           >
             <Link href={href} className="hover:underline focus:outline-none focus-visible:underline">
               {product.name}
@@ -59,17 +59,17 @@ export function ProductCard({ product }: { product: Product }) {
           </h3>
           <div className="flex items-center gap-2 mb-3">
             {product.casNumber && (
-              <p className="mono text-xs text-[#9CA3AF]">CAS {product.casNumber}</p>
+              <p className="mono text-xs text-gray-400">CAS {product.casNumber}</p>
             )}
             {product.composition && (
-              <span className="label-editorial text-[#6B7280] bg-[#F7F8FA] border border-[#DDE1E7] px-1.5 py-0.5 text-[10px]">BLEND</span>
+              <span className="label-editorial text-muted bg-offwhite border border-border px-1.5 py-0.5 text-[10px]">BLEND</span>
             )}
           </div>
           {tags.length > 0 && (
             <ul className="flex flex-wrap gap-1.5 mb-3 list-none p-0">
               {tags.map((t) => (
                 <li key={t}>
-                  <span className="inline-block text-[10px] uppercase tracking-wider bg-[#0D1B3E] text-white px-2 py-0.5">
+                  <span className="inline-block text-[10px] uppercase tracking-wider bg-navy text-white px-2 py-0.5">
                     {TAG_LABEL[t] ?? t}
                   </span>
                 </li>
@@ -77,7 +77,7 @@ export function ProductCard({ product }: { product: Product }) {
             </ul>
           )}
           <div className="flex items-center justify-between">
-            <span className="text-sm text-[#333333]">
+            <span className="text-sm text-body-grey">
               {pricingTbc ? "Pricing TBC" : `From ${formatPriceFromPence(lowestPriceVariant.priceInPence)}`}
             </span>
             <span className="label-editorial text-[11px]">
@@ -91,7 +91,7 @@ export function ProductCard({ product }: { product: Product }) {
         {product.moleculeImage && (
           <div
             aria-hidden="true"
-            className="shrink-0 w-12 h-12 bg-[#F7F8FA] border border-[#DDE1E7] p-1"
+            className="shrink-0 w-12 h-12 bg-offwhite border border-border p-1"
           >
             <Image
               src={product.moleculeImage}

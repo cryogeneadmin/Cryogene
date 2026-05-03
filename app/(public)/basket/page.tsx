@@ -22,10 +22,10 @@ export default function BasketPage() {
           />
         </div>
         <h1 className="text-4xl mb-4">Your basket is empty</h1>
-        <p className="text-[#6B7280] mb-8">Add research products to see them here.</p>
+        <p className="text-muted mb-8">Add research products to see them here.</p>
         <Link
           href="/peptides"
-          className="inline-block px-8 py-3 bg-[#0D1B3E] text-white uppercase tracking-wider text-sm hover:bg-[#162040]"
+          className="inline-block px-8 py-3 bg-navy text-white uppercase tracking-wider text-sm hover:bg-mid-navy"
         >
           Browse research peptides
         </Link>
@@ -43,18 +43,18 @@ export default function BasketPage() {
           ))}
         </div>
         <div className="lg:sticky lg:top-32 self-start">
-          <div className="bg-white border border-[#DDE1E7] p-6 space-y-4">
-            <h2 className="font-serif text-2xl text-[#0D1B3E]">Order summary</h2>
+          <div className="bg-white border border-border p-6 space-y-4">
+            <h2 className="font-serif text-2xl text-navy">Order summary</h2>
             <div className="flex justify-between text-sm">
-              <span className="text-[#6B7280]">Subtotal</span>
+              <span className="text-muted">Subtotal</span>
               <span className="font-medium">{formatPriceFromPence(subtotalInPence())}</span>
             </div>
-            <p className="text-xs text-[#6B7280]">
+            <p className="text-xs text-muted">
               Shipping and VAT calculated at checkout.
             </p>
             <Link
               href="/checkout"
-              className="block text-center py-3 bg-[#0D1B3E] text-white uppercase tracking-wider text-xs hover:bg-[#162040]"
+              className="block text-center py-3 bg-navy text-white uppercase tracking-wider text-xs hover:bg-mid-navy"
             >
               Proceed to checkout
             </Link>

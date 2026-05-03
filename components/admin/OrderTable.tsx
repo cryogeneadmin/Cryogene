@@ -46,7 +46,7 @@ export function OrderTable({ orders }: { orders: Order[] }) {
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value as "all" | OrderStatus)}
-          className="border border-[#DDE1E7] px-3 py-2 text-sm bg-white"
+          className="border border-border px-3 py-2 text-sm bg-white"
         >
           {STATUS_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>
@@ -56,8 +56,8 @@ export function OrderTable({ orders }: { orders: Order[] }) {
         </select>
       </div>
 
-      <table className="w-full text-sm bg-white border border-[#DDE1E7]">
-        <thead className="text-left border-b border-[#DDE1E7]">
+      <table className="w-full text-sm bg-white border border-border">
+        <thead className="text-left border-b border-border">
           <tr>
             <th className="p-3 font-medium">Order</th>
             <th className="p-3 font-medium">Date</th>
@@ -69,16 +69,16 @@ export function OrderTable({ orders }: { orders: Order[] }) {
         </thead>
         <tbody>
           {filtered.map((o) => (
-            <tr key={o.id} className="border-b border-[#DDE1E7] last:border-0 hover:bg-[#F7F8FA]">
+            <tr key={o.id} className="border-b border-border last:border-0 hover:bg-offwhite">
               <td className="p-3">
                 <Link
                   href={`/admin/orders/${o.id}`}
-                  className="mono text-xs underline text-[#0D1B3E]"
+                  className="mono text-xs underline text-navy"
                 >
                   {o.orderNumber}
                 </Link>
               </td>
-              <td className="p-3 text-[#6B7280]">
+              <td className="p-3 text-muted">
                 {(coerceToDate(o.createdAt) ?? new Date()).toLocaleDateString("en-GB")}
               </td>
               <td className="p-3">{o.customer.name}</td>
@@ -93,7 +93,7 @@ export function OrderTable({ orders }: { orders: Order[] }) {
       </table>
 
       {filtered.length === 0 && (
-        <p className="text-sm text-[#6B7280] mt-4">No orders match your filter.</p>
+        <p className="text-sm text-muted mt-4">No orders match your filter.</p>
       )}
     </div>
   );

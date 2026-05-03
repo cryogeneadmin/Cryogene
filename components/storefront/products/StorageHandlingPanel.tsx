@@ -42,10 +42,10 @@ export function StorageHandlingPanel({ product }: { product: Product }) {
   return (
     <section
       aria-label="Storage and handling"
-      className="mb-8 border border-[#DDE1E7]"
+      className="mb-8 border border-border"
     >
-      <header className="px-4 py-2 bg-[#F7F8FA] border-b border-[#DDE1E7]">
-        <h2 className="label-editorial text-[10px] text-[#6B7280] m-0">
+      <header className="px-4 py-2 bg-offwhite border-b border-border">
+        <h2 className="label-editorial text-[10px] text-muted m-0">
           Storage &amp; Handling
         </h2>
       </header>
@@ -55,17 +55,17 @@ export function StorageHandlingPanel({ product }: { product: Product }) {
             key={s.label}
             className={[
               "px-4 py-3",
-              i % 2 === 0 ? "border-r border-[#DDE1E7]" : "",
-              i < specs.length - 2 ? "border-b md:border-b-0 border-[#DDE1E7]" : "",
+              i % 2 === 0 ? "border-r border-border" : "",
+              i < specs.length - 2 ? "border-b md:border-b-0 border-border" : "",
               "md:border-r md:last:border-r-0",
             ].join(" ")}
           >
-            <dt className="text-[10px] uppercase tracking-wider text-[#6B7280] mb-1">{s.label}</dt>
-            <dd className="text-sm text-[#0D1B3E] font-medium">{s.value}</dd>
+            <dt className="text-[10px] uppercase tracking-wider text-muted mb-1">{s.label}</dt>
+            <dd className="text-sm text-navy font-medium">{s.value}</dd>
           </div>
         ))}
       </dl>
-      <p className="text-[11px] text-[#6B7280] px-4 py-2 bg-[#F7F8FA] border-t border-[#DDE1E7]">
+      <p className="text-[11px] text-muted px-4 py-2 bg-offwhite border-t border-border">
         Storage guidance describes chemical handling conditions. Not administration guidance. For research use only.
       </p>
     </section>

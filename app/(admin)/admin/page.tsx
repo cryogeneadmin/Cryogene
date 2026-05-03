@@ -40,18 +40,18 @@ async function AdminDashboardContent() {
         <StatCard label="Revenue (last 10 orders)" value={formatPriceFromPence(recentRevenue)} />
       </div>
 
-      <section className="bg-white border border-[#DDE1E7] p-6">
+      <section className="bg-white border border-border p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="font-serif text-2xl text-[#0D1B3E]">Recent orders</h2>
-          <Link href="/admin/orders" className="text-xs underline text-[#6B7280]">
+          <h2 className="font-serif text-2xl text-navy">Recent orders</h2>
+          <Link href="/admin/orders" className="text-xs underline text-muted">
             View all
           </Link>
         </div>
         {recentOrders.length === 0 ? (
-          <p className="text-sm text-[#6B7280]">No orders yet.</p>
+          <p className="text-sm text-muted">No orders yet.</p>
         ) : (
           <table className="w-full text-sm">
-            <thead className="text-left text-[#6B7280] border-b border-[#DDE1E7]">
+            <thead className="text-left text-muted border-b border-border">
               <tr>
                 <th className="py-2">Order</th>
                 <th className="py-2">Customer</th>
@@ -61,7 +61,7 @@ async function AdminDashboardContent() {
             </thead>
             <tbody>
               {recentOrders.map((o) => (
-                <tr key={o.id} className="border-b border-[#DDE1E7] last:border-0">
+                <tr key={o.id} className="border-b border-border last:border-0">
                   <td className="py-3">
                     <Link
                       href={`/admin/orders/${o.id}`}
@@ -89,9 +89,9 @@ async function AdminDashboardContent() {
 
 function StatCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="bg-white border border-[#DDE1E7] p-5">
+    <div className="bg-white border border-border p-5">
       <p className="label-editorial mb-2">{label}</p>
-      <p className="font-serif text-3xl text-[#0D1B3E]">{value}</p>
+      <p className="font-serif text-3xl text-navy">{value}</p>
     </div>
   );
 }

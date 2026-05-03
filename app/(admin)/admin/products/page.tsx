@@ -11,7 +11,7 @@ export default async function AdminProductsPage() {
         <h1 className="text-4xl">Products</h1>
         <Link
           href="/admin/products/new"
-          className="px-5 py-2 bg-[#0D1B3E] text-white uppercase tracking-wider text-xs hover:bg-[#162040]"
+          className="px-5 py-2 bg-navy text-white uppercase tracking-wider text-xs hover:bg-mid-navy"
         >
           Add product
         </Link>

@@ -73,10 +73,10 @@ export function ProductFilters({ sizes, testingMethods, tagFacets = [] }: Filter
                     type="checkbox"
                     checked={currentTags.includes(slug)}
                     onChange={() => toggleTag(slug)}
-                    className="accent-[#0D1B3E]"
+                    className="accent-navy"
                   />
                   <span className="flex-1">{tagLabel(slug)}</span>
-                  <span className="text-xs text-[#9CA3AF]">({count})</span>
+                  <span className="text-xs text-gray-400">({count})</span>
                 </label>
               </li>
             ))}
@@ -93,7 +93,7 @@ export function ProductFilters({ sizes, testingMethods, tagFacets = [] }: Filter
                   type="checkbox"
                   checked={currentSizes.includes(size)}
                   onChange={() => toggleSize(size)}
-                  className="accent-[#0D1B3E]"
+                  className="accent-navy"
                 />
                 <span>{size}</span>
               </label>
@@ -111,7 +111,7 @@ export function ProductFilters({ sizes, testingMethods, tagFacets = [] }: Filter
                   type="checkbox"
                   checked={currentMethods.includes(method)}
                   onChange={() => toggleMethod(method)}
-                  className="accent-[#0D1B3E]"
+                  className="accent-navy"
                 />
                 <span>{method}</span>
               </label>
@@ -125,7 +125,7 @@ export function ProductFilters({ sizes, testingMethods, tagFacets = [] }: Filter
             type="checkbox"
             checked={inStockOnly}
             onChange={(e) => updateParam("instock", e.target.checked ? "1" : null)}
-            className="accent-[#0D1B3E]"
+            className="accent-navy"
           />
           <span>In stock only</span>
         </label>
@@ -134,7 +134,7 @@ export function ProductFilters({ sizes, testingMethods, tagFacets = [] }: Filter
         <button
           type="button"
           onClick={() => router.replace(pathname, { scroll: false })}
-          className="text-xs underline text-[#6B7280] hover:text-[#0D1B3E]"
+          className="text-xs underline text-muted hover:text-navy"
         >
           Clear filters
         </button>

@@ -16,11 +16,11 @@ export function BasketIconButton() {
       type="button"
       onClick={openDrawer}
       aria-label={`Open basket (${count} items)`}
-      className="label-editorial hover:text-[#0D1B3E] transition-colors flex items-center gap-2"
+      className="label-editorial hover:text-navy transition-colors flex items-center gap-2"
     >
       <span>Basket</span>
       {mounted && count > 0 && (
-        <span className="inline-flex items-center justify-center h-5 w-5 rounded-full bg-[#0D1B3E] text-white text-[10px]">
+        <span className="inline-flex items-center justify-center h-5 w-5 rounded-full bg-navy text-white text-[10px]">
           {count}
         </span>
       )}

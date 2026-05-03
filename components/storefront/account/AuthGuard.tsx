@@ -25,15 +25,15 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
   }, [router]);
 
   if (!checked) {
-    return <div className="max-w-[1280px] mx-auto px-6 py-16 text-center text-[#6B7280]">Loading...</div>;
+    return <div className="max-w-[1280px] mx-auto px-6 py-16 text-center text-muted">Loading...</div>;
   }
 
   if (!isFirebaseClientReady()) {
     return (
       <div className="max-w-[1280px] mx-auto px-6 py-16 text-center">
-        <div className="max-w-md mx-auto bg-[#FFF3CD] border border-[#E6C97A] p-6">
-          <p className="label-editorial text-[#6A4D00] mb-2">Stage 1a notice</p>
-          <p className="text-sm text-[#6A4D00]">
+        <div className="max-w-md mx-auto bg-compliance-amber-bg border border-compliance-amber-border p-6">
+          <p className="label-editorial text-compliance-amber-text mb-2">Stage 1a notice</p>
+          <p className="text-sm text-compliance-amber-text">
             The customer account area requires Firebase Auth, which is wired
             once Sam&apos;s Firebase project is created in Stage 1b. Until then,
             guest checkout remains fully supported.
@@ -44,7 +44,7 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
   }
 
   // Keep loading state visible while navigation to /sign-in completes (avoids blank flash)
-  if (!authed) return <div className="max-w-[1280px] mx-auto px-6 py-16 text-center text-[#6B7280]">Loading...</div>;
+  if (!authed) return <div className="max-w-[1280px] mx-auto px-6 py-16 text-center text-muted">Loading...</div>;
 
   return <>{children}</>;
 }

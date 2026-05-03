@@ -32,7 +32,7 @@ export function SettingsForm({ initial }: { initial: Config }) {
     <form onSubmit={handleSubmit} className="space-y-10 max-w-3xl">
       {/* Store identity */}
       <section>
-        <h2 className="font-serif text-2xl text-[#0D1B3E] mb-6">
+        <h2 className="font-serif text-2xl text-navy mb-6">
           Store identity
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -43,7 +43,7 @@ export function SettingsForm({ initial }: { initial: Config }) {
               value={config.storeName}
               onChange={(e) => update({ storeName: e.target.value })}
               required
-              className="w-full border border-[#DDE1E7] p-2"
+              className="w-full border border-border p-2"
             />
           </div>
           <div>
@@ -53,7 +53,7 @@ export function SettingsForm({ initial }: { initial: Config }) {
               value={config.storeEmail}
               onChange={(e) => update({ storeEmail: e.target.value })}
               required
-              className="w-full border border-[#DDE1E7] p-2"
+              className="w-full border border-border p-2"
             />
           </div>
           <div>
@@ -66,7 +66,7 @@ export function SettingsForm({ initial }: { initial: Config }) {
               onChange={(e) =>
                 update({ storePhone: e.target.value || null })
               }
-              className="w-full border border-[#DDE1E7] p-2"
+              className="w-full border border-border p-2"
             />
           </div>
           <div>
@@ -79,7 +79,7 @@ export function SettingsForm({ initial }: { initial: Config }) {
               onChange={(e) =>
                 update({ companyNumber: e.target.value || null })
               }
-              className="w-full border border-[#DDE1E7] p-2"
+              className="w-full border border-border p-2"
             />
           </div>
           <div className="md:col-span-2">
@@ -90,7 +90,7 @@ export function SettingsForm({ initial }: { initial: Config }) {
               value={config.registeredAddress}
               onChange={(e) => update({ registeredAddress: e.target.value })}
               rows={3}
-              className="w-full border border-[#DDE1E7] p-2"
+              className="w-full border border-border p-2"
             />
           </div>
         </div>
@@ -98,7 +98,7 @@ export function SettingsForm({ initial }: { initial: Config }) {
 
       {/* VAT */}
       <section>
-        <h2 className="font-serif text-2xl text-[#0D1B3E] mb-6">VAT</h2>
+        <h2 className="font-serif text-2xl text-navy mb-6">VAT</h2>
         <div className="space-y-4">
           <label className="flex items-center gap-2 text-sm cursor-pointer">
             <input
@@ -120,7 +120,7 @@ export function SettingsForm({ initial }: { initial: Config }) {
                   onChange={(e) =>
                     update({ vatNumber: e.target.value || null })
                   }
-                  className="w-full border border-[#DDE1E7] p-2"
+                  className="w-full border border-border p-2"
                 />
               </div>
               <div>
@@ -139,9 +139,9 @@ export function SettingsForm({ initial }: { initial: Config }) {
                       },
                     })
                   }
-                  className="w-full border border-[#DDE1E7] p-2"
+                  className="w-full border border-border p-2"
                 />
-                <p className="text-xs text-[#6B7280] mt-1">
+                <p className="text-xs text-muted mt-1">
                   Enter as decimal, e.g. 0.20 for 20%
                 </p>
               </div>
@@ -167,7 +167,7 @@ export function SettingsForm({ initial }: { initial: Config }) {
 
       {/* Shipping */}
       <section>
-        <h2 className="font-serif text-2xl text-[#0D1B3E] mb-6">Shipping</h2>
+        <h2 className="font-serif text-2xl text-navy mb-6">Shipping</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="label-editorial block mb-2">Flat rate (£)</label>
@@ -187,7 +187,7 @@ export function SettingsForm({ initial }: { initial: Config }) {
                   },
                 });
               }}
-              className="w-full border border-[#DDE1E7] p-2"
+              className="w-full border border-border p-2"
             />
           </div>
           <div>
@@ -214,7 +214,7 @@ export function SettingsForm({ initial }: { initial: Config }) {
                   },
                 });
               }}
-              className="w-full border border-[#DDE1E7] p-2"
+              className="w-full border border-border p-2"
             />
           </div>
           <div className="md:col-span-2">
@@ -232,7 +232,7 @@ export function SettingsForm({ initial }: { initial: Config }) {
                   },
                 })
               }
-              className="w-full border border-[#DDE1E7] p-2"
+              className="w-full border border-border p-2"
             />
           </div>
         </div>
@@ -240,7 +240,7 @@ export function SettingsForm({ initial }: { initial: Config }) {
 
       {/* Notifications */}
       <section>
-        <h2 className="font-serif text-2xl text-[#0D1B3E] mb-6">
+        <h2 className="font-serif text-2xl text-navy mb-6">
           Notifications
         </h2>
         <div>
@@ -254,18 +254,18 @@ export function SettingsForm({ initial }: { initial: Config }) {
               update({ notifications: { newOrderEmailTo: e.target.value } })
             }
             required
-            className="w-full border border-[#DDE1E7] p-2"
+            className="w-full border border-border p-2"
           />
         </div>
       </section>
 
       {error && <p className="text-sm text-red-700">{error}</p>}
 
-      <div className="flex items-center gap-4 sticky bottom-0 bg-[#F7F8FA] py-4 border-t border-[#DDE1E7]">
+      <div className="flex items-center gap-4 sticky bottom-0 bg-offwhite py-4 border-t border-border">
         <button
           type="submit"
           disabled={isPending}
-          className="px-6 py-3 bg-[#0D1B3E] text-white uppercase tracking-wider text-xs hover:bg-[#162040] disabled:bg-[#6B7280]"
+          className="px-6 py-3 bg-navy text-white uppercase tracking-wider text-xs hover:bg-mid-navy disabled:bg-muted"
         >
           {isPending ? "Saving..." : "Save settings"}
         </button>

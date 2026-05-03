@@ -54,13 +54,13 @@ export async function LegalPage({ slug }: { slug: string }) {
       )}
       <p className="label-editorial mb-4">Legal</p>
       <h1 className="text-5xl mb-2 leading-tight">{frontmatter.title}</h1>
-      <p className="text-sm text-[#6B7280] mb-12">
+      <p className="text-sm text-muted mb-12">
         Last updated:{" "}
         {frontmatter.updated instanceof Date
           ? frontmatter.updated.toISOString().slice(0, 10)
           : frontmatter.updated}
       </p>
-      <div className="prose prose-lg max-w-none text-[#333333] leading-[1.75]">
+      <div className="prose prose-lg max-w-none text-body-grey leading-[1.75]">
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
       </div>
     </article>

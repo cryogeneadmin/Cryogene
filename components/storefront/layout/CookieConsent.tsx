@@ -21,16 +21,16 @@ export async function CookieConsent() {
       <div
         role="region"
         aria-label="Cookie consent"
-        className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-[#DDE1E7]"
+        className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-border"
       >
         <div className="max-w-[1280px] mx-auto px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <p className="text-sm leading-relaxed text-[#333333] max-w-2xl">
+          <p className="text-sm leading-relaxed text-body-grey max-w-2xl">
             We use cookies for essential site functionality and, with your
             consent, anonymous analytics to understand how visitors use the
             site. You can accept, decline, or{" "}
             <Link
               href="/legal/cookies"
-              className="underline hover:text-[#0D1B3E]"
+              className="underline hover:text-navy"
             >
               read our cookie policy
             </Link>
@@ -45,7 +45,7 @@ export async function CookieConsent() {
             <form action={acceptCookies}>
               <button
                 type="submit"
-                className="px-5 py-2 border border-[#0D1B3E] text-[#0D1B3E] uppercase tracking-wider text-xs hover:bg-[#0D1B3E] hover:text-white transition-colors"
+                className="px-5 py-2 border border-navy text-navy uppercase tracking-wider text-xs hover:bg-navy hover:text-white transition-colors"
               >
                 Accept
               </button>
@@ -53,7 +53,7 @@ export async function CookieConsent() {
             <form action={declineCookies}>
               <button
                 type="submit"
-                className="px-5 py-2 border border-[#0D1B3E] text-[#0D1B3E] uppercase tracking-wider text-xs hover:bg-[#0D1B3E] hover:text-white transition-colors"
+                className="px-5 py-2 border border-navy text-navy uppercase tracking-wider text-xs hover:bg-navy hover:text-white transition-colors"
               >
                 Decline
               </button>

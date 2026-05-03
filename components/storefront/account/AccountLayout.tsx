@@ -28,7 +28,7 @@ export function AccountLayout({ children }: { children: React.ReactNode }) {
           <Link
             key={link.href}
             href={link.href}
-            className={`block py-2 text-sm ${pathname === link.href ? "text-[#0D1B3E] font-medium" : "text-[#6B7280] hover:text-[#0D1B3E]"}`}
+            className={`block py-2 text-sm ${pathname === link.href ? "text-navy font-medium" : "text-muted hover:text-navy"}`}
           >
             {link.label}
           </Link>
@@ -36,7 +36,7 @@ export function AccountLayout({ children }: { children: React.ReactNode }) {
         <button
           type="button"
           onClick={handleSignOut}
-          className="block py-2 text-sm text-[#6B7280] hover:text-[#0D1B3E] mt-4"
+          className="block py-2 text-sm text-muted hover:text-navy mt-4"
         >
           Sign out
         </button>

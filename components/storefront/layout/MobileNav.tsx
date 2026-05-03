@@ -23,7 +23,7 @@ export function MobileNav({
         aria-label="Open menu"
         aria-expanded={open}
         onClick={() => setOpen(true)}
-        className="md:hidden flex items-center justify-center w-10 h-10 -ml-2 text-[#0D1B3E] hover:bg-[#F7F8FA] transition-colors"
+        className="md:hidden flex items-center justify-center w-10 h-10 -ml-2 text-navy hover:bg-offwhite transition-colors"
       >
         <svg
           viewBox="0 0 24 24"
@@ -42,7 +42,7 @@ export function MobileNav({
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent side="left" className="w-[85%] sm:max-w-sm flex flex-col">
           <SheetHeader>
-            <SheetTitle className="font-serif text-2xl text-[#0D1B3E]">
+            <SheetTitle className="font-serif text-2xl text-navy">
               Menu
             </SheetTitle>
           </SheetHeader>
@@ -52,7 +52,7 @@ export function MobileNav({
                 <Link
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="block py-3 px-2 text-base text-[#0D1B3E] border-b border-[#DDE1E7] hover:bg-[#F7F8FA]"
+                  className="block py-3 px-2 text-base text-navy border-b border-border hover:bg-offwhite"
                 >
                   {link.label}
                 </Link>
@@ -62,13 +62,13 @@ export function MobileNav({
               <Link
                 href="/sign-in"
                 onClick={() => setOpen(false)}
-                className="block py-3 px-2 text-base text-[#0D1B3E] border-b border-[#DDE1E7] hover:bg-[#F7F8FA]"
+                className="block py-3 px-2 text-base text-navy border-b border-border hover:bg-offwhite"
               >
                 Sign in
               </Link>
             </li>
           </ul>
-          <p className="text-[11px] uppercase tracking-wider text-[#6B7280] py-4 border-t border-[#DDE1E7]">
+          <p className="text-[11px] uppercase tracking-wider text-muted py-4 border-t border-border">
             Research use only — not for human or veterinary use.
           </p>
         </SheetContent>

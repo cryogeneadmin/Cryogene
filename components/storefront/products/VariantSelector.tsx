@@ -87,12 +87,12 @@ export function VariantSelector({ product }: { product: Product }) {
                 onClick={() => !unavailable && setSelectedSku(variant.sku)}
                 onKeyDown={(e) => !unavailable && handleKeyDown(e, idx)}
                 disabled={unavailable}
-                className={`px-5 py-2 border text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0D1B3E] focus-visible:ring-offset-1 ${
+                className={`px-5 py-2 border text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-1 ${
                   isSelected
-                    ? "bg-[#0D1B3E] text-white border-[#0D1B3E]"
+                    ? "bg-navy text-white border-navy"
                     : unavailable
-                    ? "border-[#DDE1E7] text-[#6B7280] line-through cursor-not-allowed"
-                    : "border-[#DDE1E7] hover:border-[#0D1B3E]"
+                    ? "border-border text-muted line-through cursor-not-allowed"
+                    : "border-border hover:border-navy"
                 }`}
               >
                 {variant.size}
@@ -102,7 +102,7 @@ export function VariantSelector({ product }: { product: Product }) {
         </div>
       </div>
       <div>
-        <p className="text-3xl font-medium text-[#0D1B3E]">
+        <p className="text-3xl font-medium text-navy">
           {pricingTbc ? "Pricing TBC" : formatPriceFromPence(selected.priceInPence)}
         </p>
         {selected.stock > 0 && selected.stock <= 5 && (
@@ -118,7 +118,7 @@ export function VariantSelector({ product }: { product: Product }) {
         type="button"
         onClick={handleAdd}
         disabled={outOfStock || pricingTbc}
-        className="w-full py-4 bg-[#0D1B3E] text-white uppercase tracking-wider text-sm hover:bg-[#162040] disabled:bg-[#6B7280] disabled:cursor-not-allowed"
+        className="w-full py-4 bg-navy text-white uppercase tracking-wider text-sm hover:bg-mid-navy disabled:bg-muted disabled:cursor-not-allowed"
       >
         {pricingTbc ? "Pricing to be confirmed" : outOfStock ? "Out of stock" : "Add to basket"}
       </button>
@@ -127,7 +127,7 @@ export function VariantSelector({ product }: { product: Product }) {
           href={selected.coaUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="block w-full py-3 border border-[#DDE1E7] text-center uppercase tracking-wider text-xs hover:bg-[#F7F8FA]"
+          className="block w-full py-3 border border-border text-center uppercase tracking-wider text-xs hover:bg-offwhite"
         >
           Download Certificate of Analysis
         </a>

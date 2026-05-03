@@ -11,21 +11,21 @@ export function EnquiriesList({ enquiries }: { enquiries: Enquiry[] }) {
   const [actionError, setActionError] = useState<string | null>(null);
 
   if (enquiries.length === 0) {
-    return <p className="text-sm text-[#6B7280]">No enquiries yet.</p>;
+    return <p className="text-sm text-muted">No enquiries yet.</p>;
   }
 
   return (
     <ul className="space-y-3">
       {enquiries.map((e) => (
-        <li key={e.id} className="bg-white border border-[#DDE1E7]">
+        <li key={e.id} className="bg-white border border-border">
           <button
             type="button"
             onClick={() => setExpanded(expanded === e.id ? null : e.id)}
-            className="w-full p-4 text-left flex justify-between items-start hover:bg-[#F7F8FA]"
+            className="w-full p-4 text-left flex justify-between items-start hover:bg-offwhite"
           >
             <div>
               <p className="font-medium">{e.subject}</p>
-              <p className="text-xs text-[#6B7280] mt-1">
+              <p className="text-xs text-muted mt-1">
                 From {e.name} ({e.email}) —{" "}
                 {(coerceToDate(e.createdAt) ?? new Date()).toLocaleDateString("en-GB")}
               </p>
@@ -33,12 +33,12 @@ export function EnquiriesList({ enquiries }: { enquiries: Enquiry[] }) {
             <StatusBadge status={e.status} />
           </button>
           {expanded === e.id && (
-            <div className="p-4 border-t border-[#DDE1E7] space-y-4">
+            <div className="p-4 border-t border-border space-y-4">
               <p className="text-sm whitespace-pre-wrap leading-relaxed">{e.message}</p>
               <div className="flex gap-2 flex-wrap">
                 <a
                   href={`mailto:${e.email}?subject=Re: ${encodeURIComponent(e.subject)}`}
-                  className="px-4 py-2 text-xs uppercase tracking-wider bg-[#0D1B3E] text-white"
+                  className="px-4 py-2 text-xs uppercase tracking-wider bg-navy text-white"
                 >
                   Reply by email
                 </a>
@@ -56,7 +56,7 @@ export function EnquiriesList({ enquiries }: { enquiries: Enquiry[] }) {
                         }
                       });
                     }}
-                    className="px-4 py-2 text-xs uppercase tracking-wider border border-[#DDE1E7] hover:bg-[#F7F8FA] disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-4 py-2 text-xs uppercase tracking-wider border border-border hover:bg-offwhite disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Mark as replied
                   </button>
@@ -75,7 +75,7 @@ export function EnquiriesList({ enquiries }: { enquiries: Enquiry[] }) {
                         }
                       });
                     }}
-                    className="px-4 py-2 text-xs uppercase tracking-wider border border-[#DDE1E7] hover:bg-[#F7F8FA] disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-4 py-2 text-xs uppercase tracking-wider border border-border hover:bg-offwhite disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Archive
                   </button>

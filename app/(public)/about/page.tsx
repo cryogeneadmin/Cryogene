@@ -11,7 +11,7 @@ export default function AboutPage() {
       <p className="label-editorial mb-4">About</p>
       <h1 className="text-5xl mb-6 leading-tight">Research supply, done carefully.</h1>
 
-      <div className="relative aspect-[16/9] bg-[#F7F8FA] border border-[#DDE1E7] overflow-hidden mb-12">
+      <div className="relative aspect-[16/9] bg-offwhite border border-border overflow-hidden mb-12">
         <Image
           src="/site/about-lab.png"
           alt="Laboratory bench with HPLC instrument and glass vials"
@@ -21,7 +21,7 @@ export default function AboutPage() {
         />
       </div>
 
-      <div className="prose prose-lg max-w-none text-[#333333] leading-relaxed space-y-6">
+      <div className="prose prose-lg max-w-none text-body-grey leading-relaxed space-y-6">
         <p className="text-xl">
           We supply research-grade peptides and laboratory mixers to researchers
           across the United Kingdom. Every product we sell is supplied

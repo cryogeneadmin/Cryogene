@@ -8,8 +8,8 @@ export function BasketItem({ item }: { item: BasketItemType }) {
   const { updateQuantity, removeItem } = useBasket();
 
   return (
-    <div className="flex gap-4 py-4 border-b border-[#DDE1E7]">
-      <div className="relative h-20 w-20 bg-[#F7F8FA] flex-shrink-0">
+    <div className="flex gap-4 py-4 border-b border-border">
+      <div className="relative h-20 w-20 bg-offwhite flex-shrink-0">
         {item.primaryImage && (
           <Image
             src={item.primaryImage}
@@ -22,15 +22,15 @@ export function BasketItem({ item }: { item: BasketItemType }) {
         )}
       </div>
       <div className="flex-1 min-w-0">
-        <p className="font-serif text-lg text-[#0D1B3E] truncate">{item.name}</p>
-        <p className="font-mono text-xs text-[#6B7280]">{item.sku} · {item.size}</p>
+        <p className="font-serif text-lg text-navy truncate">{item.name}</p>
+        <p className="font-mono text-xs text-muted">{item.sku} · {item.size}</p>
         <div className="flex items-center justify-between mt-2">
           <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={() => updateQuantity(item.sku, item.quantity - 1)}
               aria-label="Decrease quantity"
-              className="w-7 h-7 border border-[#DDE1E7] hover:bg-[#F7F8FA] text-sm"
+              className="w-7 h-7 border border-border hover:bg-offwhite text-sm"
             >
               −
             </button>
@@ -39,7 +39,7 @@ export function BasketItem({ item }: { item: BasketItemType }) {
               type="button"
               onClick={() => updateQuantity(item.sku, item.quantity + 1)}
               aria-label="Increase quantity"
-              className="w-7 h-7 border border-[#DDE1E7] hover:bg-[#F7F8FA] text-sm"
+              className="w-7 h-7 border border-border hover:bg-offwhite text-sm"
             >
               +
             </button>
@@ -51,7 +51,7 @@ export function BasketItem({ item }: { item: BasketItemType }) {
             <button
               type="button"
               onClick={() => removeItem(item.sku)}
-              className="text-xs text-[#6B7280] hover:text-[#0D1B3E] underline"
+              className="text-xs text-muted hover:text-navy underline"
             >
               Remove
             </button>

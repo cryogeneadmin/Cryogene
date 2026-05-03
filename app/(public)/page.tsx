@@ -46,26 +46,26 @@ export default async function HomePage() {
             <br />
             documented to the batch.
           </h1>
-          <p className="text-lg text-[#333333] leading-relaxed mb-8 max-w-xl">
+          <p className="text-lg text-body-grey leading-relaxed mb-8 max-w-xl">
             HPLC-tested compounds with Certificate of Analysis available on
             request for every SKU. Supplied strictly for laboratory research use.
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <Link
               href="/peptides"
-              className="px-8 py-3 bg-[#0D1B3E] text-white uppercase tracking-wider text-sm hover:bg-[#162040] text-center"
+              className="px-8 py-3 bg-navy text-white uppercase tracking-wider text-sm hover:bg-mid-navy text-center"
             >
               Shop peptides
             </Link>
             <Link
               href="/about"
-              className="px-8 py-3 border border-[#DDE1E7] text-[#0D1B3E] uppercase tracking-wider text-sm hover:bg-[#F7F8FA] text-center"
+              className="px-8 py-3 border border-border text-navy uppercase tracking-wider text-sm hover:bg-offwhite text-center"
             >
               Our testing process
             </Link>
           </div>
         </div>
-        <div className="relative aspect-square bg-[#F7F8FA] border border-[#DDE1E7]">
+        <div className="relative aspect-square bg-offwhite border border-border">
           <Image
             src="/site/homepage-hero.png"
             alt="Clear glass research vial on a neutral background"
@@ -79,14 +79,14 @@ export default async function HomePage() {
 
       {/* Research application tag cloud */}
       {tagCloud.length > 0 && (
-        <section className="max-w-[1280px] mx-auto px-6 py-16 border-t border-[#DDE1E7]">
+        <section className="max-w-[1280px] mx-auto px-6 py-16 border-t border-border">
           <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:items-start">
             <div>
               <p className="label-editorial mb-3">Browse by Application</p>
-              <h2 className="text-3xl text-[#0D1B3E] leading-tight">
+              <h2 className="text-3xl text-navy leading-tight">
                 Find compounds by the research area you work in.
               </h2>
-              <p className="text-sm text-[#6B7280] mt-4 max-w-sm">
+              <p className="text-sm text-muted mt-4 max-w-sm">
                 Every peptide in the catalogue is tagged by its primary research application.
                 Click a tag to see the compounds studied in that area.
               </p>
@@ -96,13 +96,13 @@ export default async function HomePage() {
                 <Link
                   key={t.slug}
                   href={`/peptides?tags=${t.slug}`}
-                  className="group inline-flex items-center gap-2 bg-white border border-[#DDE1E7] px-4 py-2 hover:border-[#0D1B3E] transition-colors"
+                  className="group inline-flex items-center gap-2 bg-white border border-border px-4 py-2 hover:border-navy transition-colors"
                   title={t.description}
                 >
-                  <span className="text-sm text-[#0D1B3E] group-hover:text-[#162040]">
+                  <span className="text-sm text-navy group-hover:text-mid-navy">
                     {t.label}
                   </span>
-                  <span className="text-xs text-[#9CA3AF] mono">{t.count}</span>
+                  <span className="text-xs text-gray-400 mono">{t.count}</span>
                 </Link>
               ))}
             </div>
@@ -121,19 +121,19 @@ export default async function HomePage() {
             <Link
               key={cat.slug}
               href={`/${cat.slug}`}
-              className="block bg-white border border-[#DDE1E7] p-8 hover:border-[#0D1B3E] transition-colors"
+              className="block bg-white border border-border p-8 hover:border-navy transition-colors"
             >
               <p className="label-editorial mb-3">Category</p>
-              <h2 className="font-serif text-2xl text-[#0D1B3E] mb-3">{cat.label}</h2>
-              <p className="text-sm text-[#6B7280] mb-4">{cat.description}</p>
-              <p className="label-editorial text-[#0D1B3E]">View all →</p>
+              <h2 className="font-serif text-2xl text-navy mb-3">{cat.label}</h2>
+              <p className="text-sm text-muted mb-4">{cat.description}</p>
+              <p className="label-editorial text-navy">View all →</p>
             </Link>
           ))}
         </div>
       </section>
 
       {/* Trust row */}
-      <section className="bg-white border-y border-[#DDE1E7] py-12">
+      <section className="bg-white border-y border-border py-12">
         <div className="max-w-[1280px] mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
           {[
             { label: "HPLC Tested", value: "Every batch" },
@@ -143,7 +143,7 @@ export default async function HomePage() {
           ].map((item) => (
             <div key={item.label} className="text-center">
               <p className="label-editorial mb-2">{item.label}</p>
-              <p className="text-sm text-[#6B7280]">{item.value}</p>
+              <p className="text-sm text-muted">{item.value}</p>
             </div>
           ))}
         </div>
@@ -153,7 +153,7 @@ export default async function HomePage() {
       <section className="max-w-[1280px] mx-auto px-6 py-16">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-3xl">Recently added</h2>
-          <Link href="/peptides" className="label-editorial hover:text-[#0D1B3E]">
+          <Link href="/peptides" className="label-editorial hover:text-navy">
             View all peptides →
           </Link>
         </div>
@@ -167,14 +167,14 @@ export default async function HomePage() {
       {/* Research framing */}
       <section className="max-w-[1280px] mx-auto px-6 py-16 text-center">
         <h2 className="text-3xl mb-6">Supplied for research. Documented for rigour.</h2>
-        <p className="max-w-3xl mx-auto text-[#333333] leading-relaxed mb-6">
+        <p className="max-w-3xl mx-auto text-body-grey leading-relaxed mb-6">
           Every product sold on this site is intended exclusively for use in
           controlled laboratory research settings. A Certificate of Analysis
           is available on request for every batch so that the researchers who
           rely on our compounds have the documentation they need.
           None of our products is sold for human or veterinary consumption.
         </p>
-        <Link href="/legal/research-use" className="label-editorial hover:text-[#0D1B3E]">
+        <Link href="/legal/research-use" className="label-editorial hover:text-navy">
           Read our research-use policy →
         </Link>
       </section>

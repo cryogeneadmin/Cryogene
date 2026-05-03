@@ -48,16 +48,16 @@ export async function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#0D1B3E] text-[#8BAAD4] mt-24">
+    <footer className="bg-navy text-navy-icon mt-24">
       {/* Trust manifold — credibility row */}
-      <div className="border-b border-[#162040]">
+      <div className="border-b border-mid-navy">
         <div className="max-w-[1280px] mx-auto px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-6">
           {CREDIBILITY_ITEMS.map((item) => (
             <div key={item.label} className="flex items-start gap-3 text-white">
-              <div className="text-[#8BAAD4] shrink-0">{item.icon}</div>
+              <div className="text-navy-icon shrink-0">{item.icon}</div>
               <div>
                 <p className="text-sm font-medium tracking-wide">{item.label}</p>
-                <p className="text-[11px] text-[#8BAAD4] mt-0.5">{item.sub}</p>
+                <p className="text-[11px] text-navy-icon mt-0.5">{item.sub}</p>
               </div>
             </div>
           ))}
@@ -74,23 +74,23 @@ export async function Footer() {
             height={60}
             className="h-10 w-auto invert opacity-90 mb-4"
           />
-          <p className="text-[13px] leading-relaxed text-[#AABBCC] max-w-sm">
+          <p className="text-[13px] leading-relaxed text-navy-text-dim max-w-sm">
             UK-based research-peptide supply. HPLC-documented, batch-traceable,
             research-use only.
           </p>
           {config.companyNumber && (
-            <p className="text-[11px] mono text-[#5B7BA3] mt-4 tracking-[0.25em]">
+            <p className="text-[11px] mono text-navy-label mt-4 tracking-[0.25em]">
               Company No. {config.companyNumber}
             </p>
           )}
           {config.vatNumber && (
-            <p className="text-[11px] mono text-[#5B7BA3] mt-1 tracking-[0.25em]">
+            <p className="text-[11px] mono text-navy-label mt-1 tracking-[0.25em]">
               VAT No. {config.vatNumber}
             </p>
           )}
         </div>
         <div>
-          <p className="label-editorial text-[#AABBCC] mb-4">Shop</p>
+          <p className="label-editorial text-navy-text-dim mb-4">Shop</p>
           <ul className="space-y-2 text-sm list-none p-0">
             <li><Link href="/peptides" className="hover:text-white">Research Peptides</Link></li>
             <li><Link href="/supplies" className="hover:text-white">Research Supplies</Link></li>
@@ -98,7 +98,7 @@ export async function Footer() {
           </ul>
         </div>
         <div>
-          <p className="label-editorial text-[#AABBCC] mb-4">Legal</p>
+          <p className="label-editorial text-navy-text-dim mb-4">Legal</p>
           <ul className="space-y-2 text-sm list-none p-0">
             <li><Link href="/legal/terms" className="hover:text-white">Terms</Link></li>
             <li><Link href="/legal/privacy" className="hover:text-white">Privacy</Link></li>
@@ -109,7 +109,7 @@ export async function Footer() {
           </ul>
         </div>
         <div>
-          <p className="label-editorial text-[#AABBCC] mb-4">Company</p>
+          <p className="label-editorial text-navy-text-dim mb-4">Company</p>
           <ul className="space-y-2 text-sm list-none p-0">
             <li><Link href="/about" className="hover:text-white">About</Link></li>
             <li><Link href="/contact" className="hover:text-white">Contact</Link></li>
@@ -126,8 +126,8 @@ export async function Footer() {
       </div>
 
       {/* Research-use only legal strip */}
-      <div className="border-t border-[#162040]">
-        <div className="max-w-[1280px] mx-auto px-6 py-6 text-xs text-[#8BAAD4] flex flex-col md:flex-row md:justify-between gap-2">
+      <div className="border-t border-mid-navy">
+        <div className="max-w-[1280px] mx-auto px-6 py-6 text-xs text-navy-icon flex flex-col md:flex-row md:justify-between gap-2">
           <p>&copy; {year} {config.storeName}. {config.registeredAddress}.</p>
           <p className="uppercase tracking-wider">
             All products for research use only — not for human or veterinary consumption.

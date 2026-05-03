@@ -52,15 +52,15 @@ export function ResearchConfirmCheckbox() {
 
   return (
     <div className="space-y-4 mt-8">
-      <label className="flex items-start gap-3 cursor-pointer bg-[#FFF3CD] border border-[#E6C97A] p-4">
+      <label className="flex items-start gap-3 cursor-pointer bg-compliance-amber-bg border border-compliance-amber-border p-4">
         <input
           type="checkbox"
           checked={confirmed}
           onChange={(e) => setConfirmed(e.target.checked)}
-          className="mt-1 accent-[#6A4D00]"
+          className="mt-1 accent-compliance-amber-text"
           required
         />
-        <span className="text-sm text-[#6A4D00] leading-relaxed">
+        <span className="text-sm text-compliance-amber-text leading-relaxed">
           I confirm that I am purchasing these products for laboratory research
           purposes only, that I am 18 years or older, and that I understand
           these products are not for human or veterinary consumption.
@@ -71,15 +71,15 @@ export function ResearchConfirmCheckbox() {
           type="checkbox"
           checked={termsAccepted}
           onChange={(e) => setTermsAccepted(e.target.checked)}
-          className="mt-1 accent-[#0D1B3E]"
+          className="mt-1 accent-navy"
         />
         <span className="text-sm">
           I have read and accept the{" "}
-          <a href="/legal/terms" target="_blank" rel="noopener" className="underline text-[#0D1B3E]">
+          <a href="/legal/terms" target="_blank" rel="noopener" className="underline text-navy">
             Terms &amp; Conditions
           </a>
           {" "}and{" "}
-          <a href="/legal/privacy" target="_blank" rel="noopener" className="underline text-[#0D1B3E]">
+          <a href="/legal/privacy" target="_blank" rel="noopener" className="underline text-navy">
             Privacy Policy
           </a>.
         </span>
@@ -91,7 +91,7 @@ export function ResearchConfirmCheckbox() {
         type="button"
         onClick={handlePay}
         disabled={!confirmed || !termsAccepted || pending || items.length === 0}
-        className="w-full py-4 bg-[#0D1B3E] text-white uppercase tracking-wider text-sm hover:bg-[#162040] disabled:bg-[#6B7280] disabled:cursor-not-allowed"
+        className="w-full py-4 bg-navy text-white uppercase tracking-wider text-sm hover:bg-mid-navy disabled:bg-muted disabled:cursor-not-allowed"
       >
         {pending ? "Processing..." : "Pay now"}
       </button>

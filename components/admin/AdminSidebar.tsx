@@ -17,7 +17,7 @@ export function AdminSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-60 bg-[#0D1B3E] text-white min-h-screen p-6">
+    <aside className="w-60 bg-navy text-white min-h-screen p-6">
       <p className="font-serif text-2xl mb-10">Admin</p>
       <nav className="space-y-1">
         {links.map((link) => {
@@ -32,8 +32,8 @@ export function AdminSidebar() {
               aria-current={isActive ? "page" : undefined}
               className={`block py-2 px-3 text-sm rounded ${
                 isActive
-                  ? "bg-[#162040] text-white"
-                  : "text-[#8BAAD4] hover:bg-[#162040] hover:text-white"
+                  ? "bg-mid-navy text-white"
+                  : "text-navy-icon hover:bg-mid-navy hover:text-white"
               }`}
             >
               {link.label}
@@ -41,8 +41,8 @@ export function AdminSidebar() {
           );
         })}
       </nav>
-      <div className="mt-10 pt-6 border-t border-[#162040]">
-        <Link href="/" className="text-xs text-[#8BAAD4] hover:text-white">
+      <div className="mt-10 pt-6 border-t border-mid-navy">
+        <Link href="/" className="text-xs text-navy-icon hover:text-white">
           ← Back to storefront
         </Link>
       </div>

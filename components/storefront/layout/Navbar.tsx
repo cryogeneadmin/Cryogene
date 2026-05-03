@@ -39,14 +39,14 @@ export async function Navbar() {
             <ul className="hidden md:flex items-center gap-8 list-none p-0">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="label-editorial hover:text-[#0D1B3E] transition-colors">
+                  <Link href={link.href} className="label-editorial hover:text-navy transition-colors">
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
             <div className="flex items-center gap-6">
-              <Link href="/sign-in" className="label-editorial hover:text-[#0D1B3E] hidden md:inline-block">
+              <Link href="/sign-in" className="label-editorial hover:text-navy hidden md:inline-block">
                 Sign in
               </Link>
               <BasketIconButton />

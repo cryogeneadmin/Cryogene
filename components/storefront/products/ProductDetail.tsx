@@ -66,17 +66,17 @@ export async function ProductDetail({ product }: { product: Product }) {
         dangerouslySetInnerHTML={{ __html: renderJsonLd(breadcrumbJsonLd) }}
       />
       <nav aria-label="Breadcrumb" className="label-editorial mb-6">
-        <Link href="/" className="hover:text-[#0D1B3E]">Home</Link>
-        <svg aria-hidden="true" viewBox="0 0 8 12" className="inline-block w-2 h-3 mx-2 text-[#C0C8D8]"><path d="M1 1l5 5-5 5" stroke="currentColor" strokeWidth="1.5" fill="none"/></svg>
-        <Link href={`/${product.category}`} className="hover:text-[#0D1B3E]">
+        <Link href="/" className="hover:text-navy">Home</Link>
+        <svg aria-hidden="true" viewBox="0 0 8 12" className="inline-block w-2 h-3 mx-2 text-silver"><path d="M1 1l5 5-5 5" stroke="currentColor" strokeWidth="1.5" fill="none"/></svg>
+        <Link href={`/${product.category}`} className="hover:text-navy">
           {categoryLabel}
         </Link>
-        <svg aria-hidden="true" viewBox="0 0 8 12" className="inline-block w-2 h-3 mx-2 text-[#C0C8D8]"><path d="M1 1l5 5-5 5" stroke="currentColor" strokeWidth="1.5" fill="none"/></svg>
-        <span className="text-[#0D1B3E]" aria-current="page">{product.name}</span>
+        <svg aria-hidden="true" viewBox="0 0 8 12" className="inline-block w-2 h-3 mx-2 text-silver"><path d="M1 1l5 5-5 5" stroke="currentColor" strokeWidth="1.5" fill="none"/></svg>
+        <span className="text-navy" aria-current="page">{product.name}</span>
       </nav>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         <div className="md:sticky md:top-28 self-start">
-          <div className="border border-[#DDE1E7] bg-[#F7F8FA] p-12 flex items-center justify-center aspect-square">
+          <div className="border border-border bg-offwhite p-12 flex items-center justify-center aspect-square">
             <Image
               src={primaryImage ?? "/placeholder-vial.svg"}
               alt={`${product.name} research ${product.category === "supplies" ? "supply" : "peptide"} vial`}
@@ -100,7 +100,7 @@ export async function ProductDetail({ product }: { product: Product }) {
                   <Link
                     key={t}
                     href={`/${product.category}?tags=${t}`}
-                    className="inline-block text-xs uppercase tracking-wider bg-[#0D1B3E] text-white px-3 py-1 hover:bg-[#162040]"
+                    className="inline-block text-xs uppercase tracking-wider bg-navy text-white px-3 py-1 hover:bg-mid-navy"
                   >
                     {TAG_LABEL[t] ?? t}
                   </Link>
@@ -113,7 +113,7 @@ export async function ProductDetail({ product }: { product: Product }) {
           <StorageHandlingPanel product={product} />
           {product.moleculeImage && (
             <div className="flex items-center gap-5 mb-6">
-              <div className="shrink-0 bg-[#F7F8FA] border border-[#DDE1E7] p-2">
+              <div className="shrink-0 bg-offwhite border border-border p-2">
                 <Image
                   src={product.moleculeImage}
                   alt={`${product.name} molecular structure`}
@@ -124,7 +124,7 @@ export async function ProductDetail({ product }: { product: Product }) {
                 />
               </div>
               {product.testingMethod && (
-                <p className="font-sans text-xs uppercase tracking-wider text-[#6B7280]">
+                <p className="font-sans text-xs uppercase tracking-wider text-muted">
                   Tested by {product.testingMethod}
                 </p>
               )}
@@ -155,7 +155,7 @@ export async function ProductDetail({ product }: { product: Product }) {
 
       <section id="overview" className="mt-16 max-w-3xl scroll-mt-40">
         <h2 className="text-3xl mb-6">About {product.name}</h2>
-        <div className="prose prose-lg max-w-none text-[#333333] leading-relaxed">
+        <div className="prose prose-lg max-w-none text-body-grey leading-relaxed">
           {product.fullDescription.split("\n\n").map((para, i) => (
             <p key={i} className="mb-4">{para}</p>
           ))}
@@ -164,7 +164,7 @@ export async function ProductDetail({ product }: { product: Product }) {
 
       <section id="chemistry" className="mt-16 max-w-3xl scroll-mt-40">
         <h2 className="text-3xl mb-6">Chemical information</h2>
-        <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 border-t border-[#DDE1E7] pt-6">
+        <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 border-t border-border pt-6">
           {product.casNumber && (
             <div><dt className="label-editorial">CAS Number</dt><dd className="font-mono">{product.casNumber}</dd></div>
           )}
@@ -189,7 +189,7 @@ export async function ProductDetail({ product }: { product: Product }) {
             href={`https://pubchem.ncbi.nlm.nih.gov/compound/${product.pubchemCid}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-[#6B7280] underline hover:text-[#0D1B3E] inline-block mt-2"
+            className="text-xs text-muted underline hover:text-navy inline-block mt-2"
           >
             View on PubChem &rarr;
           </a>

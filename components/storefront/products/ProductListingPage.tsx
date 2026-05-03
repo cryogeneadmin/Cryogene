@@ -98,16 +98,16 @@ export async function ProductListingPage({
   return (
     <div className="max-w-[1280px] mx-auto px-6 py-12">
       <nav aria-label="Breadcrumb" className="label-editorial mb-6">
-        <Link href="/" className="hover:text-[#0D1B3E]">Home</Link>
+        <Link href="/" className="hover:text-navy">Home</Link>
         <span aria-hidden="true" className="mx-2">/</span>
-        <span className="text-[#0D1B3E]" aria-current="page">{categoryLabel}</span>
+        <span className="text-navy" aria-current="page">{categoryLabel}</span>
       </nav>
       <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 items-center mb-12">
         <div>
           <h1 className="text-5xl mb-3 leading-tight">{categoryLabel}</h1>
-          <p className="text-lg text-[#6B7280] max-w-2xl">{categoryDescription}</p>
+          <p className="text-lg text-muted max-w-2xl">{categoryDescription}</p>
         </div>
-        <div className="relative w-full md:w-[360px] aspect-[3/2] bg-[#F7F8FA] border border-[#DDE1E7] overflow-hidden">
+        <div className="relative w-full md:w-[360px] aspect-[3/2] bg-offwhite border border-border overflow-hidden">
           <Image
             src={CATEGORY_HERO[category]}
             alt={`${categoryLabel} research imagery`}
@@ -140,7 +140,7 @@ export async function ProductListingPage({
             }
           />
           {filtered.length === 0 ? (
-            <div className="text-center py-12 border border-dashed border-[#DDE1E7]">
+            <div className="text-center py-12 border border-dashed border-border">
               <div className="relative w-40 h-40 mx-auto mb-4">
                 <Image
                   src="/site/no-results.png"
@@ -151,8 +151,8 @@ export async function ProductListingPage({
                   aria-hidden="true"
                 />
               </div>
-              <p className="font-serif text-2xl text-[#0D1B3E] mb-2">No products match your filters</p>
-              <p className="text-sm text-[#6B7280]">Try clearing some filters to see more results.</p>
+              <p className="font-serif text-2xl text-navy mb-2">No products match your filters</p>
+              <p className="text-sm text-muted">Try clearing some filters to see more results.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

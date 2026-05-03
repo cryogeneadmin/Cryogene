@@ -30,7 +30,7 @@ export function ProductAnchorNav({ anchors }: { anchors: Anchor[] }) {
   return (
     <nav
       aria-label="On this page"
-      className="sticky top-28 z-10 -mx-6 md:mx-0 bg-white border-y md:border border-[#DDE1E7] mb-10"
+      className="sticky top-28 z-10 -mx-6 md:mx-0 bg-white border-y md:border border-border mb-10"
     >
       <ul className="flex overflow-x-auto gap-1 px-6 md:px-2 py-1 list-none m-0">
         {anchors.map((a) => {
@@ -42,8 +42,8 @@ export function ProductAnchorNav({ anchors }: { anchors: Anchor[] }) {
                 className={[
                   "inline-block text-xs uppercase tracking-wider px-3 py-2 whitespace-nowrap transition-colors",
                   isActive
-                    ? "text-[#0D1B3E] border-b-2 border-[#0D1B3E]"
-                    : "text-[#6B7280] border-b-2 border-transparent hover:text-[#0D1B3E]",
+                    ? "text-navy border-b-2 border-navy"
+                    : "text-muted border-b-2 border-transparent hover:text-navy",
                 ].join(" ")}
               >
                 {a.label}

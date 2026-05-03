@@ -16,9 +16,9 @@ export function AgeVerificationGate() {
       role="dialog"
       aria-modal="true"
       aria-labelledby="age-gate-title"
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#0D1B3E]/95 p-4"
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-navy/95 p-4"
     >
-      <div className="max-w-lg w-full bg-white border border-[#DDE1E7] p-10 text-center">
+      <div className="max-w-lg w-full bg-white border border-border p-10 text-center">
         <p className="label-editorial mb-4">Laboratory research only</p>
         <h1
           id="age-gate-title"
@@ -26,7 +26,7 @@ export function AgeVerificationGate() {
         >
           For laboratory research use only
         </h1>
-        <p className="text-sm md:text-base leading-relaxed mb-8 text-[#333333]">
+        <p className="text-sm md:text-base leading-relaxed mb-8 text-body-grey">
           The products sold on this website are intended exclusively for
           scientific and laboratory research. They are not for human or
           veterinary consumption. By entering, you confirm you are 18 years or
@@ -37,7 +37,7 @@ export function AgeVerificationGate() {
             <button
               ref={enterRef}
               type="submit"
-              className="w-full sm:w-auto px-8 py-3 bg-[#0D1B3E] text-white uppercase tracking-wider text-sm hover:bg-[#162040] transition-colors"
+              className="w-full sm:w-auto px-8 py-3 bg-navy text-white uppercase tracking-wider text-sm hover:bg-mid-navy transition-colors"
             >
               Enter site
             </button>
@@ -45,7 +45,7 @@ export function AgeVerificationGate() {
           <form action={leaveSite}>
             <button
               type="submit"
-              className="w-full sm:w-auto px-8 py-3 border border-[#DDE1E7] text-[#0D1B3E] uppercase tracking-wider text-sm hover:bg-[#F7F8FA] transition-colors"
+              className="w-full sm:w-auto px-8 py-3 border border-border text-navy uppercase tracking-wider text-sm hover:bg-offwhite transition-colors"
             >
               Leave
             </button>

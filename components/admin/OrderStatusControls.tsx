@@ -27,7 +27,7 @@ export function OrderStatusControls({ order }: { order: Order }) {
   };
 
   return (
-    <div className="bg-white border border-[#DDE1E7] p-6 sticky top-8">
+    <div className="bg-white border border-border p-6 sticky top-8">
       <p className="label-editorial mb-4">Status</p>
       <div className="space-y-2">
         {STATUSES.map((s) => (
@@ -38,8 +38,8 @@ export function OrderStatusControls({ order }: { order: Order }) {
             onClick={() => handleChange(s)}
             className={`w-full py-2 text-xs uppercase tracking-wider transition-colors ${
               s === status
-                ? "bg-[#0D1B3E] text-white"
-                : "border border-[#DDE1E7] hover:bg-[#F7F8FA]"
+                ? "bg-navy text-white"
+                : "border border-border hover:bg-offwhite"
             } disabled:opacity-60`}
           >
             {s}
