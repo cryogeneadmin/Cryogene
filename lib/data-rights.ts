@@ -15,6 +15,8 @@ import type {
 const SLA_DAYS = 30;
 const VERIFICATION_TTL_HOURS = 24;
 const MAX_PUBLIC_PER_IP_PER_DAY = 3;
+const JWT_ISSUER = "cryogene";
+const JWT_AUDIENCE = "data-rights";
 
 function getJwtSecret(): Uint8Array {
   const raw = process.env.DATA_RIGHTS_JWT_SECRET;
@@ -28,6 +30,9 @@ export async function signVerificationToken(
 ): Promise<string> {
   return new SignJWT({ requestId, email })
     .setProtectedHeader({ alg: "HS256" })
+    .setIssuer(JWT_ISSUER)
+    .setAudience(JWT_AUDIENCE)
+    .setIssuedAt()
     .setExpirationTime(`${VERIFICATION_TTL_HOURS}h`)
     .sign(getJwtSecret());
 }
@@ -36,7 +41,11 @@ export async function verifyVerificationToken(
   token: string
 ): Promise<{ requestId: string; email: string } | null> {
   try {
-    const { payload } = await jwtVerify(token, getJwtSecret());
+    const { payload } = await jwtVerify(token, getJwtSecret(), {
+      algorithms: ["HS256"],
+      issuer: JWT_ISSUER,
+      audience: JWT_AUDIENCE,
+    });
     if (typeof payload.requestId !== "string" || typeof payload.email !== "string") {
       return null;
     }
@@ -50,8 +59,14 @@ function normaliseRequest(
   id: string,
   data: FirebaseFirestore.DocumentData
 ): DataRightsRequest {
-  const tsToDate = (v: unknown): Date | null =>
-    v instanceof Timestamp ? v.toDate() : v ? new Date(v as string) : null;
+  const tsToDate = (v: unknown): Date | null => {
+    if (v instanceof Timestamp) return v.toDate();
+    if (typeof v === "string" || typeof v === "number") {
+      const d = new Date(v);
+      return Number.isNaN(d.getTime()) ? null : d;
+    }
+    return null;
+  };
   return {
     id,
     createdAt: tsToDate(data.createdAt) ?? new Date(),
@@ -94,9 +109,13 @@ export async function createDataRightsRequest(
 
   const now = Timestamp.now();
   const status: DataRightStatus = input.preVerified ? "queued" : "pending_email_verification";
+  // For unverified requests, the placeholder deadline is the verification
+  // window expiry (24h), not the SLA. This stops the (status, deadline)
+  // index from surfacing pending_email_verification rows as "SLA breached
+  // on day 0" if any list view drops the status filter.
   const deadline = input.preVerified
     ? Timestamp.fromMillis(now.toMillis() + SLA_DAYS * 24 * 60 * 60 * 1000)
-    : now; // placeholder; replaced when verification completes
+    : Timestamp.fromMillis(now.toMillis() + VERIFICATION_TTL_HOURS * 60 * 60 * 1000);
 
   const writable: DataRightsRequestWritable = {
     createdAt: now,
@@ -139,16 +158,36 @@ export async function createDataRightsRequest(
 export async function markRequestVerified(
   requestId: string,
   email: string
-): Promise<{ ok: true; type: DataRightType } | { ok: false; reason: string }> {
+): Promise<{ ok: true; type: DataRightType; uid: string | null } | { ok: false; reason: string }> {
   const db = getAdminDb();
   if (!db) throw new Error("Firestore not configured");
   const ref = db.doc(`dataRightsRequests/${requestId}`);
+
+  // Normalise email — trim + lowercase. Both creation paths and the
+  // verification token must agree on the canonical form for the equality
+  // check inside the txn to succeed reliably.
+  const normalisedEmail = email.trim().toLowerCase();
+
+  // Resolve uid OUTSIDE the transaction — Firestore retries on contention
+  // and the Firebase Auth REST call has its own latency budget. Doing it
+  // once up-front means transaction retries are cheap and idempotent.
+  const auth = getAdminAuthSdk();
+  let resolvedUid: string | null = null;
+  if (auth) {
+    try {
+      const user = await auth.getUserByEmail(normalisedEmail);
+      resolvedUid = user.uid;
+    } catch {
+      resolvedUid = null;
+    }
+  }
 
   const result = await db.runTransaction(async (txn) => {
     const snap = await txn.get(ref);
     if (!snap.exists) return { ok: false as const, reason: "not_found" };
     const data = snap.data()!;
-    if (data.requester?.email !== email) {
+    const storedEmail = (data.requester?.email ?? "").trim().toLowerCase();
+    if (storedEmail !== normalisedEmail) {
       return { ok: false as const, reason: "email_mismatch" };
     }
     if (data.status !== "pending_email_verification") {
@@ -158,26 +197,16 @@ export async function markRequestVerified(
     const now = Timestamp.now();
     const deadline = Timestamp.fromMillis(now.toMillis() + SLA_DAYS * 24 * 60 * 60 * 1000);
 
-    // If a customer with this email exists, populate uid
-    const auth = getAdminAuthSdk();
-    let uid: string | null = data.requester?.uid ?? null;
-    if (!uid && auth) {
-      try {
-        const user = await auth.getUserByEmail(email);
-        uid = user.uid;
-      } catch {
-        uid = null;
-      }
-    }
+    const finalUid = data.requester?.uid ?? resolvedUid;
 
     txn.update(ref, {
       status: "queued",
       deadline,
       "requester.emailVerifiedAt": now,
-      "requester.uid": uid,
+      "requester.uid": finalUid,
     });
 
-    return { ok: true as const, type: data.type as DataRightType };
+    return { ok: true as const, type: data.type as DataRightType, uid: finalUid as string | null };
   });
 
   if (result.ok) {
@@ -189,8 +218,8 @@ export async function markRequestVerified(
 
     await writeAuditEvent({
       eventType: auditEventType,
-      target: { kind: "user", id: null },
-      metadata: { requestId, email, source: "public", verified: true },
+      target: { kind: "user", id: result.uid },
+      metadata: { requestId, email: normalisedEmail, source: "public", verified: true },
     });
   }
 
@@ -221,7 +250,10 @@ export async function listRequests(
 // a dedicated rate-limit service but adequate for this scale).
 export async function checkPublicFormRateLimit(ipHash: string): Promise<boolean> {
   const db = getAdminDb();
-  if (!db) return true;
+  // Fail CLOSED on Firestore unavailable — a degraded backend must not be
+  // a bypass route for the public-form rate limit. Better to surface a
+  // 429 to a real user briefly than to let an attacker flood the queue.
+  if (!db) return false;
   const dayKey = new Date().toISOString().slice(0, 10);
   const ref = db.doc(`publicFormCounters/${ipHash}_${dayKey}`);
   const result = await db.runTransaction(async (txn) => {
