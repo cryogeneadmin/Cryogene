@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
+import { connection } from "next/server";
 import { getProductBySlug, getProducts } from "@/lib/products";
 import { ProductDetail } from "@/components/storefront/products/ProductDetail";
+import { writeCustomerEvent } from "@/lib/customer-events";
 
 export async function generateStaticParams() {
   const products = await getProducts({ category: "supplies", activeOnly: true });
@@ -29,5 +31,17 @@ export default async function SupplyDetailPage({
   const { slug } = await params;
   const product = await getProductBySlug(slug);
   if (!product || product.category !== "supplies") notFound();
+  // Fire-and-forget product.viewed. connection() defers this past the
+  // static shell so PPR keeps working. Synchronous void — do not await.
+  await connection();
+  writeCustomerEvent({
+    eventType: "product.viewed",
+    payload: {
+      productId: product.id,
+      slug: product.slug,
+      category: product.category,
+      name: product.name,
+    },
+  });
   return <ProductDetail product={product} />;
 }
