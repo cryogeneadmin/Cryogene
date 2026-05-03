@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { DeliveryDataSchema, setCheckoutSession, clearCheckoutSession, getCheckoutSession } from "@/lib/checkout-session";
 import { createCheckoutAccount } from "@/app/actions/create-checkout-account";
+import { writeCustomerEvent } from "@/lib/customer-events";
 
 export type DeliveryFormState = {
   status: "idle" | "error";
@@ -80,6 +81,19 @@ export async function saveDeliveryStep(
   }
 
   await setCheckoutSession({ ...parsed.data, customerUid });
+  // Emit before redirect — the cart-recovery upsell triggers on this event.
+  // Fire-and-forget void; do not await.
+  writeCustomerEvent({
+    eventType: "checkout.delivery_submitted",
+    emailOverride: parsed.data.email,
+    payload: {
+      fullName: parsed.data.fullName,
+      city: parsed.data.city,
+      postcode: parsed.data.postcode,
+      customerUid: customerUid,
+      createAccount,
+    },
+  });
   redirect("/checkout/review");
 }
 
