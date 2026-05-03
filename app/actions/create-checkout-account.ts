@@ -4,6 +4,7 @@ import "server-only";
 import { z } from "zod";
 import { getAdminAuthSdk } from "@/lib/firebase/admin";
 import { upsertCustomer } from "@/lib/customers";
+import { writeCustomerEvent } from "@/lib/customer-events";
 import type { Customer } from "@/types";
 
 const InputSchema = z.object({
@@ -65,6 +66,13 @@ export async function createCheckoutAccount(
   } catch {
     // swallow — customer doc will be created lazily on first /account view
   }
+
+  // Welcome-email upsell groundwork. Fire-and-forget void.
+  writeCustomerEvent({
+    eventType: "auth.signup_completed",
+    emailOverride: parsed.data.email,
+    payload: { uid, source: "checkout" },
+  });
 
   return { ok: true, uid };
 }
