@@ -14,6 +14,7 @@ import { computeVatInPence } from "@/lib/vat";
 import { createOrderTransaction } from "@/lib/orders";
 import { getPaymentProvider } from "@/lib/payments";
 import { writeAuditEvent } from "@/lib/audit-log";
+import { writeCustomerEvent } from "@/lib/customer-events";
 import type { OrderLineItem } from "@/types";
 
 // ── Audit-trail version constants ──────────────────────────────────────────
@@ -231,6 +232,19 @@ export async function createOrderAction(
     metadata: {
       orderNumber: order.orderNumber,
       customerEmail: delivery.email,
+    },
+  });
+
+  // Fire-and-forget customer-events emit (groundwork for future cart-recovery
+  // + funnel-completion upsells). Synchronous void; do not await.
+  writeCustomerEvent({
+    eventType: "checkout.purchased",
+    emailOverride: delivery.email,
+    payload: {
+      orderId: order.id,
+      orderNumber: order.orderNumber,
+      totalInPence,
+      itemCount: verifiedItems.reduce((sum, i) => sum + i.quantity, 0),
     },
   });
 
