@@ -72,7 +72,8 @@ async function nextOrderNumber(): Promise<string> {
     return `PPT-${today}-${String(counters[today]).padStart(4, "0")}`;
   }
 
-  const db = getAdminDb()!;
+  const db = getAdminDb();
+  if (!db) throw new Error("Firestore not configured");
   const counterRef = db.doc(`orderCounters/${today}`);
   const counter = await db.runTransaction(async (tx) => {
     const snap = await tx.get(counterRef);
@@ -92,7 +93,8 @@ export async function createOrderRecord(order: Omit<Order, "id">): Promise<Order
     await writeLocalOrders(orders);
     return withId;
   }
-  const db = getAdminDb()!;
+  const db = getAdminDb();
+  if (!db) throw new Error("Firestore not configured");
   const ref = db.collection("orders").doc();
   await ref.set({ ...order, id: ref.id });
   return { ...order, id: ref.id } as Order;
@@ -126,7 +128,8 @@ export async function getOrders(options?: {
       return bTime - aTime;
     });
   }
-  const db = getAdminDb()!;
+  const db = getAdminDb();
+  if (!db) throw new Error("Firestore not configured");
   let query = db.collection("orders").orderBy("createdAt", "desc");
   if (options?.customerUid) {
     query = query.where("customer.uid", "==", options.customerUid);
@@ -148,7 +151,8 @@ export async function getOrderById(id: string): Promise<Order | null> {
     const orders = await readLocalOrders();
     return orders.find((o) => o.id === id) ?? null;
   }
-  const db = getAdminDb()!;
+  const db = getAdminDb();
+  if (!db) throw new Error("Firestore not configured");
   const snap = await db.doc(`orders/${id}`).get();
   return snap.exists ? normalizeOrder(snap.data() as Record<string, unknown>) : null;
 }
@@ -162,7 +166,8 @@ export async function updateOrder(id: string, patch: Partial<Order>): Promise<vo
     await writeLocalOrders(orders);
     return;
   }
-  const db = getAdminDb()!;
+  const db = getAdminDb();
+  if (!db) throw new Error("Firestore not configured");
   await db.doc(`orders/${id}`).update({ ...patch, updatedAt: new Date() });
 }
 

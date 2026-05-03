@@ -125,7 +125,8 @@ export async function saveProduct(data: unknown) {
     }
     await writeLocalWrites(writes);
   } else {
-    const db = getAdminDb()!;
+    const db = getAdminDb();
+    if (!db) throw new Error("Firestore not configured");
     if (isEdit) {
       await db.doc(`products/${product.id}`).set(product, { merge: true });
     } else {
@@ -160,7 +161,9 @@ export async function toggleProductActive(id: string, active: boolean) {
     };
     await writeLocalWrites(writes);
   } else {
-    await getAdminDb()!
+    const db = getAdminDb();
+    if (!db) throw new Error("Firestore not configured");
+    await db
       .doc(`products/${validated.id}`)
       .update({ active: validated.active, updatedAt: new Date() });
   }

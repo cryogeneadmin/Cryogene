@@ -37,7 +37,9 @@ export async function getCustomerById(id: string): Promise<Customer | null> {
     const list = await readLocal();
     return list.find((c) => c.id === id) ?? null;
   }
-  const snap = await getAdminDb()!.doc(`customers/${id}`).get();
+  const db = getAdminDb();
+  if (!db) throw new Error("Firestore not configured");
+  const snap = await db.doc(`customers/${id}`).get();
   return snap.exists ? normalizeCustomer(snap.data() as Record<string, unknown>) : null;
 }
 
@@ -46,7 +48,9 @@ export async function getCustomerByEmail(email: string): Promise<Customer | null
     const list = await readLocal();
     return list.find((c) => c.email === email) ?? null;
   }
-  const snap = await getAdminDb()!
+  const db = getAdminDb();
+  if (!db) throw new Error("Firestore not configured");
+  const snap = await db
     .collection("customers")
     .where("email", "==", email)
     .limit(1)
@@ -63,7 +67,9 @@ export async function upsertCustomer(customer: Customer): Promise<void> {
     await writeLocal(list);
     return;
   }
-  await getAdminDb()!.doc(`customers/${customer.id}`).set(customer, { merge: true });
+  const db = getAdminDb();
+  if (!db) throw new Error("Firestore not configured");
+  await db.doc(`customers/${customer.id}`).set(customer, { merge: true });
 }
 
 export async function getCustomers(limit?: number): Promise<Customer[]> {
@@ -73,7 +79,9 @@ export async function getCustomers(limit?: number): Promise<Customer[]> {
     const list = await readLocal();
     return limit ? list.slice(0, limit) : list;
   }
-  let query = getAdminDb()!.collection("customers").orderBy("createdAt", "desc");
+  const db = getAdminDb();
+  if (!db) throw new Error("Firestore not configured");
+  let query = db.collection("customers").orderBy("createdAt", "desc");
   if (limit) query = query.limit(limit);
   const snap = await query.get();
   return snap.docs.map((d) => normalizeCustomer(d.data() as Record<string, unknown>));

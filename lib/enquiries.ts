@@ -45,7 +45,8 @@ export async function createEnquiry(
     await writeLocal(list);
     return enquiry;
   }
-  const db = getAdminDb()!;
+  const db = getAdminDb();
+  if (!db) throw new Error("Firestore not configured");
   const ref = db.collection("enquiries").doc();
   enquiry.id = ref.id;
   await ref.set(enquiry);
@@ -57,7 +58,9 @@ export async function getEnquiries(status?: EnquiryStatus): Promise<Enquiry[]> {
     const list = await readLocal();
     return status ? list.filter((e) => e.status === status) : list;
   }
-  let query = getAdminDb()!.collection("enquiries").orderBy("createdAt", "desc");
+  const db = getAdminDb();
+  if (!db) throw new Error("Firestore not configured");
+  let query = db.collection("enquiries").orderBy("createdAt", "desc");
   if (status) query = query.where("status", "==", status);
   const snap = await query.get();
   return snap.docs.map((d) => normalizeEnquiry(d.data() as Record<string, unknown>));
@@ -75,5 +78,7 @@ export async function updateEnquiryStatus(
     await writeLocal(list);
     return;
   }
-  await getAdminDb()!.doc(`enquiries/${id}`).update({ status });
+  const db = getAdminDb();
+  if (!db) throw new Error("Firestore not configured");
+  await db.doc(`enquiries/${id}`).update({ status });
 }
