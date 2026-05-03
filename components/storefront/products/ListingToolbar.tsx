@@ -3,6 +3,12 @@
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useState } from "react";
 import type { ReactNode } from "react";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 
 const SORT_OPTIONS: { value: string; label: string }[] = [
   { value: "newest", label: "Newest" },
@@ -72,35 +78,22 @@ export function ListingToolbar({
         </label>
       </div>
 
-      {/* Mobile filter drawer */}
-      {drawerOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="Filters"
+      <Sheet open={drawerOpen} onOpenChange={setDrawerOpen}>
+        <SheetContent
+          side="right"
           id="cryogene-filter-drawer"
-          className="lg:hidden fixed inset-0 z-50"
+          className="lg:hidden w-[85vw] sm:max-w-sm flex flex-col"
         >
-          <div
-            className="absolute inset-0 bg-navy/40"
-            onClick={() => setDrawerOpen(false)}
-            aria-hidden="true"
-          />
-          <div className="absolute right-0 top-0 bottom-0 w-[85vw] max-w-sm bg-white overflow-y-auto">
-            <div className="flex items-center justify-between px-4 py-3 border-b border-border sticky top-0 bg-white">
-              <p className="label-editorial text-sm text-navy">Filters</p>
-              <button
-                type="button"
-                onClick={() => setDrawerOpen(false)}
-                className="text-sm text-navy underline"
-              >
-                Close
-              </button>
-            </div>
-            <div className="p-4">{filtersSlot}</div>
+          <SheetHeader>
+            <SheetTitle className="label-editorial text-sm text-navy">
+              Filters
+            </SheetTitle>
+          </SheetHeader>
+          <div className="flex-1 overflow-y-auto -mx-6 px-6 mt-4">
+            {filtersSlot}
           </div>
-        </div>
-      )}
+        </SheetContent>
+      </Sheet>
     </>
   );
 }
