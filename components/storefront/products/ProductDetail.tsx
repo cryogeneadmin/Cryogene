@@ -113,13 +113,13 @@ export async function ProductDetail({ product }: { product: Product }) {
           <StorageHandlingPanel product={product} />
           {product.moleculeImage && (
             <div className="flex items-center gap-5 mb-6">
-              <div className="shrink-0 bg-gradient-to-br from-[#F0F4FA] via-[#E6ECF5] to-[#CAD4E4] border border-[#DDE1E7] rounded-sm shadow-[0_8px_20px_-6px_rgba(13,27,62,0.3)] p-2">
+              <div className="shrink-0 bg-[#F7F8FA] border border-[#DDE1E7] p-2">
                 <Image
                   src={product.moleculeImage}
                   alt={`${product.name} molecular structure`}
                   width={144}
                   height={144}
-                  className="object-contain w-36 h-36 drop-shadow-md"
+                  className="object-contain w-36 h-36"
                   unoptimized
                 />
               </div>

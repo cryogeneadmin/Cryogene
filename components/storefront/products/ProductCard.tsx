@@ -91,7 +91,7 @@ export function ProductCard({ product }: { product: Product }) {
         {product.moleculeImage && (
           <div
             aria-hidden="true"
-            className="shrink-0 w-12 h-12 bg-gradient-to-br from-[#F0F4FA] via-[#E6ECF5] to-[#CAD4E4] border border-[#DDE1E7] rounded-sm shadow-[0_4px_10px_-2px_rgba(13,27,62,0.25)] p-1"
+            className="shrink-0 w-12 h-12 bg-[#F7F8FA] border border-[#DDE1E7] p-1"
           >
             <Image
               src={product.moleculeImage}
