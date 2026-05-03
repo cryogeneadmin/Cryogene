@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { headers } from "next/headers";
 import { z } from "zod";
 import { getAdminAuthSdk } from "@/lib/firebase/admin";
 import {
@@ -6,6 +7,7 @@ import {
   SESSION_COOKIE_MAX_AGE_SECONDS,
   SESSION_COOKIE_OPTIONS,
 } from "@/lib/auth-cookies";
+import { recordFailedSignIn, clearFailedSignIns } from "@/lib/sign-in-attempts";
 
 const PostBodySchema = z.object({
   idToken: z.string().min(1).max(4096),
@@ -32,14 +34,20 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid body" }, { status: 400 });
   }
 
+  const hdrs = await headers();
+  const ip = hdrs.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null;
+
   let sessionCookie: string;
   try {
     sessionCookie = await auth.createSessionCookie(parsed.data.idToken, {
       expiresIn: SESSION_COOKIE_MAX_AGE_SECONDS * 1000,
     });
   } catch {
+    await recordFailedSignIn(ip, null);
     return NextResponse.json({ error: "Invalid ID token" }, { status: 401 });
   }
+
+  await clearFailedSignIns(ip);
 
   const response = NextResponse.json({ ok: true });
   response.cookies.set(SESSION_COOKIE_NAME, sessionCookie, SESSION_COOKIE_OPTIONS);
