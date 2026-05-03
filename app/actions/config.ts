@@ -2,7 +2,7 @@
 
 import { revalidatePath, revalidateTag } from "next/cache";
 import { z } from "zod";
-import { isAdminRequest } from "@/lib/admin-auth";
+import { assertAdmin } from "@/lib/admin-auth";
 import { updateConfig } from "@/lib/config";
 import type { Config } from "@/types";
 
@@ -37,7 +37,7 @@ const ConfigPatchSchema = z
   .passthrough();
 
 export async function saveConfig(patch: Partial<Config>) {
-  if (!(await isAdminRequest())) throw new Error("Unauthorised");
+  await assertAdmin();
 
   const validated = ConfigPatchSchema.parse(patch);
   await updateConfig(validated as Partial<Config>);

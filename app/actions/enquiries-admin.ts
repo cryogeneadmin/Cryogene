@@ -2,12 +2,12 @@
 
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
-import { isAdminRequest } from "@/lib/admin-auth";
+import { assertAdmin } from "@/lib/admin-auth";
 import { updateEnquiryStatus } from "@/lib/enquiries";
 import type { EnquiryStatus } from "@/types";
 
 export async function setEnquiryStatusAction(id: string, status: EnquiryStatus) {
-  if (!(await isAdminRequest())) throw new Error("Unauthorised");
+  await assertAdmin();
 
   const validated = z
     .object({

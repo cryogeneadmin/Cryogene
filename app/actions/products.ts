@@ -10,7 +10,7 @@ import type { Product } from "@/types";
 import { getAdminDb } from "@/lib/firebase/admin";
 import { isSeedMode } from "@/lib/data-mode";
 import { slugify } from "@/lib/slug";
-import { isAdminRequest } from "@/lib/admin-auth";
+import { assertAdmin } from "@/lib/admin-auth";
 
 const LOCAL_WRITES_PATH = path.join(process.cwd(), "data", "products.local.json");
 
@@ -71,7 +71,7 @@ async function writeLocalWrites(products: Product[]): Promise<void> {
 }
 
 export async function saveProduct(data: unknown) {
-  if (!(await isAdminRequest())) throw new Error("Unauthorised");
+  await assertAdmin();
   const parsed = ProductSchema.parse(data);
   const isEdit = !!parsed.id && parsed.id.length > 0;
   const now = new Date();
@@ -142,7 +142,7 @@ export async function saveProduct(data: unknown) {
 }
 
 export async function toggleProductActive(id: string, active: boolean) {
-  if (!(await isAdminRequest())) throw new Error("Unauthorised");
+  await assertAdmin();
   const validated = z.object({
     id: z.string().min(1).max(128),
     active: z.boolean(),
