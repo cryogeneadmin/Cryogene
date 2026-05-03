@@ -2,6 +2,7 @@
 import { Suspense } from "react";
 import { connection } from "next/server";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { getOrderById } from "@/lib/orders";
 import { formatPriceFromPence } from "@/lib/basket";
 import { OrderStatusControls } from "@/components/admin/OrderStatusControls";
@@ -19,7 +20,15 @@ async function OrderDetailContent({ params }: { params: Promise<{ id: string }> 
   return (
     <div>
       <h1 className="text-4xl mb-2">Order {order.orderNumber}</h1>
-      <p className="mono text-xs text-muted mb-8">ID: {order.id}</p>
+      <p className="mono text-xs text-muted mb-2">ID: {order.id}</p>
+      <p className="mb-8">
+        <Link
+          href={`/admin/audit-log?tk=order&tid=${order.id}`}
+          className="text-xs text-blue underline hover:no-underline"
+        >
+          View audit trail →
+        </Link>
+      </p>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8">
         <div className="space-y-6">
