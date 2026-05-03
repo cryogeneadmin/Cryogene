@@ -67,5 +67,9 @@ service cloud.firestore {
       allow read: if request.auth != null && request.auth.token.admin == true;
       allow create, update, delete: if false;
     }
+
+    match /publicFormCounters/{key} {
+      allow read, write: if false;
+    }
   }
 }
