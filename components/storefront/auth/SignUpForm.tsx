@@ -12,6 +12,7 @@ export function SignUpForm() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [marketingOptIn, setMarketingOptIn] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const firebaseReady = isFirebaseClientReady();
@@ -27,7 +28,11 @@ export function SignUpForm() {
     try {
       const result = await signUpWithEmail(email, password);
       // Fire-and-forget customer event. Don't await — don't block the user.
-      void recordSignupCompleted({ uid: result.user.uid, email });
+      void recordSignupCompleted({
+        uid: result.user.uid,
+        email,
+        marketingOptIn,
+      });
       const idToken = await result.user.getIdToken();
       const sessionResponse = await fetch("/api/auth/session", {
         method: "POST",
@@ -71,6 +76,19 @@ export function SignUpForm() {
           <label htmlFor="password" className="label-editorial block mb-2">Password (min 8 characters)</label>
           <input id="password" type="password" minLength={8} value={password} onChange={(e) => setPassword(e.target.value)} required className="w-full border border-border p-3" />
         </div>
+        <label className="flex items-start gap-3 cursor-pointer mt-3">
+          <input
+            type="checkbox"
+            name="marketingOptIn"
+            checked={marketingOptIn}
+            onChange={(e) => setMarketingOptIn(e.target.checked)}
+            className="mt-1 accent-navy"
+          />
+          <span className="text-sm text-navy">
+            Email me about new products and special offers. You can unsubscribe at
+            any time.
+          </span>
+        </label>
         {error && <p role="alert" className="text-sm text-red-700">{error}</p>}
         <button type="submit" disabled={pending || !firebaseReady} className="w-full py-3 bg-navy text-white uppercase tracking-wider text-sm hover:bg-mid-navy disabled:bg-muted">
           {pending ? "Creating account..." : "Create account"}
