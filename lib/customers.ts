@@ -4,7 +4,7 @@ import path from "node:path";
 import type { Customer } from "@/types";
 import { getAdminDb } from "@/lib/firebase/admin";
 import { isSeedMode } from "@/lib/data-mode";
-import { Timestamp } from "firebase-admin/firestore";
+import { Timestamp, FieldValue } from "firebase-admin/firestore";
 import { cacheTag } from "next/cache";
 
 const LOCAL_CUSTOMERS_PATH = path.join(process.cwd(), "data", "customers.local.json");
@@ -91,11 +91,23 @@ export async function incrementCustomerStats(
   uid: string,
   orderTotalInPence: number
 ): Promise<void> {
-  const existing = await getCustomerById(uid);
-  if (!existing) return;
-  await upsertCustomer({
-    ...existing,
-    orderCount: existing.orderCount + 1,
-    lifetimeValueInPence: existing.lifetimeValueInPence + orderTotalInPence,
+  if (isSeedMode()) {
+    // Seed mode: keep the existing read-modify-write; race conditions
+    // don't matter for local-only fixtures
+    const existing = await getCustomerById(uid);
+    if (!existing) return;
+    await upsertCustomer({
+      ...existing,
+      orderCount: existing.orderCount + 1,
+      lifetimeValueInPence: existing.lifetimeValueInPence + orderTotalInPence,
+    });
+    return;
+  }
+  const db = getAdminDb();
+  if (!db) throw new Error("Firestore not configured");
+  await db.doc(`customers/${uid}`).update({
+    orderCount: FieldValue.increment(1),
+    lifetimeValueInPence: FieldValue.increment(orderTotalInPence),
+    updatedAt: new Date(),
   });
 }
