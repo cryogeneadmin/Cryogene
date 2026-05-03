@@ -1,18 +1,27 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getFeaturedProducts, getProducts } from "@/lib/products";
+import { getProducts } from "@/lib/products";
 import { ProductCard } from "@/components/storefront/products/ProductCard";
 import { getConfig } from "@/lib/config";
 import { buildOrganizationJsonLd, renderJsonLd } from "@/lib/seo";
 import { RESEARCH_TAGS, TAG_SLUGS } from "@/data/research-tags";
 
 export default async function HomePage() {
-  const featured = await getFeaturedProducts(6);
   const config = await getConfig();
   const orgJsonLd = buildOrganizationJsonLd(config);
 
-  // Build research-tag counts across the entire active catalogue.
+  // Fetch once — derive both featured (newest 6) and the full active catalogue
+  // for tag counts. Previously called getFeaturedProducts(6) AND getProducts()
+  // separately; both hit the same cache entry so the double call was wasteful.
   const allActive = await getProducts({ activeOnly: true });
+  const featured = [...allActive]
+    .sort((a, b) => {
+      const toMs = (v: unknown): number =>
+        v instanceof Date ? v.getTime() :
+        typeof v === "string" || typeof v === "number" ? new Date(v).getTime() : 0;
+      return toMs(b.createdAt) - toMs(a.createdAt);
+    })
+    .slice(0, 6);
   const tagCount = new Map<string, number>();
   for (const p of allActive) {
     for (const t of p.tags ?? []) if (TAG_SLUGS.has(t)) tagCount.set(t, (tagCount.get(t) ?? 0) + 1);
