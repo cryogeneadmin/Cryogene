@@ -70,7 +70,12 @@ export async function queryAuditLogs(filters: QueryFilters): Promise<{
     query = query.where("createdAt", ">=", Timestamp.fromDate(new Date(parsed.fromDate)));
   }
   if (parsed.toDate) {
-    query = query.where("createdAt", "<=", Timestamp.fromDate(new Date(parsed.toDate)));
+    // Inclusive of the chosen calendar day — bump to end of day so events
+    // from the date itself are returned. Without this, "to: today" returns
+    // zero rows from today.
+    const endOfDay = new Date(parsed.toDate);
+    endOfDay.setUTCHours(23, 59, 59, 999);
+    query = query.where("createdAt", "<=", Timestamp.fromDate(endOfDay));
   }
 
   query = query.orderBy("createdAt", "desc").limit(PAGE_SIZE + 1);
@@ -128,8 +133,14 @@ export async function exportAuditLogsCsv(filters: QueryFilters): Promise<string>
   }
   if (parsed.fromDate)
     query = query.where("createdAt", ">=", Timestamp.fromDate(new Date(parsed.fromDate)));
-  if (parsed.toDate)
-    query = query.where("createdAt", "<=", Timestamp.fromDate(new Date(parsed.toDate)));
+  if (parsed.toDate) {
+    // Inclusive of the chosen calendar day — bump to end of day so events
+    // from the date itself are returned. Without this, "to: today" returns
+    // zero rows from today.
+    const endOfDay = new Date(parsed.toDate);
+    endOfDay.setUTCHours(23, 59, 59, 999);
+    query = query.where("createdAt", "<=", Timestamp.fromDate(endOfDay));
+  }
 
   query = query.orderBy("createdAt", "desc").limit(CSV_EXPORT_CAP);
 
@@ -152,5 +163,8 @@ export async function exportAuditLogsCsv(filters: QueryFilters): Promise<string>
       ].join(",")
     );
   }
-  return rows.join("\n");
+  // RFC 4180 specifies CRLF; LF causes some legacy importers to merge rows.
+  // The UTF-8 BOM is added client-side at download time (lets Excel detect
+  // encoding on double-click without mojibake).
+  return rows.join("\r\n");
 }

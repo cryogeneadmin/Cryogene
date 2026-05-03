@@ -11,6 +11,17 @@ import { exportAuditLogsCsv } from "./actions";
 import { AuditLogRow } from "./AuditLogRow";
 import { AuditLogDrillDown } from "./AuditLogDrillDown";
 
+function buildNextPageParams(filters: QueryFilters, cursor: string): string {
+  const params = new URLSearchParams();
+  if (filters.eventTypes?.length) params.set("types", filters.eventTypes.join(","));
+  if (filters.fromDate) params.set("from", filters.fromDate);
+  if (filters.toDate) params.set("to", filters.toDate);
+  if (filters.targetKind) params.set("tk", filters.targetKind);
+  if (filters.targetId) params.set("tid", filters.targetId);
+  params.set("cursor", cursor);
+  return params.toString();
+}
+
 export function AuditLogClient({
   items,
   nextCursor,
@@ -25,6 +36,15 @@ export function AuditLogClient({
   const [selected, setSelected] = useState<AuditLog | null>(null);
   const [exporting, setExporting] = useState(false);
   const [, startTransition] = useTransition();
+
+  // Hoisted filter state so both Apply and Export read from the same source of truth.
+  const [types, setTypes] = useState<AuditEventType[]>(
+    (initialFilters.eventTypes ?? []).filter((t): t is AuditEventType =>
+      (ALL_AUDIT_EVENT_TYPES as readonly string[]).includes(t)
+    )
+  );
+  const [from, setFrom] = useState(initialFilters.fromDate ?? "");
+  const [to, setTo] = useState(initialFilters.toDate ?? "");
 
   function applyFilters(next: QueryFilters) {
     const params = new URLSearchParams();
@@ -41,8 +61,17 @@ export function AuditLogClient({
   async function handleExport() {
     setExporting(true);
     try {
-      const csv = await exportAuditLogsCsv(initialFilters);
-      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+      const liveFilters: QueryFilters = {
+        eventTypes: types,
+        fromDate: from || null,
+        toDate: to || null,
+        targetKind: initialFilters.targetKind ?? null,
+        targetId: initialFilters.targetId ?? null,
+        cursor: null,
+      };
+      const csv = await exportAuditLogsCsv(liveFilters);
+      // BOM + CRLF for Excel-on-Windows / RFC 4180 compatibility
+      const blob = new Blob(["﻿" + csv], { type: "text/csv;charset=utf-8" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -75,7 +104,17 @@ export function AuditLogClient({
           </div>
         )}
 
-        <FilterBar initial={initialFilters} onApply={applyFilters} onExport={handleExport} exporting={exporting} />
+        <FilterBar
+          types={types}
+          setTypes={setTypes}
+          from={from}
+          setFrom={setFrom}
+          to={to}
+          setTo={setTo}
+          onApply={applyFilters}
+          onExport={handleExport}
+          exporting={exporting}
+        />
 
         {items.length === 0 ? (
           <p className="py-12 text-center text-muted">No events match these filters.</p>
@@ -96,7 +135,7 @@ export function AuditLogClient({
         {nextCursor && (
           <div className="mt-6 text-center">
             <Link
-              href={`${pathname}?${new URLSearchParams({ cursor: nextCursor })}`}
+              href={`${pathname}?${buildNextPageParams(initialFilters, nextCursor)}`}
               className="inline-block px-4 py-2 border border-border text-sm uppercase tracking-wider hover:bg-offwhite"
             >
               Next page
@@ -119,28 +158,28 @@ export function AuditLogClient({
 }
 
 function FilterBar({
-  initial,
+  types,
+  setTypes,
+  from,
+  setFrom,
+  to,
+  setTo,
   onApply,
   onExport,
   exporting,
 }: {
-  initial: QueryFilters;
+  types: AuditEventType[];
+  setTypes: (next: AuditEventType[]) => void;
+  from: string;
+  setFrom: (next: string) => void;
+  to: string;
+  setTo: (next: string) => void;
   onApply: (filters: QueryFilters) => void;
   onExport: () => void;
   exporting: boolean;
 }) {
-  const [types, setTypes] = useState<AuditEventType[]>(
-    (initial.eventTypes ?? []).filter((t): t is AuditEventType =>
-      (ALL_AUDIT_EVENT_TYPES as readonly string[]).includes(t)
-    )
-  );
-  const [from, setFrom] = useState(initial.fromDate ?? "");
-  const [to, setTo] = useState(initial.toDate ?? "");
-
   function toggleType(t: AuditEventType) {
-    setTypes((prev) =>
-      prev.includes(t) ? prev.filter((x) => x !== t) : [...prev, t]
-    );
+    setTypes(types.includes(t) ? types.filter((x) => x !== t) : [...types, t]);
   }
 
   return (
