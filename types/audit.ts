@@ -1,0 +1,65 @@
+// types/audit.ts
+
+import type { Timestamp } from "firebase-admin/firestore";
+
+/**
+ * Compliance-minimum audit-event taxonomy. Add new types only via the
+ * audit-log spec — every new event type must be reviewed for retention
+ * implications and admin-viewer support.
+ */
+export type AuditEventType =
+  // Order lifecycle
+  | "order.created"
+  | "order.status_changed"
+  | "order.refunded"            // reserved; no writer in Plan A
+  // Product mutations
+  | "product.created"
+  | "product.updated"           // covers active:false soft-delete via diff
+  // Admin / role
+  | "admin.role_granted"
+  | "admin.role_revoked"
+  // Customer / security
+  | "customer.erasure_requested"   // reserved for Plan B
+  | "auth.login_failed_threshold";
+
+export const ALL_AUDIT_EVENT_TYPES: AuditEventType[] = [
+  "order.created",
+  "order.status_changed",
+  "order.refunded",
+  "product.created",
+  "product.updated",
+  "admin.role_granted",
+  "admin.role_revoked",
+  "customer.erasure_requested",
+  "auth.login_failed_threshold",
+];
+
+export type AuditActorType = "admin" | "customer" | "system" | "anonymous";
+export type AuditTargetKind = "order" | "product" | "user" | "session" | null;
+
+export type AuditLog = {
+  id: string;
+  createdAt: Date;                 // normalised from Timestamp at read boundary
+  eventType: AuditEventType;
+  actor: {
+    type: AuditActorType;
+    uid: string | null;
+    email: string | null;
+  };
+  target: {
+    kind: AuditTargetKind;
+    id: string | null;
+  };
+  before: Record<string, unknown> | null;
+  after: Record<string, unknown> | null;
+  snapshotAfter: Record<string, unknown> | null;
+  metadata: Record<string, unknown>;
+  ip: string | null;
+  userAgent: string | null;
+  prevHash: string | null;         // reserved for forensic-hardening upsell — always null in Plan A
+};
+
+/** Internal write shape — Firestore Timestamps before normalisation. */
+export type AuditLogWritable = Omit<AuditLog, "id" | "createdAt"> & {
+  createdAt: Timestamp;
+};
