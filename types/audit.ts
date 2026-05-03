@@ -8,19 +8,28 @@ import type { Timestamp } from "firebase-admin/firestore";
  * implications and admin-viewer support.
  */
 export const ALL_AUDIT_EVENT_TYPES = [
-  // Order lifecycle
+  // Order lifecycle (Plan A)
   "order.created",
   "order.status_changed",
-  "order.refunded",            // reserved; no writer in Plan A
-  // Product mutations
+  "order.refunded",            // reserved; no writer until refund flow ships
+  // Product mutations (Plan A)
   "product.created",
   "product.updated",           // covers active:false soft-delete via diff
-  // Admin / role
+  // Admin / role (Plan A)
   "admin.role_granted",
   "admin.role_revoked",
-  // Customer / security
-  "customer.erasure_requested",   // reserved for Plan B
+  // Security (Plan A)
   "auth.login_failed_threshold",
+  // Customer rights (Plan B — new)
+  "customer.access_requested",
+  "customer.access_completed",
+  "customer.rectification_requested",
+  "customer.rectification_completed",
+  "customer.erasure_requested",
+  "customer.erasure_completed",
+  "customer.objection_received",
+  "customer.objection_processed",
+  "customer.rights_request_rejected",
 ] as const;
 
 export type AuditEventType = (typeof ALL_AUDIT_EVENT_TYPES)[number];

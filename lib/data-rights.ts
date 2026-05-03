@@ -127,8 +127,7 @@ export async function createDataRightsRequest(
       : "customer.objection_received";
 
     await writeAuditEvent({
-      // Cast removed in Section C when these event types are added to the enum.
-      eventType: auditEventType as never,
+      eventType: auditEventType,
       target: { kind: "user", id: input.uid },
       metadata: { requestId: ref.id, email: input.email, source: input.source },
     });
@@ -189,8 +188,7 @@ export async function markRequestVerified(
       : "customer.objection_received";
 
     await writeAuditEvent({
-      // Cast removed in Section C when these event types are added to the enum.
-      eventType: auditEventType as never,
+      eventType: auditEventType,
       target: { kind: "user", id: null },
       metadata: { requestId, email, source: "public", verified: true },
     });
