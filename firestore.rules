@@ -41,5 +41,10 @@ service cloud.firestore {
       allow read: if false;
       allow write: if false;
     }
+
+    match /auditLogs/{id} {
+      allow read: if request.auth != null && request.auth.token.admin == true;
+      allow create, update, delete: if false;
+    }
   }
 }
