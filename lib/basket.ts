@@ -71,10 +71,10 @@ export const useBasket = create<BasketState>()(
         import("@/app/actions/customer-events")
           .then(({ emitCustomerEvent }) =>
             emitCustomerEvent("basket.item_added", {
-              productId: variant ? product.id : null,
+              productId: product.id,
               sku,
               quantity,
-              priceInPence: variant?.priceInPence ?? 0,
+              priceInPence: variant.priceInPence,
             })
           )
           .catch(() => {});
