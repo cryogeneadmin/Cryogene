@@ -1,6 +1,6 @@
 // lib/audit-log.ts
 import "server-only";
-import { Timestamp, FieldValue } from "firebase-admin/firestore";
+import { Timestamp } from "firebase-admin/firestore";
 import { headers } from "next/headers";
 import { getAdminDb } from "@/lib/firebase/admin";
 import { getCustomerSession } from "@/lib/customer-auth";
