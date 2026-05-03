@@ -18,6 +18,13 @@ service cloud.firestore {
       allow read: if request.auth.uid == uid || request.auth.token.admin == true;
       allow create, update: if request.auth.uid == uid;
       allow delete: if false;
+
+      // History subcollection is admin-SDK only; both readers and writers
+      // go through server-side helpers that already enforce ownership.
+      match /marketingConsentHistory/{entryId} {
+        allow read: if request.auth.token.admin == true;
+        allow create, update, delete: if false;
+      }
     }
 
     match /enquiries/{id} {
