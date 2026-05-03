@@ -90,12 +90,25 @@ export async function createOrderAction(
   // Re-read prices server-side (slug→productId resolution, price verification).
   // Stock validation + decrement happen atomically inside createOrderTransaction.
   // Never trust client prices.
+  //
+  // Dedupe slugs before the lookup — two SKUs of the same product only need one
+  // fetch — then run the per-slug calls in parallel so a 50-item basket is one
+  // round-trip wide instead of 50 deep. Each getProductBySlug is independently
+  // cached via 'use cache' + cacheTag("products"), so warm slugs are free.
+  const uniqueSlugs = Array.from(new Set(items.map((i) => i.productSlug)));
+  const fetched = await Promise.all(
+    uniqueSlugs.map((slug) => getProductBySlug(slug))
+  );
+  const productBySlug = new Map(
+    uniqueSlugs.map((slug, idx) => [slug, fetched[idx]] as const)
+  );
+
   const verifiedItems: OrderLineItem[] = [];
   const itemRefs: Array<{ productId: string; sku: string; quantity: number }> = [];
   let itemsSubtotalInPence = 0;
 
   for (const item of items) {
-    const product = await getProductBySlug(item.productSlug);
+    const product = productBySlug.get(item.productSlug);
     if (!product) {
       return { status: "error", message: `Product ${item.productSlug} no longer available` };
     }
