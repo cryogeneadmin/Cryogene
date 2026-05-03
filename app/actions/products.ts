@@ -189,6 +189,10 @@ export async function toggleProductActive(id: string, active: boolean) {
     active: z.boolean(),
   }).parse({ id, active });
 
+  const beforeProduct = isSeedMode()
+    ? (await readLocalWrites()).find((p) => p.id === validated.id) ?? null
+    : await getProductById(validated.id);
+
   if (isSeedMode()) {
     const writes = await readLocalWrites();
     const idx = writes.findIndex((p) => p.id === validated.id);
@@ -204,10 +208,24 @@ export async function toggleProductActive(id: string, active: boolean) {
   } else {
     const db = getAdminDb();
     if (!db) throw new Error("Firestore not configured");
-    await db
-      .doc(`products/${validated.id}`)
-      .update({ active: validated.active, updatedAt: new Date() });
+    await db.doc(`products/${validated.id}`).set(
+      { active: validated.active, updatedAt: new Date() },
+      { merge: true }
+    );
   }
+
+  await writeAuditEvent({
+    eventType: "product.updated",
+    target: { kind: "product", id: validated.id },
+    before: { active: beforeProduct?.active ?? null },
+    after: { active: validated.active },
+    metadata: {
+      name: beforeProduct?.name ?? "(unknown)",
+      slug: beforeProduct?.slug ?? null,
+      kind: "active-toggle",
+    },
+  });
+
   revalidateTag("products", "max");
   revalidatePath("/admin/products");
 }
