@@ -71,5 +71,10 @@ service cloud.firestore {
     match /publicFormCounters/{key} {
       allow read, write: if false;
     }
+
+    match /erasureSummaries/{id} {
+      allow read: if request.auth.token.admin == true;
+      allow create, update, delete: if false;
+    }
   }
 }
