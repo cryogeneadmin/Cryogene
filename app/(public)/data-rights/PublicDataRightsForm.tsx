@@ -18,7 +18,7 @@ export function PublicDataRightsForm() {
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -38,7 +38,7 @@ export function PublicDataRightsForm() {
         const res = await fetch("/api/data-rights/public", {
           method: "POST",
           headers: { "content-type": "application/json" },
-          body: JSON.stringify({ type, email, message }),
+          body: JSON.stringify({ type, email, message, website: honeypot ?? "" }),
         });
         if (res.status === 429) {
           setError("Too many requests from your network. Please try again tomorrow.");
@@ -117,15 +117,25 @@ export function PublicDataRightsForm() {
         />
       </label>
 
-      <input type="text" name="website" className="hidden" tabIndex={-1} aria-hidden="true" />
+      {/* Honeypot — humans never see/fill this; off-screen so naive bots populate it.
+          Server-side validation rejects any non-empty value. */}
+      <label className="sr-only" aria-hidden="true">
+        Website
+        <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+      </label>
 
-      {error && <p className="text-sm text-red-700">{error}</p>}
+      {error && (
+        <p className="text-sm text-red-700" role="alert" aria-live="polite">
+          {error}
+        </p>
+      )}
 
       <button
         type="submit"
-        className="px-6 py-3 bg-navy text-white uppercase tracking-wider text-xs hover:bg-mid-navy"
+        disabled={isPending}
+        className="px-6 py-3 bg-navy text-white uppercase tracking-wider text-xs hover:bg-mid-navy disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        Submit request
+        {isPending ? "Submitting…" : "Submit request"}
       </button>
     </form>
   );
