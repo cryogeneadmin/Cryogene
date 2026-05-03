@@ -165,3 +165,33 @@ Before announcing the site to anyone, confirm the following with David:
 - [ ] Store name, address, and VAT status are set correctly in Settings
 - [ ] Pricing has been set for all products (no "Pricing TBC" variants)
 - [ ] `ADMIN_DEV_BYPASS` is NOT set in Vercel (confirm in Environment Variables)
+
+---
+
+## Plan A deploy actions (audit log + customer events + sign-in counter)
+
+These are one-time actions that run **after** `git push origin main` triggers
+the Vercel auto-deploy and **after** the new Firestore rules + indexes have
+been deployed.
+
+1. **Deploy Firestore rules** — admin SDK still bypasses, but this enforces
+   client-side hard-deny:
+   ```bash
+   npx firebase-tools deploy --only firestore:rules
+   ```
+
+2. **Deploy Firestore indexes** — 3 audit + 4 customer-events composite
+   indexes. Wait for "READY" status in Firebase Console before relying:
+   ```bash
+   npx firebase-tools deploy --only firestore:indexes
+   ```
+
+3. **Enable TTL policies** in Firebase Console → Firestore → TTL:
+   - `auditLogs.createdAt` — 7 years (HMRC business-record retention)
+   - `customerEvents.createdAt` — 24 months (GDPR data minimisation)
+   - `signInAttempts.lastFailureAt` — 24 hours (counter records auto-expire)
+
+4. **Verify** by signing into admin UI, visiting `/admin/audit-log`,
+   confirming the empty-state renders without error. Edit a product → return
+   to viewer → confirm a `product.updated` row appears with diff visible in
+   the drill-down panel.
