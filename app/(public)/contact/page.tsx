@@ -27,6 +27,15 @@ export default function ContactPage() {
         </div>
       ) : (
         <form action={formAction} className="space-y-6">
+          {/* Honeypot — hidden from real users, traps spambots that fill every named field */}
+          <input
+            type="text"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            className="absolute left-[-9999px] opacity-0 pointer-events-none"
+            aria-hidden="true"
+          />
           <div>
             <label htmlFor="name" className="label-editorial block mb-2">Name</label>
             <input id="name" name="name" type="text" required className="w-full border border-[#DDE1E7] p-3" />
