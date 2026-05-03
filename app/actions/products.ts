@@ -86,13 +86,18 @@ export async function saveProduct(data: unknown) {
     existingCreatedAt = existing?.createdAt as Date | undefined;
   }
 
-  // Capture before-state for audit. seed-mode reads from local writes;
-  // Firestore mode reads via getProductById.
-  const beforeProduct = isEdit && parsed.id
-    ? isSeedMode()
-      ? (await readLocalWrites()).find((p) => p.id === parsed.id) ?? null
-      : await getProductById(parsed.id)
-    : null;
+  // Capture before-state for audit. getProductById handles both modes:
+  // in seed mode it reads mergedSeed (seed.json + local-writes overlay);
+  // in Firestore mode it reads from Firestore. Don't read readLocalWrites()
+  // directly here — that misses products that exist only in seed.json with
+  // no overlay write yet, which would log edits as creations from null.
+  //
+  // Note on staleness: getProductById is "use cache" + cacheTag("products").
+  // The cached value is the most-recent committed state — concurrent admin
+  // edits to the same product within the same cache window are not a real
+  // concern at Sam's scale (single-admin, low write volume).
+  const beforeProduct =
+    isEdit && parsed.id ? await getProductById(parsed.id) : null;
 
   const product: Product = {
     id: (parsed.id && parsed.id.length > 0) ? parsed.id : `local-${Date.now()}`,
@@ -189,9 +194,8 @@ export async function toggleProductActive(id: string, active: boolean) {
     active: z.boolean(),
   }).parse({ id, active });
 
-  const beforeProduct = isSeedMode()
-    ? (await readLocalWrites()).find((p) => p.id === validated.id) ?? null
-    : await getProductById(validated.id);
+  // See saveProduct comment above re: getProductById covering both modes.
+  const beforeProduct = await getProductById(validated.id);
 
   if (isSeedMode()) {
     const writes = await readLocalWrites();
