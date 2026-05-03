@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { signUpWithEmail } from "@/lib/auth";
 import { isFirebaseClientReady } from "@/lib/firebase/client";
+import { recordSignupCompleted } from "@/app/actions/record-signup";
 
 export function SignUpForm() {
   const router = useRouter();
@@ -25,6 +26,8 @@ export function SignUpForm() {
     setError(null);
     try {
       const result = await signUpWithEmail(email, password);
+      // Fire-and-forget customer event. Don't await — don't block the user.
+      void recordSignupCompleted({ uid: result.user.uid, email });
       const idToken = await result.user.getIdToken();
       const sessionResponse = await fetch("/api/auth/session", {
         method: "POST",
