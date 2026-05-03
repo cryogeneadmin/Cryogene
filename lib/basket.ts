@@ -66,10 +66,28 @@ export const useBasket = create<BasketState>()(
             ],
           });
         }
+        // Fire-and-forget customer-events emit. Dynamic import keeps the server
+        // action out of the client bundle. Don't await; never block the user.
+        import("@/app/actions/customer-events")
+          .then(({ emitCustomerEvent }) =>
+            emitCustomerEvent("basket.item_added", {
+              productId: variant ? product.id : null,
+              sku,
+              quantity,
+              priceInPence: variant?.priceInPence ?? 0,
+            })
+          )
+          .catch(() => {});
       },
 
-      removeItem: (sku) =>
-        set({ items: get().items.filter((i) => i.sku !== sku) }),
+      removeItem: (sku) => {
+        set({ items: get().items.filter((i) => i.sku !== sku) });
+        import("@/app/actions/customer-events")
+          .then(({ emitCustomerEvent }) =>
+            emitCustomerEvent("basket.item_removed", { sku })
+          )
+          .catch(() => {});
+      },
 
       updateQuantity: (sku, quantity) => {
         if (quantity <= 0) {
