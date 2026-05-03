@@ -1,7 +1,16 @@
 // components/storefront/layout/AgeVerificationGate.tsx
+"use client";
+
+import { useEffect, useRef } from "react";
 import { confirmAgeGate, leaveSite } from "@/app/actions/age-gate";
 
 export function AgeVerificationGate() {
+  const enterRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    enterRef.current?.focus();
+  }, []);
+
   return (
     <div
       role="dialog"
@@ -26,6 +35,7 @@ export function AgeVerificationGate() {
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <form action={confirmAgeGate}>
             <button
+              ref={enterRef}
               type="submit"
               className="w-full sm:w-auto px-8 py-3 bg-[#0D1B3E] text-white uppercase tracking-wider text-sm hover:bg-[#162040] transition-colors"
             >

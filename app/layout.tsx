@@ -10,10 +10,33 @@ import { Navbar } from "@/components/storefront/layout/Navbar";
 import { Footer } from "@/components/storefront/layout/Footer";
 import { isAgeVerified } from "@/app/actions/age-gate";
 
-async function AgeGateCheck() {
+/**
+ * Async RSC that resolves the age-gate cookie and renders:
+ * - The AgeVerificationGate overlay (if not verified)
+ * - The page shell wrapped in inert (if not verified)
+ *
+ * Placed inside <Suspense> so the cookie read does not block
+ * static pre-rendering of page routes.
+ */
+async function BodyShell({ children }: { children: React.ReactNode }) {
   const verified = await isAgeVerified();
-  if (verified) return null;
-  return <AgeVerificationGate />;
+  return (
+    <>
+      {!verified && <AgeVerificationGate />}
+      <div
+        {...(!verified ? { inert: "" as unknown as boolean } : {})}
+        className="pt-9 flex-1 flex flex-col"
+      >
+        <ComplianceBanner />
+        <Navbar />
+        <main id="main" className="flex-1">{children}</main>
+        <Footer />
+        <Suspense>
+          <CookieConsent />
+        </Suspense>
+      </div>
+    </>
+  );
 }
 
 const cormorantGaramond = Cormorant_Garamond({
@@ -76,17 +99,8 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        <ComplianceBanner />
         <Suspense>
-          <AgeGateCheck />
-        </Suspense>
-        <div className="pt-9 flex-1 flex flex-col">
-          <Navbar />
-          <main id="main" className="flex-1">{children}</main>
-          <Footer />
-        </div>
-        <Suspense>
-          <CookieConsent />
+          <BodyShell>{children}</BodyShell>
         </Suspense>
       </body>
     </html>
