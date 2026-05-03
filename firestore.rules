@@ -50,5 +50,10 @@ service cloud.firestore {
     match /signInAttempts/{ipHash} {
       allow read, write: if false;
     }
+
+    match /customerEvents/{id} {
+      allow read: if request.auth != null && request.auth.token.admin == true;
+      allow create, update, delete: if false;
+    }
   }
 }
