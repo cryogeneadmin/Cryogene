@@ -21,5 +21,5 @@ export default function PeptidesPage({
 export const metadata = {
   title: "Research Peptides",
   description:
-    "Research-grade peptides for UK laboratories. Every compound HPLC-tested with a downloadable Certificate of Analysis. For laboratory research use only.",
+    "Research-grade peptides for UK laboratories. Every compound HPLC-tested with Certificate of Analysis available on request. For laboratory research use only.",
 };

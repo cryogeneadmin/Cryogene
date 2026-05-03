@@ -39,7 +39,7 @@ export async function GET() {
   const body = `# ${storeName}
 
 > Research-grade peptides and laboratory supplies for UK researchers.
-> Every product HPLC-tested with a downloadable Certificate of Analysis.
+> Every product HPLC-tested with Certificate of Analysis available on request.
 > Sold strictly for laboratory research use only — not for human or veterinary consumption.
 
 ## About

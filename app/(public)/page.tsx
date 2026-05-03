@@ -47,8 +47,8 @@ export default async function HomePage() {
             documented to the batch.
           </h1>
           <p className="text-lg text-[#333333] leading-relaxed mb-8 max-w-xl">
-            HPLC-tested compounds with a downloadable Certificate of Analysis
-            for every SKU. Supplied strictly for laboratory research use.
+            HPLC-tested compounds with Certificate of Analysis available on
+            request for every SKU. Supplied strictly for laboratory research use.
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <Link
@@ -139,7 +139,7 @@ export default async function HomePage() {
             { label: "HPLC Tested", value: "Every batch" },
             { label: "≥99% Purity", value: "Documented on COA" },
             { label: "UK Research Grade", value: "Sourced and tested in Britain" },
-            { label: "Certificate of Analysis", value: "Downloadable for every SKU" },
+            { label: "Certificate of Analysis", value: "Available on request for every SKU" },
           ].map((item) => (
             <div key={item.label} className="text-center">
               <p className="label-editorial mb-2">{item.label}</p>
@@ -169,9 +169,9 @@ export default async function HomePage() {
         <h2 className="text-3xl mb-6">Supplied for research. Documented for rigour.</h2>
         <p className="max-w-3xl mx-auto text-[#333333] leading-relaxed mb-6">
           Every product sold on this site is intended exclusively for use in
-          controlled laboratory research settings. We publish a Certificate of
-          Analysis for every batch, supplied with every order, so that the
-          researchers who rely on our compounds have the documentation they need.
+          controlled laboratory research settings. A Certificate of Analysis
+          is available on request for every batch so that the researchers who
+          rely on our compounds have the documentation they need.
           None of our products is sold for human or veterinary consumption.
         </p>
         <Link href="/legal/research-use" className="label-editorial hover:text-[#0D1B3E]">

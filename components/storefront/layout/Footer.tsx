@@ -15,7 +15,7 @@ const CREDIBILITY_ITEMS: { label: string; sub: string; icon: React.ReactNode }[]
   },
   {
     label: "CoA Per Batch",
-    sub: "Certificate of Analysis included",
+    sub: "Certificate of Analysis available on request",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" aria-hidden="true">
         <path d="M6 3h9l5 5v13H6V3z M15 3v5h5 M9 13h7 M9 17h7" stroke="currentColor" strokeWidth="1.2" />

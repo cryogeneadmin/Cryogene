@@ -21,5 +21,5 @@ export default function SuppliesPage({
 export const metadata = {
   title: "Research Supplies",
   description:
-    "Research-grade supplies for UK laboratories. Every item tested with a downloadable Certificate of Analysis. For laboratory research use only.",
+    "Research-grade supplies for UK laboratories. Every item tested with Certificate of Analysis available on request. For laboratory research use only.",
 };

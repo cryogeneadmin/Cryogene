@@ -35,8 +35,8 @@ export default function AboutPage() {
           We work with compounds that appear in current research literature,
           source them from manufacturers we have vetted for documentation and
           process quality, and independently verify purity before any batch is
-          released for sale. We publish the Certificate of Analysis for every
-          variant on its product page so that researchers can review the data
+          released for sale. Certificates of Analysis are available on request
+          for every variant so that researchers can review the data
           before they order.
         </p>
 
@@ -69,7 +69,7 @@ export default function AboutPage() {
           laboratory paperwork that records the purity, testing method, batch,
           and reference standards used in analysis. We treat the COA as a
           first-class product alongside the compound itself, and we make it
-          downloadable from every product page so that researchers have access
+          available on request for every batch so that researchers have access
           to the data whenever they need it.
         </p>
       </div>
