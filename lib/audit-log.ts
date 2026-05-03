@@ -1,4 +1,15 @@
 // lib/audit-log.ts
+//
+// Append-only audit log writer. The auditLogs collection is rules-enforced
+// admin-SDK-only. Within this module:
+//   - ONLY use db.collection("auditLogs").add(...) — never .update(),
+//     .set(), or .delete(). Append-only is part of the compliance contract
+//     and is what makes this evidentiary.
+//   - The `ip` field reads x-forwarded-for and assumes the platform
+//     (Vercel) has already canonicalised it. Behind a different platform
+//     this header could be spoofed.
+//   - All write failures are deliberately swallowed via console.warn —
+//     auditing must never break the user's request path.
 import "server-only";
 import { Timestamp } from "firebase-admin/firestore";
 import { headers } from "next/headers";
@@ -21,11 +32,24 @@ function clampJsonObject(
   cap: number
 ): Record<string, unknown> | null {
   if (obj === null) return null;
-  const serialised = JSON.stringify(obj);
+  let serialised: string;
+  try {
+    serialised = JSON.stringify(obj);
+  } catch (err) {
+    // Circular ref, BigInt, or similar — never let serialisation failure
+    // drop an audit event. Substitute a marker so the event still lands.
+    return {
+      __serialiseFailed: true,
+      __error: err instanceof Error ? err.message : String(err),
+    };
+  }
   if (Buffer.byteLength(serialised, "utf-8") <= cap) return obj;
-  // Over cap — replace with a single marker key so downstream readers see
+  // Over cap — replace with a single marker so downstream readers see
   // intent rather than silent truncation.
-  return { __overSizeCap: true, __originalByteLength: Buffer.byteLength(serialised, "utf-8") };
+  return {
+    __overSizeCap: true,
+    __originalByteLength: Buffer.byteLength(serialised, "utf-8"),
+  };
 }
 
 export type WriteAuditEventInput = {

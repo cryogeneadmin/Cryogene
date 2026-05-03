@@ -7,32 +7,23 @@ import type { Timestamp } from "firebase-admin/firestore";
  * audit-log spec — every new event type must be reviewed for retention
  * implications and admin-viewer support.
  */
-export type AuditEventType =
+export const ALL_AUDIT_EVENT_TYPES = [
   // Order lifecycle
-  | "order.created"
-  | "order.status_changed"
-  | "order.refunded"            // reserved; no writer in Plan A
-  // Product mutations
-  | "product.created"
-  | "product.updated"           // covers active:false soft-delete via diff
-  // Admin / role
-  | "admin.role_granted"
-  | "admin.role_revoked"
-  // Customer / security
-  | "customer.erasure_requested"   // reserved for Plan B
-  | "auth.login_failed_threshold";
-
-export const ALL_AUDIT_EVENT_TYPES: AuditEventType[] = [
   "order.created",
   "order.status_changed",
-  "order.refunded",
+  "order.refunded",            // reserved; no writer in Plan A
+  // Product mutations
   "product.created",
-  "product.updated",
+  "product.updated",           // covers active:false soft-delete via diff
+  // Admin / role
   "admin.role_granted",
   "admin.role_revoked",
-  "customer.erasure_requested",
+  // Customer / security
+  "customer.erasure_requested",   // reserved for Plan B
   "auth.login_failed_threshold",
-];
+] as const;
+
+export type AuditEventType = (typeof ALL_AUDIT_EVENT_TYPES)[number];
 
 export type AuditActorType = "admin" | "customer" | "system" | "anonymous";
 export type AuditTargetKind = "order" | "product" | "user" | "session" | null;
