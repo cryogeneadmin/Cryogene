@@ -80,6 +80,7 @@ export async function runErasure(
     status: "completed",
     respondedAt: Timestamp.now(),
     responseArtefactRef: `erasure-summary:${result.summaryId}`,
+    expiresAt: Timestamp.fromMillis(Timestamp.now().toMillis() + 90 * 24 * 60 * 60 * 1000),
   });
 
   // Email is best-effort — wrap in try/catch + console.warn so a transient
@@ -135,6 +136,7 @@ export async function generateAndSendAccessExport(
     status: "completed",
     respondedAt: Timestamp.now(),
     responseArtefactRef: downloadUrl,
+    expiresAt: Timestamp.fromMillis(Timestamp.now().toMillis() + 90 * 24 * 60 * 60 * 1000),
   });
 
   revalidatePath("/admin/data-rights");
@@ -162,6 +164,7 @@ export async function markRectificationComplete(requestId: string): Promise<void
   await db.doc(`dataRightsRequests/${requestId}`).update({
     status: "completed",
     respondedAt: Timestamp.now(),
+    expiresAt: Timestamp.fromMillis(Timestamp.now().toMillis() + 90 * 24 * 60 * 60 * 1000),
   });
 
   revalidatePath("/admin/data-rights");

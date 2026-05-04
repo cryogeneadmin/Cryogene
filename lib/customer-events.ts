@@ -87,8 +87,12 @@ export function writeCustomerEvent(input: WriteCustomerEventInput): void {
         const sessionId = await getSessionId();
         const session = await getCustomerSession();
 
+        const now = Timestamp.now();
+        const TWO_YEARS_MS = 2 * 365 * 24 * 60 * 60 * 1000;
+
         const writable: CustomerEventWritable = {
-          createdAt: Timestamp.now(),
+          createdAt: now,
+          expiresAt: Timestamp.fromMillis(now.toMillis() + TWO_YEARS_MS),
           eventType: input.eventType,
           sessionId,
           uid: session?.uid ?? null,

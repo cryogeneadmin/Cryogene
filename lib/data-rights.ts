@@ -17,6 +17,8 @@ const VERIFICATION_TTL_HOURS = 24;
 const MAX_PUBLIC_PER_IP_PER_DAY = 3;
 const JWT_ISSUER = "cryogene";
 const JWT_AUDIENCE = "data-rights";
+const VERIFICATION_TTL_MS = 24 * 60 * 60 * 1000;
+const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
 
 function getJwtSecret(): Uint8Array {
   const raw = process.env.DATA_RIGHTS_JWT_SECRET;
@@ -134,6 +136,9 @@ export async function createDataRightsRequest(
     notes: null,
     slaWarningsSentAt: [],
     message: input.message,
+    expiresAt: input.preVerified
+      ? null
+      : Timestamp.fromMillis(now.toMillis() + VERIFICATION_TTL_MS),
   };
 
   const ref = await db.collection("dataRightsRequests").add(writable);
@@ -204,6 +209,7 @@ export async function markRequestVerified(
       deadline,
       "requester.emailVerifiedAt": now,
       "requester.uid": finalUid,
+      expiresAt: null,
     });
 
     return { ok: true as const, type: data.type as DataRightType, uid: finalUid as string | null };
@@ -292,7 +298,16 @@ export async function checkPublicFormRateLimit(ipHash: string): Promise<boolean>
     const snap = await txn.get(ref);
     const current = snap.exists ? (snap.data()?.count ?? 0) : 0;
     if (current >= MAX_PUBLIC_PER_IP_PER_DAY) return false;
-    txn.set(ref, { count: current + 1, updatedAt: Timestamp.now() }, { merge: true });
+    const counterNow = Timestamp.now();
+    txn.set(
+      ref,
+      {
+        count: current + 1,
+        updatedAt: counterNow,
+        expiresAt: Timestamp.fromMillis(counterNow.toMillis() + SEVEN_DAYS_MS),
+      },
+      { merge: true }
+    );
     return true;
   });
   return result;

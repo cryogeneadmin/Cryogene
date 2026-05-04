@@ -74,6 +74,7 @@ export type DataRightsRequestWritable = Omit<
   deadline: Timestamp;
   respondedAt: Timestamp | null;
   slaWarningsSentAt: Timestamp[];
+  expiresAt: Timestamp | null;
   requester: Omit<DataRightsRequest["requester"], "emailVerifiedAt"> & {
     emailVerifiedAt: Timestamp | null;
   };

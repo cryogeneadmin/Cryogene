@@ -62,4 +62,5 @@ export type AuditLog = {
 /** Internal write shape — Firestore Timestamps before normalisation. */
 export type AuditLogWritable = Omit<AuditLog, "id" | "createdAt"> & {
   createdAt: Timestamp;
+  expiresAt: Timestamp;
 };

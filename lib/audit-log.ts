@@ -98,8 +98,12 @@ export async function writeAuditEvent(input: WriteAuditEventInput): Promise<void
     const ip = hdrs.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null;
     const userAgent = hdrs.get("user-agent")?.slice(0, USER_AGENT_CHAR_CAP) ?? null;
 
+    const now = Timestamp.now();
+    const SEVEN_YEARS_MS = 7 * 365 * 24 * 60 * 60 * 1000;
+
     const writable: AuditLogWritable = {
-      createdAt: Timestamp.now(),
+      createdAt: now,
+      expiresAt: Timestamp.fromMillis(now.toMillis() + SEVEN_YEARS_MS),
       eventType: input.eventType,
       actor,
       target: input.target,

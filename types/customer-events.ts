@@ -24,4 +24,5 @@ export type CustomerEvent = {
 
 export type CustomerEventWritable = Omit<CustomerEvent, "id" | "createdAt"> & {
   createdAt: Timestamp;
+  expiresAt: Timestamp;
 };

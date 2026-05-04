@@ -7,6 +7,7 @@ import { writeAuditEvent } from "@/lib/audit-log";
 
 const WINDOW_MS = 15 * 60 * 1000;       // 15 min rolling window
 const THRESHOLD = 5;                    // emit audit after Nth failure
+const TTL_MS = 24 * 60 * 60 * 1000;    // 24h TTL; refreshed on every counter touch
 
 function ipHash(ip: string | null): string | null {
   if (!ip) return null;
@@ -41,6 +42,7 @@ export async function recordFailedSignIn(ip: string | null, attemptedEmail: stri
         windowStartedAt: now,
         lastFailureAt: now,
         thresholdFiredAt: null,
+        expiresAt: Timestamp.fromMillis(now.toMillis() + TTL_MS),
       });
       totalFailures = 1;
       return;
@@ -59,6 +61,7 @@ export async function recordFailedSignIn(ip: string | null, attemptedEmail: stri
         windowStartedAt: now,
         lastFailureAt: now,
         thresholdFiredAt: null,
+        expiresAt: Timestamp.fromMillis(now.toMillis() + TTL_MS),
       });
       totalFailures = 1;
       return;
@@ -70,6 +73,7 @@ export async function recordFailedSignIn(ip: string | null, attemptedEmail: stri
     txn.update(ref, {
       failures: newCount,
       lastFailureAt: now,
+      expiresAt: Timestamp.fromMillis(now.toMillis() + TTL_MS),
       ...(newCount >= THRESHOLD && !alreadyFired
         ? { thresholdFiredAt: now }
         : {}),
