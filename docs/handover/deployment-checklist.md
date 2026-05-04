@@ -195,3 +195,61 @@ been deployed.
    confirming the empty-state renders without error. Edit a product → return
    to viewer → confirm a `product.updated` row appears with diff visible in
    the drill-down panel.
+
+---
+
+## Plan B deploy actions (DSAR / erasure)
+
+These are one-time actions running after Plan B's commits land on `main`.
+
+1. **Generate `DATA_RIGHTS_JWT_SECRET`** (32-byte hex) and add to Vercel
+   production + development env vars:
+   ```bash
+   node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+   ```
+
+2. **Confirm `RESEND_API_KEY` is real** in Vercel env vars and the domain
+   `cryogene.co.uk` is verified in the Resend dashboard. Without this,
+   transactional emails (verification / access-export / erasure-confirmed
+   / marketing-objection) will silently fail.
+
+3. **Set `SAM_EMAIL` in Firebase Functions runtime config** before
+   deploying the SLA-warning function:
+   ```bash
+   firebase functions:config:set sam.email="<sam's email>"
+   ```
+   (or use the Functions runtime-config UI to set it as `SAM_EMAIL`).
+
+4. **Deploy Firestore rules + indexes** (new collections + tighter
+   `customers` rules):
+   ```bash
+   npx firebase-tools deploy --only firestore:rules
+   npx firebase-tools deploy --only firestore:indexes
+   ```
+
+5. **Enable TTL policies** in Firebase Console → Firestore → TTL:
+   - `dataRightsRequests.respondedAt` — 90 days for `completed` records
+   - `dataRightsRequests.createdAt` — 24 hours for `pending_email_verification` records
+   - `publicFormCounters.updatedAt` — 7 days
+
+6. **Deploy SLA-warning Cloud Function**:
+   ```bash
+   cd functions && npm run build && firebase deploy --only functions:slaWarnings
+   ```
+
+7. **Privacy policy** has been updated in `content/legal/privacy.md`
+   (section 7); confirm the live page renders the new "Your rights"
+   wording and `/data-rights` link.
+
+8. **Smoke gates**:
+   - Submit `/data-rights` form → check verification email arrives
+   - Click verification link → check request flips to `queued`
+   - Visit `/account/data` while signed in → toggle marketing → confirm
+     unsubscribe email arrives
+   - From admin queue, generate access export → confirm ZIP arrives in
+     inbox + downloads cleanly
+
+**Pre-launch blockers still outstanding** (separate from this deploy):
+solicitor review of legal pages (incl. updated privacy section 7),
+countersigned SoW, GLP-1 SKU policy decision, Firebase service-account
+key rotation (legacy from Stage 1b — separate concern).
