@@ -22,12 +22,20 @@ async function CustomerDetail({
   return (
     <div className="space-y-6">
       <h1 className="font-serif text-3xl text-navy">{customer.email}</h1>
-      <Link
-        href={`/admin/audit-log?tk=user&tid=${uid}`}
-        className="text-sm text-blue underline hover:no-underline"
-      >
-        View audit trail →
-      </Link>
+      <div className="flex flex-col gap-1">
+        <Link
+          href={`/admin/audit-log?tk=user&tid=${uid}`}
+          className="text-sm text-blue underline hover:no-underline"
+        >
+          View audit trail →
+        </Link>
+        <p className="text-xs text-muted">
+          Customer-events trail (product views, basket activity) lives in the
+          customerEvents collection — view via Firebase Console → Firestore →
+          customerEvents → filter <code className="mono">uid == {uid}</code>.
+          A dedicated viewer is the future Funnel + Cohort Dashboard upsell.
+        </p>
+      </div>
       <dl className="grid grid-cols-[160px_1fr] gap-y-1 text-sm">
         <dt className="text-muted">Name</dt>
         <dd>{customer.name || "—"}</dd>

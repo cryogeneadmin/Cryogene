@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getConfig } from "@/lib/config";
+import { resetCookieConsent } from "@/app/actions/cookie-consent";
 
 const CREDIBILITY_ITEMS: { label: string; sub: string; icon: React.ReactNode }[] = [
   {
@@ -103,6 +104,13 @@ export async function Footer() {
             <li><Link href="/legal/terms" className="hover:text-white">Terms</Link></li>
             <li><Link href="/legal/privacy" className="hover:text-white">Privacy</Link></li>
             <li><Link href="/data-rights" className="hover:text-white">Your Data Rights</Link></li>
+            <li>
+              <form action={resetCookieConsent}>
+                <button type="submit" className="hover:text-white text-left">
+                  Cookie preferences
+                </button>
+              </form>
+            </li>
             <li><Link href="/legal/cookies" className="hover:text-white">Cookies</Link></li>
             <li><Link href="/legal/refunds" className="hover:text-white">Refunds</Link></li>
             <li><Link href="/legal/shipping" className="hover:text-white">Shipping</Link></li>

@@ -18,6 +18,7 @@ function buildNextPageParams(filters: QueryFilters, cursor: string): string {
   if (filters.toDate) params.set("to", filters.toDate);
   if (filters.targetKind) params.set("tk", filters.targetKind);
   if (filters.targetId) params.set("tid", filters.targetId);
+  if (filters.actorUid) params.set("actor", filters.actorUid);
   params.set("cursor", cursor);
   return params.toString();
 }
@@ -45,6 +46,7 @@ export function AuditLogClient({
   );
   const [from, setFrom] = useState(initialFilters.fromDate ?? "");
   const [to, setTo] = useState(initialFilters.toDate ?? "");
+  const [actor, setActor] = useState(initialFilters.actorUid ?? "");
 
   function applyFilters(next: QueryFilters) {
     const params = new URLSearchParams();
@@ -53,6 +55,7 @@ export function AuditLogClient({
     if (next.toDate) params.set("to", next.toDate);
     if (next.targetKind) params.set("tk", next.targetKind);
     if (next.targetId) params.set("tid", next.targetId);
+    if (next.actorUid) params.set("actor", next.actorUid);
     startTransition(() => {
       router.push(params.size ? `${pathname}?${params}` : pathname);
     });
@@ -67,6 +70,7 @@ export function AuditLogClient({
         toDate: to || null,
         targetKind: initialFilters.targetKind ?? null,
         targetId: initialFilters.targetId ?? null,
+        actorUid: actor || null,
         cursor: null,
       };
       const csv = await exportAuditLogsCsv(liveFilters);
@@ -111,6 +115,8 @@ export function AuditLogClient({
           setFrom={setFrom}
           to={to}
           setTo={setTo}
+          actor={actor}
+          setActor={setActor}
           onApply={applyFilters}
           onExport={handleExport}
           exporting={exporting}
@@ -164,6 +170,8 @@ function FilterBar({
   setFrom,
   to,
   setTo,
+  actor,
+  setActor,
   onApply,
   onExport,
   exporting,
@@ -174,6 +182,8 @@ function FilterBar({
   setFrom: (next: string) => void;
   to: string;
   setTo: (next: string) => void;
+  actor: string;
+  setActor: (v: string) => void;
   onApply: (filters: QueryFilters) => void;
   onExport: () => void;
   exporting: boolean;
@@ -186,7 +196,7 @@ function FilterBar({
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        onApply({ eventTypes: types, fromDate: from || null, toDate: to || null });
+        onApply({ eventTypes: types, fromDate: from || null, toDate: to || null, actorUid: actor || null });
       }}
       className="mb-6 p-4 bg-offwhite border border-border space-y-3"
     >
@@ -230,6 +240,16 @@ function FilterBar({
             value={to}
             onChange={(e) => setTo(e.target.value)}
             className="border border-border bg-white px-2 py-1 text-sm"
+          />
+        </label>
+        <label className="flex flex-col gap-1 text-xs">
+          <span className="label-editorial text-navy">Actor uid</span>
+          <input
+            type="text"
+            value={actor}
+            onChange={(e) => setActor(e.target.value)}
+            placeholder="optional"
+            className="border border-border bg-white px-2 py-1 text-sm mono"
           />
         </label>
         <button

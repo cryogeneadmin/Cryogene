@@ -26,6 +26,7 @@ async function AuditLogContent({
       ? (params.tk as "order" | "product" | "user" | "session")
       : null,
     targetId: typeof params.tid === "string" ? params.tid : null,
+    actorUid: typeof params.actor === "string" ? params.actor : null,
     cursor: typeof params.cursor === "string" ? params.cursor : null,
   };
 

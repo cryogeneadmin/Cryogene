@@ -31,6 +31,12 @@ export async function declineCookies() {
   revalidatePath("/");
 }
 
+export async function resetCookieConsent() {
+  const cookieStore = await cookies();
+  cookieStore.delete(CONSENT_COOKIE_NAME);
+  revalidatePath("/");
+}
+
 export type ConsentState = "accepted" | "declined" | "unknown";
 
 export async function getCookieConsent(): Promise<ConsentState> {

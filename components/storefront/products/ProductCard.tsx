@@ -59,7 +59,7 @@ export function ProductCard({ product }: { product: Product }) {
           </h3>
           <div className="flex items-center gap-2 mb-3">
             {product.casNumber && (
-              <p className="mono text-xs text-gray-400">CAS {product.casNumber}</p>
+              <p className="mono text-xs text-muted">CAS {product.casNumber}</p>
             )}
             {product.composition && (
               <span className="label-editorial text-muted bg-offwhite border border-border px-1.5 py-0.5 text-[10px]">BLEND</span>

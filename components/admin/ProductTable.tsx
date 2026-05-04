@@ -27,7 +27,7 @@ export function ProductTable({ products }: { products: Product[] }) {
           placeholder="Search products..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="border border-border px-3 py-2 text-sm flex-1 min-w-[200px]"
+          className="border border-border px-3 py-2 text-sm flex-1 min-w-[200px] min-h-11"
         />
         <select
           value={categoryFilter}

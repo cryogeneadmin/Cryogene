@@ -17,6 +17,7 @@ const QueryFiltersSchema = z.object({
   toDate: z.string().nullable().optional(),
   targetKind: z.enum(["order", "product", "user", "session"]).nullable().optional(),
   targetId: z.string().nullable().optional(),
+  actorUid: z.string().nullable().optional(),
   cursor: z.string().nullable().optional(),       // doc id of last seen row
 });
 export type QueryFilters = z.infer<typeof QueryFiltersSchema>;
@@ -57,6 +58,8 @@ export async function queryAuditLogs(filters: QueryFilters): Promise<{
     query = query
       .where("target.kind", "==", parsed.targetKind)
       .where("target.id", "==", parsed.targetId);
+  } else if (parsed.actorUid) {
+    query = query.where("actor.uid", "==", parsed.actorUid);
   } else if (parsed.eventTypes && parsed.eventTypes.length > 0) {
     const validTypes = parsed.eventTypes.filter((t): t is AuditEventType =>
       (ALL_AUDIT_EVENT_TYPES as readonly string[]).includes(t)
@@ -125,6 +128,8 @@ export async function exportAuditLogsCsv(filters: QueryFilters): Promise<string>
     query = query
       .where("target.kind", "==", parsed.targetKind)
       .where("target.id", "==", parsed.targetId);
+  } else if (parsed.actorUid) {
+    query = query.where("actor.uid", "==", parsed.actorUid);
   } else if (parsed.eventTypes && parsed.eventTypes.length > 0) {
     const validTypes = parsed.eventTypes.filter((t): t is AuditEventType =>
       (ALL_AUDIT_EVENT_TYPES as readonly string[]).includes(t)
