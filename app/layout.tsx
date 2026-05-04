@@ -62,7 +62,7 @@ const jetBrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://cryogene.co.uk"),
+  metadataBase: new URL("https://cryogenelaboratories.co.uk"),
   title: {
     default: "Cryogene Laboratories — UK Research Peptides, HPLC-Tested & Documented",
     template: "%s | Cryogene Laboratories",

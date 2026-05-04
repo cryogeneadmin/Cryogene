@@ -57,7 +57,7 @@ export const slaWarnings = onSchedule(
               <li><strong>Requester:</strong> ${data.requester?.email}</li>
               <li><strong>Deadline:</strong> ${data.deadline.toDate().toLocaleDateString("en-GB")} (${days} day${days === 1 ? "" : "s"} remaining)</li>
             </ul>
-            <p><a href="https://cryogene.co.uk/admin/data-rights/${doc.id}">Open in admin</a></p>
+            <p><a href="https://cryogenelaboratories.co.uk/admin/data-rights/${doc.id}">Open in admin</a></p>
           `,
         });
 

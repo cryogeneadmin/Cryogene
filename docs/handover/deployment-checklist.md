@@ -64,7 +64,7 @@ Before deploying, you need to add the following environment variables. In the pr
 | `NEXT_PUBLIC_FIREBASE_API_KEY` | Firebase web API key | Firebase console → Project settings → General → Web API key |
 | `NEXT_PUBLIC_FIREBASE_PROJECT_ID` | Same as `FIREBASE_PROJECT_ID` | As above |
 | `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` | Your storage bucket name (e.g. `cryogene-prod.appspot.com`) | Firebase console → Storage |
-| `NEXT_PUBLIC_SITE_URL` | Your production domain (e.g. `https://cryogene.co.uk`) | Whatever domain you purchase in Step 13 |
+| `NEXT_PUBLIC_SITE_URL` | Your production domain (e.g. `https://cryogenelaboratories.co.uk`) | Whatever domain you purchase in Step 13 |
 | `NEXT_PUBLIC_SITE_NAME` | Your store name (e.g. `Cryogene`) | As decided |
 | `RESEND_API_KEY` | Your Resend API key | See Step 11 |
 | `ADMIN_DEV_BYPASS` | Leave empty or do not add this variable | This must NOT be set in production |
@@ -81,7 +81,7 @@ Go to [resend.com](https://resend.com) and sign up with your business email. Res
 
 **Step 12: Verify your domain in Resend**
 
-In the Resend dashboard, click "Domains" then "Add domain". Enter your domain name (e.g. `cryogene.co.uk`). Resend will give you DNS records to add — typically one TXT record for ownership verification and two MX records. Add these to your domain registrar's DNS settings (see Step 13 for domain setup). Once the DNS records propagate (usually within a few hours), your domain will show as verified. Once verified, click "API Keys", create a new key, and copy it into the `RESEND_API_KEY` environment variable in Vercel.
+In the Resend dashboard, click "Domains" then "Add domain". Enter your domain name (e.g. `cryogenelaboratories.co.uk`). Resend will give you DNS records to add — typically one TXT record for ownership verification and two MX records. Add these to your domain registrar's DNS settings (see Step 13 for domain setup). Once the DNS records propagate (usually within a few hours), your domain will show as verified. Once verified, click "API Keys", create a new key, and copy it into the `RESEND_API_KEY` environment variable in Vercel.
 
 ---
 
@@ -89,7 +89,7 @@ In the Resend dashboard, click "Domains" then "Add domain". Enter your domain na
 
 **Step 13: Purchase a domain**
 
-Buy your domain from a reputable UK registrar such as [Namecheap](https://namecheap.com), [123-reg](https://123-reg.co.uk), or [IONOS](https://ionos.co.uk). David recommends Namecheap for ease of use. Your domain should ideally match your business name (e.g. `cryogene.co.uk`).
+Buy your domain from a reputable UK registrar such as [Namecheap](https://namecheap.com), [123-reg](https://123-reg.co.uk), or [IONOS](https://ionos.co.uk). David recommends Namecheap for ease of use. Your domain should ideally match your business name (e.g. `cryogenelaboratories.co.uk`).
 
 **Step 14: Connect the domain to Vercel**
 
@@ -97,7 +97,7 @@ In Vercel, go to your project, click "Settings" then "Domains". Click "Add" and 
 
 **Step 15: Update NEXT_PUBLIC_SITE_URL**
 
-Once your domain is working, update the `NEXT_PUBLIC_SITE_URL` environment variable in Vercel to your live domain (e.g. `https://cryogene.co.uk`). Vercel will trigger a new deployment automatically.
+Once your domain is working, update the `NEXT_PUBLIC_SITE_URL` environment variable in Vercel to your live domain (e.g. `https://cryogenelaboratories.co.uk`). Vercel will trigger a new deployment automatically.
 
 ---
 
@@ -209,7 +209,7 @@ These are one-time actions running after Plan B's commits land on `main`.
    ```
 
 2. **Confirm `RESEND_API_KEY` is real** in Vercel env vars and the domain
-   `cryogene.co.uk` is verified in the Resend dashboard. Without this,
+   `cryogenelaboratories.co.uk` is verified in the Resend dashboard. Without this,
    transactional emails (verification / access-export / erasure-confirmed
    / marketing-objection) will silently fail.
 

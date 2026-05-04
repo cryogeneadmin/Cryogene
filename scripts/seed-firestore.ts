@@ -52,7 +52,7 @@ async function main() {
 
   const defaultConfig = {
     storeName: "Cryogene Laboratories",
-    storeEmail: "hello@cryogene.co.uk",
+    storeEmail: "hello@cryogenelaboratories.co.uk",
     storePhone: null,
     registeredAddress: "[ADDRESS TBC]",
     companyNumber: null,
@@ -68,7 +68,7 @@ async function main() {
       displayPricesInclusive: false,
     },
     notifications: {
-      newOrderEmailTo: "orders@cryogene.co.uk",
+      newOrderEmailTo: "orders@cryogenelaboratories.co.uk",
     },
     updatedAt: new Date(),
     updatedBy: "seed-script",

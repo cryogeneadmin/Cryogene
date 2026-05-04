@@ -17,7 +17,7 @@ const LOCAL_CONFIG_PATH = path.join(process.cwd(), "data", "config.local.json");
 
 const DEFAULT_CONFIG: Config = {
   storeName: "Cryogene Laboratories",
-  storeEmail: "hello@cryogene.co.uk",
+  storeEmail: "hello@cryogenelaboratories.co.uk",
   storePhone: null,
   registeredAddress: "[ADDRESS TBC]",
   companyNumber: null,
@@ -33,7 +33,7 @@ const DEFAULT_CONFIG: Config = {
     displayPricesInclusive: false,
   },
   notifications: {
-    newOrderEmailTo: "orders@cryogene.co.uk",
+    newOrderEmailTo: "orders@cryogenelaboratories.co.uk",
   },
   updatedAt: new Date(),
   updatedBy: "seed",

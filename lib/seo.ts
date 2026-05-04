@@ -2,7 +2,7 @@
 import type { Product, Config } from "@/types";
 
 export function getSiteUrl(): string {
-  return process.env.NEXT_PUBLIC_SITE_URL ?? "https://peptidestore.co.uk";
+  return process.env.NEXT_PUBLIC_SITE_URL ?? "https://cryogenelaboratories.co.uk";
 }
 
 export function getStoreName(config: Config | null): string {

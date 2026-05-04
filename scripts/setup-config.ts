@@ -24,7 +24,7 @@ import { getFirestore } from "firebase-admin/firestore";
 // ─── EDIT THESE BEFORE RUNNING ────────────────────────────────────────────
 const TRADER_DETAILS = {
   // Customer-facing contact email. Must be a working address Sam monitors.
-  storeEmail: "TODO_CONFIRM@cryogene.co.uk",
+  storeEmail: "TODO_CONFIRM@cryogenelaboratories.co.uk",
 
   // Optional public phone number. Use null if not yet confirmed.
   storePhone: null as string | null,

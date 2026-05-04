@@ -9,5 +9,5 @@ export function getResend(): Resend {
 }
 
 export function fromAddress(): string {
-  return "Cryogene Laboratories <noreply@cryogene.co.uk>";
+  return "Cryogene Laboratories <noreply@cryogenelaboratories.co.uk>";
 }

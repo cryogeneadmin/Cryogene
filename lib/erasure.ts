@@ -55,7 +55,7 @@ export type ErasureResult =
 function erasedEmailFor(uid: string | null, email: string): string {
   const seed = uid ?? email;
   const hash = createHash("sha256").update(seed).digest("hex").slice(0, 12);
-  return `erased+${hash}@cryogene.co.uk`;
+  return `erased+${hash}@cryogenelaboratories.co.uk`;
 }
 
 /**

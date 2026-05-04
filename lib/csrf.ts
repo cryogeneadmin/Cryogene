@@ -2,8 +2,8 @@
 import "server-only";
 
 const ALLOWED_ORIGINS = [
-  "https://cryogene.co.uk",
-  "https://www.cryogene.co.uk",
+  "https://cryogenelaboratories.co.uk",
+  "https://www.cryogenelaboratories.co.uk",
 ];
 
 /**

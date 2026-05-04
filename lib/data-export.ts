@@ -47,7 +47,7 @@ Questions? Email Cryogene at the address on our /contact page.
 
 This export was generated under your right of access (UK GDPR Art. 15).
 You also have the right to rectification, erasure, and to object to direct
-marketing — see https://cryogene.co.uk/data-rights.
+marketing — see https://cryogenelaboratories.co.uk/data-rights.
 `;
 
 export async function buildAccessExport(input: ExportInput): Promise<{ downloadUrl: string }> {

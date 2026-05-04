@@ -18,7 +18,7 @@ Phase 1 variables only. Phase 2 (TrueLayer) and Phase 3 (fulfilment) variables a
 | Firebase Storage enabled | Firebase console → Storage | Region: europe-west2 |
 | Firebase Authentication enabled, **Email/Password provider** on | Firebase console → Authentication → Sign-in method | Email/Password toggle = on |
 | Service account JSON downloaded | Firebase console → Project settings → Service accounts → Generate new private key | File saved locally, **never committed**, transferred to David via Signal/1Password if Sam generated it |
-| Resend account created, domain verified | resend.com → Domains | DNS records on `cryogene.co.uk` propagated, status: Verified |
+| Resend account created, domain verified | resend.com → Domains | DNS records on `cryogenelaboratories.co.uk` propagated, status: Verified |
 | Resend API key issued | resend.com → API Keys | Key starts with `re_` |
 | Vercel project imported from `DavidVille87/cryogene` | Sam's Vercel dashboard | Project exists, **Deploy not yet clicked** |
 
@@ -34,7 +34,7 @@ Each row tells you what the code does with the value, where to fetch it, and wha
 
 | Key | Value | Vercel envs | Notes |
 |---|---|---|---|
-| `NEXT_PUBLIC_SITE_URL` | `https://cryogene.co.uk` | Prod, Preview, Dev | Used in `lib/seo.ts` for canonical URLs, OpenGraph, sitemap, JSON-LD. **Do not include trailing slash.** Preview env can use the Vercel-issued `*.vercel.app` URL if you want preview links to look right, but it's optional — code falls back gracefully. |
+| `NEXT_PUBLIC_SITE_URL` | `https://cryogenelaboratories.co.uk` | Prod, Preview, Dev | Used in `lib/seo.ts` for canonical URLs, OpenGraph, sitemap, JSON-LD. **Do not include trailing slash.** Preview env can use the Vercel-issued `*.vercel.app` URL if you want preview links to look right, but it's optional — code falls back gracefully. |
 | `NEXT_PUBLIC_SITE_NAME` | `Cryogene Laboratories` | Prod, Preview, Dev | Hard fallback for `getStoreName()` if Firestore config doc is missing. After first admin save, the live config doc takes over — but this is the bootstrap value before any admin login. |
 
 ### 2. Firebase Client SDK (browser-exposed — public)
@@ -78,8 +78,8 @@ The output is one long unbroken string starting with `LS0tLS1CRUdJTi...`. Copy t
 | Key | Value | Vercel envs | Notes |
 |---|---|---|---|
 | `RESEND_API_KEY` | API key from Resend dashboard (starts with `re_`) | Prod, Preview, Dev | |
-| `RESEND_FROM_EMAIL` | `orders@cryogene.co.uk` | Prod, Preview, Dev | Must be on the verified Resend domain. If you want a friendly name, use the format: `Cryogene Laboratories <orders@cryogene.co.uk>`. |
-| `RESEND_NOTIFICATION_EMAIL` | Sam's address where new-order alerts arrive (e.g. `sam@cryogene.co.uk` or `samcowling118@googlemail.com`) | Prod, Preview, Dev | Internal recipient — does not need to be on a verified domain. |
+| `RESEND_FROM_EMAIL` | `orders@cryogenelaboratories.co.uk` | Prod, Preview, Dev | Must be on the verified Resend domain. If you want a friendly name, use the format: `Cryogene Laboratories <orders@cryogenelaboratories.co.uk>`. |
+| `RESEND_NOTIFICATION_EMAIL` | Sam's address where new-order alerts arrive (e.g. `sam@cryogenelaboratories.co.uk` or `samcowling118@googlemail.com`) | Prod, Preview, Dev | Internal recipient — does not need to be on a verified domain. |
 
 ### 5. Payments (Phase 1 = stub)
 
@@ -118,9 +118,9 @@ If you installed `vercel` CLI and ran `vercel login` as Sam, you can paste env v
 ```bash
 # After `vercel link` to associate this directory with the project:
 
-printf "https://cryogene.co.uk" | vercel env add NEXT_PUBLIC_SITE_URL production
-printf "https://cryogene.co.uk" | vercel env add NEXT_PUBLIC_SITE_URL preview
-printf "https://cryogene.co.uk" | vercel env add NEXT_PUBLIC_SITE_URL development
+printf "https://cryogenelaboratories.co.uk" | vercel env add NEXT_PUBLIC_SITE_URL production
+printf "https://cryogenelaboratories.co.uk" | vercel env add NEXT_PUBLIC_SITE_URL preview
+printf "https://cryogenelaboratories.co.uk" | vercel env add NEXT_PUBLIC_SITE_URL development
 
 printf "Cryogene Laboratories" | vercel env add NEXT_PUBLIC_SITE_NAME production
 # … repeat for preview and development …
@@ -182,11 +182,11 @@ vercel --prod
 
 | Step | Where | Action |
 |---|---|---|
-| 1 | Vercel project → Settings → Domains | Add `cryogene.co.uk` and `www.cryogene.co.uk` |
+| 1 | Vercel project → Settings → Domains | Add `cryogenelaboratories.co.uk` and `www.cryogenelaboratories.co.uk` |
 | 2 | Vercel will issue DNS targets (apex `A` record + `www` `CNAME`) | Note the values shown |
-| 3 | Namecheap → Domain List → cryogene.co.uk → Manage → Advanced DNS | Add the records Vercel showed. Delete any pre-existing parking records that conflict. |
+| 3 | Namecheap → Domain List → cryogenelaboratories.co.uk → Manage → Advanced DNS | Add the records Vercel showed. Delete any pre-existing parking records that conflict. |
 | 4 | Wait 5–60 minutes for DNS propagation | Vercel auto-detects and issues a TLS cert via Let's Encrypt once DNS resolves |
-| 5 | Update `NEXT_PUBLIC_SITE_URL` in Vercel env vars to `https://cryogene.co.uk` if it was set to a Vercel-issued URL initially, then redeploy | Vercel → Env Vars → Edit |
+| 5 | Update `NEXT_PUBLIC_SITE_URL` in Vercel env vars to `https://cryogenelaboratories.co.uk` if it was set to a Vercel-issued URL initially, then redeploy | Vercel → Env Vars → Edit |
 
 ---
 

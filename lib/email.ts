@@ -11,4 +11,4 @@ export function getResend(): Resend {
   return cached;
 }
 
-export const FROM_ADDRESS = "Cryogene Laboratories <noreply@cryogene.co.uk>";
+export const FROM_ADDRESS = "Cryogene Laboratories <noreply@cryogenelaboratories.co.uk>";

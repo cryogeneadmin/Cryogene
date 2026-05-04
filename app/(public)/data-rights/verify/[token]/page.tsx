@@ -22,7 +22,7 @@ async function VerifyContent({
           Verification links expire 24 hours after they&apos;re sent. Please
           submit your request again at{" "}
           <a href="/data-rights" className="underline">
-            cryogene.co.uk/data-rights
+            cryogenelaboratories.co.uk/data-rights
           </a>
           .
         </p>

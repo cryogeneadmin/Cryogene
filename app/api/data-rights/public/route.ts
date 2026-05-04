@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
   // readable client-side and not a security boundary; if it ever drifts
   // (preview deploy, misconfig, attacker-controlled), users would receive
   // emails containing attacker-controlled hostnames. Hardcoded.
-  const CANONICAL_DOMAIN = "https://cryogene.co.uk";
+  const CANONICAL_DOMAIN = "https://cryogenelaboratories.co.uk";
   const verifyUrl = `${CANONICAL_DOMAIN}/data-rights/verify/${encodeURIComponent(token)}`;
 
   await sendVerificationEmail({
