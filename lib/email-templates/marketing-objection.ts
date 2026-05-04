@@ -1,6 +1,16 @@
-// lib/email-templates/marketing-objection.ts (stub — real impl in Section J)
+// lib/email-templates/marketing-objection.ts
 import "server-only";
+import { getResend, FROM_ADDRESS } from "@/lib/email";
 
 export async function sendObjectionConfirmedEmail(input: { to: string }): Promise<void> {
-  console.log("[stub] marketing-objection email", input);
+  await getResend().emails.send({
+    from: FROM_ADDRESS,
+    to: input.to,
+    subject: "You have been unsubscribed",
+    html: `
+      <p>You will no longer receive marketing emails from Cryogene Laboratories.</p>
+      <p>Transactional emails (order confirmations, dispatch notifications) will still be sent
+      where required for the service.</p>
+    `,
+  });
 }
