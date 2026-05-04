@@ -6,6 +6,7 @@ import { getCustomerSession } from "@/lib/customer-auth";
 import { getCustomerById } from "@/lib/customers";
 import { getMarketingConsent } from "@/lib/marketing-consent";
 import { AccountDataClient } from "./AccountDataClient";
+import { SkeletonRows } from "@/components/ui/Skeleton";
 
 async function AccountDataContent() {
   await connection();
@@ -33,7 +34,7 @@ export default function AccountDataPage() {
         See a summary of the data we hold on you, exercise your UK GDPR rights,
         and manage your marketing email preferences.
       </p>
-      <Suspense fallback={<p className="text-muted">Loading…</p>}>
+      <Suspense fallback={<SkeletonRows count={5} />}>
         <AccountDataContent />
       </Suspense>
     </div>

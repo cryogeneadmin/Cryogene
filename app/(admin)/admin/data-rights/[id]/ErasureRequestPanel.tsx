@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { DataRightsRequest } from "@/types/data-rights";
 import { previewErasure, runErasure, type ErasurePreview } from "./actions";
+import { RejectPanel } from "./RejectPanel";
 
 export function ErasureRequestPanel({ request }: { request: DataRightsRequest }) {
   const [preview, setPreview] = useState<ErasurePreview | null>(null);
@@ -106,6 +107,13 @@ export function ErasureRequestPanel({ request }: { request: DataRightsRequest })
       )}
 
       {error && <p className="mt-4 text-sm text-red-700" role="alert">{error}</p>}
+      {request.status !== "completed" && (
+        <RejectPanel
+          requestId={request.id}
+          alreadyRejected={request.status === "rejected"}
+          initialReason={request.rejectionReason}
+        />
+      )}
     </div>
   );
 }

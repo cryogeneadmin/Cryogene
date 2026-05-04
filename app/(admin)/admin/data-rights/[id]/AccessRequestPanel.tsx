@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { DataRightsRequest } from "@/types/data-rights";
 import { generateAndSendAccessExport } from "./actions";
+import { RejectPanel } from "./RejectPanel";
 
 export function AccessRequestPanel({ request }: { request: DataRightsRequest }) {
   const [busy, setBusy] = useState(false);
@@ -59,6 +60,13 @@ export function AccessRequestPanel({ request }: { request: DataRightsRequest }) 
           </>
         )}
       </section>
+      {request.status !== "completed" && (
+        <RejectPanel
+          requestId={request.id}
+          alreadyRejected={request.status === "rejected"}
+          initialReason={request.rejectionReason}
+        />
+      )}
     </div>
   );
 }

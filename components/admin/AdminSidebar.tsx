@@ -11,6 +11,7 @@ const links = [
   { href: "/admin/enquiries", label: "Enquiries" },
   { href: "/admin/customers", label: "Customers" },
   { href: "/admin/audit-log", label: "Audit log" },
+  { href: "/admin/erasure-summaries", label: "Erasure summaries" },
   { href: "/admin/settings", label: "Settings" },
 ];
 

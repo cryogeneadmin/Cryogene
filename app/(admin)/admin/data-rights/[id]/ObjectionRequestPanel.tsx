@@ -1,4 +1,5 @@
 import type { DataRightsRequest } from "@/types/data-rights";
+import { RejectPanel } from "./RejectPanel";
 
 export function ObjectionRequestPanel({ request }: { request: DataRightsRequest }) {
   return (
@@ -16,6 +17,13 @@ export function ObjectionRequestPanel({ request }: { request: DataRightsRequest 
         Objections are auto-processed at the API layer. Sam doesn&apos;t need to
         action this — it&apos;s recorded here for audit purposes only.
       </p>
+      {request.status !== "completed" && (
+        <RejectPanel
+          requestId={request.id}
+          alreadyRejected={request.status === "rejected"}
+          initialReason={request.rejectionReason}
+        />
+      )}
     </div>
   );
 }

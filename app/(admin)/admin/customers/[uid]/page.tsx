@@ -6,6 +6,7 @@ import Link from "next/link";
 import { assertAdmin } from "@/lib/admin-auth";
 import { getCustomerById } from "@/lib/customers";
 import { getMarketingConsent } from "@/lib/marketing-consent";
+import { SkeletonRows } from "@/components/ui/Skeleton";
 
 async function CustomerDetail({
   params,
@@ -57,7 +58,7 @@ export default function CustomerDetailPage(props: {
 }) {
   return (
     <div className="p-6">
-      <Suspense fallback={<p className="text-muted">Loading…</p>}>
+      <Suspense fallback={<SkeletonRows count={4} />}>
         <CustomerDetail params={props.params} />
       </Suspense>
     </div>

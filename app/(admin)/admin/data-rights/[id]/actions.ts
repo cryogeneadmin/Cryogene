@@ -144,6 +144,49 @@ export async function generateAndSendAccessExport(
   return { ok: true };
 }
 
+export async function rejectRequest(
+  requestId: string,
+  reason: string
+): Promise<{ ok: true } | { ok: false; reason: string }> {
+  await assertAdmin();
+  const trimmed = reason.trim();
+  if (trimmed.length === 0) {
+    return { ok: false, reason: "A rejection reason is required" };
+  }
+  if (trimmed.length > 500) {
+    return { ok: false, reason: "Rejection reason must be 500 characters or fewer" };
+  }
+
+  const request = await getRequestById(requestId);
+  if (!request) return { ok: false, reason: "Request not found" };
+
+  const db = getAdminDb();
+  if (!db) return { ok: false, reason: "Firestore not configured" };
+
+  // Audit FIRST — same ordering as the other completion paths.
+  await writeAuditEvent({
+    eventType: "customer.rights_request_rejected",
+    target: { kind: "user", id: request.requester.uid },
+    metadata: {
+      requestId,
+      requesterEmail: request.requester.email,
+      type: request.type,
+      reason: trimmed,
+    },
+  });
+
+  await db.doc(`dataRightsRequests/${requestId}`).update({
+    status: "rejected",
+    rejectionReason: trimmed,
+    respondedAt: Timestamp.now(),
+    expiresAt: Timestamp.fromMillis(Timestamp.now().toMillis() + 90 * 24 * 60 * 60 * 1000),
+  });
+
+  revalidatePath("/admin/data-rights");
+  revalidatePath(`/admin/data-rights/${requestId}`);
+  return { ok: true };
+}
+
 export async function markRectificationComplete(requestId: string): Promise<void> {
   await assertAdmin();
   const request = await getRequestById(requestId);

@@ -8,6 +8,7 @@ import { AccessRequestPanel } from "./AccessRequestPanel";
 import { ErasureRequestPanel } from "./ErasureRequestPanel";
 import { RectificationRequestPanel } from "./RectificationRequestPanel";
 import { ObjectionRequestPanel } from "./ObjectionRequestPanel";
+import { SkeletonRows } from "@/components/ui/Skeleton";
 
 async function RequestDetail({
   params,
@@ -43,7 +44,7 @@ export default function RequestDetailPage(props: {
 }) {
   return (
     <div className="p-6 max-w-4xl">
-      <Suspense fallback={<p className="text-muted">Loading…</p>}>
+      <Suspense fallback={<SkeletonRows count={4} />}>
         <RequestDetail params={props.params} />
       </Suspense>
     </div>

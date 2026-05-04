@@ -5,6 +5,7 @@ import Link from "next/link";
 import { assertAdmin } from "@/lib/admin-auth";
 import { listRequests } from "@/lib/data-rights";
 import type { DataRightsRequest } from "@/types/data-rights";
+import { SkeletonRows } from "@/components/ui/Skeleton";
 
 const TYPE_LABELS: Record<DataRightsRequest["type"], string> = {
   access: "Access",
@@ -76,7 +77,7 @@ export default function DataRightsQueuePage() {
       <p className="text-sm text-muted mb-6">
         UK GDPR requires response within 30 days. Sorted by deadline ascending.
       </p>
-      <Suspense fallback={<p className="text-muted">Loading…</p>}>
+      <Suspense fallback={<SkeletonRows count={6} />}>
         <QueueContent />
       </Suspense>
     </div>

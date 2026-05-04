@@ -4,6 +4,7 @@ import { connection } from "next/server";
 import { assertAdmin } from "@/lib/admin-auth";
 import { queryAuditLogs, type QueryFilters } from "./actions";
 import { AuditLogClient } from "./AuditLogClient";
+import { SkeletonRows } from "@/components/ui/Skeleton";
 
 async function AuditLogContent({
   searchParams,
@@ -51,7 +52,7 @@ export default function AuditLogPage(props: {
         Append-only record of order, product, admin and security events.
         Retained 7 years per HMRC business-record requirement.
       </p>
-      <Suspense fallback={<p className="text-muted">Loading…</p>}>
+      <Suspense fallback={<SkeletonRows count={8} />}>
         <AuditLogContent searchParams={props.searchParams} />
       </Suspense>
     </div>

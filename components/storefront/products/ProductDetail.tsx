@@ -10,6 +10,7 @@ import { BlendedProductComposition } from "./BlendedProductComposition";
 import { CompoundStatsBar } from "./CompoundStatsBar";
 import { StorageHandlingPanel } from "./StorageHandlingPanel";
 import { ProductAnchorNav } from "./ProductAnchorNav";
+import { ProductGallery } from "./ProductGallery";
 import { getProducts } from "@/lib/products";
 import { getConfig } from "@/lib/config";
 import { RESEARCH_TAGS, TAG_SLUGS } from "@/data/research-tags";
@@ -33,7 +34,6 @@ function getCategoryLabel(category: ProductCategory): string {
 }
 
 export async function ProductDetail({ product }: { product: Product }) {
-  const primaryImage = product.images[product.primaryImageIndex] ?? product.images[0];
   const categoryLabel = getCategoryLabel(product.category);
 
   const related = (await getProducts({ category: product.category, activeOnly: true }))
@@ -76,17 +76,12 @@ export async function ProductDetail({ product }: { product: Product }) {
       </nav>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         <div className="md:sticky md:top-28 self-start">
-          <div className="border border-border bg-offwhite p-12 flex items-center justify-center aspect-square">
-            <Image
-              src={primaryImage ?? "/placeholder-vial.svg"}
-              alt={`${product.name} research ${product.category === "supplies" ? "supply" : "peptide"} vial`}
-              width={600}
-              height={600}
-              className="object-contain w-full h-full"
-              priority
-              unoptimized
-            />
-          </div>
+          <ProductGallery
+            images={product.images}
+            primaryIndex={product.primaryImageIndex}
+            productName={product.name}
+            altSuffix={product.category === "supplies" ? "supply" : "peptide"}
+          />
         </div>
         <div>
           <p className="label-editorial mb-2">{categoryLabel}</p>

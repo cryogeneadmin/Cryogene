@@ -6,6 +6,7 @@ import Link from "next/link";
 import { getOrderById } from "@/lib/orders";
 import { formatPriceFromPence } from "@/lib/basket";
 import { OrderStatusControls } from "@/components/admin/OrderStatusControls";
+import { OrderStatusTimeline } from "@/components/admin/OrderStatusTimeline";
 import { coerceToDate } from "@/lib/utils";
 
 async function OrderDetailContent({ params }: { params: Promise<{ id: string }> }) {
@@ -29,6 +30,8 @@ async function OrderDetailContent({ params }: { params: Promise<{ id: string }> 
           View audit trail →
         </Link>
       </p>
+
+      <OrderStatusTimeline status={order.status} />
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8">
         <div className="space-y-6">

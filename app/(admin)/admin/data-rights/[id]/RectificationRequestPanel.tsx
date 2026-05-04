@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { DataRightsRequest } from "@/types/data-rights";
 import { markRectificationComplete } from "./actions";
+import { RejectPanel } from "./RejectPanel";
 
 export function RectificationRequestPanel({ request }: { request: DataRightsRequest }) {
   const [done, setDone] = useState(request.status === "completed");
@@ -51,6 +52,13 @@ export function RectificationRequestPanel({ request }: { request: DataRightsRequ
           </button>
         )}
       </section>
+      {request.status !== "completed" && (
+        <RejectPanel
+          requestId={request.id}
+          alreadyRejected={request.status === "rejected"}
+          initialReason={request.rejectionReason}
+        />
+      )}
     </div>
   );
 }
