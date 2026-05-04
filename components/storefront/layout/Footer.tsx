@@ -102,6 +102,7 @@ export async function Footer() {
           <ul className="space-y-2 text-sm list-none p-0">
             <li><Link href="/legal/terms" className="hover:text-white">Terms</Link></li>
             <li><Link href="/legal/privacy" className="hover:text-white">Privacy</Link></li>
+            <li><Link href="/data-rights" className="hover:text-white">Your Data Rights</Link></li>
             <li><Link href="/legal/cookies" className="hover:text-white">Cookies</Link></li>
             <li><Link href="/legal/refunds" className="hover:text-white">Refunds</Link></li>
             <li><Link href="/legal/shipping" className="hover:text-white">Shipping</Link></li>
