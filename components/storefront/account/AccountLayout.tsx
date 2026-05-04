@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 const links = [
   { href: "/account", label: "Dashboard" },
   { href: "/account/orders", label: "Order history" },
+  { href: "/account/data", label: "Data & privacy" },
   { href: "/account/settings", label: "Settings" },
 ];
 
