@@ -77,7 +77,9 @@ We do not sell your data to third parties.
 - **Object** to processing based on legitimate interests
 - **Withdraw consent** for analytics at any time via our cookie settings
 
-To exercise any of these rights, please contact us via the [contact form](/contact). We will respond within one calendar month.
+To exercise any of these rights, visit our [Data Rights](/data-rights) page, or — if you have an account — manage your preferences and submit requests directly at [Data & Privacy](/account/data) inside your account. We respond within 30 days.
+
+Order records are retained in **anonymised form** for 6 years after erasure to satisfy HMRC tax-record requirements (UK Companies Act). All personally identifiable information (name, email, phone, address line 1 and 2) is replaced with "[erased]" placeholders; aggregate data (city, postcode, country, line items, prices, dates) is retained as required for tax records but cannot be linked to you.
 
 You also have the right to lodge a complaint with the Information Commissioner's Office (ICO) at [ico.org.uk](https://ico.org.uk).
 
