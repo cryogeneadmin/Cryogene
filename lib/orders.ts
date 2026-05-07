@@ -1,7 +1,7 @@
 import "server-only";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { Order, OrderStatus, Product, ProductVariant } from "@/types";
+import type { Order, OrderFulfilment, OrderStatus, Product, ProductVariant } from "@/types";
 import { getAdminDb } from "@/lib/firebase/admin";
 import { isSeedMode } from "@/lib/data-mode";
 import { Timestamp } from "firebase-admin/firestore";
@@ -45,6 +45,22 @@ function normalizeOrder(raw: Record<string, unknown>): Order {
     }
     out.fulfilment = fulfilment;
   }
+
+  // Default fulfilment fields for orders written before Phase 3
+  const f = (out.fulfilment ?? {}) as Partial<OrderFulfilment>;
+  out.fulfilment = {
+    carrier: f.carrier ?? null,
+    carrierOrderId: f.carrierOrderId ?? null,
+    trackingNumber: f.trackingNumber ?? null,
+    labelUrl: f.labelUrl ?? null,
+    printedAt: f.printedAt ?? null,
+    printerStatus: f.printerStatus ?? null,
+    dispatchedAt: f.dispatchedAt ?? null,
+    customerEmailedAt: f.customerEmailedAt ?? null,
+    lastError: f.lastError ?? null,
+    trackingEvents: Array.isArray(f.trackingEvents) ? f.trackingEvents : [],
+    lastTrackingStatus: f.lastTrackingStatus ?? null,
+  };
 
   return out as unknown as Order;
 }

@@ -196,12 +196,16 @@ export async function createOrderAction(
       },
       fulfilment: {
         carrier: null,
+        carrierOrderId: null,
         trackingNumber: null,
         labelUrl: null,
         printedAt: null,
         printerStatus: null,
         dispatchedAt: null,
         customerEmailedAt: null,
+        lastError: null,
+        trackingEvents: [],
+        lastTrackingStatus: null,
       },
       adminNotes: null,
     });

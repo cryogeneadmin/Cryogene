@@ -48,14 +48,33 @@ export type OrderPayment = {
   failureReason: string | null;
 };
 
+export type TrackingMilestone =
+  | "collected"
+  | "in_transit"
+  | "out_for_delivery"
+  | "delivered"
+  | "failed";
+
+export type TrackingEvent = {
+  milestone: TrackingMilestone;
+  timestamp: Timestamp | Date;
+  location: string | null;
+  /** Raw Royal Mail webhook payload, capped at ~1KB. */
+  raw: Record<string, unknown>;
+};
+
 export type OrderFulfilment = {
   carrier: "royalmail" | "sendcloud" | "shippo" | null;
+  carrierOrderId: string | null;
   trackingNumber: string | null;
   labelUrl: string | null;
   printedAt: Timestamp | Date | null;
   printerStatus: "pending" | "printed" | "failed" | null;
   dispatchedAt: Timestamp | Date | null;
   customerEmailedAt: Timestamp | Date | null;
+  lastError: string | null;
+  trackingEvents: TrackingEvent[];
+  lastTrackingStatus: TrackingMilestone | null;
 };
 
 export type Order = {
