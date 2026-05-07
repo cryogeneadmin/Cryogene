@@ -30,6 +30,16 @@ export const ALL_AUDIT_EVENT_TYPES = [
   "customer.objection_received",
   "customer.objection_processed",
   "customer.rights_request_rejected",
+  // Fulfilment (Phase 3)
+  "order.label_generated",
+  "order.label_voided",
+  "order.dispatched",
+  "order.tracking_collected",
+  "order.tracking_in_transit",
+  "order.tracking_out_for_delivery",
+  "order.tracking_delivered",
+  "order.tracking_failed",
+  "order.dispatch_batch_run",
 ] as const;
 
 export type AuditEventType = (typeof ALL_AUDIT_EVENT_TYPES)[number];
