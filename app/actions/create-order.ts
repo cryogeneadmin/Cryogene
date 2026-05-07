@@ -169,7 +169,7 @@ export async function createOrderAction(
           line2: delivery.line2 ?? null,
           city: delivery.city,
           postcode: delivery.postcode,
-          country: "GB",
+          country: delivery.country,
         },
       },
       items: verifiedItems,
