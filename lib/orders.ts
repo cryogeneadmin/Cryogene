@@ -17,6 +17,9 @@ const LOCAL_COUNTERS_PATH = path.join(process.cwd(), "data", "counters.local.jso
 function normalizeOrder(raw: Record<string, unknown>): Order {
   const out: Record<string, unknown> = { ...raw };
 
+  // Default currencyCode for orders written before this field existed
+  if (out.currencyCode === undefined) out.currencyCode = "GBP";
+
   // Top-level date fields
   for (const key of ["createdAt", "updatedAt", "researchConfirmedAt", "ageGatePassedAt"] as const) {
     const v = out[key];

@@ -71,6 +71,11 @@ export type Order = {
   vatAmountInPence: number;
   totalInPence: number;
   vatRateAtPurchase: number;
+  /**
+   * ISO 4217 currency code. Always "GBP" at launch. Future multi-currency
+   * support widens this and updates price formatters.
+   */
+  currencyCode: string;
 
   researchConfirmed: boolean;
   researchConfirmedAt: Timestamp | Date;

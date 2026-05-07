@@ -175,6 +175,7 @@ export async function createOrderAction(
       vatAmountInPence,
       totalInPence,
       vatRateAtPurchase: config.vat.rate,
+      currencyCode: "GBP",
       // Zod-validated — only true if the customer actually confirmed all three
       researchConfirmed,
       researchConfirmedAt: now,
