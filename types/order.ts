@@ -12,7 +12,12 @@ export type Address = {
   line2: string | null;
   city: string;
   postcode: string;
-  country: "GB";
+  /**
+   * ISO 3166-1 alpha-2 country code. Phase 3 launches GB-only — Zod schemas
+   * enforce GB at the validation boundary. International activation is a
+   * Zod allowlist change (see spec §13: International Activation Runbook).
+   */
+  country: string;
 };
 
 export type OrderCustomer = {
