@@ -46,6 +46,16 @@ function normalizeOrder(raw: Record<string, unknown>): Order {
     out.fulfilment = fulfilment;
   }
 
+  // Default customs fields on line items for orders written before Phase 3
+  if (Array.isArray(out.items)) {
+    out.items = out.items.map((item: Record<string, unknown>) => ({
+      ...item,
+      hsCode: (item.hsCode as string | null | undefined) ?? null,
+      customsValueInPence: (item.customsValueInPence as number | null | undefined) ?? null,
+      customsDescription: (item.customsDescription as string | null | undefined) ?? null,
+    }));
+  }
+
   // Default fulfilment fields for orders written before Phase 3
   const f = (out.fulfilment ?? {}) as Partial<OrderFulfilment>;
   out.fulfilment = {

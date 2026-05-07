@@ -37,6 +37,12 @@ export type OrderLineItem = {
   unitPriceInPence: number;
   quantity: number;
   lineTotalInPence: number;
+  /** ISO 6 HS code — required for international shipments. Null at GB-only launch. */
+  hsCode: string | null;
+  /** Customs declared value — required for international. Null at GB-only launch. */
+  customsValueInPence: number | null;
+  /** Plain-language item description for customs forms. Null at GB-only launch. */
+  customsDescription: string | null;
 };
 
 export type OrderPayment = {

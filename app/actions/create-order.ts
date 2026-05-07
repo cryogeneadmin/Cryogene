@@ -138,6 +138,9 @@ export async function createOrderAction(
       unitPriceInPence: variant.priceInPence,
       quantity: item.quantity,
       lineTotalInPence: lineTotal,
+      hsCode: null,
+      customsValueInPence: null,
+      customsDescription: null,
     });
     itemRefs.push({ productId: product.id, sku: variant.sku, quantity: item.quantity });
   }
