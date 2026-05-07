@@ -60,14 +60,55 @@ Last updated: 2026-04-13
 
 ---
 
-## Before Phase 3 — fulfilment
+## Before Phase 3 goes live — Sam's blocking inputs
 
-- [ ] **Courier platform decision** — Royal Mail Click and Drop, Sendcloud, or Shippo?
-- [ ] **Courier API credentials** — once platform is chosen
-- [ ] **Printer hardware** — confirmed and purchased (Zebra ZD421 recommended)
-- [ ] **Fulfilment location** — where is the printer physically installed?
-- [ ] **Printer connectivity** — cloud-connected, or a PC permanently on with a local print server?
-- [ ] **Return address** for shipping labels
+**Update 2026-05-07:** Phase 3 architecture decisions made. Royal Mail
+Click & Drop chosen as sole live carrier (cheapest UK domestic, native API,
+fastest onboarding). Zebra ZD421d-NW (network/cloud-capable variant) chosen
+as printer with Zebra Print Cloud Connect subscription for fully automated
+batch printing. Daily Mon-Fri 13:00 Europe/London batch print configured.
+
+The full Phase 3 codebase is built and runs against stub adapters. Once Sam
+delivers the items below, David populates `/admin/settings` → Dispatch tab
+and toggles `enabled = true`.
+
+### Royal Mail (carrier)
+
+- [ ] **Royal Mail Online Business Account (OBA)** opened — record account number
+- [ ] **Click & Drop API key** generated from RM Business Account portal
+- [ ] **Royal Mail service code preference** — default Tracked 48 (TPN48,
+      cheapest tracked, 2-3 working days). Override option: Tracked 24 (TPN24,
+      premium next-day). Configurable per-order in dispatch console.
+- [ ] **Return address** (Sam's dispatch location): line 1, line 2, city, postcode
+- [ ] **Return name on label** — default "Cryogene Laboratories", confirm
+
+### Zebra (printer)
+
+- [ ] **Zebra ZD421d-NW** purchased (the **network/cloud-capable** variant — NOT the bare ZD421)
+- [ ] **Zebra Print Cloud Connect subscription** active (~£5-10/mo, billed by Zebra)
+- [ ] **Zebra device fingerprint** obtained from Zebra portal after registration
+- [ ] **Zebra developer API key** obtained
+- [ ] **4×6 thermal direct labels** in stock (Royal Mail-compatible, 102×152mm)
+
+### Network / deploy
+
+- [ ] **Tracking webhook URL** registered with Royal Mail after deploy:
+      `https://cryogenelaboratories.co.uk/api/webhooks/royalmail/tracking`
+- [ ] **Batch schedule confirmed** — default 13:00 Mon-Fri Europe/London
+      (configurable in `/admin/settings`)
+
+### Operating model
+
+Once enabled, the daily flow is:
+
+1. Mon-Fri 13:00 — Cloud Function automatically prints all paid orders' labels on Sam's Zebra
+2. Sam picks the stack from the printer, packs each parcel against its label
+3. Sam returns to laptop → `/admin/dispatch` → "Mark all printed as dispatched (n)"
+4. Customer dispatch emails fan out automatically with tracking numbers
+5. Royal Mail webhook events flow back into the system as parcels move (collected → in transit → out for delivery → delivered)
+
+Until enabled, the dispatch console is fully clickable in dev with stub
+adapters — no real Royal Mail orders, no real Zebra prints.
 
 ---
 

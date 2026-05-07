@@ -205,12 +205,66 @@ Phase 2 (TrueLayer Pay by Bank):
 - `TRUELAYER_ENVIRONMENT=sandbox` (start) → `live` (after testing)
 - `NEXT_PUBLIC_TRUELAYER_RETURN_URL`
 
-Phase 3 (fulfilment):
-- `COURIER_PLATFORM` (`royalmail` | `sendcloud` | `shippo`)
-- `COURIER_API_KEY`
-- `PRINTER_TYPE` (`zebra-cloud` | `local-print-server`)
-- `ZEBRA_CLOUD_API_KEY`
-- `PRINT_SERVER_URL`
+Phase 3 (fulfilment) — ACTIVE 2026-05-07, see Phase 3 section below for full details:
+- `COURIER_PLATFORM` (`stub` | `royalmail` | `sendcloud` | `shippo`)
+- `ROYALMAIL_CLICK_AND_DROP_API_KEY` — server-only
+- `ROYALMAIL_CLICK_AND_DROP_BASE_URL` (defaults to production endpoint)
+- `ROYALMAIL_TRACKING_WEBHOOK_SECRET` — server-only HMAC secret
+- `PRINTER_PLATFORM` (`stub` | `zebra-cloud` | `printnode`)
+- `ZEBRA_CLOUD_API_KEY` — server-only
+- `ZEBRA_CLOUD_BASE_URL` (defaults to production endpoint)
+- `DISPATCH_BATCH_SECRET` — shared secret between Cloud Function and the
+  `/api/admin/dispatch/run-batch` endpoint, generate 32+ random chars
+
+---
+
+## Phase 3 (fulfilment) — full env var detail
+
+The full Phase 3 codebase ships with stub adapters by default. Until every
+required variable is set AND `config.dispatch.enabled` is toggled true via
+`/admin/settings`, the system runs against stubs (fake labels, no Royal Mail
+calls, no Zebra prints). This is intentional — stubs let dev and staging
+exercise the dispatch flow end-to-end without burning postage.
+
+### Vercel (Next.js app)
+
+| Variable | Where | Value at launch |
+|---|---|---|
+| `COURIER_PLATFORM` | Production | `royalmail` once Sam's OBA + API key are ready, else `stub` |
+| `ROYALMAIL_CLICK_AND_DROP_API_KEY` | Production (server) | From Sam's RM Business Account portal |
+| `ROYALMAIL_CLICK_AND_DROP_BASE_URL` | Optional | Override for sandbox during onboarding: `https://api.parcel.royalmail.com/sandbox` |
+| `ROYALMAIL_TRACKING_WEBHOOK_SECRET` | Production (server) | Admin-generated 32+ char random string. Same value used when registering the webhook with RM. |
+| `PRINTER_PLATFORM` | Production | `zebra-cloud` once Sam's Zebra is registered, else `stub` |
+| `ZEBRA_CLOUD_API_KEY` | Production (server) | From Zebra developer portal |
+| `ZEBRA_CLOUD_BASE_URL` | Optional | Override only if Zebra's docs change endpoint |
+| `DISPATCH_BATCH_SECRET` | Production (server) | Admin-generated 32+ char random string. Must match the Cloud Function secret. |
+
+### Cloud Functions (separate env)
+
+```bash
+# Set the shared batch secret (Cloud Function reads it via defineSecret)
+firebase functions:secrets:set DISPATCH_BATCH_SECRET
+
+# Set the public APP_BASE_URL param (read via defineString)
+firebase functions:config:set app.base_url="https://cryogenelaboratories.co.uk"
+# or, with v2 params API:
+# functions:params API — see Firebase docs
+```
+
+The Cloud Function runs Mon-Fri 13:00 Europe/London. Verify deploy with:
+```bash
+firebase functions:list | grep runDailyDispatchBatch
+```
+
+### Switching from stub to live
+
+1. Sam delivers all items in `docs/client-queries-sam.md` "Before Phase 3 goes live"
+2. David sets the env vars above in Vercel and redeploys
+3. David populates `/admin/settings` → Dispatch tab and saves (this seeds `config/dispatch` with Sam's values)
+4. David flips `enabled = true` toggle and saves (Zod schema enforces all required fields populated before this is accepted)
+5. David runs the smoke-test runbook in `docs/handover/dispatch-smoke-test.md` against the live RM sandbox
+6. David promotes from sandbox to production by switching `ROYALMAIL_CLICK_AND_DROP_BASE_URL` to the production endpoint
+7. Run a single test order to an internal address before opening to customers
 
 ---
 
