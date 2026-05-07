@@ -138,6 +138,9 @@ export async function createOrderAction(
       unitPriceInPence: variant.priceInPence,
       quantity: item.quantity,
       lineTotalInPence: lineTotal,
+      hsCode: null,
+      customsValueInPence: null,
+      customsDescription: null,
     });
     itemRefs.push({ productId: product.id, sku: variant.sku, quantity: item.quantity });
   }
@@ -166,7 +169,7 @@ export async function createOrderAction(
           line2: delivery.line2 ?? null,
           city: delivery.city,
           postcode: delivery.postcode,
-          country: "GB",
+          country: delivery.country,
         },
       },
       items: verifiedItems,
@@ -175,6 +178,7 @@ export async function createOrderAction(
       vatAmountInPence,
       totalInPence,
       vatRateAtPurchase: config.vat.rate,
+      currencyCode: "GBP",
       // Zod-validated — only true if the customer actually confirmed all three
       researchConfirmed,
       researchConfirmedAt: now,
@@ -195,12 +199,16 @@ export async function createOrderAction(
       },
       fulfilment: {
         carrier: null,
+        carrierOrderId: null,
         trackingNumber: null,
         labelUrl: null,
         printedAt: null,
         printerStatus: null,
         dispatchedAt: null,
         customerEmailedAt: null,
+        lastError: null,
+        trackingEvents: [],
+        lastTrackingStatus: null,
       },
       adminNotes: null,
     });

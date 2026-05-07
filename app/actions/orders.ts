@@ -20,6 +20,20 @@ export async function setOrderStatus(id: string, status: OrderStatus) {
   const before = await getOrderById(validated.id);
   const beforeStatus = before?.status ?? null;
 
+  // Cancel cascade: void any active label before flipping status. The label
+  // is "active" if the carrier has an order ID and we haven't dispatched yet.
+  if (
+    validated.status === "cancelled" &&
+    before &&
+    before.fulfilment.trackingNumber &&
+    before.fulfilment.carrierOrderId &&
+    !before.fulfilment.dispatchedAt
+  ) {
+    // Lazy-import to avoid circular dependency between orders + fulfilment.
+    const { voidLabel } = await import("./fulfilment");
+    await voidLabel(validated.id, { reason: "order cancelled" });
+  }
+
   await updateOrder(validated.id, { status: validated.status as OrderStatus });
 
   await writeAuditEvent({

@@ -1,25 +1,29 @@
 import "server-only";
 import { cookies } from "next/headers";
 import { z } from "zod";
+import { addressSchema } from "@/lib/zod/address";
 
 const CHECKOUT_COOKIE = "checkout_session";
 
-export const DeliveryDataSchema = z.object({
-  fullName: z.string().min(1),
-  email: z.string().email(),
-  phone: z.string().optional().nullable(),
-  line1: z.string().min(1),
-  line2: z.string().optional().nullable(),
-  city: z.string().min(1),
-  postcode: z.string().min(1),
-  researchInstitution: z.string().optional().nullable(),
-  createAccount: z.boolean(),
-  marketingOptIn: z.boolean().default(false),  // NEW — captured at checkout, written to consent on order success
-  // accountPassword removed — Firebase Auth user is created inline via
-  // createCheckoutAccount server action during the delivery step.
-  // Password never persists to any cookie or session store.
-  customerUid: z.string().nullable().optional(),
-});
+export const DeliveryDataSchema = addressSchema
+  .extend({
+    fullName: z.string().min(1),
+    email: z.string().email(),
+    phone: z.string().optional().nullable(),
+    researchInstitution: z.string().optional().nullable(),
+    createAccount: z.boolean(),
+    marketingOptIn: z.boolean().default(false),  // NEW — captured at checkout, written to consent on order success
+    // accountPassword removed — Firebase Auth user is created inline via
+    // createCheckoutAccount server action during the delivery step.
+    // Password never persists to any cookie or session store.
+    customerUid: z.string().nullable().optional(),
+  })
+  // country defaults to "GB" — form submits no country field (GB-only launch).
+  // International activation: widen ALLOWED_COUNTRY_CODES and add a <select>
+  // to the delivery form (see spec §13: International Activation Runbook).
+  .extend({
+    country: addressSchema.shape.country.default("GB"),
+  });
 
 export type DeliveryData = z.infer<typeof DeliveryDataSchema>;
 

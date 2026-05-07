@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { connection } from "next/server";
 import { notFound } from "next/navigation";
 import { AccountLayout } from "@/components/storefront/account/AccountLayout";
+import { TrackingTimeline } from "@/components/account/TrackingTimeline";
 import { getOrderById } from "@/lib/orders";
 import { getCustomerSession } from "@/lib/customer-auth";
 import { formatPriceFromPence } from "@/lib/basket";
@@ -30,6 +31,15 @@ async function OrderDetailContent({ params }: { params: Promise<{ id: string }> 
       <p className="text-sm text-muted mb-8">
         Status: {order.status}
       </p>
+
+      <div className="mb-8">
+        <TrackingTimeline
+          events={order.fulfilment.trackingEvents}
+          lastStatus={order.fulfilment.lastTrackingStatus}
+          trackingNumber={order.fulfilment.trackingNumber}
+        />
+      </div>
+
       <div className="space-y-4">
         {order.items.map((item, i) => (
           <div key={`${item.sku}-${i}`} className="flex justify-between py-3 border-b border-border">

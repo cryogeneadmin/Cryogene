@@ -12,7 +12,12 @@ export type Address = {
   line2: string | null;
   city: string;
   postcode: string;
-  country: "GB";
+  /**
+   * ISO 3166-1 alpha-2 country code. Phase 3 launches GB-only — Zod schemas
+   * enforce GB at the validation boundary. International activation is a
+   * Zod allowlist change (see spec §13: International Activation Runbook).
+   */
+  country: string;
 };
 
 export type OrderCustomer = {
@@ -32,6 +37,12 @@ export type OrderLineItem = {
   unitPriceInPence: number;
   quantity: number;
   lineTotalInPence: number;
+  /** ISO 6 HS code — required for international shipments. Null at GB-only launch. */
+  hsCode: string | null;
+  /** Customs declared value — required for international. Null at GB-only launch. */
+  customsValueInPence: number | null;
+  /** Plain-language item description for customs forms. Null at GB-only launch. */
+  customsDescription: string | null;
 };
 
 export type OrderPayment = {
@@ -43,14 +54,33 @@ export type OrderPayment = {
   failureReason: string | null;
 };
 
+export type TrackingMilestone =
+  | "collected"
+  | "in_transit"
+  | "out_for_delivery"
+  | "delivered"
+  | "failed";
+
+export type TrackingEvent = {
+  milestone: TrackingMilestone;
+  timestamp: Timestamp | Date;
+  location: string | null;
+  /** Raw Royal Mail webhook payload, capped at ~1KB. */
+  raw: Record<string, unknown>;
+};
+
 export type OrderFulfilment = {
   carrier: "royalmail" | "sendcloud" | "shippo" | null;
+  carrierOrderId: string | null;
   trackingNumber: string | null;
   labelUrl: string | null;
   printedAt: Timestamp | Date | null;
   printerStatus: "pending" | "printed" | "failed" | null;
   dispatchedAt: Timestamp | Date | null;
   customerEmailedAt: Timestamp | Date | null;
+  lastError: string | null;
+  trackingEvents: TrackingEvent[];
+  lastTrackingStatus: TrackingMilestone | null;
 };
 
 export type Order = {
@@ -66,6 +96,11 @@ export type Order = {
   vatAmountInPence: number;
   totalInPence: number;
   vatRateAtPurchase: number;
+  /**
+   * ISO 4217 currency code. Always "GBP" at launch. Future multi-currency
+   * support widens this and updates price formatters.
+   */
+  currencyCode: string;
 
   researchConfirmed: boolean;
   researchConfirmedAt: Timestamp | Date;

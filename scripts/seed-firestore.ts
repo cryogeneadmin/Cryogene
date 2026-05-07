@@ -11,7 +11,7 @@ import { initializeApp, cert, getApps } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { Product } from "../types";
+import type { Product, DispatchConfig, ShippingRates } from "../types";
 
 async function main() {
   if (
@@ -75,6 +75,33 @@ async function main() {
   };
   await db.doc("config/main").set(defaultConfig);
   console.log(`  ✓ config/main seeded`);
+
+  const dispatchConfigDoc: DispatchConfig = {
+    enabled: false,
+    returnAddress: {
+      line1: "",
+      line2: null,
+      city: "",
+      postcode: "",
+      country: "GB",
+    },
+    senderName: "Cryogene Laboratories",
+    defaultServiceCodeByCountry: { GB: "TPN48" },
+    obaAccountNumber: "",
+    batchScheduleCron: "0 13 * * 1-5",
+    batchScheduleTimezone: "Europe/London",
+    defaultWeightGrams: 100,
+    zebraPrinterDeviceId: "",
+    trackingWebhookUrl: "",
+  };
+  await db.collection("config").doc("dispatch").set(dispatchConfigDoc, { merge: true });
+  console.log("Seeded config/dispatch");
+
+  const shippingRatesDoc: ShippingRates = {
+    rates: { GB: 695 },
+  };
+  await db.collection("shippingRates").doc("main").set(shippingRatesDoc, { merge: true });
+  console.log("Seeded shippingRates/main");
 
   console.log(`\nDone. ${products.length} products written to Firestore.`);
   console.log(`\nNext step: run \`npx tsx scripts/set-admin-claim.ts <admin-email>\` to grant admin access.`);

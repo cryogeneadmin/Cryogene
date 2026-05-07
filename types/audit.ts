@@ -30,6 +30,8 @@ export const ALL_AUDIT_EVENT_TYPES = [
   "customer.objection_received",
   "customer.objection_processed",
   "customer.rights_request_rejected",
+  // Configuration (Phase 3)
+  "config.updated",
   // Fulfilment (Phase 3)
   "order.label_generated",
   "order.label_voided",
