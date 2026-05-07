@@ -8,9 +8,6 @@ import { verifyWebhookSignature } from "@/lib/fulfilment/webhook-verify";
 import type { TrackingMilestone, TrackingEvent } from "@/types/order";
 import type { AuditEventType } from "@/types/audit";
 
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
-
 // Verify against current Royal Mail tracking webhook docs at integration time.
 // Field names below match the shape RM has used historically; the live API may
 // rename or restructure.

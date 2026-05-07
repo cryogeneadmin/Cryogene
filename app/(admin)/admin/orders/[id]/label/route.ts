@@ -3,8 +3,6 @@ import { NextResponse } from "next/server";
 import { getOrderById } from "@/lib/orders";
 import { assertAdmin } from "@/lib/admin-auth";
 
-export const runtime = "nodejs";
-
 export async function GET(
   _request: Request,
   context: { params: Promise<{ id: string }> }

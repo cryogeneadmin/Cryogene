@@ -4,9 +4,6 @@ import { timingSafeEqual } from "node:crypto";
 import { runBatch } from "@/app/actions/fulfilment";
 import { isAdminRequest } from "@/lib/admin-auth";
 
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
-
 export async function POST(request: Request) {
   const headerSecret = request.headers.get("X-Dispatch-Batch-Secret") ?? "";
   const expectedSecret = process.env.DISPATCH_BATCH_SECRET ?? "";
